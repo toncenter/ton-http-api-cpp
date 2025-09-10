@@ -1,0 +1,222 @@
+{
+  "components": {
+    "schemas": {
+      "TonObject": {
+        "oneOf": [
+          {"$ref":  "#/components/schemas/TonBlockIdExt"},
+          {"$ref":  "#/components/schemas/MasterchainInfo"}
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "ton.blockIdExt": "#/components/schemas/TonBlockIdExt",
+            "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo"
+          }
+        }
+      },
+      "TonResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "result": {
+            "oneOf": [
+              {"type": "string"},
+              {"$ref": "#/components/schemas/TonObject"},
+              {"type": "array", "items": {"$ref": "#/components/schemas/TonObject"}}
+            ]
+          },
+          "error": {
+            "type": "string",
+            "title": "Error desciption"
+          },
+          "code": {
+            "type": "integer",
+            "title": "Error code"
+          },
+          "@extra": {
+            "type": "string",
+            "title": "Extra information"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "@extra"
+        ],
+        "additionalProperties": false,
+        "title": "TonResponse"
+      },
+      "TonAddr": {
+        "type": "string",
+        "x-usrv-cpp-type": "ton_http::types::ton_addr"
+      },
+      "TonHash": {
+        "type": "string",
+        "x-usrv-cpp-type": "ton_http::types::ton_hash"
+      },
+      "TonShardId": {
+        "type": "string",
+        "x-usrv-cpp-type": "ton_http::types::shard_id"
+      },
+      "TonBlockIdExt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "default": "ton.blockIdExt"
+          },
+          "workchain": {
+            "type": "integer"
+          },
+          "shard": {
+            "$ref": "#/components/schemas/TonShardId"
+          },
+          "seqno": {
+            "type": "integer"
+          },
+          "root_hash": {
+            "$ref": "#/components/schemas/TonHash"
+          },
+          "file_hash": {
+            "$ref": "#/components/schemas/TonHash"
+          }
+        },
+        "required": [
+          "@type",
+          "workchain",
+          "shard",
+          "seqno",
+          "root_hash",
+          "file_hash"
+        ],
+        "description": "Extended block identifier."
+      },
+      "MasterchainInfo": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Information about the latest masterchain block.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "default": "blocks.masterchainInfo"
+          },
+          "last": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "state_root_hash": {
+            "$ref": "#/components/schemas/TonHash"
+          },
+          "init": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          }
+        },
+        "required": [
+          "@type",
+          "last",
+          "state_root_hash",
+          "init"
+        ]
+      },
+      "DetectAddressBase64Variant": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Base64 form of address variant",
+        "properties": {
+          "b64": {
+            "type": "string"
+          },
+          "b64url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "b64",
+          "b64url"
+        ]
+      },
+      "DetectedAddress": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Information about the address.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "default": "utils.detectedAddress"
+          },
+          "raw_form": {
+            "type": "string"
+          },
+          "bounceable": {
+            "$ref": "#/components/schemas/DetectAddressBase64Variant"
+          },
+          "non_bounceable": {
+            "$ref": "#/components/schemas/DetectAddressBase64Variant"
+          },
+          "given_type": {
+            "type": "string",
+            "enum": ["raw_form", "friendly_bounceable", "friendly_non_bounceable"]
+          },
+          "test_only": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@type",
+          "raw_form",
+          "bounceable",
+          "non_bounceable",
+          "given_type",
+          "test_only"
+        ]
+      },
+      "DetectedHash": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "default": "utils.detectedHash"
+          },
+          "b64": {
+            "type": "string",
+            "title": "base64 form"
+          },
+          "b64url": {
+            "type": "string",
+            "title": "base64 url-safe form"
+          },
+          "hex": {
+            "type": "string",
+            "title": "hex form"
+          }
+        }
+      },
+      "PackedAddress": {
+        "type": "string",
+        "title": "Address packed in base64"
+      },
+      "UnpackedAddress": {
+        "type": "string",
+        "title": "Address unpacked to raw form"
+      },
+      "FullAccountStateRaw": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "default": "raw.fullAccountState"
+          },
+          "balance": {
+            "type": "string",
+            "x-usrv-cpp-type": "ton_http::types::int256"
+          }
+        }
+
+      }
+    }
+  }
+}

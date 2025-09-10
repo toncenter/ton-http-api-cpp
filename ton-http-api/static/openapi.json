@@ -1,0 +1,283 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TON HTTP API C++",
+    "description": "\nThis API enables HTTP access to TON blockchain - getting accounts and wallets information, looking up blocks and transactions, sending messages to the blockchain, calling get methods of smart contracts, and more.\n\nIn addition to REST API, all methods are available through [JSON-RPC endpoint](#json%20rpc)  with `method` equal to method name and `params` passed as a dictionary.\n\nThe response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.\n\nAPI Key should be sent either as `api_key` query parameter or `X-API-Key` header.\n",
+    "version": "2.1.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Current"
+    },
+    {
+      "url": "https://toncenter.com",
+      "description": "TON Center API v2 - mainnet"
+    },
+    {
+      "url": "https://testnet.toncenter.com",
+      "description": "TON Center API v2 - testnet"
+    }
+  ],
+  "paths": {
+    "/api/v2/getMasterchainInfo": {
+      "get": {
+        "tags": [
+          "blocks"
+        ],
+        "summary": "Get Masterchain Info",
+        "description": "Get up-to-date masterchain state.",
+        "operationId": "get_masterchain_info_getMasterchainInfo_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMasterchainInfoResponse"
+                },
+                "examples": {
+                  "sample1": {
+                    "summary": "Example 1",
+                    "value": {
+                      "ok": true,
+                      "result": {
+                        "@type": "blocks.masterchainInfo",
+                        "last": {
+                          "@type": "ton.blockIdExt",
+                          "workchain": -1,
+                          "shard": "-9223372036854775808",
+                          "seqno": 51148696,
+                          "root_hash": "pdEYB4jzhoEFdOMdCgfXJ0z4vylDW27ETqVaSJEDyqs=",
+                          "file_hash": "l3sF5XbGapYGFnma+6dIk0fuZYdJYO4yAkNsjDkyxcc="
+                        },
+                        "state_root_hash": "qJ2FQ7fySAnOvgIKI9laL5Mgk8rQWT+Tc/O2xUFzwWs=",
+                        "init": {
+                          "@type": "ton.blockIdExt",
+                          "workchain": -1,
+                          "shard": "0",
+                          "seqno": 0,
+                          "root_hash": "F6OpKZKqvqeFp6CQmFomXNMfMj2EnaUSOXN+Mh+wVWk=",
+                          "file_hash": "XplPz01CXAps5qeSWUtxcyBfdAo5zVb1N979KLSKD24="
+                        },
+                        "@extra": "1755812855.1928415:3:0.47373957740114636"
+                      }
+                    }
+                  },
+                  "sample2": {
+                    "summary": "Example 2",
+                    "value": {
+                      "ok": true,
+                      "result": {
+                        "@type": "blocks.masterchainInfo",
+                        "last": {
+                          "@type": "ton.blockIdExt",
+                          "workchain": -1,
+                          "shard": "-9223372036854775808",
+                          "seqno": 34539805,
+                          "root_hash": "z1gmtb/KbcNwHDVLOHphfDcYMfDtRyW5sTDLuNbPd2E=",
+                          "file_hash": "/3zsB+Lr0mONcRGZ+tx2jNC1VkOHCXfmjJ9Wai2iUlQ="
+                        },
+                        "state_root_hash": "/WR0k35BrgggvPUVglES3I4wt3SrHvU39T5YQQ0Dd2w=",
+                        "init": {
+                          "@type": "ton.blockIdExt",
+                          "workchain": -1,
+                          "shard": "0",
+                          "seqno": 0,
+                          "root_hash": "gj+B8wb/AmlPk1z1AhVI484rhrUpgSr2oSFIh56VoSg=",
+                          "file_hash": "Z+IKwYS54DmmJmesw/nAD5DzWadnOCMzee+kdgSYDOg="
+                        }
+                      },
+                      "@extra": "1755812953:0:0.712"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "504": {
+            "description": "Lite Server Timeout"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "APIKeyQuery": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TonResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "result": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {"type":  "object", "additionalProperties": true},
+                "type": "array"
+              },
+              {
+                "type": "object",
+                "additionalProperties": true
+              }
+            ],
+            "title": "Result"
+          },
+          "error": {
+            "type": "string",
+            "title": "Error"
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "additionalProperties": false,
+        "title": "TonResponse"
+      },
+      "TonBlockIdExt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "example": "ton.blockIdExt"
+          },
+          "workchain": {
+            "type": "integer"
+          },
+          "shard": {
+            "type": "string",
+            "description": "64-bit signed integer as string"
+          },
+          "seqno": {
+            "type": "integer"
+          },
+          "root_hash": {
+            "type": "string"
+          },
+          "file_hash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "workchain",
+          "shard",
+          "seqno",
+          "root_hash",
+          "file_hash"
+        ],
+        "description": "Extended block identifier."
+      },
+      "BlocksMasterchainInfo": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Information about the latest masterchain block.",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "example": "blocks.masterchainInfo"
+          },
+          "last": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "state_root_hash": {
+            "type": "string"
+          },
+          "init": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "@extra": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "last",
+          "state_root_hash",
+          "init"
+        ]
+      },
+      "GetMasterchainInfoResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TonResponse"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "result": {
+                "$ref": "#/components/schemas/BlocksMasterchainInfo",
+                "description": "Information about the latest masterchain block."
+              }
+            }
+          }
+        ]
+      },
+      "securitySchemes": {
+        "APIKeyHeader": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-API-Key"
+        },
+        "APIKeyQuery": {
+          "type": "apiKey",
+          "in": "query",
+          "name": "api_key"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "utils",
+      "description": "Some useful methods for conversion"
+    },
+    {
+      "name": "accounts",
+      "description": "Information about accounts."
+    },
+    {
+      "name": "blocks",
+      "description": "Information about blocks."
+    },
+    {
+      "name": "transactions",
+      "description": "Fetching and locating transactions."
+    },
+    {
+      "name": "get config",
+      "description": "Get blockchain config"
+    },
+    {
+      "name": "run method",
+      "description": "Run get method of smart contract."
+    },
+    {
+      "name": "send",
+      "description": "Send data to blockchain."
+    },
+    {
+      "name": "json rpc",
+      "description": "JSON-RPC endpoint."
+    }
+  ]
+}

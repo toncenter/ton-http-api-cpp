@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "common.hpp"
 
 #include <boost/program_options/value_semantic.hpp>
 
@@ -16,7 +16,7 @@
 #include "vm/boc.h"
 #include "vm/cells/CellSlice.h"
 
-#include "tokens-tlb.h"
+#include "core/tlb/tokens-tlb.h"
 #include "common/checksum.h"
 
 

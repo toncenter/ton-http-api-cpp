@@ -1,7 +1,6 @@
 #include "tonlib_component.h"
 
 #include "core/src/curl-ev/form.hpp"
-#include "tonlib_postprocessor.h"
 #include "userver/clients/http/component.hpp"
 #include "userver/components/component.hpp"
 #include "userver/components/component_context.hpp"
@@ -47,8 +46,11 @@ TonlibComponent::TonlibComponent(
     LOG_WARNING_TO(*logger_) << "Found endpoints: " << ss.str();
   }
 }
+multiclient::SessionPtr TonlibComponent::GetNewSession() const {
+  return std::make_shared<multiclient::Session>();
+}
 
-bool TonlibComponent::SendBocToExternalRequest(std::string boc_b64) {
+bool TonlibComponent::SendBocToExternalRequest(const std::string& boc_b64) const {
   if (external_message_endpoints_.empty()) {
     return true;
   }
