@@ -1517,6 +1517,9 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJetton
   if (result->exit_code_ != 0) {
     return {nullptr, std::move(session)};
   }
+  if (result->stack_.size() < 5) {
+    return {nullptr, std::move(session)};
+  }
   auto data = std::make_unique<JettonMasterDataResult>(address);
 
   // total_supply_
@@ -1604,6 +1607,9 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJetton
   }
   auto result = res.move_as_ok();
   if (result->exit_code_ != 0) {
+    return {nullptr, std::move(session)};
+  }
+  if (result->stack_.size() < 4) {
     return {nullptr, std::move(session)};
   }
   auto data = std::make_unique<JettonWalletDataResult>(address);
@@ -1790,6 +1796,9 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTCol
   if (result->exit_code_ != 0) {
     return {nullptr, std::move(session)};
   }
+  if (result->stack_.size() < 3) {
+    return {nullptr, std::move(session)};
+  }
   auto data = std::make_unique<NFTCollectionDataResult>(address);
 
   // total_supply_
@@ -1867,6 +1876,9 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
   }
   auto result = res.move_as_ok();
   if (result->exit_code_ != 0) {
+    return {nullptr, std::move(session)};
+  }
+  if (result->stack_.size() < 5) {
     return {nullptr, std::move(session)};
   }
   auto data = std::make_unique<NFTItemDataResult>(address);
