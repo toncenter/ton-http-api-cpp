@@ -469,27 +469,11 @@ void TonlibPostProcessor::process_rawMessage(
             if (r_body.is_ok()) {
               auto body = r_body.move_as_ok();
               vm::CellSlice cs = vm::load_cell_slice(body);
-              auto body_bs = cs.fetch_bitstring(cs.size());
-              if (!body_bs.is_null()) {
-                auto body_bin = body_bs->to_binary();
-                for (auto i = body_bin.length() % 8; i % 8 != 0; ++i) {
-                  body_bin += "0";
-                }
-                auto body_slice = td::Slice(body_bin);
-                unsigned char buff[128];
-                td::bitstring::parse_bitstring_binary_literal(
-                    td::BitPtr{buff}, sizeof(buff) * 8, body_slice.begin(), body_slice.end()
-                );
-                auto body_hex = td::bitstring::bits_to_hex(td::ConstBitPtr{buff}, body_bin.length());
-                auto r_body_hex = td::hex_decode(body_hex);
-                if (r_body_hex.is_ok()) {
-                  builder["message"] = td::base64_encode(r_body_hex.move_as_ok());
-                } else {
-                  builder["message_decode_error"] =
-                      r_body_hex.move_as_error_prefix("Failed to decode hex: ").to_string();
-                }
+              auto r_body = td::hex_decode(cs.as_bitslice().to_hex());
+              if (r_body.is_ok()) {
+                builder["message"] = td::base64_encode(r_body.move_as_ok());
               } else {
-                builder["message_decode_error"] = r_body.move_as_error_prefix("Failed to decode message: ").to_string();
+                  builder["message_decode_error"] = r_body.move_as_error_suffix("failed to decode msg body hex: ").to_string();
               }
             } else {
               builder["message_decode_error"] = "Failed to load cell or get body slice. But why?";
@@ -497,7 +481,9 @@ void TonlibPostProcessor::process_rawMessage(
             }
           },
           [&](tonlib_api::msg_dataText& data) { builder["message"] = data.text_; },
-          [&](auto& x) { LOG(ERROR) << "failed to decode type " << x.get_id(); }
+          [&](tonlib_api::msg_dataDecryptedText& data) { builder["message"] = data.text_; },
+          [&](tonlib_api::msg_dataEncryptedText& data) { builder["message"] = data.text_; },
+          [&](auto& x) { LOG(DEBUG) << "failed to decode type " << x.get_id(); }
       )
   );
   if (!success) {

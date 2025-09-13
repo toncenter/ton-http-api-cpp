@@ -1,11 +1,12 @@
 #pragma once
-#include "tonlib-multiclient/multi_client.h"
-#include "tl/tl_json.h"
 #include "auto/tl/tonlib_api.h"
 #include "auto/tl/tonlib_api_json.h"
 #include "td/utils/JsonBuilder.h"
+#include "tl/tl_json.h"
+#include "tonlib-multiclient/multi_client.h"
 #include "tonlib-multiclient/request.h"
 #include "userver/engine/future.hpp"
+#include "utils.hpp"
 
 namespace ton_http::core {
 // new schemas
@@ -84,7 +85,10 @@ struct NFTItemDataResult : public TokenDataResult {
   bool content_onchain_;
   std::map<std::string, std::string> content_;
   bool is_validated_;
-  // TODO: implement dns entry parsing
+  std::map<std::string, utils::DnsRecord> dns_content_;
+  std::string domain_;
+  bool is_dns_{false};
+
   explicit NFTItemDataResult(const std::string& address) : TokenDataResult(address) {}
   [[nodiscard]] std::string to_json_string() const override;
 };

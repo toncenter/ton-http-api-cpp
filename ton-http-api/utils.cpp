@@ -1,5 +1,7 @@
 #include "utils.hpp"
 
+#include <boost/program_options/value_semantic.hpp>
+
 #include "auto/tl/tonlib_api.hpp"
 #include "auto/tl/tonlib_api_json.h"
 #include "block/block.h"
@@ -485,3 +487,102 @@ td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils
   }
 }
 
+td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs) {
+  auto tag = tokens::gen::t_DNSRecord.check_tag(*cs);
+  switch (tag) {
+    case tokens::gen::DNSRecord::dns_storage_address: {
+      tokens::gen::DNSRecord::Record_dns_storage_address record;
+      if (!tlb::csr_unpack(cs, record)) {
+        return td::Status::Error("Failed to unpack dns_storage_address");
+      }
+      ton_http::utils::DnsRecordStorageAddress result;
+      result.bag_id = record.bag_id.to_hex();
+      return result;
+    }
+    case tokens::gen::DNSRecord::dns_adnl_address: {
+      tokens::gen::DNSRecord::Record_dns_adnl_address record;
+      if (!tlb::csr_unpack(cs, record)) {
+        return td::Status::Error("Failed to unpack dns_adnl_address");
+      }
+      ton_http::utils::DnsRecordAdnlAddress result;
+      result.adnl_addr = record.adnl_addr.to_hex();
+      return result;
+    }
+    case tokens::gen::DNSRecord::dns_next_resolver: {
+      tokens::gen::DNSRecord::Record_dns_next_resolver record;
+      if (!tlb::csr_unpack(cs, record)) {
+        return td::Status::Error("Failed to unpack dns_next_resolver");
+      }
+      ton_http::utils::DnsRecordNextResolver result;
+      switch (tokens::gen::t_MsgAddressInt.check_tag(*record.resolver)) {
+        case tokens::gen::MsgAddressInt::addr_std: {
+          tokens::gen::MsgAddressInt::Record_addr_std addr_std;
+          if (!tlb::csr_unpack(record.resolver, addr_std)) {
+            return td::Status::Error("Failed to unpack addr_std");
+          }
+          block::StdAddress addr{addr_std.workchain_id, addr_std.address};
+          result.resolver = std::move(addr);
+          return result;
+        }
+        default:
+          return td::Status::Error("Only addr_std supported");
+      }
+    }
+    case tokens::gen::DNSRecord::dns_smc_address: {
+      tokens::gen::DNSRecord::Record_dns_smc_address record;
+      if (!tlb::csr_unpack(cs, record)) {
+        return td::Status::Error("Failed to unpack dns_smc_address");
+      }
+      switch (tokens::gen::t_MsgAddressInt.check_tag(*record.smc_addr)) {
+        case tokens::gen::MsgAddressInt::addr_std: {
+          tokens::gen::MsgAddressInt::Record_addr_std addr_std;
+          if (!tlb::csr_unpack(record.smc_addr, addr_std)) {
+            return td::Status::Error("Failed to unpack addr_std");
+          }
+          block::StdAddress addr{addr_std.workchain_id, addr_std.address};
+
+          ton_http::utils::DnsRecordSmcAddress result;
+          result.smc_addr = std::move(addr);
+          return result;
+        }
+        default:
+          return td::Status::Error("Only addr_std supported");
+      }
+    }
+    default:
+      return td::Status::Error(PSLICE() << "Unknown DNS record type: " << tag);
+  }
+}
+
+td::Result<std::map<std::string, ton_http::utils::DnsRecord>> ton_http::utils::parse_dns_content(td::Ref<vm::Cell> cell) {
+  static std::string attributes[] = {"wallet", "site", "storage", "dns_next_resolver"};
+  try {
+    vm::Dictionary dict(cell, 256);
+    auto it = dict.init_iterator(false);
+    std::map<std::string, DnsRecord> dns_content;
+    for ( ; !it.eof(); it.next()) {
+      auto attr_hash = it.cur_pos();
+      std::string attr;
+      for (auto attr_candidate : attributes) {
+        if (td::sha256_bits256(attr_candidate) == attr_hash) {
+          attr = attr_candidate;
+          break;
+        }
+      }
+      auto value_cell = dict.lookup_ref(attr_hash, 256);
+      if (value_cell.not_null()) {
+        auto cs = vm::load_cell_slice_ref(value_cell);
+        auto attr_data_r = parse_dns_record(cs);
+        if (attr_data_r.is_error()) {
+          LOG(ERROR) << "Failed to parse attribute " << attr << ": " << attr_data_r.move_as_error().message();
+          continue;
+        }
+        dns_content[(!attr.empty()? attr : attr_hash.to_hex(256))] = attr_data_r.move_as_ok();
+      }
+    }
+    return dns_content;
+  } catch (vm::VmError& err) {
+    LOG(ERROR) << "Failed to parse DNS content: " << err.get_msg();
+    return td::Status::Error(PSLICE() << "Failed to parse DNS content: " << err.get_msg());
+  }
+}

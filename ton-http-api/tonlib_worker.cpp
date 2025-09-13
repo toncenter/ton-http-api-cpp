@@ -1,5 +1,6 @@
 #include "tonlib_worker.h"
 
+#include <boost/locale/message.hpp>
 #include <utility>
 
 #include "userver/formats/json.hpp"
@@ -155,7 +156,39 @@ std::string NFTItemDataResult::to_json_string() const {
   if (!collection_address_.empty()) {
     builder["collection_address"] = collection_address_;
   }
-  if (content_onchain_) {
+  if (is_dns_) {
+    if (!domain_.empty() && !collection_address_.empty()) {
+      if (auto suffix = utils::TonDnsRoots.find(collection_address_); suffix != utils::TonDnsRoots.end()) {
+        builder["content"]["domain"] = domain_ + suffix->second;
+      }
+    }
+    auto content_builder = builder["content"]["data"];
+    for (auto& [key, value] : dns_content_) {
+      ValueBuilder item_builder;
+      if (std::holds_alternative<utils::DnsRecordAdnlAddress>(value)) {
+        auto& v = std::get<utils::DnsRecordAdnlAddress>(value);
+        item_builder["@type"] = utils::DnsRecordAdnlAddress::kType;
+        item_builder["andl_addr"] = v.adnl_addr;
+      } else if (std::holds_alternative<utils::DnsRecordStorageAddress>(value)) {
+        auto& v = std::get<utils::DnsRecordStorageAddress>(value);
+        item_builder["@type"] = utils::DnsRecordStorageAddress::kType;
+        item_builder["bag_id"] = v.bag_id;
+      } else if (std::holds_alternative<utils::DnsRecordNextResolver>(value)) {
+        auto& v = std::get<utils::DnsRecordNextResolver>(value);
+        item_builder["@type"] = utils::DnsRecordNextResolver::kType;
+        item_builder["resolver"]["type"] = "addr_std";
+        item_builder["resolver"]["workchain_id"] = v.resolver.workchain;
+        item_builder["resolver"]["address"] = v.resolver.addr.to_hex();
+      } else if (std::holds_alternative<utils::DnsRecordSmcAddress>(value)) {
+        auto& v = std::get<utils::DnsRecordSmcAddress>(value);
+        item_builder["@type"] = utils::DnsRecordSmcAddress::kType;
+        item_builder["smc_addr"]["type"] = "addr_std";
+        item_builder["smc_addr"]["workchain_id"] = v.smc_addr.workchain;
+        item_builder["smc_addr"]["address"] = v.smc_addr.addr.to_hex();
+      }
+      content_builder[key] = item_builder.ExtractValue();
+    }
+  } else if (content_onchain_) {
     builder["content"]["type"] = "onchain";
     for (auto& [k, v] : content_) {
       builder["content"]["data"][k] = v;
@@ -1934,10 +1967,88 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
     data->content_ = std::move(content);
   }
 
+  // dns resolve
+  auto request_dns = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
+    .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
+    .request_creator = [id_ = smc_info->id_] {
+      std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+      auto zero_byte_cell = vm::CellBuilder().store_bytes("\0").finalize();
+      auto zero_byte_cell_str = vm::std_boc_serialize(zero_byte_cell).move_as_ok();
+
+      auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_slice>(zero_byte_cell_str.as_slice().str());
+      auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(std::move(tonlib_slice));
+      stack.push_back(std::move(entry));
+
+      auto tonlib_slice_2 = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>("0");
+      auto entry_2 = tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice_2));
+      stack.push_back(std::move(entry_2));
+      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+        id_,
+        tonlib_api::make_object<tonlib_api::smc_methodIdName>("dnsresolve"),
+        std::move(stack));
+    },
+    .session = std::move(session),
+  };
+  auto [res_dns, session_dns] = send_request_function(std::move(request_dns));
+  session = std::move(session_dns);
+  if (!res_dns.is_ok()) {
+    auto error = res_dns.move_as_error();
+    return {std::move(error), std::move(session)};
+  }
+  auto result_dns = res_dns.move_as_ok();
+  if (result_dns->exit_code_ != 0 || result_dns->stack_.size() != 2) {
+    LOG(DEBUG) << "Dnsresolve method exit code " << result_dns->exit_code_ << " != 0";
+  } else {
+    LOG(DEBUG) << "Dnsresolve method OK";
+  }
+
+  // dns domain
+  if (result_dns->exit_code_ == 0 && result_dns->stack_.size() == 2) {
+    auto request_domain = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
+      .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
+      .request_creator = [id_ = smc_info->id_] {
+        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_domain"),
+          std::move(stack));
+      },
+      .session = std::move(session),
+    };
+    auto [res_domain, session_domain] = send_request_function(std::move(request_domain));
+    session = std::move(session_domain);
+    if (!res_domain.is_ok()) {
+      auto error = res_domain.move_as_error();
+      return {std::move(error), std::move(session)};
+    }
+    auto result_domain = res_domain.move_as_ok();
+    if (result_domain->exit_code_ == 0) {
+      auto domain_cell_str = static_cast<tonlib_api::tvm_stackEntryCell&>(*result_domain->stack_[0]).cell_->bytes_;
+      auto r_domain_cell = vm::std_boc_deserialize(domain_cell_str, true, true);
+      if (r_domain_cell.is_ok()) {
+        auto domain_cell = r_domain_cell.move_as_ok();
+        auto domain_cs = vm::load_cell_slice_ref(domain_cell);
+        auto r_domain = td::hex_decode(domain_cs->as_bitslice().to_hex());
+        if (r_domain.is_ok()) {
+          auto domain = r_domain.move_as_ok();
+          data->domain_ = domain;
+
+          std::stringstream ss;
+          domain_cs->print_rec(ss, 0);
+          LOG(DEBUG) << "domain cs: " << ss.str() << " domain: " << domain;
+        }
+      } else {
+        LOG(DEBUG) << "Failed to parse domain cell: " << r_domain_cell.error();
+      }
+    } else {
+      LOG(DEBUG) << "Failed to get domain with exit_code: " << result_domain->exit_code_;
+    }
+  }
+
   auto [forget_result, forget_session] = forgetContract(smc_info->id_, archival, session);
   session = std::move(forget_session);
   if (forget_result.is_error()) {
-    return {forget_result.move_as_error(), session};
+    return {forget_result.move_as_error_prefix("forgetContract failed: "), session};
   }
 
   if (skip_verification) {
@@ -1952,7 +2063,7 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
   auto [r_parent_smc_info, new_session_3] = loadContract(data->collection_address_, seqno, archival, session);
   session = std::move(new_session_3);
   if (!r_parent_smc_info.is_ok()) {
-    return {r_parent_smc_info.move_as_error(), session};
+    return {r_parent_smc_info.move_as_error_prefix("failed to load parent contract: "), session};
   }
   auto parent_smc_info = r_parent_smc_info.move_as_ok();
 
@@ -1979,11 +2090,9 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
   }
   auto result_2 = res_2.move_as_ok();
   if (result_2->exit_code_ != 0) {
-    LOG(ERROR) << "Exit code " << result_2->exit_code_ << " != 0";
+    LOG(DEBUG) << "Exit code " << result_2->exit_code_ << " != 0";
     return {nullptr, std::move(session)};
   }
-  auto& entry = static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_2->stack_[0]));
-
   auto r_address_from_collection = utils::address_from_tvm_stack_entry(result_2->stack_[0]);
   if (r_address_from_collection.is_error()) {
     return {r_address_from_collection.move_as_error(), std::move(session)};
@@ -2003,7 +2112,7 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
   }
   auto address_from_collection_std = r_address_from_collection_std.move_as_ok();
 
-  LOG(ERROR) << "address: " << address_std << " expected: " << address_from_collection_std;
+  // LOG(ERROR) << "address: " << address_std << " expected: " << address_from_collection_std;
   if (address_from_collection_std != address_std) {
     return {td::Status::Error(409, "Verification on collection failed"), std::move(session)};
   }
@@ -2036,34 +2145,51 @@ TonlibWorker::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTIte
   }
   auto result_3 = res_3.move_as_ok();
   if (result_3->exit_code_ != 0) {
-    LOG(ERROR) << "Exit code " << result_3->exit_code_ << " != 0";
+    LOG(DEBUG) << "Exit code " << result_3->exit_code_ << " != 0";
     return {nullptr, std::move(session)};
   }
   auto& content_data_str = static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_3->stack_[0])).cell_->bytes_;
 
   auto r_content_cell = vm::std_boc_deserialize(content_data_str, true, true);
   if (r_content_cell.is_error()) {
-    return {r_content_cell.move_as_error_prefix("Failed to parse jetton content cell: "), std::move(session)};
+    return {r_content_cell.move_as_error_prefix("Failed to parse nft content cell: "), std::move(session)};
   }
   auto content_cell = r_content_cell.move_as_ok();
 
+
   auto r_content = utils::parse_token_data(std::move(content_cell));
   if (r_content.is_error()) {
-    return {r_content.move_as_error_prefix("Failed to parse jetton content from the cell: "), std::move(session)};
+    return {r_content.move_as_error_prefix("Failed to parse nft content from the cell: "), std::move(session)};
   }
   auto [content_onchain, content] = r_content.move_as_ok();
   data->content_onchain_ = content_onchain;
   data->content_ = std::move(content);
 
-  // dns_entry_
-  // TODO: implement dns entry parsing
+  // dns entry parsing
+  if (result_dns->exit_code_ == 0 && result_dns->stack_.size() == 2) {
+    LOG(INFO) << "parsing dns content";
+    auto dns_content_data_str = static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_dns->stack_[1])).cell_->bytes_;
+    auto r_dns_content_cell = vm::std_boc_deserialize(dns_content_data_str, true, true);
+    if (r_dns_content_cell.is_error()) {
+      LOG(ERROR) << r_dns_content_cell.move_as_error_prefix("Failed to unpack dns content cell: ");
+    } else {
+      auto dns_content_cell = r_dns_content_cell.move_as_ok();
+      auto r_dns_content = utils::parse_dns_content(std::move(dns_content_cell));
+      if (r_dns_content.is_error()) {
+        LOG(ERROR) << r_dns_content.move_as_error_prefix("Failed to parse dns content from the cell: ");
+      } else {
+        data->dns_content_ = r_dns_content.move_as_ok();
+        data->is_dns_ = true;
+      }
+    }
+  }
 
+  // cleanup
   auto [parent_forget_result, parent_forget_session] = forgetContract(parent_smc_info->id_, archival, session);
   session = std::move(parent_forget_session);
   if (parent_forget_result.is_error()) {
     return {parent_forget_result.move_as_error(), session};
   }
-
 
   return {std::move(data), std::move(session)};
 }
