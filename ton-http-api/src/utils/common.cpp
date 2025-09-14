@@ -487,7 +487,7 @@ td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils
   }
 }
 
-td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs) {
+td::Result<ton_http::core::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs) {
   auto tag = tokens::gen::t_DNSRecord.check_tag(*cs);
   switch (tag) {
     case tokens::gen::DNSRecord::dns_storage_address: {
@@ -495,7 +495,7 @@ td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> c
       if (!tlb::csr_unpack(cs, record)) {
         return td::Status::Error("Failed to unpack dns_storage_address");
       }
-      ton_http::utils::DnsRecordStorageAddress result;
+      ton_http::core::DnsRecordStorageAddress result;
       result.bag_id = record.bag_id.to_hex();
       return result;
     }
@@ -504,7 +504,7 @@ td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> c
       if (!tlb::csr_unpack(cs, record)) {
         return td::Status::Error("Failed to unpack dns_adnl_address");
       }
-      ton_http::utils::DnsRecordAdnlAddress result;
+      ton_http::core::DnsRecordAdnlAddress result;
       result.adnl_addr = record.adnl_addr.to_hex();
       return result;
     }
@@ -513,7 +513,7 @@ td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> c
       if (!tlb::csr_unpack(cs, record)) {
         return td::Status::Error("Failed to unpack dns_next_resolver");
       }
-      ton_http::utils::DnsRecordNextResolver result;
+      ton_http::core::DnsRecordNextResolver result;
       switch (tokens::gen::t_MsgAddressInt.check_tag(*record.resolver)) {
         case tokens::gen::MsgAddressInt::addr_std: {
           tokens::gen::MsgAddressInt::Record_addr_std addr_std;
@@ -541,7 +541,7 @@ td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> c
           }
           block::StdAddress addr{addr_std.workchain_id, addr_std.address};
 
-          ton_http::utils::DnsRecordSmcAddress result;
+          ton_http::core::DnsRecordSmcAddress result;
           result.smc_addr = std::move(addr);
           return result;
         }
@@ -554,12 +554,12 @@ td::Result<ton_http::utils::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> c
   }
 }
 
-td::Result<std::map<std::string, ton_http::utils::DnsRecord>> ton_http::utils::parse_dns_content(td::Ref<vm::Cell> cell) {
+td::Result<std::map<std::string, ton_http::core::DnsRecord>> ton_http::utils::parse_dns_content(td::Ref<vm::Cell> cell) {
   static std::string attributes[] = {"wallet", "site", "storage", "dns_next_resolver"};
   try {
     vm::Dictionary dict(cell, 256);
     auto it = dict.init_iterator(false);
-    std::map<std::string, DnsRecord> dns_content;
+    std::map<std::string, core::DnsRecord> dns_content;
     for ( ; !it.eof(); it.next()) {
       auto attr_hash = it.cur_pos();
       std::string attr;

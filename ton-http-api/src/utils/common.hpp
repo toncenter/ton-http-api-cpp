@@ -5,6 +5,7 @@
 #include <userver/formats/json.hpp>
 
 #include "block.h"
+#include "core/types.hpp"
 #include "td/utils/Status.h"
 #include "td/utils/base64.h"
 #include "td/utils/misc.h"
@@ -14,33 +15,6 @@
 
 namespace ton_http::utils {
 using namespace ton;
-
-
-const std::map<std::string, std::string> TonDnsRoots {
-    {"EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz", ".ton"}
-};;
-
-struct DnsRecordStorageAddress {
-  constexpr static std::string_view kType = "dns_storage_address";
-  std::string bag_id;
-};
-
-struct DnsRecordSmcAddress {
-  constexpr static std::string_view kType = "dns_smc_address";
-  block::StdAddress smc_addr;
-};
-
-struct DnsRecordAdnlAddress {
-  constexpr static std::string_view kType = "dns_adnl_address";
-  std::string adnl_addr;
-};
-
-struct DnsRecordNextResolver {
-  constexpr static std::string_view kType = "dns_next_resolver";
-  block::StdAddress resolver;
-};
-
-using DnsRecord = std::variant<DnsRecordStorageAddress, DnsRecordSmcAddress, DnsRecordAdnlAddress, DnsRecordNextResolver>;
 
 
 // common
@@ -90,5 +64,5 @@ td::Result<std::string> parse_snake_data(td::Ref<vm::CellSlice> data);
 td::Result<std::string> parse_chunks_data(td::Ref<vm::CellSlice> data);
 td::Result<std::string> parse_content_data(td::Ref<vm::CellSlice> cs);
 td::Result<std::tuple<bool, std::map<std::string, std::string>>> parse_token_data(td::Ref<vm::Cell> cell);
-td::Result<std::map<std::string, DnsRecord>> parse_dns_content(td::Ref<vm::Cell> cell);
+td::Result<std::map<std::string, core::DnsRecord>> parse_dns_content(td::Ref<vm::Cell> cell);
 }
