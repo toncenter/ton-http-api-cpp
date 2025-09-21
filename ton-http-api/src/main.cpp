@@ -11,6 +11,7 @@
 #include "tonlib/Logging.h"
 
 #include "components/tonlib_component.h"
+#include "handlers/HandlerDetectAddress.h"
 #include "handlers/HandlerGetMasterchainInfo.h"
 
 
@@ -30,6 +31,7 @@ int main(int argc, char* argv[]) {
   component_list.Append<userver::server::handlers::HttpHandlerStatic>();
   // api handlers
   component_list.Append<ton_http::handlers::HandlerGetMasterchainInfo>();
+  component_list.Append<ton_http::handlers::HandlerDetectAddress>();
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

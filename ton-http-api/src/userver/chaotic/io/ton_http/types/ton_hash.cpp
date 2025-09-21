@@ -8,7 +8,7 @@
 ton_http::types::ton_hash
 userver::chaotic::convert::Convert(const std::string& str, chaotic::convert::To<ton_http::types::ton_hash>) {
   if (str.empty()) {
-    return ton_http::types::ton_hash{str};
+    return ton_http::types::ton_hash{""};
   }
 
   if (str.length() == 44) {

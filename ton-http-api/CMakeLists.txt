@@ -6,10 +6,8 @@ userver_setup_environment()
 
 set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
-        src/userver/chaotic/io/ton_http/types/ton_hash.cpp
-        src/userver/chaotic/io/ton_http/types/shard_id.cpp
         src/handlers/HandlerGetMasterchainInfo.cpp
-        src/handlers/TonlibRequestHandler.cpp
+        src/handlers/HandlerDetectAddress.cpp
         src/components/tonlib_component.cpp
         src/schemas/v2.cpp
         src/converters/convert.hpp
@@ -17,6 +15,12 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker.cpp
         src/core/tlb/tokens-tlb.cpp
         src/utils/common.cpp
+        src/userver/chaotic/io/ton_http/types/ton_hash.cpp
+        src/userver/chaotic/io/ton_http/types/ton_addr.cpp
+        src/userver/chaotic/io/ton_http/types/int256.cpp
+        src/userver/chaotic/io/ton_http/types/bytes.cpp
+        src/userver/chaotic/io/std/int64_t.cpp
+        src/userver/chaotic/io/std/uint64_t.cpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp
@@ -32,14 +36,32 @@ add_custom_command(
 )
 add_custom_target(${PROJECT_NAME}-tlbgen DEPENDS ${TLB_TOKENS})
 
-file(GLOB_RECURSE API_SCHEMAS ${CMAKE_CURRENT_SOURCE_DIR}/schemas/v2.json)
+set(OPENAPI_YAML
+        ${CMAKE_CURRENT_SOURCE_DIR}/schemas/v2.yaml
+)
+set(OPENAPI_JSON
+        ${CMAKE_CURRENT_SOURCE_DIR}/static/openapi.json
+)
+add_custom_command(
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMAND yq -Poj ${OPENAPI_YAML} > ${OPENAPI_JSON}
+        COMMENT "Generate OpenAPI json file"
+        OUTPUT ${OPENAPI_JSON}
+        DEPENDS ${OPENAPI_YAML}
+)
+add_custom_target(${PROJECT_NAME}-openapi-gen DEPENDS ${OPENAPI_JSON})
+
+file(GLOB_RECURSE
+        API_SCHEMAS
+        ${CMAKE_CURRENT_SOURCE_DIR}/schemas/v2.yaml
+)
 userver_target_generate_chaotic(
         ${PROJECT_NAME}-chgen
         GENERATE_SERIALIZERS
-        LAYOUT "/components/schemas/([^/]*)/=ton_http::schemas::{stem}::{0}"
+        LAYOUT "/components/schemas/([^/]*)/=ton_http::schemas::v2::{0}"
         OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/
         SCHEMAS ${API_SCHEMAS}
-        INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src
+        INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
         RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
 )
 
@@ -51,7 +73,7 @@ target_include_directories(${PROJECT_NAME}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
 )
 
-add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen)
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT_NAME} userver::core tonlib::multiclient)
 target_link_options(${PROJECT_NAME} PUBLIC -rdynamic)

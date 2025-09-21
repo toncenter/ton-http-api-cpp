@@ -1,16 +1,27 @@
 #pragma once
 #include "TonlibRequestHandler.h"
 
-namespace ton_http {
-namespace handlers {
+namespace ton_http::handlers {
 
-class HandlerGetMasterchainInfo : public TonlibRequestHandler {
+class HandlerGetMasterchainInfo
+    : public TonlibRequestHandler<schemas::v2::MasterchainInfoRequest, schemas::v2::MasterchainInfo> {
 public:
-  static constexpr std::string_view kName = "handler-get-masterchain-info";
+  static constexpr std::string_view kName = "handler-getMasterchainInfo";
 
-  HandlerGetMasterchainInfo(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
-  td::Result<schemas::v2::TonObject> HandleRequestTonlibThrow(const HttpRequest& request, const Value& request_json, RequestContext& context, multiclient::SessionPtr& session) const override;
+  HandlerGetMasterchainInfo(
+      const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
+  );
+
+  schemas::v2::EmptyRequest ParseTonlibGetRequest(
+      const HttpRequest& request, const Value& request_json, RequestContext& context
+  ) const override;
+  schemas::v2::EmptyRequest ParseTonlibPostRequest(
+      const HttpRequest& request, const Value& request_json, RequestContext& context
+  ) const override;
+
+  td::Result<schemas::v2::MasterchainInfo> HandleRequestTonlibThrow(
+      schemas::v2::EmptyRequest& request, multiclient::SessionPtr& session
+  ) const override;
 };
 
-}  // namespace handlers
-}  // namespace ton_http
+}  // namespace ton_http::handlers
