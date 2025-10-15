@@ -6,8 +6,33 @@ info:
     In addition to REST API, all methods are available through [JSON-RPC endpoint](#json%20rpc)  with `method` equal to method name and `params` passed as a dictionary.
     The response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.
     API Key should be sent either as `api_key` query parameter or `X-API-Key` header
-  version: '2.1.0'
+  version: '2.1.1'
 paths:
+  /api/v2/jsonRPC:
+    post:
+      tags:
+        - rpc
+      summary: JSON-RPC endpoint
+      description: Endpoint for JSON-RPC requests
+      operationId: jsonRPC_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
   /api/v2/detectAddress:
     get:
       tags:
@@ -27,8 +52,8 @@ paths:
         default:
           $ref: '#/components/responses/default'
       security:
-        - APIKeyHeader: []
-        - APIKeyQuery: []
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
     post:
       tags:
         - rpc
@@ -36,7 +61,11 @@ paths:
       description: Get all possible address forms
       operationId: detectAddress_post
       requestBody:
-        $ref: '#/components/requestBodies/DetectAddressRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetectAddressRequest'
+        required: true
       responses:
         200:
           description: OK
@@ -47,8 +76,420 @@ paths:
         default:
           $ref: '#/components/responses/default'
       security:
-        - APIKeyHeader: []
-        - APIKeyQuery: []
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/detectHash:
+    get:
+      tags:
+        - utils
+      summary: Detect hash
+      description: Get all possible hash forms
+      operationId: detectHash_get
+      parameters:
+        - $ref: '#/components/parameters/hash'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Detect hash
+      description: Get all possible hash forms
+      operationId: detectHash_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetectHashRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/packAddress:
+    get:
+      tags:
+        - utils
+      summary: Pack address
+      description: Pack address to base64 form
+      operationId: packAddress_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Pack address
+      description: Pack address to base64 form
+      operationId: packAddress_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackAddressRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/unpackAddress:
+    get:
+      tags:
+        - utils
+      summary: Unpack address
+      description: Unpack address from base64 form
+      operationId: unpackAddress_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Unpack address
+      description: Unpack address from base64 form
+      operationId: unpackAddress_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnpackAddressRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+#  /api/v2/ip2dec:
+#  /api/v2/dec2ip:
+  /api/v2/getAddressInformation:
+    get:
+      tags:
+        - accounts
+      summary: Get Address Information
+      description: Get basic information about address
+      operationId: getAddressInformation_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Address Information
+      description: Get basic information about address
+      operationId: getAddressInformation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressInformationRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getExtendedAddressInformation:
+    get:
+      tags:
+        - accounts
+      summary: Get Extended Address Information
+      description: Get extended information about address
+      operationId: getExtendedAddressInformation_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Extended Address Information
+      description: Get extended information about address
+      operationId: getExtendedAddressInformation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedAddressInformationRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getWalletInformation:
+    get:
+      tags:
+        - accounts
+      summary: Get Wallet Information
+      description: Get wallet-specific information about address
+      operationId: getWalletInformation_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Wallet Information
+      description: Get wallet-specific information about address
+      operationId: getWalletInformation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WalletInformationRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getAddressBalance:
+    get:
+      tags:
+        - accounts
+      summary: Get Address Balance
+      description: Get address balance in nanotons
+      operationId: getAddressBalance_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Address Balance
+      description: Get address balance in nanotons
+      operationId: getAddressBalance_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressBalanceRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getAddressState:
+    get:
+      tags:
+        - accounts
+      summary: Get Address State
+      description: Get address state (active, uninitialized or frozen)
+      operationId: getAddressState_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Address State
+      description: Get address state (active, uninitialized or frozen)
+      operationId: getAddressState_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressStateRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getTokenData:
+    get:
+      tags:
+        - accounts
+      summary: Get Token Data
+      description: Get Jetton/NFT metadata from token smart contract
+      operationId: getTokenData_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Token Data
+      description: Get Jetton/NFT metadata from token smart contract
+      operationId: getTokenData_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenDataRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
   /api/v2/getMasterchainInfo:
     get:
       tags:
@@ -56,7 +497,7 @@ paths:
       summary: Get Masterchain Info
       description: Get up-to-date masterchain state
       operationId: getMasterchainInfo_get
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: OK
@@ -76,7 +517,971 @@ paths:
       description: Get up-to-date masterchain state
       operationId: getMasterchainInfo_post
       requestBody:
-        $ref: '#/components/requestBodies/MasterchainInfoRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterchainInfoRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getMasterchainBlockSignatures:
+    get:
+      tags:
+        - blocks
+      summary: Get Masterchain Block Signatures
+      description: Get signatures of validators for masterchain block
+      operationId: getMasterchainBlockSignatures_get
+      parameters:
+        - $ref: '#/components/parameters/seqno'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Masterchain Block Signatures
+      description: Get signatures of validators for masterchain block
+      operationId: getMasterchainBlockSignatures_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterchainBlockSignaturesRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getShardBlockProof:
+    get:
+      tags: 
+        - blocks
+      summary: Get Shard Block Proof
+      description: Get merkle proof of shard block
+      operationId: getShardBlockProof_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqno'
+        - name: from_seqno
+          in: query
+          description: Seqno of masterchain block starting from which proof is required. If not specified latest masterchain block is used
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Shard Block Proof
+      description: Get merkle proof of shard block
+      operationId: getShardBlockProof_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShardBlockProofRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getConsensusBlock:
+    get:
+      tags:
+        - blocks
+      summary: Get Consensus Block
+      description: Get block that was confirmed by consensus
+      operationId: getConsensusBlock_get
+      parameters: [ ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Consensus Block
+      description: Get block that was confirmed by consensus
+      operationId: getConsensusBlock_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsensusBlockRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/lookupBlock:
+    get:
+      tags:
+        - blocks
+      summary: Lookup Block
+      description: Look up block by seqno, shard and workchain
+      operationId: lookupBlock_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqnoOptional'
+        - name: lt
+          in: query
+          description: Logical time of a block
+          required: false
+          schema:
+            type: string
+            x-usrv-cpp-format: 'std::int64_t'
+        - name: unixtime
+          in: query
+          description: UNIX timestamp of a block
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Lookup Block
+      description: Look up block by seqno, shard and workchain
+      operationId: lookupBlock_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LookupBlockRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getShards:
+    get:
+      tags:
+        - blocks
+      summary: Get Shards
+      description: Get shards information by given masterchain block seqno
+      operationId: getShards_get
+      parameters:
+        - $ref: '#/components/parameters/seqno'
+          description: Seqno of masterchain block
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Shards
+      description: Get shards information
+      operationId: getShards_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShardsRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getBlockHeader:
+    get:
+      tags:
+        - blocks
+      summary: Get Block Header
+      description: Get block header information
+      operationId: getBlockHeader_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqno'
+        - $ref: '#/components/parameters/rootHashOptional'
+        - $ref: '#/components/parameters/fileHashOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Block Header
+      description: Get block header information
+      operationId: getBlockHeader_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockHeaderRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getOutMsgQueueSize:
+    get:
+      tags:
+        - blocks
+      summary: Get Out Msg Queue Size
+      description: Get size of outbound message queue
+      operationId: getOutMsgQueueSize_get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Out Msg Queue Size
+      description: Get size of outbound message queue
+      operationId: getOutMsgQueueSize_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutMsgQueueSizeRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getBlockTransactions:
+    get:
+      tags:
+        - transactions
+      summary: Get Block Transactions
+      description: Get transactions in specified block
+      operationId: getBlockTransactions_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqno'
+        - $ref: '#/components/parameters/rootHashOptional'
+        - $ref: '#/components/parameters/fileHashOptional'
+        - $ref: '#/components/parameters/afterLtOptional'
+        - $ref: '#/components/parameters/afterAccountHashOptional'
+        - $ref: '#/components/parameters/countOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Block Transactions
+      description: Get transactions in specified block
+      operationId: getBlockTransactions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockTransactionsRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getBlockTransactionsExt:
+    get:
+      tags:
+        - transactions
+      summary: Get Block Transactions Extended
+      description: Get transactions in specified block with extended information
+      operationId: getBlockTransactionsExt_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqnoOptional'
+        - $ref: '#/components/parameters/rootHashOptional'
+        - $ref: '#/components/parameters/fileHashOptional'
+        - $ref: '#/components/parameters/afterLtOptional'
+        - $ref: '#/components/parameters/afterAccountHashOptional'
+        - $ref: '#/components/parameters/countOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Block Transactions Extended
+      description: Get transactions in specified block with extended information
+      operationId: getBlockTransactionsExt_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockTransactionsExtRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getTransactions:
+    get:
+      tags:
+        - transactions
+      summary: Get Transactions
+      description: Get transactions for specified address
+      operationId: getTransactions_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/limitOptional'
+        - $ref: '#/components/parameters/ltOptional'
+        - $ref: '#/components/parameters/hashOptional'
+          description: Transaction hash to start from
+        - $ref: '#/components/parameters/toLtOptional'
+        - $ref: '#/components/parameters/archivalOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Transactions
+      description: Get transactions for specified address
+      operationId: getTransactions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionsRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getTransactionsV2:
+    get:
+      tags:
+        - transactions
+      summary: Get Transactions V2
+      description: Get transactions for specified address with additional options
+      operationId: getTransactionsV2_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/limitOptional'
+        - $ref: '#/components/parameters/ltOptional'
+        - $ref: '#/components/parameters/hashOptional'
+          description: Transaction hash to start from
+        - $ref: '#/components/parameters/toLtOptional'
+        - $ref: '#/components/parameters/archivalOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Transactions V2
+      description: Get transactions for specified address with additional options
+      operationId: getTransactionsV2_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionsV2Request'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/tryLocateTx:
+    get:
+      tags:
+        - transactions
+      summary: Try Locate Transaction
+      description: Try to locate outcoming transaction of __destination__ address by incoming message
+      operationId: tryLocateTx_get
+      parameters:
+        - $ref: '#/components/parameters/sourceAddress'
+        - $ref: '#/components/parameters/destinationAddress'
+        - $ref: '#/components/parameters/createdLt'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Try Locate Transaction
+      description: Try to locate transaction by incoming message parameters
+      operationId: tryLocateTx_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TryLocateTxRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/tryLocateResultTx:
+    get:
+      tags:
+        - transactions
+      summary: Try Locate Result Transaction
+      description: Same as previous. Try to locate outcoming transaction of destination address by incoming message
+      operationId: tryLocateResultTx_get
+      parameters:
+        - $ref: '#/components/parameters/sourceAddress'
+        - $ref: '#/components/parameters/destinationAddress'
+        - $ref: '#/components/parameters/createdLt'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Try Locate Result Transaction
+      description: Try to locate incoming transaction of source address by outcoming message
+      operationId: tryLocateResultTx_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TryLocateResultTxRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/tryLocateSourceTx:
+    get:
+      tags:
+        - transactions
+      summary: Try Locate Source Transaction
+      description: Try to locate source transaction by destination transaction parameters
+      operationId: tryLocateSourceTx_get
+      parameters:
+        - $ref: '#/components/parameters/sourceAddress'
+        - $ref: '#/components/parameters/destinationAddress'
+        - $ref: '#/components/parameters/createdLt'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Try Locate Source Transaction
+      description: Try to locate source transaction by destination transaction parameters
+      operationId: tryLocateSourceTx_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TryLocateSourceTxRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getConfigParam:
+    get:
+      tags:
+        - configuration
+      summary: Get Config Parameter
+      description: Get blockchain configuration parameter
+      operationId: getConfigParam_get
+      parameters:
+        - name: param
+          in: query
+          description: Parameter number
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Config Parameter
+      description: Get blockchain configuration parameter
+      operationId: getConfigParam_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigParamRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getConfigAll:
+    get:
+      tags:
+        - configuration
+      summary: Get All Config
+      description: Get all blockchain configuration parameters
+      operationId: getConfigAll_get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get All Config
+      description: Get all blockchain configuration parameters
+      operationId: getConfigAll_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigAllRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getLibraries:
+    get:
+      tags:
+        - configuration
+      summary: Get Libraries
+      description: Get library code by their hashes
+      operationId: getLibraries_get
+      parameters:
+        - name: libraries
+          in: query
+          description: Hashes of libraries
+          required: true
+          schema:
+            type: array
+            items:
+              type: '#/components/schemas/TonHash'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Libraries
+      description: Get library entries by their hashes
+      operationId: getLibraries_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LibrariesRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+#  /api/v2/getLibrariesAll:
+  /api/v2/runGetMethod:
+    post:
+      tags:
+        - rpc
+      summary: Run Get Method
+      description: Run get method of smart contract
+      operationId: runGetMethod_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunGetMethodRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/sendBoc:
+    post:
+      tags:
+        - send
+      summary: Send BOC
+      description: Send bag of cells to blockchain
+      operationId: sendBoc_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendBocRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/sendBocReturnHash:
+    post:
+      tags:
+        - send
+      summary: Send BOC Return Hash
+      description: Send bag of cells to blockchain and return hash
+      operationId: sendBocReturnHash_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendBocRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/sendQuery:
+    post:
+      tags:
+        - send
+      summary: Send Query
+      description: Send query to blockchain
+      operationId: sendQuery_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendQueryRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/estimateFee:
+    post:
+      tags:
+        - send
+      summary: Estimate Fee
+      description: Estimate fee for query
+      operationId: estimateFee_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimateFeeRequest'
+        required: true
       responses:
         200:
           description: OK
@@ -108,14 +1513,43 @@ tags:
     description: JSON-RPC and POST endpoints
 components:
   parameters:
-    seqnoOptional:
-      name: seqno
+    address:
+      name: address
       in: query
-      description: Seqno of a block
+      description: Identifier of target TON account in any form
+      required: true
+      schema:
+        $ref: '#/components/schemas/TonAddr'
+    hash:
+      name: hash
+      in: query
+      description: The 256-bit hash in any form
+      required: true
+      schema:
+        $ref: '#/components/schemas/TonHash'
+    hashOptional:
+      name: hash
+      in: query
+      description: The 256-bit hash in any form
       required: false
+      schema:
+        $ref: '#/components/schemas/TonHash'
+    workchain:
+      name: workchain
+      in: query
+      description: Workchain ID
+      required: true
       schema:
         type: integer
         format: int32
+    shard:
+      name: shard
+      in: query
+      description: Shard ID
+      required: true
+      schema:
+        type: string
+        x-usrv-cpp-type: 'std::int64_t'
     seqno:
       name: seqno
       in: query
@@ -124,28 +1558,109 @@ components:
       schema:
         type: integer
         format: int32
-    address:
-      name: address
+    seqnoOptional:
+      name: seqno
       in: query
-      description: Identifier of target TON account in any form
+      description: Seqno of a block
+      required: false
+      schema:
+        type: integer
+        format: int32
+    rootHashOptional:
+      name: root_hash
+      in: query
+      description: Root hash of a block
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-type: '#/components/schemas/TonHash'
+    fileHashOptional:
+      name: file_hash
+      in: query
+      description: File hash of a block
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-type: '#/components/schemas/TonHash'
+    afterLtOptional:
+      name: after_lt
+      in: query
+      description: Logical time of transaction to read after
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-format: 'std::int64_t'
+    afterAccountHashOptional:
+      name: after_hash
+      in: query
+      description: Hash of account in this block in hex or base64 representation, which indicates transaction to read after
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-type: '#/components/schemas/TonHash'
+    countOptional:
+      name: count
+      in: query
+      description: Maximum number of items in response
+      required: false
+      schema:
+        type: integer
+        default: 40
+    limitOptional:
+      name: limit
+      in: query
+      description: Maximum number of items in response
+      required: false
+      schema:
+        type: integer
+        default: 10
+    ltOptional:
+      name: lt
+      in: query
+      description: Logical time of the transaction to start from
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-type: 'std::uint64_t'
+    toLtOptional:
+      name: to_lt
+      in: query
+      description: Logical time to stop at
+      required: false
+      schema:
+        type: string
+        x-usrv-cpp-type: 'std::uint64_t'
+        default: 0
+    archivalOptional:
+      name: archival
+      in: query
+      description: Whether to use archival node
+      required: false
+      schema:
+        type: boolean
+        default: false
+    sourceAddress:
+      name: source
+      in: query
+      description: Source address
       required: true
       schema:
         $ref: '#/components/schemas/TonAddr'
-  requestBodies:
-    DetectAddressRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DetectAddressRequest'
-      description: Address to detect
+    destinationAddress:
+      name: destination
+      in: query
+      description: Destination address
       required: true
-    MasterchainInfoRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/MasterchainInfoRequest'
-        description: Get last masterchain block
-        required: true
+      schema:
+        $ref: '#/components/schemas/TonAddr'
+    createdLt:
+      name: created_lt
+      in: query
+      description: Creation logical time of a message
+      required: true
+      schema:
+        type: string
+        x-usrv-cpp-type: 'std::uint64_t'
   responses:
     default:
       description: Tonlib error
@@ -192,13 +1707,13 @@ components:
       in: query
       name: api_key
   schemas:
-# request schemas
+  # base request schemas
     EmptyRequest:
       type: object
       additionalProperties: false
-      required: []
+      required: [ ]
       properties: {}
-    DetectAddressRequest:
+    AddressRequest:
       type: object
       additionalProperties: false
       required:
@@ -206,9 +1721,300 @@ components:
       properties:
         address:
           $ref: '#/components/schemas/TonAddr'
+    AddressWithSeqnoRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        seqno:
+          type: integer
+          format: int32
+    SeqnoRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - seqno
+      properties:
+        seqno:
+          type: integer
+          format: int32
+    # request schemas
+    DetectAddressRequest:
+      $ref: '#/components/schemas/AddressRequest'
+    DetectHashRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - hash
+      properties:
+        hash:
+          $ref: '#/components/schemas/TonHash'
+    PackAddressRequest:
+      $ref: '#/components/schemas/AddressRequest'
+    UnpackAddressRequest:
+      $ref: '#/components/schemas/AddressRequest'
+    AddressInformationRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    ExtendedAddressInformationRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    WalletInformationRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    AddressBalanceRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    AddressStateRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    TokenDataRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
     MasterchainInfoRequest:
       $ref: '#/components/schemas/EmptyRequest'
-# base types
+    MasterchainBlockSignaturesRequest:
+      $ref: '#/components/schemas/SeqnoRequest'
+    ShardBlockProofRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - workchain
+        - shard
+        - seqno
+      properties:
+        workchain:
+          type: integer
+          format: int32
+        shard:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        seqno:
+          type: integer
+          format: int32
+        from_seqno:
+          type: integer
+          format: int32
+    ConsensusBlockRequest:
+      $ref: '#/components/schemas/EmptyRequest'
+    LookupBlockRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - workchain
+        - shard
+      properties:
+        workchain:
+          type: integer
+          format: int32
+        shard:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        seqno:
+          type: integer
+          format: int32
+        lt:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        unixtime:
+          type: integer
+          format: int32
+    ShardsRequest:
+      $ref: '#/components/schemas/SeqnoRequest'
+    BlockHeaderRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - workchain
+        - shard
+        - seqno
+      properties:
+        workchain:
+          type: integer
+          format: int32
+        shard:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        seqno:
+          type: integer
+          format: int32
+        root_hash:
+          $ref: '#/components/schemas/TonHash'
+        file_hash:
+          $ref: '#/components/schemas/TonHash'
+    OutMsgQueueSizeRequest:
+      $ref: '#/components/schemas/EmptyRequest'
+    BlockTransactionsRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - workchain
+        - shard
+        - seqno
+      properties:
+        workchain:
+          type: integer
+          format: int32
+        shard:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        seqno:
+          type: integer
+          format: int32
+        root_hash:
+          $ref: '#/components/schemas/TonHash'
+        file_hash:
+          $ref: '#/components/schemas/TonHash'
+        after_lt:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        after_hash:
+          $ref: '#/components/schemas/TonHash'
+        count:
+          type: integer
+          default: 40
+    BlockTransactionsExtRequest:
+      $ref: '#/components/schemas/BlockTransactionsRequest'
+    TransactionsRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        lt:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+        hash:
+          $ref: '#/components/schemas/TonHash'
+        to_lt:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+          default: '0'
+        archival:
+          type: boolean
+          default: false
+        limit:
+          type: integer
+          default: 10
+    TransactionsV2Request:
+      $ref: '#/components/schemas/TransactionsRequest'
+    TryLocateTxRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - source
+        - destination
+        - created_lt
+      properties:
+        source:
+          $ref: '#/components/schemas/TonAddr'
+        destination:
+          $ref: '#/components/schemas/TonAddr'
+        created_lt:
+          type: string
+          x-usrv-cpp-type: 'std::int64_t'
+    TryLocateResultTxRequest:
+      $ref: '#/components/schemas/TryLocateTxRequest'
+    TryLocateSourceTxRequest:
+      $ref: '#/components/schemas/TryLocateTxRequest'
+    ConfigParamRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - param
+      properties:
+        param:
+          type: integer
+          format: int32
+    ConfigAllRequest:
+      $ref: '#/components/schemas/EmptyRequest'
+    LibrariesRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - libraries
+      properties:
+        libraries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TonHash'
+    RunGetMethodRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - method
+        - stack
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        method:
+          type: string
+        stack:
+          type: array
+          items:
+            type: string
+            # $ref: '#/components/schemas/TvmStackEntry'
+    SendBocRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - boc
+      properties:
+        boc:
+          $ref: '#/components/schemas/Bytes'
+    SendQueryRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - body
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        body:
+          $ref: '#/components/schemas/Bytes'
+        init_code:
+          $ref: '#/components/schemas/BytesWithDefault'
+        init_data:
+          $ref: '#/components/schemas/BytesWithDefault'
+    EstimateFeeRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - body
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        body:
+          $ref: '#/components/schemas/Bytes'
+        init_code:
+          $ref: '#/components/schemas/BytesWithDefault'
+        init_data:
+          $ref: '#/components/schemas/BytesWithDefault'
+        ignore_chksig:
+          type: boolean
+          default: true
+    JsonRpcRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - jsonrpc
+        - id
+        - method
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          default: '2.0'
+        id:
+          type: string
+        method:
+          type: string
+        params:
+          type: object
+          additionalProperties: true
+    # base types
     TonAddr:
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_addr'
@@ -221,6 +2027,10 @@ components:
     Bytes:
       type: string
       x-usrv-cpp-type: 'ton_http::types::bytes'
+    BytesWithDefault:
+      type: string
+      x-usrv-cpp-type: 'ton_http::types::bytes'
+      default: ''
 # tonlib types
     AccountAddress:
       type: object
@@ -233,7 +2043,7 @@ components:
           default: accountAddress
         account_address:
           type: string
-          x-usrv-cpp-type: 'ton_http::types::bytes'
+          x-usrv-cpp-type: 'ton_http::types::ton_addr'
     TonBlockIdExt:
       type: object
       additionalProperties: false
@@ -332,6 +2142,355 @@ components:
         - code
         - data
         - frozen_hash
+    AccountStateWalletV3:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - wallet.v3.accountState
+          default: wallet.v3.accountState
+        wallet_id:
+          type: integer
+          format: int64
+        seqno:
+          type: integer
+          format: int32
+      required:
+        - '@type'
+        - wallet_id
+        - seqno
+    AccountStateWalletV4:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - wallet.v4.accountState
+          default: wallet.v4.accountState
+        wallet_id:
+          type: integer
+          format: int64
+        seqno:
+          type: integer
+          format: int32
+      required:
+        - '@type'
+        - wallet_id
+        - seqno
+    AccountStateWalletHighloadV1:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - wallet.highload.v1.accountState
+          default: wallet.highload.v1.accountState
+        wallet_id:
+          type: integer
+          format: int64
+        seqno:
+          type: integer
+          format: int32
+      required:
+        - '@type'
+        - wallet_id
+        - seqno
+    AccountStateWalletHighloadV2:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - wallet.highload.v2.accountState
+          default: wallet.highload.v2.accountState
+        wallet_id:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - wallet_id
+    AccountStateDns:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.accountState
+          default: dns.accountState
+        wallet_id:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - wallet_id
+    RWalletLimit:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - rwallet.limit
+          default: rwallet.limit
+        seconds:
+          type: integer
+          format: int32
+        value:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - seconds
+        - value
+    RWalletConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - rwallet.config
+          default: rwallet.config
+        start_at:
+          type: integer
+          format: int64
+        limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RWalletLimit'
+      required:
+        - '@type'
+        - start_at
+        - limits
+    AccountStateRWallet:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - rwallet.accountState
+          default: rwallet.accountState
+        wallet_id:
+          type: integer
+          format: int64
+        seqno:
+          type: integer
+          format: int32
+        unlocked_balance:
+          type: integer
+          format: int64
+        config:
+          $ref: '#/components/schemas/RWalletConfig'
+      required:
+        - '@type'
+        - wallet_id
+        - seqno
+        - unlocked_balance
+        - config
+    PChanConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - pchan.config
+          default: pchan.config
+        alice_public_key:
+          type: string
+        alice_address:
+          $ref: '#/components/schemas/AccountAddress'
+        bob_public_key:
+          type: string
+        bob_address:
+          $ref: '#/components/schemas/AccountAddress'
+        init_timeout:
+          type: integer
+          format: int32
+        close_timeout:
+          type: integer
+          format: int32
+        channel_id:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - alice_public_key
+        - alice_address
+        - bob_public_key
+        - bob_address
+        - init_timeout
+        - close_timeout
+        - channel_id
+    PChanStateInit:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - pchan.stateInit
+          default: pchan.stateInit
+        signed_A:
+          type: boolean
+        signed_B:
+          type: boolean
+        min_A:
+          type: integer
+          format: int64
+        min_B:
+          type: integer
+          format: int64
+        expire_at:
+          type: integer
+          format: int64
+        A:
+          type: integer
+          format: int64
+        B:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - signed_A
+        - signed_B
+        - min_A
+        - min_B
+        - expire_at
+        - A
+        - B
+    PChanStateClose:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - pchan.stateClose
+          default: pchan.stateClose
+        signed_A:
+          type: boolean
+        signed_B:
+          type: boolean
+        min_A:
+          type: integer
+          format: int64
+        min_B:
+          type: integer
+          format: int64
+        expire_at:
+          type: integer
+          format: int64
+        A:
+          type: integer
+          format: int64
+        B:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - signed_A
+        - signed_B
+        - min_A
+        - min_B
+        - expire_at
+        - A
+        - B
+    PChanStatePayout:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - pchan.statePayout
+          default: pchan.statePayout
+        A:
+          type: integer
+          format: int64
+        B:
+          type: integer
+          format: int64
+      required:
+        - '@type'
+        - A
+        - B
+    PChanState:
+      oneOf:
+        - $ref: '#/components/schemas/PChanStateInit'
+        - $ref: '#/components/schemas/PChanStateClose'
+        - $ref: '#/components/schemas/PChanStatePayout'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          'pchan.stateInit': '#/components/schemas/PChanStateInit'
+          'pchan.stateClose': '#/components/schemas/PChanStateClose'
+          'pchan.statePayout': '#/components/schemas/PChanStatePayout'
+    AccountStatePChan:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - pchan.accountState
+          default: pchan.accountState
+        config:
+          $ref: '#/components/schemas/PChanConfig'
+        state:
+          $ref: '#/components/schemas/PChanState'
+        description:
+          type: string
+      required:
+        - '@type'
+        - config
+        - state
+        - description
+    AccountStateUninited:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum: 
+            - uninited.accountState
+          default: uninited.accountState
+        frozen_hash:
+          $ref: '#/components/schemas/TonHash'
+      required:
+        - '@type'
+        - frozen_hash
+    AccountState:
+      oneOf:
+        - $ref: '#/components/schemas/AccountStateRaw'
+        - $ref: '#/components/schemas/AccountStateWalletV3'
+        - $ref: '#/components/schemas/AccountStateWalletV4'
+        - $ref: '#/components/schemas/AccountStateWalletHighloadV1'
+        - $ref: '#/components/schemas/AccountStateWalletHighloadV2'
+        - $ref: '#/components/schemas/AccountStateDns'
+        - $ref: '#/components/schemas/AccountStateRWallet'
+        - $ref: '#/components/schemas/AccountStatePChan'
+        - $ref: '#/components/schemas/AccountStateUninited'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          'raw.accountState': '#/components/schemas/AccountStateRaw'
+          'wallet.v3.accountState': '#/components/schemas/AccountStateWalletV3'
+          'wallet.v4.accountState': '#/components/schemas/AccountStateWalletV4'
+          'wallet.highload.v1.accountState': '#/components/schemas/AccountStateWalletHighloadV1'
+          'wallet.highload.v2.accountState': '#/components/schemas/AccountStateWalletHighloadV2'
+          'dns.accountState': '#/components/schemas/AccountStateDns'
+          'rwallet.accountState': '#/components/schemas/AccountStateRWallet'
+          'pchan.accountState': '#/components/schemas/AccountStatePChan'
+          'uninited.accountState': '#/components/schemas/AccountStateUninited'
+
     AccountStateEnum:
       type: string
       enum:
@@ -719,15 +2878,26 @@ components:
     TonlibObject:
       oneOf:
         - $ref: '#/components/schemas/DetectAddress'
-        - $ref: '#/components/schemas/MasterchainInfo'
         - $ref: '#/components/schemas/DetectHash'
+        - $ref: '#/components/schemas/AddressInformation'
+        - $ref: '#/components/schemas/ExtendedAddressInformation'
+        - $ref: '#/components/schemas/MasterchainInfo'
       discriminator:
         propertyName: '@type'
         mapping:
           'utils.detectAddress': '#/components/schemas/DetectAddress'
           'utils.detectedHash': '#/components/schemas/DetectHash'
+          'raw.fullAccountState': '#/components/schemas/AddressInformation'
+          'fullAccountState': '#/components/schemas/ExtendedAddressInformation'
           'blocks.masterchainInfo': '#/components/schemas/MasterchainInfo'
     TonlibResponse:
+      type: object
+      title: TonlibResponse
+      additionalProperties: false
+      required:
+        - ok
+        - result
+        - '@extra'
       properties:
         ok:
           type: boolean
@@ -740,17 +2910,18 @@ components:
         '@extra':
           type: string
           title: Extra information
-      type: object
-      required:
-        - ok
-        - result
-        - '@extra'
-      additionalProperties: false
-      title: TonlibResponse
+        jsonrpc:
+          type: string
+        id:
+          type: string
     TonlibErrorResponse:
       type: object
       additionalProperties: false
       title: TonlibErrorResponse
+      required:
+        - ok
+        - error
+        - code
       properties:
         ok:
           type: boolean
@@ -767,6 +2938,38 @@ components:
         '@extra':
           type: string
           title: Extra information
+        jsonrpc:
+          type: string
+        id:
+          type: string
+    JsonRpcResponse:
+      allOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - jsonrpc
+            - id
+          properties:
+            jsonrpc:
+              type: string
+              default: '2.0'
+            id:
+              type: string
+        - $ref: '#/components/schemas/TonlibResponse'
+    JsonRpcErrorResponse:
+      allOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - jsonrpc
+            - id
+          properties:
+            jsonrpc:
+              type: string
+              default: '2.0'
+            id:
+              type: string
+        - $ref: '#/components/schemas/TonlibErrorResponse'
     DetectAddress:
       type: object
       additionalProperties: false
@@ -855,6 +3058,7 @@ components:
           $ref: '#/components/schemas/TonHash'
         sync_utime:
           type: integer
+          format: int64
         state:
           $ref: '#/components/schemas/AccountStateEnum'
         suspended:
@@ -893,8 +3097,9 @@ components:
           $ref: '#/components/schemas/TonBlockIdExt'
         sync_utime:
           type: integer
+          format: int64
         account_state:
-          $ref: '#/components/schemas/AccountStateRaw'
+          $ref: '#/components/schemas/AccountState'
         revision:
           type: integer
       required:
@@ -941,6 +3146,7 @@ components:
             - wallet v5 r1
         seqno:
           type: integer
+          format: int64
         wallet_id:
           type: integer
         is_signature_allowed:

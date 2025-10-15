@@ -1,14 +1,14 @@
 #pragma once
-#include "TonlibRequestHandler.h"
+#include "../TonlibRequestHandler.h"
 
 namespace ton_http::handlers {
 
-class HandlerGetMasterchainInfo
+class GetMasterchainInfoHandler
     : public TonlibRequestHandler<schemas::v2::MasterchainInfoRequest, schemas::v2::MasterchainInfo> {
 public:
-  static constexpr std::string_view kName = "handler-getMasterchainInfo";
+  static constexpr std::string_view kName = "handler-GetMasterchainInfo";
 
-  HandlerGetMasterchainInfo(
+  GetMasterchainInfoHandler(
       const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
   );
 

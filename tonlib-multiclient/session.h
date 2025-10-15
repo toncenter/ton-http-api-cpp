@@ -39,6 +39,9 @@ public:
       }
       res << worker;
     }
+    if (active_workers_.empty()) {
+      res << "_";
+    }
     res << ":" << elapsed();
     return res.str();
   }

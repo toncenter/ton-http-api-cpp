@@ -293,7 +293,7 @@ void MultiClientActor::get_consensus_block(td::Promise<std::int32_t>&& promise) 
 td::Result<SessionPtr> MultiClientActor::get_session_impl(const RequestParameters& options, SessionPtr session) const {
   auto worker_indices = select_workers(options);
   if (worker_indices.empty()) {
-    return td::Status::Error(-3, "no workers available (" + options.to_string() + ")");
+    return td::Status::Error(533, "no workers available (" + options.to_string() + ")");
   }
   if (session) {
     session->set_active_workers(std::move(worker_indices));

@@ -9,6 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(PY_TONLIB_MULTICLIENT TRUE CACHE BOOL "Build python bindings")
 set(TONLIB_MULTICLIENT_EXAMPLES TRUE CACHE BOOL "Build examples")
 set(TON_HTTP_API_CPP TRUE CACHE BOOL "Build TON HTTP API")
+set(BUILD_TON_PLAYGROUND FALSE CACHE BOOL "Build TON playground")
 
 add_subdirectory(external/ton EXCLUDE_FROM_ALL)
 
@@ -21,6 +22,12 @@ endif()
 if (PY_TONLIB_MULTICLIENT)
   add_subdirectory(external/pybind11 EXCLUDE_FROM_ALL)
   add_subdirectory(py)
+endif()
+
+
+if (BUILD_TON_PLAYGROUND)
+  message("-- Building TON Playground binary")
+  add_subdirectory(playground)
 endif()
 
 if (TON_HTTP_API_CPP)

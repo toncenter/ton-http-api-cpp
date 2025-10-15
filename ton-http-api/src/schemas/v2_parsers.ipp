@@ -9,6 +9,7 @@
 #include <userver/chaotic/validators.hpp>
 #include <userver/chaotic/variant.hpp>
 #include <userver/chaotic/with_type.hpp>
+#include <userver/formats/common/merge.hpp>
 #include <userver/formats/json/serialize_variant.hpp>
 #include <userver/formats/parse/common_containers.hpp>
 #include <userver/formats/serialize/common_containers.hpp>
@@ -65,7 +66,7 @@ template <typename Value>
   res.account_address = value["account_address"]
                             .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
                                 USERVER_NAMESPACE::chaotic::Primitive<std::string>,
-                                ton_http::types::bytes>>>();
+                                ton_http::types::ton_addr>>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
@@ -73,31 +74,6 @@ template <typename Value>
   );
 
   return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateEnum_Mapping =
-    [](auto selector) {
-      return selector()
-          .template Type<::ton_http::schemas::v2::AccountStateEnum, std::string_view>()
-          .Case(::ton_http::schemas::v2::AccountStateEnum::kUninitialized, "uninitialized")
-          .Case(::ton_http::schemas::v2::AccountStateEnum::kActive, "active")
-          .Case(::ton_http::schemas::v2::AccountStateEnum::kFrozen, "frozen");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::AccountStateEnum Parse(
-    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
-) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__AccountStateEnum_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateEnum", value), val
-  );
 }
 
 
@@ -159,6 +135,904 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__AccountStateRaw_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateWalletV3___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStateWalletV3::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStateWalletV3::_Type::kWalletV3Accountstate, "wallet.v3.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStateWalletV3_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("wallet_id").Case("seqno");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletV3::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateWalletV3___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateWalletV3::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletV3 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateWalletV3 res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletV3::_Type>>(
+              ::ton_http::schemas::v2::AccountStateWalletV3::_Type::kWalletV3Accountstate
+          );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateWalletV3_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateWalletV4___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStateWalletV4::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStateWalletV4::_Type::kWalletV4Accountstate, "wallet.v4.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStateWalletV4_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("wallet_id").Case("seqno");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletV4::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateWalletV4___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateWalletV4::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletV4 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateWalletV4 res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletV4::_Type>>(
+              ::ton_http::schemas::v2::AccountStateWalletV4::_Type::kWalletV4Accountstate
+          );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateWalletV4_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__AccountStateWalletHighloadV1___Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type, std::string_view>()
+          .Case(
+              ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type::kWalletHighloadV1Accountstate,
+              "wallet.highload.v1.accountState"
+          );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__AccountStateWalletHighloadV1_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("wallet_id").Case("seqno");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV1___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format(
+          "Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type", value
+      ),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletHighloadV1 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateWalletHighloadV1 res;
+
+  res._type =
+      value["@type"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>>(
+              ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type::kWalletHighloadV1Accountstate
+          );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateWalletHighloadV1_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__AccountStateWalletHighloadV2___Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type, std::string_view>()
+          .Case(
+              ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type::kWalletHighloadV2Accountstate,
+              "wallet.highload.v2.accountState"
+          );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__AccountStateWalletHighloadV2_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("wallet_id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV2___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format(
+          "Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type", value
+      ),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateWalletHighloadV2 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateWalletHighloadV2 res;
+
+  res._type =
+      value["@type"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>>(
+              ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type::kWalletHighloadV2Accountstate
+          );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateWalletHighloadV2_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateDns___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStateDns::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStateDns::_Type::kDnsAccountstate, "dns.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStateDns_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("wallet_id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateDns::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateDns___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateDns::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateDns Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateDns res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateDns::_Type>>(
+                      ::ton_http::schemas::v2::AccountStateDns::_Type::kDnsAccountstate
+                  );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateDns_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__RWalletLimit___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::RWalletLimit::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::RWalletLimit::_Type::kRwalletLimit, "rwallet.limit"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__RWalletLimit_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("seconds").Case("value");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::RWalletLimit::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__RWalletLimit___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::RWalletLimit::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::RWalletLimit Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::RWalletLimit res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::RWalletLimit::_Type>>(
+          ::ton_http::schemas::v2::RWalletLimit::_Type::kRwalletLimit
+      );
+  res.seconds = value["seconds"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.value = value["value"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__RWalletLimit_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__RWalletConfig___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::RWalletConfig::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::RWalletConfig::_Type::kRwalletConfig, "rwallet.config"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__RWalletConfig_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("start_at").Case("limits");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::RWalletConfig::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__RWalletConfig___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::RWalletConfig::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::RWalletConfig Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::RWalletConfig res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::RWalletConfig::_Type>>(
+          ::ton_http::schemas::v2::RWalletConfig::_Type::kRwalletConfig
+      );
+  res.start_at = value["start_at"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.limits = value["limits"]
+                   .template As<USERVER_NAMESPACE::chaotic::Array<
+                       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::RWalletLimit>,
+                       std::vector<::ton_http::schemas::v2::RWalletLimit>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__RWalletConfig_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateRWallet___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStateRWallet::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStateRWallet::_Type::kRwalletAccountstate, "rwallet.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStateRWallet_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("wallet_id")
+          .Case("seqno")
+          .Case("unlocked_balance")
+          .Case("config");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateRWallet::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateRWallet___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateRWallet::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateRWallet Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateRWallet res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateRWallet::_Type>>(
+              ::ton_http::schemas::v2::AccountStateRWallet::_Type::kRwalletAccountstate
+          );
+  res.wallet_id = value["wallet_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.unlocked_balance = value["unlocked_balance"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.config =
+      value["config"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::RWalletConfig>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateRWallet_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__PChanConfig___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::PChanConfig::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::PChanConfig::_Type::kPchanConfig, "pchan.config"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__PChanConfig_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("alice_public_key")
+          .Case("alice_address")
+          .Case("bob_public_key")
+          .Case("bob_address")
+          .Case("init_timeout")
+          .Case("close_timeout")
+          .Case("channel_id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanConfig::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__PChanConfig___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::PChanConfig::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanConfig Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::PChanConfig res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanConfig::_Type>>(
+          ::ton_http::schemas::v2::PChanConfig::_Type::kPchanConfig
+      );
+  res.alice_public_key = value["alice_public_key"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.alice_address =
+      value["alice_address"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>>();
+  res.bob_public_key = value["bob_public_key"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.bob_address = value["bob_address"]
+                        .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>>();
+  res.init_timeout = value["init_timeout"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.close_timeout = value["close_timeout"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.channel_id = value["channel_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__PChanConfig_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__PChanStateInit___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::PChanStateInit::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::PChanStateInit::_Type::kPchanStateinit, "pchan.stateInit"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__PChanStateInit_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("signed_A")
+          .Case("signed_B")
+          .Case("min_A")
+          .Case("min_B")
+          .Case("expire_at")
+          .Case("A")
+          .Case("B");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStateInit::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__PChanStateInit___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::PChanStateInit::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStateInit Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::PChanStateInit res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStateInit::_Type>>(
+          ::ton_http::schemas::v2::PChanStateInit::_Type::kPchanStateinit
+      );
+  res.signed_A = value["signed_A"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.signed_B = value["signed_B"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.min_A = value["min_A"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.min_B = value["min_B"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.expire_at = value["expire_at"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.A = value["A"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.B = value["B"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__PChanStateInit_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__PChanStateClose___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::PChanStateClose::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::PChanStateClose::_Type::kPchanStateclose, "pchan.stateClose"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__PChanStateClose_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("signed_A")
+          .Case("signed_B")
+          .Case("min_A")
+          .Case("min_B")
+          .Case("expire_at")
+          .Case("A")
+          .Case("B");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStateClose::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__PChanStateClose___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::PChanStateClose::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStateClose Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::PChanStateClose res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStateClose::_Type>>(
+                      ::ton_http::schemas::v2::PChanStateClose::_Type::kPchanStateclose
+                  );
+  res.signed_A = value["signed_A"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.signed_B = value["signed_B"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.min_A = value["min_A"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.min_B = value["min_B"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.expire_at = value["expire_at"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.A = value["A"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.B = value["B"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__PChanStateClose_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__PChanStatePayout___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::PChanStatePayout::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::PChanStatePayout::_Type::kPchanStatepayout, "pchan.statePayout"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__PChanStatePayout_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("A").Case("B");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStatePayout::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__PChanStatePayout___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::PChanStatePayout::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::PChanStatePayout Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::PChanStatePayout res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStatePayout::_Type>>(
+                      ::ton_http::schemas::v2::PChanStatePayout::_Type::kPchanStatepayout
+                  );
+  res.A = value["A"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+  res.B = value["B"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__PChanStatePayout_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStatePChan___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStatePChan::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStatePChan::_Type::kPchanAccountstate, "pchan.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStatePChan_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("config").Case("state").Case(
+          "description"
+      );
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStatePChan::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStatePChan___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStatePChan::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStatePChan Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStatePChan res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStatePChan::_Type>>(
+              ::ton_http::schemas::v2::AccountStatePChan::_Type::kPchanAccountstate
+          );
+  res.config =
+      value["config"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanConfig>>();
+  res.state = value["state"]
+                  .template As<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                      &::ton_http::schemas::v2::kPChanState_Settings,
+                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStateInit>,
+                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStateClose>,
+                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::PChanStatePayout>>>();
+  res.description = value["description"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStatePChan_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateUninited___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::AccountStateUninited::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::AccountStateUninited::_Type::kUninitedAccountstate, "uninited.accountState"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AccountStateUninited_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("frozen_hash");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateUninited::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateUninited___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateUninited::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateUninited Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AccountStateUninited res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateUninited::_Type>>(
+              ::ton_http::schemas::v2::AccountStateUninited::_Type::kUninitedAccountstate
+          );
+  res.frozen_hash =
+      value["frozen_hash"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AccountStateUninited_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__AccountStateEnum_Mapping =
+    [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::AccountStateEnum, std::string_view>()
+          .Case(::ton_http::schemas::v2::AccountStateEnum::kUninitialized, "uninitialized")
+          .Case(::ton_http::schemas::v2::AccountStateEnum::kActive, "active")
+          .Case(::ton_http::schemas::v2::AccountStateEnum::kFrozen, "frozen");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AccountStateEnum Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__AccountStateEnum_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::AccountStateEnum", value), val
+  );
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__AddressWithSeqnoRequest_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("address").Case("seqno");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AddressWithSeqnoRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AddressWithSeqnoRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AddressWithSeqnoRequest_PropertiesNames
   );
 
   return res;
@@ -436,7 +1310,7 @@ template <typename Value>
       value["frozen_hash"]
           .template As<USERVER_NAMESPACE::chaotic::
                            WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>();
-  res.sync_utime = value["sync_utime"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>();
+  res.sync_utime = value["sync_utime"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
   res.state =
       value["state"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>>();
   res.suspended = value["suspended"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<bool>>>();
@@ -444,6 +1318,35 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__AddressInformation_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__AddressRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("address");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::AddressRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::AddressRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__AddressRequest_PropertiesNames
   );
 
   return res;
@@ -542,6 +1445,51 @@ template <typename Value>
       value, k__ton_http__schemas__v2__BlockHeader_PropertiesNames
   );
 
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__BlockHeaderRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("workchain")
+          .Case("shard")
+          .Case("seqno")
+          .Case("root_hash")
+          .Case("file_hash");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::BlockHeaderRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::BlockHeaderRequest res;
+
+  res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.shard =
+      value["shard"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.root_hash = value["root_hash"]
+                      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                          ton_http::types::ton_hash>>>();
+  res.file_hash = value["file_hash"]
+                      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                          ton_http::types::ton_hash>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__BlockHeaderRequest_PropertiesNames
+  );
 
   return res;
 }
@@ -814,6 +1762,87 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__BlockTransactionsRequest_PropertiesNames = [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("workchain")
+          .Case("shard")
+          .Case("seqno")
+          .Case("root_hash")
+          .Case("file_hash")
+          .Case("after_lt")
+          .Case("after_hash")
+          .Case("count");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::BlockTransactionsRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::BlockTransactionsRequest res;
+
+  res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.shard =
+      value["shard"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.root_hash = value["root_hash"]
+                      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                          ton_http::types::ton_hash>>>();
+  res.file_hash = value["file_hash"]
+                      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                          ton_http::types::ton_hash>>>();
+  res.after_lt =
+      value["after_lt"]
+          .template As<std::optional<USERVER_NAMESPACE::chaotic::
+                                         WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+  res.after_hash = value["after_hash"]
+                       .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                           USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                           ton_http::types::ton_hash>>>();
+  res.count = value["count"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>(40);
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__BlockTransactionsRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__EmptyRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>();
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::EmptyRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::EmptyRequest res;
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__EmptyRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__TvmCell___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::TvmCell::_Type, std::string_view>().Case(
@@ -915,6 +1944,32 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__ConfigInfo_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ConfigParamRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("param");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::ConfigParamRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::ConfigParamRequest res;
+
+  res.param = value["param"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__ConfigParamRequest_PropertiesNames
   );
 
   return res;
@@ -1097,35 +2152,6 @@ template <typename Value>
 }
 
 
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DetectAddressRequest_PropertiesNames =
-    [](auto selector) {
-      return selector().template Type<std::string_view>().Case("address");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::DetectAddressRequest Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressRequest>
-) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::DetectAddressRequest res;
-
-  res.address =
-      value["address"]
-          .template As<USERVER_NAMESPACE::chaotic::
-                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__DetectAddressRequest_PropertiesNames
-  );
-
-  return res;
-}
-
-
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DetectHash___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::DetectHash::_Type, std::string_view>().Case(
@@ -1181,24 +2207,77 @@ template <typename Value>
 }
 
 
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__EmptyRequest_PropertiesNames =
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DetectHashRequest_PropertiesNames =
     [](auto selector) {
-      return selector().template Type<std::string_view>();
+      return selector().template Type<std::string_view>().Case("hash");
     };
 
 
 template <typename Value>
-::ton_http::schemas::v2::EmptyRequest Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+::ton_http::schemas::v2::DetectHashRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>
 ) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
-  ::ton_http::schemas::v2::EmptyRequest res;
+  ::ton_http::schemas::v2::DetectHashRequest res;
+
+  res.hash =
+      value["hash"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__EmptyRequest_PropertiesNames
+      value, k__ton_http__schemas__v2__DetectHashRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__EstimateFeeRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("address")
+          .Case("body")
+          .Case("init_code")
+          .Case("init_data")
+          .Case("ignore_chksig");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::EstimateFeeRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::EstimateFeeRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.body =
+      value["body"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+  res.init_code =
+      value["init_code"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>("");
+  res.init_data =
+      value["init_data"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>("");
+  res.ignore_chksig = value["ignore_chksig"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(true);
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__EstimateFeeRequest_PropertiesNames
   );
 
   return res;
@@ -1697,15 +2776,334 @@ template <typename Value>
           .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>>();
   res.block_id =
       value["block_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.sync_utime = value["sync_utime"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>();
+  res.sync_utime = value["sync_utime"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>();
   res.account_state =
       value["account_state"]
-          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateRaw>>();
+          .template As<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+              &::ton_http::schemas::v2::kAccountState_Settings,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateRaw>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletV3>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletV4>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletHighloadV1>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateWalletHighloadV2>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateDns>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateRWallet>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStatePChan>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateUninited>>>();
   res.revision = value["revision"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__ExtendedAddressInformation_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibErrorResponse_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("ok")
+          .Case("error")
+          .Case("code")
+          .Case("@extra")
+          .Case("jsonrpc")
+          .Case("id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TonlibErrorResponse Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TonlibErrorResponse res;
+
+  res.ok = value["ok"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(false);
+  res.error = value["error"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.code =
+      value["code"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<
+              int,
+              USERVER_NAMESPACE::chaotic::Minimum<::ton_http::schemas::v2::TonlibErrorResponse::kCodeMinimum>,
+              USERVER_NAMESPACE::chaotic::Maximum<::ton_http::schemas::v2::TonlibErrorResponse::kCodeMaximum>>>();
+  res._extra = value["@extra"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
+  res.jsonrpc = value["jsonrpc"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
+  res.id = value["id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__TonlibErrorResponse_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__JsonRpcErrorResponse__P0_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("jsonrpc").Case("id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcErrorResponse__P0 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JsonRpcErrorResponse__P0 res;
+
+  res.jsonrpc = value["jsonrpc"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>("2.0");
+  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__JsonRpcErrorResponse__P0_PropertiesNames
+  );
+
+  return res;
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcErrorResponse Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>
+) {
+  return ::ton_http::schemas::v2::JsonRpcErrorResponse(
+      value.template As<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>(),
+      value.template As<::ton_http::schemas::v2::TonlibErrorResponse>()
+  );
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__JsonRpcRequest__Params_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>();
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__JsonRpcRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("jsonrpc").Case("id").Case("method").Case("params");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcRequest::Params Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JsonRpcRequest::Params res;
+
+
+  res.extra = USERVER_NAMESPACE::chaotic::ExtractAdditionalPropertiesTrue(
+      value, k__ton_http__schemas__v2__JsonRpcRequest__Params_PropertiesNames
+  );
+
+
+  return res;
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JsonRpcRequest res;
+
+  res.jsonrpc = value["jsonrpc"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>("2.0");
+  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.method = value["method"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.params =
+      value["params"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JsonRpcRequest::Params>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__JsonRpcRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::MasterchainInfo::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo, "blocks.masterchainInfo"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__MasterchainInfo_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("last")
+          .Case("state_root_hash")
+          .Case("init");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::MasterchainInfo::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MasterchainInfo::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::MasterchainInfo Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::MasterchainInfo res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo::_Type>>(
+                      ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo
+                  );
+  res.last = value["last"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.state_root_hash =
+      value["state_root_hash"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>();
+  res.init = value["init"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__MasterchainInfo_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibResponse_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("ok").Case("result").Case("@extra").Case("jsonrpc").Case(
+          "id"
+      );
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TonlibResponse Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TonlibResponse res;
+
+  res.ok = value["ok"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(true);
+  res.result = value["result"]
+                   .template As<USERVER_NAMESPACE::chaotic::Variant<
+                       USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                       USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                           &::ton_http::schemas::v2::kTonlibObject_Settings,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress>,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>>>>();
+  res._extra = value["@extra"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.jsonrpc = value["jsonrpc"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
+  res.id = value["id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__TonlibResponse_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__JsonRpcResponse__P0_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("jsonrpc").Case("id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcResponse__P0 Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JsonRpcResponse__P0 res;
+
+  res.jsonrpc = value["jsonrpc"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>("2.0");
+  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__JsonRpcResponse__P0_PropertiesNames
+  );
+
+  return res;
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JsonRpcResponse Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>
+) {
+  return ::ton_http::schemas::v2::JsonRpcResponse(
+      value.template As<::ton_http::schemas::v2::JsonRpcResponse__P0>(),
+      value.template As<::ton_http::schemas::v2::TonlibResponse>()
+  );
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__LibrariesRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("libraries");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::LibrariesRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::LibrariesRequest res;
+
+  res.libraries = value["libraries"]
+                      .template As<USERVER_NAMESPACE::chaotic::Array<
+                          USERVER_NAMESPACE::chaotic::
+                              WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>,
+                          std::vector<ton_http::types::ton_hash>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__LibrariesRequest_PropertiesNames
   );
 
   return res;
@@ -1828,6 +3226,48 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__LookupBlockRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("workchain")
+          .Case("shard")
+          .Case("seqno")
+          .Case("lt")
+          .Case("unixtime");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::LookupBlockRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::LookupBlockRequest res;
+
+  res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.shard =
+      value["shard"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
+  res.lt =
+      value["lt"]
+          .template As<std::optional<USERVER_NAMESPACE::chaotic::
+                                         WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+  res.unixtime = value["unixtime"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__LookupBlockRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
     k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping = [](auto selector) {
       return selector()
@@ -1891,63 +3331,26 @@ template <typename Value>
 }
 
 
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping =
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__SeqnoRequest_PropertiesNames =
     [](auto selector) {
-      return selector().template Type<::ton_http::schemas::v2::MasterchainInfo::_Type, std::string_view>().Case(
-          ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo, "blocks.masterchainInfo"
-      );
-    };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__MasterchainInfo_PropertiesNames =
-    [](auto selector) {
-      return selector()
-          .template Type<std::string_view>()
-          .Case("@type")
-          .Case("last")
-          .Case("state_root_hash")
-          .Case("init");
+      return selector().template Type<std::string_view>().Case("seqno");
     };
 
 
 template <typename Value>
-::ton_http::schemas::v2::MasterchainInfo::_Type Parse(
-    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
-) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MasterchainInfo::_Type", value), val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::MasterchainInfo Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
+::ton_http::schemas::v2::SeqnoRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>
 ) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
-  ::ton_http::schemas::v2::MasterchainInfo res;
+  ::ton_http::schemas::v2::SeqnoRequest res;
 
-  res._type = value["@type"]
-                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo::_Type>>(
-                      ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo
-                  );
-  res.last = value["last"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.state_root_hash =
-      value["state_root_hash"]
-          .template As<USERVER_NAMESPACE::chaotic::
-                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>();
-  res.init = value["init"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__MasterchainInfo_PropertiesNames
+      value, k__ton_http__schemas__v2__SeqnoRequest_PropertiesNames
   );
 
   return res;
@@ -2165,6 +3568,115 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__RunGetMethodRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("address").Case("method").Case("stack");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::RunGetMethodRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::RunGetMethodRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.method = value["method"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.stack =
+      value["stack"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           Array<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::vector<std::string>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__RunGetMethodRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__SendBocRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("boc");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::SendBocRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::SendBocRequest res;
+
+  res.boc =
+      value["boc"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__SendBocRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__SendQueryRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("address")
+          .Case("body")
+          .Case("init_code")
+          .Case("init_data");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::SendQueryRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::SendQueryRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.body =
+      value["body"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+  res.init_code =
+      value["init_code"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>("");
+  res.init_data =
+      value["init_data"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>("");
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__SendQueryRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::ShardBlockLink::_Type, std::string_view>().Case(
@@ -2287,6 +3799,44 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockProofRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("workchain")
+          .Case("shard")
+          .Case("seqno")
+          .Case("from_seqno");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::ShardBlockProofRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::ShardBlockProofRequest res;
+
+  res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.shard =
+      value["shard"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+  res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.from_seqno =
+      value["from_seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__ShardBlockProofRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__Shards___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::Shards::_Type, std::string_view>().Case(
@@ -2335,75 +3885,6 @@ template <typename Value>
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(value, k__ton_http__schemas__v2__Shards_PropertiesNames);
-
-  return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibErrorResponse_PropertiesNames =
-    [](auto selector) {
-      return selector().template Type<std::string_view>().Case("ok").Case("error").Case("code").Case("@extra");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::TonlibErrorResponse Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
-) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::TonlibErrorResponse res;
-
-  res.ok = value["ok"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(false);
-  res.error = value["error"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
-  res.code =
-      value["code"]
-          .template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<
-              int,
-              USERVER_NAMESPACE::chaotic::Minimum<::ton_http::schemas::v2::TonlibErrorResponse::kCodeMinimum>,
-              USERVER_NAMESPACE::chaotic::Maximum<::ton_http::schemas::v2::TonlibErrorResponse::kCodeMaximum>>>>();
-  res._extra = value["@extra"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__TonlibErrorResponse_PropertiesNames
-  );
-
-  return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibResponse_PropertiesNames =
-    [](auto selector) {
-      return selector().template Type<std::string_view>().Case("ok").Case("result").Case("@extra");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::TonlibResponse Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
-) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::TonlibResponse res;
-
-  res.ok = value["ok"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(true);
-  res.result = value["result"]
-                   .template As<USERVER_NAMESPACE::chaotic::Variant<
-                       USERVER_NAMESPACE::chaotic::Primitive<std::string>,
-                       USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
-                           &::ton_http::schemas::v2::kTonlibObject_Settings,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>>>>();
-  res._extra = value["@extra"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__TonlibResponse_PropertiesNames
-  );
 
   return res;
 }
@@ -2498,6 +3979,95 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__Transaction_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TransactionsRequest_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("address")
+          .Case("lt")
+          .Case("hash")
+          .Case("to_lt")
+          .Case("archival")
+          .Case("limit");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TransactionsRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TransactionsRequest res;
+
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.lt =
+      value["lt"]
+          .template As<std::optional<USERVER_NAMESPACE::chaotic::
+                                         WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+  res.hash = value["hash"]
+                 .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                     USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                     ton_http::types::ton_hash>>>();
+  res.to_lt =
+      value["to_lt"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>(
+              Convert(std::string_view("0"), USERVER_NAMESPACE::chaotic::convert::To<std::int64_t>{})
+          );
+  res.archival = value["archival"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(false);
+  res.limit = value["limit"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>(10);
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__TransactionsRequest_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TryLocateTxRequest_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("source").Case("destination").Case("created_lt");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TryLocateTxRequest Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TryLocateTxRequest res;
+
+  res.source =
+      value["source"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.destination =
+      value["destination"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.created_lt =
+      value["created_lt"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__TryLocateTxRequest_PropertiesNames
   );
 
   return res;
@@ -2606,7 +4176,7 @@ template <typename Value>
       value["wallet_type"]
           .template As<std::optional<
               USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>>>();
-  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<int>>>();
+  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>>();
   res.wallet_id = value["wallet_id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<int>>>();
   res.is_signature_allowed =
       value["is_signature_allowed"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<bool>>>();

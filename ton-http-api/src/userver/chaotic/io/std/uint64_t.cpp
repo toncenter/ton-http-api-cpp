@@ -3,6 +3,9 @@
 std::uint64_t userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<std::uint64_t>) {
   return std::uint64_t{std::stoull(value)};
 }
-std::string userver::v2_13_rc::Convert(const std::uint64_t& value, chaotic::convert::To<std::string>) {
+std::uint64_t userver::chaotic::convert::Convert(const std::string_view& value, chaotic::convert::To<std::uint64_t>) {
+  return Convert(std::string{value}, chaotic::convert::To<std::uint64_t>{});
+}
+std::string userver::chaotic::convert::Convert(const std::uint64_t& value, chaotic::convert::To<std::string>) {
   return std::to_string(value);
 }

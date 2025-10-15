@@ -1,12 +1,12 @@
-#include "HandlerDetectAddress.h"
+#include "DetectAddressHandler.h"
 
 #include "converters/convert.hpp"
 
-ton_http::handlers::HandlerDetectAddress::HandlerDetectAddress(
+ton_http::handlers::DetectAddressHandler::DetectAddressHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
 ) : TonlibRequestHandler(config, context) {
 }
-ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::HandlerDetectAddress::ParseTonlibGetRequest(
+ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::DetectAddressHandler::ParseTonlibGetRequest(
     const HttpRequest& request, const Value& request_json, RequestContext& context
 ) const {
   schemas::v2::DetectAddressRequest req;
@@ -14,12 +14,7 @@ ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::HandlerDetectAdd
   req.address = userver::chaotic::convert::Convert(request.GetArg("address"), userver::chaotic::convert::To<ton_http::types::ton_addr>{});
   return req;
 }
-ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::HandlerDetectAddress::ParseTonlibPostRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
-) const {
-  return request_json.As<ton_http::schemas::v2::DetectAddressRequest>();
-}
-td::Result<ton_http::schemas::v2::DetectAddress> ton_http::handlers::HandlerDetectAddress::HandleRequestTonlibThrow(
+td::Result<ton_http::schemas::v2::DetectAddress> ton_http::handlers::DetectAddressHandler::HandleRequestTonlibThrow(
     schemas::v2::DetectAddressRequest& request, multiclient::SessionPtr& session
 ) const {
   auto result = tonlib_component_.DoRequest(&core::TonlibWorker::detectAddress, request.address.GetUnderlying(), session);

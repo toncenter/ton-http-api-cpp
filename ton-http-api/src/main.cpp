@@ -11,8 +11,14 @@
 #include "tonlib/Logging.h"
 
 #include "components/tonlib_component.h"
-#include "handlers/HandlerDetectAddress.h"
-#include "handlers/HandlerGetMasterchainInfo.h"
+#include "handlers/JsonRpcHandler.h"
+#include "handlers/accounts/GetAddressInformationHandler.h"
+#include "handlers/accounts/GetExtendedAddressInformationHandler.h"
+#include "handlers/blocks/GetMasterchainInfoHandler.h"
+#include "handlers/utils/DetectAddressHandler.h"
+#include "handlers/utils/DetectHashHandler.h"
+#include "handlers/utils/PackAddressHandler.h"
+#include "handlers/utils/UnpackAddressHandler.h"
 
 
 int main(int argc, char* argv[]) {
@@ -29,9 +35,32 @@ int main(int argc, char* argv[]) {
   component_list.Append<userver::server::handlers::ServerMonitor>();
   component_list.Append<userver::server::handlers::Ping>();
   component_list.Append<userver::server::handlers::HttpHandlerStatic>();
+  //
   // api handlers
-  component_list.Append<ton_http::handlers::HandlerGetMasterchainInfo>();
-  component_list.Append<ton_http::handlers::HandlerDetectAddress>();
+  //
+  // utils
+  component_list.Append<ton_http::handlers::DetectAddressHandler>();
+  component_list.Append<ton_http::handlers::DetectHashHandler>();
+  component_list.Append<ton_http::handlers::PackAddressHandler>();
+  component_list.Append<ton_http::handlers::UnpackAddressHandler>();
+
+  // accounts
+  component_list.Append<ton_http::handlers::GetAddressInformationHandler>();
+  component_list.Append<ton_http::handlers::GetExtendedAddressInformationHandler>();
+
+  // blocks
+  component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();
+
+  // transactions
+
+  // config
+
+  // run methods
+
+  // send
+
+  // jsonRpc handler
+  component_list.Append<ton_http::handlers::JsonRpcHandler>();
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

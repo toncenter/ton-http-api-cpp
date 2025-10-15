@@ -1,11 +1,13 @@
 #pragma once
 #include "components/tonlib_component.h"
+#include "http/http.h"
 #include "schemas/v2.hpp"
-#include "userver/logging/component.hpp"
-#include "userver/components/component_context.hpp"
 #include "userver/components/component_config.hpp"
+#include "userver/components/component_context.hpp"
+#include "userver/logging/component.hpp"
 #include "userver/server/handlers/http_handler_json_base.hpp"
 #include "userver/yaml_config/merge_schemas.hpp"
+#include "utils/exceptions.hpp"
 
 namespace ton_http::handlers {
 
@@ -15,36 +17,67 @@ public:
   using HttpHandlerJsonBase::HttpHandlerJsonBase;
 
   virtual Request ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const = 0;
-  virtual Request ParseTonlibPostRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const = 0;
+  virtual Request ParseTonlibPostRequest(const HttpRequest&, const Value& request_json, RequestContext&) const {
+    try {
+      return request_json.As<Request>();
+    } catch (std::exception& exc) {
+      throw utils::TonlibException(exc.what(), 422);
+    }
+  }
+  virtual td::Status ValidateRequest(const Request&) const {
+    return td::Status::OK();
+  }
   virtual td::Result<Response> HandleRequestTonlibThrow(Request& request, multiclient::SessionPtr& session) const = 0;
 
   userver::formats::json::Value HandleRequestJsonThrow(const HttpRequest& request, const Value& request_json, RequestContext& context) const override {
     auto session = tonlib_component_.GetNewSession();
+    try {
+      Request tonlib_request;
+      if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
+        tonlib_request = ParseTonlibGetRequest(request, request_json, context);
+      } else if (request.GetMethod() == userver::server::http::HttpMethod::kPost) {
+        tonlib_request = ParseTonlibPostRequest(request, request_json, context);
+      }
+      if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
+        auto error = validate_result.move_as_error();
+        throw utils::TonlibException(error.message().str(), error.code());
+      }
 
-    Request tonlib_request;
-    if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
-      tonlib_request = ParseTonlibGetRequest(request, request_json, context);
-    } else if (request.GetMethod() == userver::server::http::HttpMethod::kPost) {
-      tonlib_request = ParseTonlibPostRequest(request, request_json, context);
-    }
+      auto result = HandleRequestTonlibThrow(tonlib_request, session);
 
-    auto result = HandleRequestTonlibThrow(tonlib_request, session);
-
-    if (result.is_error()) {
-      schemas::v2::TonlibErrorResponse response;
-      auto tonlib_error = result.move_as_error();
-      response.ok = false;
-      response.error = tonlib_error.message().str();
-      response.code = tonlib_error.code();
+      if (result.is_error()) {
+        auto tonlib_error = result.move_as_error();
+        throw utils::TonlibException(tonlib_error.message().str(), tonlib_error.code());
+      }
+      schemas::v2::TonlibResponse response;
+      response.ok = true;
+      response.result = result.move_as_ok();
       response._extra = session->to_string();
       return userver::formats::json::ValueBuilder{response}.ExtractValue();
+
+    } catch (const utils::TonlibException& exc) {
+      auto code = exc.code();
+      if (code == 0) {
+        code = 500;
+      } else if (code == -3) {
+        code = 533;
+      } else if (code < 0) {
+        code = 500;
+      }
+
+      schemas::v2::TonlibErrorResponse response;
+      response.ok = false;
+      response.error = exc.message();
+      response.code = code;
+      response._extra = session->to_string();
+
+      request.GetHttpResponse().SetStatus(static_cast<userver::server::http::HttpStatus>(code));
+      return userver::formats::json::ValueBuilder{response}.ExtractValue();
     }
-    schemas::v2::TonlibResponse response;
-    response.ok = true;
-    response.result = result.move_as_ok();
-    response._extra = session->to_string();
-    response._extra = session->to_string();
-    return userver::formats::json::ValueBuilder{response}.ExtractValue();
+    catch (const std::exception& exc) {
+      LOG_ERROR_TO(*logger_) << "Unknown exception: " << exc.what();
+      throw;
+    }
   }
   TonlibRequestHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context) :
     HttpHandlerJsonBase(config, context),

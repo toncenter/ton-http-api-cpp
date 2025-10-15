@@ -8,7 +8,7 @@ ton_http::types::ton_addr
 userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<ton_http::types::ton_addr>) {
   auto r_addr = block::StdAddress::parse(value);
   if (r_addr.is_error()) {
-    throw ton_http::utils::ParsingException{"Failed to parse ton_addr: '" + value + "': " + r_addr.error().message().str()};
+    throw ton_http::utils::TonlibException{"Failed to parse ton_addr: '" + value + "'", 422};
   }
   auto addr = r_addr.move_as_ok();
   if (value.find(':') != std::string::npos) {

@@ -40,7 +40,7 @@ struct AccountAddress {
 
 
   ::ton_http::schemas::v2::AccountAddress::_Type _type{::ton_http::schemas::v2::AccountAddress::_Type::kAccountaddress};
-  std::optional<ton_http::types::bytes> account_address{};
+  std::optional<ton_http::types::ton_addr> account_address{};
 };
 
 
@@ -92,49 +92,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 std::string ToString(::ton_http::schemas::v2::AccountAddress::_Type value);
-
-
-enum class AccountStateEnum {
-  kUninitialized,
-  kActive,
-  kFrozen,
-};
-
-static constexpr AccountStateEnum kAccountStateEnumValues[] = {
-    AccountStateEnum::kUninitialized,
-    AccountStateEnum::kActive,
-    AccountStateEnum::kFrozen,
-};
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateEnum& value
-);
-
-
-AccountStateEnum Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
-);
-
-
-AccountStateEnum FromString(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
-);
-
-
-AccountStateEnum Parse(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::AccountStateEnum& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::AccountStateEnum value);
 
 
 using Bytes = std::string;
@@ -214,10 +171,1119 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::AccountStateRaw::_Type value);
 
 
+struct AccountStateWalletV3 {
+  enum class _Type {
+    kWalletV3Accountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kWalletV3Accountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateWalletV3::_Type _type{
+      ::ton_http::schemas::v2::AccountStateWalletV3::_Type::kWalletV3Accountstate
+  };
+  std::int64_t wallet_id{};
+  std::int32_t seqno{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateWalletV3& lhs, const ::ton_http::schemas::v2::AccountStateWalletV3& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletV3& value
+);
+
+
+AccountStateWalletV3::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
+
+
+AccountStateWalletV3 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>
+);
+
+
+AccountStateWalletV3::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
+
+
+AccountStateWalletV3::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletV3& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateWalletV3::_Type value);
+
+
+struct AccountStateWalletV4 {
+  enum class _Type {
+    kWalletV4Accountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kWalletV4Accountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateWalletV4::_Type _type{
+      ::ton_http::schemas::v2::AccountStateWalletV4::_Type::kWalletV4Accountstate
+  };
+  std::int64_t wallet_id{};
+  std::int32_t seqno{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateWalletV4& lhs, const ::ton_http::schemas::v2::AccountStateWalletV4& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletV4& value
+);
+
+
+AccountStateWalletV4::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
+
+
+AccountStateWalletV4 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>
+);
+
+
+AccountStateWalletV4::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
+
+
+AccountStateWalletV4::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletV4& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateWalletV4::_Type value);
+
+
+struct AccountStateWalletHighloadV1 {
+  enum class _Type {
+    kWalletHighloadV1Accountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kWalletHighloadV1Accountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type _type{
+      ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type::kWalletHighloadV1Accountstate
+  };
+  std::int64_t wallet_id{};
+  std::int32_t seqno{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& lhs,
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value
+);
+
+
+AccountStateWalletHighloadV1::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
+
+
+AccountStateWalletHighloadV1 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>
+);
+
+
+AccountStateWalletHighloadV1::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
+
+
+AccountStateWalletHighloadV1::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type value);
+
+
+struct AccountStateWalletHighloadV2 {
+  enum class _Type {
+    kWalletHighloadV2Accountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kWalletHighloadV2Accountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type _type{
+      ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type::kWalletHighloadV2Accountstate
+  };
+  std::int64_t wallet_id{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& lhs,
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value
+);
+
+
+AccountStateWalletHighloadV2::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
+
+
+AccountStateWalletHighloadV2 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>
+);
+
+
+AccountStateWalletHighloadV2::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
+
+
+AccountStateWalletHighloadV2::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type value);
+
+
+struct AccountStateDns {
+  enum class _Type {
+    kDnsAccountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kDnsAccountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateDns::_Type _type{
+      ::ton_http::schemas::v2::AccountStateDns::_Type::kDnsAccountstate
+  };
+  std::int64_t wallet_id{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateDns& lhs, const ::ton_http::schemas::v2::AccountStateDns& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateDns::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateDns& value
+);
+
+
+AccountStateDns::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
+
+
+AccountStateDns Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>
+);
+
+
+AccountStateDns::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
+
+
+AccountStateDns::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateDns::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateDns& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateDns::_Type value);
+
+
+struct RWalletLimit {
+  enum class _Type {
+    kRwalletLimit,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kRwalletLimit,
+  };
+
+
+  ::ton_http::schemas::v2::RWalletLimit::_Type _type{::ton_http::schemas::v2::RWalletLimit::_Type::kRwalletLimit};
+  std::int32_t seconds{};
+  std::int64_t value{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::RWalletLimit& lhs, const ::ton_http::schemas::v2::RWalletLimit& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::RWalletLimit::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::RWalletLimit& value
+);
+
+
+RWalletLimit::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
+
+
+RWalletLimit Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>
+);
+
+
+RWalletLimit::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
+
+
+RWalletLimit::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::RWalletLimit::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::RWalletLimit& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::RWalletLimit::_Type value);
+
+
+struct RWalletConfig {
+  enum class _Type {
+    kRwalletConfig,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kRwalletConfig,
+  };
+
+
+  ::ton_http::schemas::v2::RWalletConfig::_Type _type{::ton_http::schemas::v2::RWalletConfig::_Type::kRwalletConfig};
+  std::int64_t start_at{};
+  std::vector<::ton_http::schemas::v2::RWalletLimit> limits{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::RWalletConfig& lhs, const ::ton_http::schemas::v2::RWalletConfig& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::RWalletConfig::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::RWalletConfig& value
+);
+
+
+RWalletConfig::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
+
+
+RWalletConfig Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>
+);
+
+
+RWalletConfig::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
+
+
+RWalletConfig::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::RWalletConfig::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::RWalletConfig& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::RWalletConfig::_Type value);
+
+
+struct AccountStateRWallet {
+  enum class _Type {
+    kRwalletAccountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kRwalletAccountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateRWallet::_Type _type{
+      ::ton_http::schemas::v2::AccountStateRWallet::_Type::kRwalletAccountstate
+  };
+  std::int64_t wallet_id{};
+  std::int32_t seqno{};
+  std::int64_t unlocked_balance{};
+  ::ton_http::schemas::v2::RWalletConfig config{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateRWallet& lhs, const ::ton_http::schemas::v2::AccountStateRWallet& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateRWallet& value
+);
+
+
+AccountStateRWallet::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
+
+
+AccountStateRWallet Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>
+);
+
+
+AccountStateRWallet::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
+
+
+AccountStateRWallet::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateRWallet& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateRWallet::_Type value);
+
+
+struct PChanConfig {
+  enum class _Type {
+    kPchanConfig,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kPchanConfig,
+  };
+
+
+  ::ton_http::schemas::v2::PChanConfig::_Type _type{::ton_http::schemas::v2::PChanConfig::_Type::kPchanConfig};
+  std::string alice_public_key{};
+  ::ton_http::schemas::v2::AccountAddress alice_address{};
+  std::string bob_public_key{};
+  ::ton_http::schemas::v2::AccountAddress bob_address{};
+  std::int32_t init_timeout{};
+  std::int32_t close_timeout{};
+  std::int64_t channel_id{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::PChanConfig& lhs, const ::ton_http::schemas::v2::PChanConfig& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanConfig::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanConfig& value
+);
+
+
+PChanConfig::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
+
+
+PChanConfig Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>
+);
+
+
+PChanConfig::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
+
+
+PChanConfig::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanConfig::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanConfig& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::PChanConfig::_Type value);
+
+
+struct PChanStateInit {
+  enum class _Type {
+    kPchanStateinit,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kPchanStateinit,
+  };
+
+
+  ::ton_http::schemas::v2::PChanStateInit::_Type _type{::ton_http::schemas::v2::PChanStateInit::_Type::kPchanStateinit};
+  bool signed_A{};
+  bool signed_B{};
+  std::int64_t min_A{};
+  std::int64_t min_B{};
+  std::int64_t expire_at{};
+  std::int64_t A{};
+  std::int64_t B{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::PChanStateInit& lhs, const ::ton_http::schemas::v2::PChanStateInit& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStateInit::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStateInit& value
+);
+
+
+PChanStateInit::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
+
+
+PChanStateInit Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>
+);
+
+
+PChanStateInit::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
+
+
+PChanStateInit::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStateInit::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStateInit& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::PChanStateInit::_Type value);
+
+
+struct PChanStateClose {
+  enum class _Type {
+    kPchanStateclose,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kPchanStateclose,
+  };
+
+
+  ::ton_http::schemas::v2::PChanStateClose::_Type _type{
+      ::ton_http::schemas::v2::PChanStateClose::_Type::kPchanStateclose
+  };
+  bool signed_A{};
+  bool signed_B{};
+  std::int64_t min_A{};
+  std::int64_t min_B{};
+  std::int64_t expire_at{};
+  std::int64_t A{};
+  std::int64_t B{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::PChanStateClose& lhs, const ::ton_http::schemas::v2::PChanStateClose& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStateClose::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStateClose& value
+);
+
+
+PChanStateClose::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
+
+
+PChanStateClose Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>
+);
+
+
+PChanStateClose::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
+
+
+PChanStateClose::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStateClose::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStateClose& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::PChanStateClose::_Type value);
+
+
+struct PChanStatePayout {
+  enum class _Type {
+    kPchanStatepayout,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kPchanStatepayout,
+  };
+
+
+  ::ton_http::schemas::v2::PChanStatePayout::_Type _type{
+      ::ton_http::schemas::v2::PChanStatePayout::_Type::kPchanStatepayout
+  };
+  std::int64_t A{};
+  std::int64_t B{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::PChanStatePayout& lhs, const ::ton_http::schemas::v2::PChanStatePayout& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStatePayout::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::PChanStatePayout& value
+);
+
+
+PChanStatePayout::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
+
+
+PChanStatePayout Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>
+);
+
+
+PChanStatePayout::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
+
+
+PChanStatePayout::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStatePayout::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::PChanStatePayout& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::PChanStatePayout::_Type value);
+
+
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kPChanState_Settings = {
+    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("pchan.stateInit")
+          .Case("pchan.stateClose")
+          .Case("pchan.statePayout");
+    })
+};
+
+
+using PChanState = std::variant<
+    ::ton_http::schemas::v2::PChanStateInit,
+    ::ton_http::schemas::v2::PChanStateClose,
+    ::ton_http::schemas::v2::PChanStatePayout>;
+
+
+struct AccountStatePChan {
+  enum class _Type {
+    kPchanAccountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kPchanAccountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStatePChan::_Type _type{
+      ::ton_http::schemas::v2::AccountStatePChan::_Type::kPchanAccountstate
+  };
+  ::ton_http::schemas::v2::PChanConfig config{};
+  ::ton_http::schemas::v2::PChanState state{};
+  std::string description{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStatePChan& lhs, const ::ton_http::schemas::v2::AccountStatePChan& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStatePChan::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStatePChan& value
+);
+
+
+AccountStatePChan::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
+
+
+AccountStatePChan Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>
+);
+
+
+AccountStatePChan::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
+
+
+AccountStatePChan::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStatePChan::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStatePChan& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStatePChan::_Type value);
+
+
+struct AccountStateUninited {
+  enum class _Type {
+    kUninitedAccountstate,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kUninitedAccountstate,
+  };
+
+
+  ::ton_http::schemas::v2::AccountStateUninited::_Type _type{
+      ::ton_http::schemas::v2::AccountStateUninited::_Type::kUninitedAccountstate
+  };
+  ton_http::types::ton_hash frozen_hash{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AccountStateUninited& lhs, const ::ton_http::schemas::v2::AccountStateUninited& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateUninited::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateUninited& value
+);
+
+
+AccountStateUninited::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
+
+
+AccountStateUninited Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>
+);
+
+
+AccountStateUninited::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
+
+
+AccountStateUninited::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateUninited::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateUninited& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateUninited::_Type value);
+
+
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kAccountState_Settings = {
+    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("raw.accountState")
+          .Case("wallet.v3.accountState")
+          .Case("wallet.v4.accountState")
+          .Case("wallet.highload.v1.accountState")
+          .Case("wallet.highload.v2.accountState")
+          .Case("dns.accountState")
+          .Case("rwallet.accountState")
+          .Case("pchan.accountState")
+          .Case("uninited.accountState");
+    })
+};
+
+
+using AccountState = std::variant<
+    ::ton_http::schemas::v2::AccountStateRaw,
+    ::ton_http::schemas::v2::AccountStateWalletV3,
+    ::ton_http::schemas::v2::AccountStateWalletV4,
+    ::ton_http::schemas::v2::AccountStateWalletHighloadV1,
+    ::ton_http::schemas::v2::AccountStateWalletHighloadV2,
+    ::ton_http::schemas::v2::AccountStateDns,
+    ::ton_http::schemas::v2::AccountStateRWallet,
+    ::ton_http::schemas::v2::AccountStatePChan,
+    ::ton_http::schemas::v2::AccountStateUninited>;
+
+
+enum class AccountStateEnum {
+  kUninitialized,
+  kActive,
+  kFrozen,
+};
+
+static constexpr AccountStateEnum kAccountStateEnumValues[] = {
+    AccountStateEnum::kUninitialized,
+    AccountStateEnum::kActive,
+    AccountStateEnum::kFrozen,
+};
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AccountStateEnum& value
+);
+
+
+AccountStateEnum Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
+
+
+AccountStateEnum FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
+
+
+AccountStateEnum Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AccountStateEnum& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::AccountStateEnum value);
+
+
 using Int256 = std::string;
 
 
 using AddressBalance = std::string;
+
+
+using TonAddr = std::string;
+
+
+struct AddressWithSeqnoRequest {
+  ton_http::types::ton_addr address{};
+  std::optional<std::int32_t> seqno{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::AddressWithSeqnoRequest& lhs,
+    const ::ton_http::schemas::v2::AddressWithSeqnoRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value
+);
+
+
+AddressWithSeqnoRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+using AddressBalanceRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
 struct ExtraCurrencyBalance {
@@ -451,7 +1517,7 @@ struct AddressInformation {
   ton_http::types::bytes code{};
   ton_http::types::bytes data{};
   ton_http::types::ton_hash frozen_hash{};
-  int sync_utime{};
+  std::int64_t sync_utime{};
   ::ton_http::schemas::v2::AccountStateEnum state{};
   std::optional<bool> suspended{};
 };
@@ -509,7 +1575,38 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::AddressInformation::_Type value);
 
 
+using AddressInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
+
+
+struct AddressRequest {
+  ton_http::types::ton_addr address{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::AddressRequest& lhs, const ::ton_http::schemas::v2::AddressRequest& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::AddressRequest& value
+);
+
+
+AddressRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::AddressRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 using AddressState = ::ton_http::schemas::v2::AccountStateEnum;
+
+
+using AddressStateRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
 // Block header information.
@@ -595,6 +1692,37 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 std::string ToString(::ton_http::schemas::v2::BlockHeader::_Type value);
+
+
+struct BlockHeaderRequest {
+  std::int32_t workchain{};
+  std::int64_t shard{};
+  std::int32_t seqno{};
+  std::optional<ton_http::types::ton_hash> root_hash{};
+  std::optional<ton_http::types::ton_hash> file_hash{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::BlockHeaderRequest& lhs, const ::ton_http::schemas::v2::BlockHeaderRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockHeaderRequest& value
+);
+
+
+BlockHeaderRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::BlockHeaderRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct BlockLinkBack {
@@ -735,9 +1863,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 std::string ToString(::ton_http::schemas::v2::BlockSignature::_Type value);
-
-
-using TonAddr = std::string;
 
 
 // Short transaction identifier
@@ -882,6 +2007,73 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::BlockTransactions::_Type value);
 
 
+struct BlockTransactionsRequest {
+  std::int32_t workchain{};
+  std::int64_t shard{};
+  std::int32_t seqno{};
+  std::optional<ton_http::types::ton_hash> root_hash{};
+  std::optional<ton_http::types::ton_hash> file_hash{};
+  std::optional<std::int64_t> after_lt{};
+  std::optional<ton_http::types::ton_hash> after_hash{};
+  int count{40};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::BlockTransactionsRequest& lhs,
+    const ::ton_http::schemas::v2::BlockTransactionsRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockTransactionsRequest& value
+);
+
+
+BlockTransactionsRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::BlockTransactionsRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+using BlockTransactionsExtRequest = ::ton_http::schemas::v2::BlockTransactionsRequest;
+
+
+using BytesWithDefault = std::string;
+
+
+struct EmptyRequest {};
+
+
+bool operator==(const ::ton_http::schemas::v2::EmptyRequest& lhs, const ::ton_http::schemas::v2::EmptyRequest& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::EmptyRequest& value
+);
+
+
+EmptyRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::EmptyRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+using ConfigAllRequest = ::ton_http::schemas::v2::EmptyRequest;
+
+
 struct TvmCell {
   enum class _Type {
     kTvmCell,
@@ -1012,6 +2204,33 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::ConfigInfo::_Type value);
 
 
+struct ConfigParamRequest {
+  std::int32_t param{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::ConfigParamRequest& lhs, const ::ton_http::schemas::v2::ConfigParamRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ConfigParamRequest& value
+);
+
+
+ConfigParamRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::ConfigParamRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 struct ConsensusBlock {
   enum class _Type {
     kExtConsensusblock,
@@ -1078,6 +2297,9 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 std::string ToString(::ton_http::schemas::v2::ConsensusBlock::_Type value);
+
+
+using ConsensusBlockRequest = ::ton_http::schemas::v2::EmptyRequest;
 
 
 // Base64 form of address variant
@@ -1225,31 +2447,7 @@ std::string ToString(::ton_http::schemas::v2::DetectAddress::_Type value);
 std::string ToString(::ton_http::schemas::v2::DetectAddress::Given_Type value);
 
 
-struct DetectAddressRequest {
-  ton_http::types::ton_addr address{};
-};
-
-
-bool operator==(
-    const ::ton_http::schemas::v2::DetectAddressRequest& lhs, const ::ton_http::schemas::v2::DetectAddressRequest& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectAddressRequest& value
-);
-
-
-DetectAddressRequest Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressRequest>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::DetectAddressRequest& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
+using DetectAddressRequest = ::ton_http::schemas::v2::AddressRequest;
 
 
 struct DetectHash {
@@ -1319,25 +2517,60 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::DetectHash::_Type value);
 
 
-struct EmptyRequest {};
+struct DetectHashRequest {
+  ton_http::types::ton_hash hash{};
+};
 
 
-bool operator==(const ::ton_http::schemas::v2::EmptyRequest& lhs, const ::ton_http::schemas::v2::EmptyRequest& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::EmptyRequest& value
+bool operator==(
+    const ::ton_http::schemas::v2::DetectHashRequest& lhs, const ::ton_http::schemas::v2::DetectHashRequest& rhs
 );
 
 
-EmptyRequest Parse(
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectHashRequest& value
+);
+
+
+DetectHashRequest Parse(
     USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>
 );
 
 
 USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::EmptyRequest& value,
+    const ::ton_http::schemas::v2::DetectHashRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct EstimateFeeRequest {
+  ton_http::types::ton_addr address{};
+  ton_http::types::bytes body{};
+  ton_http::types::bytes init_code{""};
+  ton_http::types::bytes init_data{""};
+  bool ignore_chksig{true};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::EstimateFeeRequest& lhs, const ::ton_http::schemas::v2::EstimateFeeRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::EstimateFeeRequest& value
+);
+
+
+EstimateFeeRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::EstimateFeeRequest& value,
     USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
 
@@ -1785,8 +3018,8 @@ struct ExtendedAddressInformation {
   std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance> extra_currencies{};
   ::ton_http::schemas::v2::InternalTransactionId last_transaction_id{};
   ::ton_http::schemas::v2::TonBlockIdExt block_id{};
-  int sync_utime{};
-  ::ton_http::schemas::v2::AccountStateRaw account_state{};
+  std::int64_t sync_utime{};
+  ::ton_http::schemas::v2::AccountState account_state{};
   int revision{};
 };
 
@@ -1844,6 +3077,382 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 std::string ToString(::ton_http::schemas::v2::ExtendedAddressInformation::_Type value);
+
+
+using ExtendedAddressInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
+
+
+// TonlibErrorResponse
+struct TonlibErrorResponse {
+  static constexpr auto kCodeMinimum = 100;
+
+
+  static constexpr auto kCodeMaximum = 600;
+
+
+  bool ok{false};
+  std::string error{};
+  int code{};
+  std::optional<std::string> _extra{};
+  std::optional<std::string> jsonrpc{};
+  std::optional<std::string> id{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::TonlibErrorResponse& lhs, const ::ton_http::schemas::v2::TonlibErrorResponse& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TonlibErrorResponse& value
+);
+
+
+TonlibErrorResponse Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TonlibErrorResponse& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct JsonRpcErrorResponse__P0 {
+  std::string jsonrpc{"2.0"};
+  std::string id{};
+};
+
+
+struct JsonRpcErrorResponse : public ::ton_http::schemas::v2::JsonRpcErrorResponse__P0,
+                              public ::ton_http::schemas::v2::TonlibErrorResponse {
+  JsonRpcErrorResponse() = default;
+
+  JsonRpcErrorResponse(
+      ::ton_http::schemas::v2::JsonRpcErrorResponse__P0&& a0, ::ton_http::schemas::v2::TonlibErrorResponse&& a1
+  ) :
+      ::ton_http::schemas::v2::JsonRpcErrorResponse__P0(std::move(a0)),
+      ::ton_http::schemas::v2::TonlibErrorResponse(std::move(a1)) {
+  }
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& lhs,
+    const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& rhs
+);
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JsonRpcErrorResponse& lhs, const ::ton_http::schemas::v2::JsonRpcErrorResponse& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcErrorResponse& value
+);
+
+
+JsonRpcErrorResponse__P0 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>
+);
+
+
+JsonRpcErrorResponse Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcErrorResponse& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct JsonRpcRequest {
+  struct Params {
+    USERVER_NAMESPACE::formats::json::Value extra;
+  };
+
+
+  std::string jsonrpc{"2.0"};
+  std::string id{};
+  std::string method{};
+  ::ton_http::schemas::v2::JsonRpcRequest::Params params{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JsonRpcRequest::Params& lhs,
+    const ::ton_http::schemas::v2::JsonRpcRequest::Params& rhs
+);
+
+
+bool operator==(const ::ton_http::schemas::v2::JsonRpcRequest& lhs, const ::ton_http::schemas::v2::JsonRpcRequest& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcRequest::Params& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcRequest& value
+);
+
+
+JsonRpcRequest::Params Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>
+);
+
+
+JsonRpcRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcRequest::Params& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+// Information about the latest masterchain block.
+struct MasterchainInfo {
+  enum class _Type {
+    kBlocksMasterchaininfo,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kBlocksMasterchaininfo,
+  };
+
+
+  ::ton_http::schemas::v2::MasterchainInfo::_Type _type{
+      ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt last{};
+  ton_http::types::ton_hash state_root_hash{};
+  ::ton_http::schemas::v2::TonBlockIdExt init{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::MasterchainInfo& lhs, const ::ton_http::schemas::v2::MasterchainInfo& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainInfo::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainInfo& value
+);
+
+
+MasterchainInfo::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
+
+
+MasterchainInfo Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
+);
+
+
+MasterchainInfo::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
+
+
+MasterchainInfo::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::MasterchainInfo::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::MasterchainInfo& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
+
+
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTonlibObject_Settings = {
+    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("utils.detectAddress")
+          .Case("utils.detectedHash")
+          .Case("raw.fullAccountState")
+          .Case("fullAccountState")
+          .Case("blocks.masterchainInfo");
+    })
+};
+
+
+using TonlibObject = std::variant<
+    ::ton_http::schemas::v2::DetectAddress,
+    ::ton_http::schemas::v2::DetectHash,
+    ::ton_http::schemas::v2::AddressInformation,
+    ::ton_http::schemas::v2::ExtendedAddressInformation,
+    ::ton_http::schemas::v2::MasterchainInfo>;
+
+
+// TonlibResponse
+struct TonlibResponse {
+  using Result = std::variant<std::string, ::ton_http::schemas::v2::TonlibObject>;
+
+
+  bool ok{true};
+  ::ton_http::schemas::v2::TonlibResponse::Result result{};
+  std::string _extra{};
+  std::optional<std::string> jsonrpc{};
+  std::optional<std::string> id{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::TonlibResponse& lhs, const ::ton_http::schemas::v2::TonlibResponse& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TonlibResponse& value
+);
+
+
+TonlibResponse Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TonlibResponse& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct JsonRpcResponse__P0 {
+  std::string jsonrpc{"2.0"};
+  std::string id{};
+};
+
+
+struct JsonRpcResponse : public ::ton_http::schemas::v2::JsonRpcResponse__P0,
+                         public ::ton_http::schemas::v2::TonlibResponse {
+  JsonRpcResponse() = default;
+
+  JsonRpcResponse(::ton_http::schemas::v2::JsonRpcResponse__P0&& a0, ::ton_http::schemas::v2::TonlibResponse&& a1) :
+      ::ton_http::schemas::v2::JsonRpcResponse__P0(std::move(a0)),
+      ::ton_http::schemas::v2::TonlibResponse(std::move(a1)) {
+  }
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JsonRpcResponse__P0& lhs, const ::ton_http::schemas::v2::JsonRpcResponse__P0& rhs
+);
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JsonRpcResponse& lhs, const ::ton_http::schemas::v2::JsonRpcResponse& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcResponse__P0& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JsonRpcResponse& value
+);
+
+
+JsonRpcResponse__P0 Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>
+);
+
+
+JsonRpcResponse Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcResponse__P0& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JsonRpcResponse& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct LibrariesRequest {
+  std::vector<ton_http::types::ton_hash> libraries{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::LibrariesRequest& lhs, const ::ton_http::schemas::v2::LibrariesRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::LibrariesRequest& value
+);
+
+
+LibrariesRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::LibrariesRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct LibraryEntry {
@@ -1980,6 +3589,37 @@ std::string ToString(::ton_http::schemas::v2::LibraryResult::_Type value);
 using LookupBlock = ::ton_http::schemas::v2::TonBlockIdExt;
 
 
+struct LookupBlockRequest {
+  std::int32_t workchain{};
+  std::int64_t shard{};
+  std::optional<std::int32_t> seqno{};
+  std::optional<std::int64_t> lt{};
+  std::optional<std::int32_t> unixtime{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::LookupBlockRequest& lhs, const ::ton_http::schemas::v2::LookupBlockRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::LookupBlockRequest& value
+);
+
+
+LookupBlockRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::LookupBlockRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 struct MasterchainBlockSignatures {
   enum class _Type {
     kBlocksBlocksignatures,
@@ -2053,76 +3693,32 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type value);
 
 
-// Information about the latest masterchain block.
-struct MasterchainInfo {
-  enum class _Type {
-    kBlocksMasterchaininfo,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-      _Type::kBlocksMasterchaininfo,
-  };
-
-
-  ::ton_http::schemas::v2::MasterchainInfo::_Type _type{
-      ::ton_http::schemas::v2::MasterchainInfo::_Type::kBlocksMasterchaininfo
-  };
-  ::ton_http::schemas::v2::TonBlockIdExt last{};
-  ton_http::types::ton_hash state_root_hash{};
-  ::ton_http::schemas::v2::TonBlockIdExt init{};
+struct SeqnoRequest {
+  std::int32_t seqno{};
 };
 
 
-bool operator==(
-    const ::ton_http::schemas::v2::MasterchainInfo& lhs, const ::ton_http::schemas::v2::MasterchainInfo& rhs
-);
+bool operator==(const ::ton_http::schemas::v2::SeqnoRequest& lhs, const ::ton_http::schemas::v2::SeqnoRequest& rhs);
 
 
 USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainInfo::_Type& value
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::SeqnoRequest& value
 );
 
 
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainInfo& value
-);
-
-
-MasterchainInfo::_Type Parse(
+SeqnoRequest Parse(
     USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
-);
-
-
-MasterchainInfo Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
-);
-
-
-MasterchainInfo::_Type FromString(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
-);
-
-
-MasterchainInfo::_Type Parse(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>
 );
 
 
 USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::MasterchainInfo::_Type& value,
+    const ::ton_http::schemas::v2::SeqnoRequest& value,
     USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
 
 
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::MasterchainInfo& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
+using MasterchainBlockSignaturesRequest = ::ton_http::schemas::v2::SeqnoRequest;
 
 
 using MasterchainInfoRequest = ::ton_http::schemas::v2::EmptyRequest;
@@ -2279,6 +3875,9 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value);
 
 
+using OutMsgQueueSizeRequest = ::ton_http::schemas::v2::EmptyRequest;
+
+
 struct OutMsgQueueSizes {
   enum class _Type {
     kBlocksOutmsgqueuesizes,
@@ -2350,6 +3949,93 @@ std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value);
 
 
 using PackAddress = std::string;
+
+
+using PackAddressRequest = ::ton_http::schemas::v2::AddressRequest;
+
+
+struct RunGetMethodRequest {
+  ton_http::types::ton_addr address{};
+  std::string method{};
+  std::vector<std::string> stack{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::RunGetMethodRequest& lhs, const ::ton_http::schemas::v2::RunGetMethodRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::RunGetMethodRequest& value
+);
+
+
+RunGetMethodRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::RunGetMethodRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct SendBocRequest {
+  ton_http::types::bytes boc{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::SendBocRequest& lhs, const ::ton_http::schemas::v2::SendBocRequest& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::SendBocRequest& value
+);
+
+
+SendBocRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::SendBocRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct SendQueryRequest {
+  ton_http::types::ton_addr address{};
+  ton_http::types::bytes body{};
+  ton_http::types::bytes init_code{""};
+  ton_http::types::bytes init_data{""};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::SendQueryRequest& lhs, const ::ton_http::schemas::v2::SendQueryRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::SendQueryRequest& value
+);
+
+
+SendQueryRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::SendQueryRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct ShardBlockLink {
@@ -2492,6 +4178,37 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value);
 
 
+struct ShardBlockProofRequest {
+  std::int32_t workchain{};
+  std::int64_t shard{};
+  std::int32_t seqno{};
+  std::optional<std::int32_t> from_seqno{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::ShardBlockProofRequest& lhs,
+    const ::ton_http::schemas::v2::ShardBlockProofRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProofRequest& value
+);
+
+
+ShardBlockProofRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::ShardBlockProofRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 struct Shards {
   enum class _Type {
     kBlocksShards,
@@ -2556,89 +4273,10 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::Shards::_Type value);
 
 
-// TonlibErrorResponse
-struct TonlibErrorResponse {
-  static constexpr auto kCodeMinimum = 100;
+using ShardsRequest = ::ton_http::schemas::v2::SeqnoRequest;
 
 
-  static constexpr auto kCodeMaximum = 600;
-
-
-  bool ok{false};
-  std::optional<std::string> error{};
-  std::optional<int> code{};
-  std::optional<std::string> _extra{};
-};
-
-
-bool operator==(
-    const ::ton_http::schemas::v2::TonlibErrorResponse& lhs, const ::ton_http::schemas::v2::TonlibErrorResponse& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TonlibErrorResponse& value
-);
-
-
-TonlibErrorResponse Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::TonlibErrorResponse& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTonlibObject_Settings = {
-    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
-      return selector()
-          .template Type<std::string_view>()
-          .Case("utils.detectAddress")
-          .Case("blocks.masterchainInfo")
-          .Case("utils.detectedHash");
-    })
-};
-
-
-using TonlibObject = std::variant<
-    ::ton_http::schemas::v2::DetectAddress,
-    ::ton_http::schemas::v2::MasterchainInfo,
-    ::ton_http::schemas::v2::DetectHash>;
-
-
-// TonlibResponse
-struct TonlibResponse {
-  using Result = std::variant<std::string, ::ton_http::schemas::v2::TonlibObject>;
-
-
-  bool ok{true};
-  ::ton_http::schemas::v2::TonlibResponse::Result result{};
-  std::string _extra{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::TonlibResponse& lhs, const ::ton_http::schemas::v2::TonlibResponse& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TonlibResponse& value
-);
-
-
-TonlibResponse Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::TonlibResponse& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
+using TokenDataRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
 struct Transaction {
@@ -2715,7 +4353,80 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::Transaction::_Type value);
 
 
+struct TransactionsRequest {
+  ton_http::types::ton_addr address{};
+  std::optional<std::int64_t> lt{};
+  std::optional<ton_http::types::ton_hash> hash{};
+  std::int64_t to_lt{Convert(std::string_view("0"), USERVER_NAMESPACE::chaotic::convert::To<std::int64_t>{})};
+  bool archival{false};
+  int limit{10};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::TransactionsRequest& lhs, const ::ton_http::schemas::v2::TransactionsRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionsRequest& value
+);
+
+
+TransactionsRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TransactionsRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+using TransactionsV2Request = ::ton_http::schemas::v2::TransactionsRequest;
+
+
+struct TryLocateTxRequest {
+  ton_http::types::ton_addr source{};
+  ton_http::types::ton_addr destination{};
+  std::int64_t created_lt{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::TryLocateTxRequest& lhs, const ::ton_http::schemas::v2::TryLocateTxRequest& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TryLocateTxRequest& value
+);
+
+
+TryLocateTxRequest Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TryLocateTxRequest& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+using TryLocateResultTxRequest = ::ton_http::schemas::v2::TryLocateTxRequest;
+
+
+using TryLocateSourceTxRequest = ::ton_http::schemas::v2::TryLocateTxRequest;
+
+
 using UnpackAddress = std::string;
+
+
+using UnpackAddressRequest = ::ton_http::schemas::v2::AddressRequest;
 
 
 struct WalletInformation {
@@ -2765,7 +4476,7 @@ struct WalletInformation {
   ::ton_http::schemas::v2::AccountStateEnum account_state{};
   ::ton_http::schemas::v2::InternalTransactionId last_transaction_id{};
   std::optional<::ton_http::schemas::v2::WalletInformation::Wallet_Type> wallet_type{};
-  std::optional<int> seqno{};
+  std::optional<std::int64_t> seqno{};
   std::optional<int> wallet_id{};
   std::optional<bool> is_signature_allowed{};
 };
@@ -2855,6 +4566,9 @@ std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value);
 std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value);
 
 
+using WalletInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
+
+
 }  // namespace v2
 }  // namespace schemas
 }  // namespace ton_http
@@ -2873,8 +4587,10 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountAddress::_Type> {
 
 
 template <>
-struct fmt::formatter<::ton_http::schemas::v2::AccountStateEnum> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::AccountStateEnum&, fmt::format_context&) const;
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateRaw::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateRaw::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -2883,10 +4599,172 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateEnum> {
 
 
 template <>
-struct fmt::formatter<::ton_http::schemas::v2::AccountStateRaw::_Type> {
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV3::_Type> {
   fmt::format_context::iterator format(
-      const ::ton_http::schemas::v2::AccountStateRaw::_Type&, fmt::format_context&
+      const ::ton_http::schemas::v2::AccountStateWalletV3::_Type&, fmt::format_context&
   ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV4::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateWalletV4::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateDns::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateDns::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::RWalletLimit::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::RWalletLimit::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::RWalletConfig::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::RWalletConfig::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateRWallet::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateRWallet::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::PChanConfig::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::PChanConfig::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::PChanStateInit::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::PChanStateInit::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::PChanStateClose::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::PChanStateClose::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::PChanStatePayout::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::PChanStatePayout::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStatePChan::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStatePChan::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateUninited::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::AccountStateUninited::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::AccountStateEnum> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::AccountStateEnum&, fmt::format_context&) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -3143,6 +5021,18 @@ struct fmt::formatter<::ton_http::schemas::v2::ExtendedAddressInformation::_Type
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::MasterchainInfo::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::MasterchainInfo::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type> {
   fmt::format_context::iterator format(const ::ton_http::schemas::v2::LibraryEntry::_Type&, fmt::format_context&) const;
 
@@ -3168,18 +5058,6 @@ template <>
 struct fmt::formatter<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MasterchainInfo::_Type> {
-  fmt::format_context::iterator format(
-      const ::ton_http::schemas::v2::MasterchainInfo::_Type&, fmt::format_context&
   ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {

@@ -1,20 +1,10 @@
 #include "tonlib_worker.h"
-
-#include <utility>
-
 #include "userver/chaotic/io/ton_http/types/ton_hash.hpp"
 #include "userver/formats/json.hpp"
 #include "utils/common.hpp"
 
 
 namespace ton_http::core {
-
-template <typename T1, typename T2>
-auto value_or_default(const std::optional<T1>& arg, const T2& def) {
-  return (arg.has_value() ? arg.value() : (def));
-}
-
-
 td::Result<ConsensusBlockResult> TonlibWorker::getConsensusBlock(multiclient::SessionPtr session) const {
   auto res = tonlib_.get_consensus_block();
   if (res.is_error()) {
@@ -45,20 +35,22 @@ td::Result<std::string> TonlibWorker::packAddress(const std::string& address, mu
 }
 
 td::Result<std::string> TonlibWorker::unpackAddress(const std::string& address, multiclient::SessionPtr session) const {
-  block::StdAddress std_address;
-  if (std_address.rdeserialize(address)) {
-    const DetectAddressResult result{std_address, "unknown"};
-    return result.to_raw_form(true);
+  auto r_std_address = block::StdAddress::parse(address);
+  if (r_std_address.is_error()) {
+    return r_std_address.move_as_error();
   }
+  const auto std_address = r_std_address.move_as_ok();
+  std::stringstream ss;
+  ss << std_address.workchain << ":" << std_address.addr.to_hex();
+  return ss.str();
 }
 td::Result<DetectHashResult> TonlibWorker::detectHash(
     const std::string& hash, multiclient::SessionPtr session
 ) const {
-  auto raw_hash = utils::stringToHash(hash);
-  if (!raw_hash.has_value()) {
-    return td::Status::Error("Invalid hash");
+  if (hash.empty()) {
+    return td::Status::Error(422, "empty hash");
   }
-  DetectHashResult result{raw_hash.value()};
+  DetectHashResult result{hash};
   return std::move(result);
 }
 
@@ -264,9 +256,10 @@ td::Result<tonlib_api::blocks_lookupBlock::ReturnType> TonlibWorker::lookupBlock
           [lookupMode, workchain, shard, seqno, lt, unixtime] {
             return tonlib_api::make_object<tonlib_api::blocks_lookupBlock>(
                 lookupMode,
-                tonlib_api::make_object<tonlib_api::ton_blockId>(workchain, shard, value_or_default(seqno, 0)),
-                value_or_default(lt, 0),
-                value_or_default(unixtime, 0)
+                tonlib_api::make_object<tonlib_api::ton_blockId>(workchain, shard,
+                  seqno.has_value() ? seqno.value() : 0),
+                (lt.has_value() ? lt.value() : 0),
+                (unixtime.has_value() ? unixtime.value() : 0)
             );
           },
       .session = session

@@ -17,6 +17,12 @@ using namespace ton;
 
 
 // common
+template <typename T1, typename T2>
+auto value_or_default(const std::optional<T1>& arg, const T2& def) {
+  return (arg.has_value() ? arg.value() : (def));
+}
+
+
 inline std::optional<std::string> stringToHash(const std::string& str) {
   if (str.empty()) {
     return str;

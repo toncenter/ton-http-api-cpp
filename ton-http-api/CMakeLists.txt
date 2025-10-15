@@ -6,21 +6,31 @@ userver_setup_environment()
 
 set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
-        src/handlers/HandlerGetMasterchainInfo.cpp
-        src/handlers/HandlerDetectAddress.cpp
         src/components/tonlib_component.cpp
         src/schemas/v2.cpp
-        src/converters/convert.hpp
         src/core/types.hpp
         src/core/tonlib_worker.cpp
         src/core/tlb/tokens-tlb.cpp
-        src/utils/common.cpp
         src/userver/chaotic/io/ton_http/types/ton_hash.cpp
         src/userver/chaotic/io/ton_http/types/ton_addr.cpp
         src/userver/chaotic/io/ton_http/types/int256.cpp
         src/userver/chaotic/io/ton_http/types/bytes.cpp
         src/userver/chaotic/io/std/int64_t.cpp
         src/userver/chaotic/io/std/uint64_t.cpp
+        src/converters/convert.hpp
+        src/utils/common.cpp
+        src/handlers/JsonRpcHandler.cpp
+        src/handlers/blocks/GetMasterchainInfoHandler.cpp
+        src/handlers/utils/DetectAddressHandler.cpp
+        src/handlers/utils/DetectHashHandler.cpp
+        src/handlers/utils/PackAddressHandler.cpp
+        src/handlers/utils/UnpackAddressHandler.cpp
+        src/handlers/accounts/GetAddressInformationHandler.h
+        src/handlers/accounts/GetAddressInformationHandler.cpp
+        src/utils/suspended.hpp
+        src/utils/address.hpp
+        src/handlers/accounts/GetExtendedAddressInformationHandler.h
+        src/handlers/accounts/GetExtendedAddressInformationHandler.cpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp

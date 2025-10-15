@@ -9,10 +9,55 @@ namespace v2 {
 struct AccountAddress;
 
 
+struct AccountStateRaw;
+
+
+struct AccountStateWalletV3;
+
+
+struct AccountStateWalletV4;
+
+
+struct AccountStateWalletHighloadV1;
+
+
+struct AccountStateWalletHighloadV2;
+
+
+struct AccountStateDns;
+
+
+struct RWalletLimit;
+
+
+struct RWalletConfig;
+
+
+struct AccountStateRWallet;
+
+
+struct PChanConfig;
+
+
+struct PChanStateInit;
+
+
+struct PChanStateClose;
+
+
+struct PChanStatePayout;
+
+
+struct AccountStatePChan;
+
+
+struct AccountStateUninited;
+
+
 enum class AccountStateEnum;
 
 
-struct AccountStateRaw;
+struct AddressWithSeqnoRequest;
 
 
 struct ExtraCurrencyBalance;
@@ -27,7 +72,13 @@ struct TonBlockIdExt;
 struct AddressInformation;
 
 
+struct AddressRequest;
+
+
 struct BlockHeader;
+
+
+struct BlockHeaderRequest;
 
 
 struct BlockLinkBack;
@@ -42,10 +93,19 @@ struct ShortTxId;
 struct BlockTransactions;
 
 
+struct BlockTransactionsRequest;
+
+
+struct EmptyRequest;
+
+
 struct TvmCell;
 
 
 struct ConfigInfo;
+
+
+struct ConfigParamRequest;
 
 
 struct ConsensusBlock;
@@ -57,13 +117,13 @@ struct DetectAddressBase64Variant;
 struct DetectAddress;
 
 
-struct DetectAddressRequest;
-
-
 struct DetectHash;
 
 
-struct EmptyRequest;
+struct DetectHashRequest;
+
+
+struct EstimateFeeRequest;
 
 
 struct MsgDataRaw;
@@ -87,16 +147,40 @@ struct ExtTransaction;
 struct ExtendedAddressInformation;
 
 
+struct TonlibErrorResponse;
+
+
+struct JsonRpcErrorResponse;
+
+
+struct JsonRpcRequest;
+
+
+struct MasterchainInfo;
+
+
+struct TonlibResponse;
+
+
+struct JsonRpcResponse;
+
+
+struct LibrariesRequest;
+
+
 struct LibraryEntry;
 
 
 struct LibraryResult;
 
 
+struct LookupBlockRequest;
+
+
 struct MasterchainBlockSignatures;
 
 
-struct MasterchainInfo;
+struct SeqnoRequest;
 
 
 struct Message;
@@ -108,22 +192,34 @@ struct OutMsgQueueSize;
 struct OutMsgQueueSizes;
 
 
+struct RunGetMethodRequest;
+
+
+struct SendBocRequest;
+
+
+struct SendQueryRequest;
+
+
 struct ShardBlockLink;
 
 
 struct ShardBlockProof;
 
 
+struct ShardBlockProofRequest;
+
+
 struct Shards;
 
 
-struct TonlibErrorResponse;
-
-
-struct TonlibResponse;
-
-
 struct Transaction;
+
+
+struct TransactionsRequest;
+
+
+struct TryLocateTxRequest;
 
 
 struct WalletInformation;

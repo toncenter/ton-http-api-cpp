@@ -15,6 +15,8 @@ namespace chaotic::convert {
 ton_http::types::bytes Convert(const std::string& value, chaotic::convert::To<ton_http::types::bytes>);
 std::string Convert(const ton_http::types::bytes& value, chaotic::convert::To<std::string>);
 
+ton_http::types::bytes Convert(const std::string_view& value, chaotic::convert::To<ton_http::types::bytes>);
+
 }
 
 USERVER_NAMESPACE_END
