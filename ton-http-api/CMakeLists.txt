@@ -31,6 +31,9 @@ set(TON_HTTP_API_CPP_SOURCE
         src/utils/address.hpp
         src/handlers/accounts/GetExtendedAddressInformationHandler.h
         src/handlers/accounts/GetExtendedAddressInformationHandler.cpp
+        src/handlers/accounts/GetWalletInformationHandler.h
+        src/handlers/accounts/GetWalletInformationHandler.cpp
+        src/utils/wallets.hpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp

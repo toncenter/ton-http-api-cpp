@@ -12,6 +12,21 @@ def test_extended_address_information(api_method_call, address):
     assert data['result']['@type'] == 'fullAccountState'
     return
 
+def test_invalid_address(api_method_call):
+    response = api_method_call('getExtendedAddressInformation', address='invalid')
+    assert response.status_code == 422
+    data = response.json()
+    assert data['ok'] == False
+    return
+
+
+def test_empty_address(api_method_call):
+    response = api_method_call('getExtendedAddressInformation')
+    assert response.status_code == 422
+    data = response.json()
+    assert data['ok'] == False
+    return
+
 
 ZERO_ADDRESS = '-1:0000000000000000000000000000000000000000000000000000000000000000'
 @pytest.mark.parametrize("address", [ZERO_ADDRESS])

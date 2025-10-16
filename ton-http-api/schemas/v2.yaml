@@ -2077,11 +2077,17 @@ components:
       additionalProperties: false
       description: Base64 form of address variant
       properties:
+        '@type':
+          type: string
+          enum:
+            - ext.utils.detectedAddressVariant
+          default: ext.utils.detectedAddressVariant
         b64:
           type: string
         b64url:
           type: string
       required:
+        - '@type'
         - b64
         - b64url
     ExtraCurrencyBalance:
@@ -2881,14 +2887,16 @@ components:
         - $ref: '#/components/schemas/DetectHash'
         - $ref: '#/components/schemas/AddressInformation'
         - $ref: '#/components/schemas/ExtendedAddressInformation'
+        - $ref: '#/components/schemas/WalletInformation'
         - $ref: '#/components/schemas/MasterchainInfo'
       discriminator:
         propertyName: '@type'
         mapping:
-          'utils.detectAddress': '#/components/schemas/DetectAddress'
-          'utils.detectedHash': '#/components/schemas/DetectHash'
+          'ext.utils.detectAddress': '#/components/schemas/DetectAddress'
+          'ext.utils.detectedHash': '#/components/schemas/DetectHash'
           'raw.fullAccountState': '#/components/schemas/AddressInformation'
           'fullAccountState': '#/components/schemas/ExtendedAddressInformation'
+          'ext.accounts.walletInformation': '#/components/schemas/WalletInformation'
           'blocks.masterchainInfo': '#/components/schemas/MasterchainInfo'
     TonlibResponse:
       type: object
@@ -2978,8 +2986,8 @@ components:
         '@type':
           type: string
           enum:
-            - utils.detectedAddress
-          default: utils.detectedAddress
+            - ext.utils.detectedAddress
+          default: ext.utils.detectedAddress
         raw_form:
           type: string
         bounceable:
@@ -3008,8 +3016,8 @@ components:
         '@type':
           type: string
           enum:
-            - utils.detectedHash
-          default: utils.detectedHash
+            - ext.utils.detectedHash
+          default: ext.utils.detectedHash
         b64:
           type: string
           title: base64 form
@@ -3119,8 +3127,8 @@ components:
         '@type':
           type: string
           enum:
-            - walletInformation
-          default: walletInformation
+            - ext.accounts.walletInformation
+          default: ext.accounts.walletInformation
         wallet:
           type: boolean
         balance:

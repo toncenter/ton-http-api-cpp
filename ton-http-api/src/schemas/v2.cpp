@@ -3082,7 +3082,14 @@ bool operator==(
     const ::ton_http::schemas::v2::DetectAddressBase64Variant& lhs,
     const ::ton_http::schemas::v2::DetectAddressBase64Variant& rhs
 ) {
-  return lhs.b64 == rhs.b64 && lhs.b64url == rhs.b64url && true;
+  return lhs._type == rhs._type && lhs.b64 == rhs.b64 && lhs.b64url == rhs.b64url && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value
+) {
+  return lh << ToString(value);
 }
 
 
@@ -3090,6 +3097,14 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
     USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectAddressBase64Variant& value
 ) {
   return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+DetectAddressBase64Variant::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
 }
 
 
@@ -3101,6 +3116,35 @@ DetectAddressBase64Variant Parse(
 }
 
 
+::ton_http::schemas::v2::DetectAddressBase64Variant::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::DetectAddressBase64Variant::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
 USERVER_NAMESPACE::formats::json::Value Serialize(
     [[maybe_unused]] const ::ton_http::schemas::v2::DetectAddressBase64Variant& value,
     USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
@@ -3108,12 +3152,24 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
+  vb["@type"] =
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>{value._type};
+
   vb["b64"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{value.b64};
 
   vb["b64url"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{value.b64url};
 
 
   return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::DetectAddressBase64Variant::_Type value) {
+  const auto result = k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
 }
 
 
@@ -4433,6 +4489,180 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
 bool operator==(
+    const ::ton_http::schemas::v2::WalletInformation& lhs, const ::ton_http::schemas::v2::WalletInformation& rhs
+) {
+  return lhs._type == rhs._type && lhs.wallet == rhs.wallet && lhs.balance == rhs.balance &&
+      lhs.account_state == rhs.account_state && lhs.last_transaction_id == rhs.last_transaction_id &&
+      lhs.wallet_type == rhs.wallet_type && lhs.seqno == rhs.seqno && lhs.wallet_id == rhs.wallet_id &&
+      lhs.is_signature_allowed == rhs.is_signature_allowed && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+WalletInformation::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+WalletInformation::Wallet_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+WalletInformation Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::WalletInformation::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::WalletInformation::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+::ton_http::schemas::v2::WalletInformation::Wallet_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::Wallet_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::WalletInformation::Wallet_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::WalletInformation::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    [[maybe_unused]] const ::ton_http::schemas::v2::WalletInformation& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::_Type>{value._type};
+
+  vb["wallet"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{value.wallet};
+
+  vb["balance"] =
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+          value.balance
+      };
+
+  vb["account_state"] =
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>{value.account_state};
+
+  vb["last_transaction_id"] =
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.last_transaction_id};
+
+  if (value.wallet_type) {
+    vb["wallet_type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>{
+        *value.wallet_type
+    };
+  }
+
+  if (value.seqno) {
+    vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>{*value.seqno};
+  }
+
+  if (value.wallet_id) {
+    vb["wallet_id"] = USERVER_NAMESPACE::chaotic::Primitive<int>{*value.wallet_id};
+  }
+
+  if (value.is_signature_allowed) {
+    vb["is_signature_allowed"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{*value.is_signature_allowed};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value) {
+  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value) {
+  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
     const ::ton_http::schemas::v2::MasterchainInfo& lhs, const ::ton_http::schemas::v2::MasterchainInfo& rhs
 ) {
   return lhs._type == rhs._type && lhs.last == rhs.last && lhs.state_root_hash == rhs.state_root_hash &&
@@ -4567,6 +4797,7 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
+          USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation>,
           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>>>{value.result};
 
   vb["@extra"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{value._extra};
@@ -6079,180 +6310,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 }
 
 
-bool operator==(
-    const ::ton_http::schemas::v2::WalletInformation& lhs, const ::ton_http::schemas::v2::WalletInformation& rhs
-) {
-  return lhs._type == rhs._type && lhs.wallet == rhs.wallet && lhs.balance == rhs.balance &&
-      lhs.account_state == rhs.account_state && lhs.last_transaction_id == rhs.last_transaction_id &&
-      lhs.wallet_type == rhs.wallet_type && lhs.seqno == rhs.seqno && lhs.wallet_id == rhs.wallet_id &&
-      lhs.is_signature_allowed == rhs.is_signature_allowed && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-WalletInformation::_Type Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-WalletInformation::Wallet_Type Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-WalletInformation Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::WalletInformation::_Type FromString(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::WalletInformation::_Type Parse(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-::ton_http::schemas::v2::WalletInformation::Wallet_Type FromString(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::Wallet_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::WalletInformation::Wallet_Type Parse(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::WalletInformation::_Type& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    [[maybe_unused]] const ::ton_http::schemas::v2::WalletInformation& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::_Type>{value._type};
-
-  vb["wallet"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{value.wallet};
-
-  vb["balance"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-          value.balance
-      };
-
-  vb["account_state"] =
-      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>{value.account_state};
-
-  vb["last_transaction_id"] =
-      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.last_transaction_id};
-
-  if (value.wallet_type) {
-    vb["wallet_type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>{
-        *value.wallet_type
-    };
-  }
-
-  if (value.seqno) {
-    vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>{*value.seqno};
-  }
-
-  if (value.wallet_id) {
-    vb["wallet_id"] = USERVER_NAMESPACE::chaotic::Primitive<int>{*value.wallet_id};
-  }
-
-  if (value.is_signature_allowed) {
-    vb["is_signature_allowed"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{*value.is_signature_allowed};
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value) {
-  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value) {
-  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
 }  // namespace v2
 }  // namespace schemas
 }  // namespace ton_http
@@ -6461,6 +6518,13 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ConsensusB
 }
 
 
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>::format(
+    const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::DetectAddress::_Type>::format(
     const ::ton_http::schemas::v2::DetectAddress::_Type& value, fmt::format_context& ctx
 ) const {
@@ -6526,6 +6590,20 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ExtTransac
 
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>::format(
     const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type>::format(
+    const ::ton_http::schemas::v2::WalletInformation::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type>::format(
+    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }
@@ -6603,20 +6681,6 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Shards::_T
 
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Transaction::_Type>::format(
     const ::ton_http::schemas::v2::Transaction::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type>::format(
-    const ::ton_http::schemas::v2::WalletInformation::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type>::format(
-    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }

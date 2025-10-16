@@ -49,6 +49,17 @@ components_manager:
           format: $log_format
           format#fallback: json
           overflow_behavior: discard
+        api-v2-jsonrpc:
+          file_path: $jsonrpc_log_path
+          file_path#fallback: "@stdout"
+          level: $jsonrpc_log_level
+          level#fallback: warning
+          format: $log_format
+          format#fallback: json
+          overflow_behavior: discard
+    #
+    # components
+    #
     tonlib:
       global_config: $tonlib_config_path
       keystore: $tonlib_keystore_path
@@ -58,11 +69,6 @@ components_manager:
       external_message_endpoints: $tonlib_boc_endpoints
       external_message_endpoints#fallback: []
       task_processor: main-task-processor
-    cache-api-v2:
-      ways: 256
-      size: 20480
-      lifetime: 1
-      background-update: true
     dns-client:
       fs-task-processor: fs-task-processor
     http-client:
@@ -74,12 +80,62 @@ components_manager:
       destination-metrics-auto-max-size: 100
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
-    handler-server-monitor:
-      path: $monitor_path
-      path#fallback: /stats
-      method: GET
-      task_processor: monitor-task-processor
-      format: json
+    fs-cache-main:
+      dir: $static_content_dir
+      dir#fallback: /app/static/
+      update-period: 10s
+    #
+    # api v2 handlers
+    #
+    ## utils
+    handler-DetectAddress:
+      path: /api/v2/detectAddress
+      method: GET,POST
+      logger: api-v2
+    handler-DetectHash:
+      path: /api/v2/detectHash
+      method: GET,POST
+      logger: api-v2
+    handler-PackAddress:
+      path: /api/v2/packAddress
+      method: GET,POST
+      logger: api-v2
+    handler-UnpackAddress:
+      path: /api/v2/unpackAddress
+      method: GET,POST
+      logger: api-v2
+    handler-GetAddressInformation:
+      path: /api/v2/getAddressInformation
+      method: GET,POST
+      logger: api-v2
+    handler-GetExtendedAddressInformation:
+      path: /api/v2/getExtendedAddressInformation
+      method: GET,POST
+      logger: api-v2
+    handler-GetWalletInformation:
+      path: /api/v2/getWalletInformation
+      method: GET,POST
+      logger: api-v2
+
+    ## blocks
+    handler-GetMasterchainInfo:
+      path: /api/v2/getMasterchainInfo
+      method: GET,POST
+      logger: api-v2
+
+    #
+    # jsonrpc handler
+    #
+    handler-JsonRpc:
+      path: /api/v2/jsonRPC
+      method: POST
+      logger: api-v2-jsonrpc
+      port: $server_port
+      port#fallback: 8081
+
+    #
+    # service handlers
+    #
     handler-ping:
       path: $ping_path
       path#fallback: /health
@@ -88,10 +144,17 @@ components_manager:
       log-level: warning
       throttling_enabled: false
       url_trailing_slash: strict-match
-    handler-api-v2:
-      path: /api/v2/{ton_api_method}
-      method: GET,POST
-      status-codes-log-level:
-        409: debug
-        500: debug
-      task_processor: main-task-processor
+    handler-static:
+      fs-cache-component: fs-cache-main
+      path: /api/v2/*
+      method: GET
+
+    #
+    # monitor handlers
+    #
+    handler-server-monitor:
+      path: $monitor_path
+      path#fallback: /stats
+      method: GET
+      task_processor: monitor-task-processor
+      format: json

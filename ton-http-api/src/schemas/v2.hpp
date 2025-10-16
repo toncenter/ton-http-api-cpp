@@ -2304,6 +2304,18 @@ using ConsensusBlockRequest = ::ton_http::schemas::v2::EmptyRequest;
 
 // Base64 form of address variant
 struct DetectAddressBase64Variant {
+  enum class _Type {
+    kExtUtilsDetectedaddressvariant,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtUtilsDetectedaddressvariant,
+  };
+
+
+  ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type _type{
+      ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type::kExtUtilsDetectedaddressvariant
+  };
   std::string b64{};
   std::string b64url{};
 };
@@ -2316,7 +2328,18 @@ bool operator==(
 
 
 USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
     USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DetectAddressBase64Variant& value
+);
+
+
+DetectAddressBase64Variant::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
 );
 
 
@@ -2326,20 +2349,41 @@ DetectAddressBase64Variant Parse(
 );
 
 
+DetectAddressBase64Variant::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+);
+
+
+DetectAddressBase64Variant::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 USERVER_NAMESPACE::formats::json::Value Serialize(
     const ::ton_http::schemas::v2::DetectAddressBase64Variant& value,
     USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
 
 
+std::string ToString(::ton_http::schemas::v2::DetectAddressBase64Variant::_Type value);
+
+
 // Information about the address.
 struct DetectAddress {
   enum class _Type {
-    kUtilsDetectedaddress,
+    kExtUtilsDetectedaddress,
   };
 
   static constexpr _Type k_TypeValues[] = {
-      _Type::kUtilsDetectedaddress,
+      _Type::kExtUtilsDetectedaddress,
   };
 
 
@@ -2357,7 +2401,7 @@ struct DetectAddress {
 
 
   ::ton_http::schemas::v2::DetectAddress::_Type _type{
-      ::ton_http::schemas::v2::DetectAddress::_Type::kUtilsDetectedaddress
+      ::ton_http::schemas::v2::DetectAddress::_Type::kExtUtilsDetectedaddress
   };
   std::string raw_form{};
   ::ton_http::schemas::v2::DetectAddressBase64Variant bounceable{};
@@ -2452,15 +2496,15 @@ using DetectAddressRequest = ::ton_http::schemas::v2::AddressRequest;
 
 struct DetectHash {
   enum class _Type {
-    kUtilsDetectedhash,
+    kExtUtilsDetectedhash,
   };
 
   static constexpr _Type k_TypeValues[] = {
-      _Type::kUtilsDetectedhash,
+      _Type::kExtUtilsDetectedhash,
   };
 
 
-  ::ton_http::schemas::v2::DetectHash::_Type _type{::ton_http::schemas::v2::DetectHash::_Type::kUtilsDetectedhash};
+  ::ton_http::schemas::v2::DetectHash::_Type _type{::ton_http::schemas::v2::DetectHash::_Type::kExtUtilsDetectedhash};
   std::string b64{};
   std::string b64url{};
   std::string hex{};
@@ -3241,6 +3285,143 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 );
 
 
+struct WalletInformation {
+  enum class _Type {
+    kExtAccountsWalletinformation,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtAccountsWalletinformation,
+  };
+
+
+  enum class Wallet_Type {
+    kWalletV1R1,
+    kWalletV1R2,
+    kWalletV1R3,
+    kWalletV2R1,
+    kWalletV2R2,
+    kWalletV3R1,
+    kWalletV3R2,
+    kWalletV4R1,
+    kWalletV4R2,
+    kWalletV5Beta,
+    kWalletV5R1,
+  };
+
+  static constexpr Wallet_Type kWallet_TypeValues[] = {
+      Wallet_Type::kWalletV1R1,
+      Wallet_Type::kWalletV1R2,
+      Wallet_Type::kWalletV1R3,
+      Wallet_Type::kWalletV2R1,
+      Wallet_Type::kWalletV2R2,
+      Wallet_Type::kWalletV3R1,
+      Wallet_Type::kWalletV3R2,
+      Wallet_Type::kWalletV4R1,
+      Wallet_Type::kWalletV4R2,
+      Wallet_Type::kWalletV5Beta,
+      Wallet_Type::kWalletV5R1,
+  };
+
+
+  ::ton_http::schemas::v2::WalletInformation::_Type _type{
+      ::ton_http::schemas::v2::WalletInformation::_Type::kExtAccountsWalletinformation
+  };
+  bool wallet{};
+  ton_http::types::int256 balance{};
+  ::ton_http::schemas::v2::AccountStateEnum account_state{};
+  ::ton_http::schemas::v2::InternalTransactionId last_transaction_id{};
+  std::optional<::ton_http::schemas::v2::WalletInformation::Wallet_Type> wallet_type{};
+  std::optional<std::int64_t> seqno{};
+  std::optional<int> wallet_id{};
+  std::optional<bool> is_signature_allowed{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::WalletInformation& lhs, const ::ton_http::schemas::v2::WalletInformation& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation& value
+);
+
+
+WalletInformation::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
+
+
+WalletInformation::Wallet_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
+
+
+WalletInformation Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
+);
+
+
+WalletInformation::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
+
+
+WalletInformation::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
+
+
+WalletInformation::Wallet_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
+
+
+WalletInformation::Wallet_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::WalletInformation::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::WalletInformation& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value);
+
+
+std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value);
+
+
 // Information about the latest masterchain block.
 struct MasterchainInfo {
   enum class _Type {
@@ -3317,10 +3498,11 @@ std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
     "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
       return selector()
           .template Type<std::string_view>()
-          .Case("utils.detectAddress")
-          .Case("utils.detectedHash")
+          .Case("ext.utils.detectAddress")
+          .Case("ext.utils.detectedHash")
           .Case("raw.fullAccountState")
           .Case("fullAccountState")
+          .Case("ext.accounts.walletInformation")
           .Case("blocks.masterchainInfo");
     })
 };
@@ -3331,6 +3513,7 @@ using TonlibObject = std::variant<
     ::ton_http::schemas::v2::DetectHash,
     ::ton_http::schemas::v2::AddressInformation,
     ::ton_http::schemas::v2::ExtendedAddressInformation,
+    ::ton_http::schemas::v2::WalletInformation,
     ::ton_http::schemas::v2::MasterchainInfo>;
 
 
@@ -4429,143 +4612,6 @@ using UnpackAddress = std::string;
 using UnpackAddressRequest = ::ton_http::schemas::v2::AddressRequest;
 
 
-struct WalletInformation {
-  enum class _Type {
-    kWalletinformation,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-      _Type::kWalletinformation,
-  };
-
-
-  enum class Wallet_Type {
-    kWalletV1R1,
-    kWalletV1R2,
-    kWalletV1R3,
-    kWalletV2R1,
-    kWalletV2R2,
-    kWalletV3R1,
-    kWalletV3R2,
-    kWalletV4R1,
-    kWalletV4R2,
-    kWalletV5Beta,
-    kWalletV5R1,
-  };
-
-  static constexpr Wallet_Type kWallet_TypeValues[] = {
-      Wallet_Type::kWalletV1R1,
-      Wallet_Type::kWalletV1R2,
-      Wallet_Type::kWalletV1R3,
-      Wallet_Type::kWalletV2R1,
-      Wallet_Type::kWalletV2R2,
-      Wallet_Type::kWalletV3R1,
-      Wallet_Type::kWalletV3R2,
-      Wallet_Type::kWalletV4R1,
-      Wallet_Type::kWalletV4R2,
-      Wallet_Type::kWalletV5Beta,
-      Wallet_Type::kWalletV5R1,
-  };
-
-
-  ::ton_http::schemas::v2::WalletInformation::_Type _type{
-      ::ton_http::schemas::v2::WalletInformation::_Type::kWalletinformation
-  };
-  bool wallet{};
-  ton_http::types::int256 balance{};
-  ::ton_http::schemas::v2::AccountStateEnum account_state{};
-  ::ton_http::schemas::v2::InternalTransactionId last_transaction_id{};
-  std::optional<::ton_http::schemas::v2::WalletInformation::Wallet_Type> wallet_type{};
-  std::optional<std::int64_t> seqno{};
-  std::optional<int> wallet_id{};
-  std::optional<bool> is_signature_allowed{};
-};
-
-
-bool operator==(
-    const ::ton_http::schemas::v2::WalletInformation& lhs, const ::ton_http::schemas::v2::WalletInformation& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::WalletInformation& value
-);
-
-
-WalletInformation::_Type Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
-);
-
-
-WalletInformation::Wallet_Type Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
-);
-
-
-WalletInformation Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
-);
-
-
-WalletInformation::_Type FromString(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
-);
-
-
-WalletInformation::_Type Parse(
-    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
-);
-
-
-WalletInformation::Wallet_Type FromString(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
-);
-
-
-WalletInformation::Wallet_Type Parse(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::WalletInformation::_Type& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::WalletInformation& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value);
-
-
-std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value);
-
-
 using WalletInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
@@ -4909,6 +4955,18 @@ struct fmt::formatter<::ton_http::schemas::v2::ConsensusBlock::_Type> {
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::DetectAddress::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::DetectAddress::_Type&, fmt::format_context&
@@ -5012,6 +5070,30 @@ template <>
 struct fmt::formatter<::ton_http::schemas::v2::ExtendedAddressInformation::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::WalletInformation::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::WalletInformation::Wallet_Type&, fmt::format_context&
   ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
@@ -5137,30 +5219,6 @@ struct fmt::formatter<::ton_http::schemas::v2::Shards::_Type> {
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::Transaction::_Type> {
   fmt::format_context::iterator format(const ::ton_http::schemas::v2::Transaction::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type> {
-  fmt::format_context::iterator format(
-      const ::ton_http::schemas::v2::WalletInformation::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type> {
-  fmt::format_context::iterator format(
-      const ::ton_http::schemas::v2::WalletInformation::Wallet_Type&, fmt::format_context&
-  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();

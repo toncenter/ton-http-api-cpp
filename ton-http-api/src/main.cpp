@@ -14,6 +14,7 @@
 #include "handlers/JsonRpcHandler.h"
 #include "handlers/accounts/GetAddressInformationHandler.h"
 #include "handlers/accounts/GetExtendedAddressInformationHandler.h"
+#include "handlers/accounts/GetWalletInformationHandler.h"
 #include "handlers/blocks/GetMasterchainInfoHandler.h"
 #include "handlers/utils/DetectAddressHandler.h"
 #include "handlers/utils/DetectHashHandler.h"
@@ -47,6 +48,7 @@ int main(int argc, char* argv[]) {
   // accounts
   component_list.Append<ton_http::handlers::GetAddressInformationHandler>();
   component_list.Append<ton_http::handlers::GetExtendedAddressInformationHandler>();
+  component_list.Append<ton_http::handlers::GetWalletInformationHandler>();
 
   // blocks
   component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();

@@ -2030,10 +2030,37 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type, std::string_view>()
+          .Case(
+              ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type::kExtUtilsDetectedaddressvariant,
+              "ext.utils.detectedAddressVariant"
+          );
+    };
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialSet
     k__ton_http__schemas__v2__DetectAddressBase64Variant_PropertiesNames = [](auto selector) {
-      return selector().template Type<std::string_view>().Case("b64").Case("b64url");
+      return selector().template Type<std::string_view>().Case("@type").Case("b64").Case("b64url");
     };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DetectAddressBase64Variant::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type", value),
+      val
+  );
+}
 
 
 template <typename Value>
@@ -2045,6 +2072,12 @@ template <typename Value>
 
   ::ton_http::schemas::v2::DetectAddressBase64Variant res;
 
+  res._type =
+      value["@type"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>>(
+              ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type::kExtUtilsDetectedaddressvariant
+          );
   res.b64 = value["b64"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.b64url = value["b64url"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
 
@@ -2060,7 +2093,7 @@ template <typename Value>
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DetectAddress___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::DetectAddress::_Type, std::string_view>().Case(
-          ::ton_http::schemas::v2::DetectAddress::_Type::kUtilsDetectedaddress, "utils.detectedAddress"
+          ::ton_http::schemas::v2::DetectAddress::_Type::kExtUtilsDetectedaddress, "ext.utils.detectedAddress"
       );
     };
 
@@ -2129,7 +2162,7 @@ template <typename Value>
 
   res._type =
       value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress::_Type>>(
-          ::ton_http::schemas::v2::DetectAddress::_Type::kUtilsDetectedaddress
+          ::ton_http::schemas::v2::DetectAddress::_Type::kExtUtilsDetectedaddress
       );
   res.raw_form = value["raw_form"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.bounceable =
@@ -2155,7 +2188,7 @@ template <typename Value>
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DetectHash___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::DetectHash::_Type, std::string_view>().Case(
-          ::ton_http::schemas::v2::DetectHash::_Type::kUtilsDetectedhash, "utils.detectedHash"
+          ::ton_http::schemas::v2::DetectHash::_Type::kExtUtilsDetectedhash, "ext.utils.detectedHash"
       );
     };
 
@@ -2192,7 +2225,7 @@ template <typename Value>
 
   res._type =
       value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash::_Type>>(
-          ::ton_http::schemas::v2::DetectHash::_Type::kUtilsDetectedhash
+          ::ton_http::schemas::v2::DetectHash::_Type::kExtUtilsDetectedhash
       );
   res.b64 = value["b64"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.b64url = value["b64url"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
@@ -2938,6 +2971,123 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__WalletInformation___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::WalletInformation::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::WalletInformation::_Type::kExtAccountsWalletinformation,
+          "ext.accounts.walletInformation"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::WalletInformation::Wallet_Type, std::string_view>()
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R1, "wallet v1 r1")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R2, "wallet v1 r2")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R3, "wallet v1 r3")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV2R1, "wallet v2 r1")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV2R2, "wallet v2 r2")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV3R1, "wallet v3 r1")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV3R2, "wallet v3 r2")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV4R1, "wallet v4 r1")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV4R2, "wallet v4 r2")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV5Beta, "wallet v5 beta")
+          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV5R1, "wallet v5 r1");
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__WalletInformation_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("wallet")
+          .Case("balance")
+          .Case("account_state")
+          .Case("last_transaction_id")
+          .Case("wallet_type")
+          .Case("seqno")
+          .Case("wallet_id")
+          .Case("is_signature_allowed");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::WalletInformation::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::WalletInformation::Wallet_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::Wallet_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::WalletInformation Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::WalletInformation res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::_Type>>(
+              ::ton_http::schemas::v2::WalletInformation::_Type::kExtAccountsWalletinformation
+          );
+  res.wallet = value["wallet"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.balance =
+      value["balance"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
+  res.account_state =
+      value["account_state"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>>();
+  res.last_transaction_id =
+      value["last_transaction_id"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>>();
+  res.wallet_type =
+      value["wallet_type"]
+          .template As<std::optional<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>>>();
+  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>>();
+  res.wallet_id = value["wallet_id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<int>>>();
+  res.is_signature_allowed =
+      value["is_signature_allowed"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<bool>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__WalletInformation_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::MasterchainInfo::_Type, std::string_view>().Case(
@@ -3028,6 +3178,7 @@ template <typename Value>
                            USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
                            USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
                            USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation>,
                            USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>>>>();
   res._extra = value["@extra"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.jsonrpc = value["jsonrpc"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
@@ -4068,122 +4219,6 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__TryLocateTxRequest_PropertiesNames
-  );
-
-  return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__WalletInformation___Type_Mapping =
-    [](auto selector) {
-      return selector().template Type<::ton_http::schemas::v2::WalletInformation::_Type, std::string_view>().Case(
-          ::ton_http::schemas::v2::WalletInformation::_Type::kWalletinformation, "walletInformation"
-      );
-    };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
-    k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping = [](auto selector) {
-      return selector()
-          .template Type<::ton_http::schemas::v2::WalletInformation::Wallet_Type, std::string_view>()
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R1, "wallet v1 r1")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R2, "wallet v1 r2")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV1R3, "wallet v1 r3")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV2R1, "wallet v2 r1")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV2R2, "wallet v2 r2")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV3R1, "wallet v3 r1")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV3R2, "wallet v3 r2")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV4R1, "wallet v4 r1")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV4R2, "wallet v4 r2")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV5Beta, "wallet v5 beta")
-          .Case(::ton_http::schemas::v2::WalletInformation::Wallet_Type::kWalletV5R1, "wallet v5 r1");
-    };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__WalletInformation_PropertiesNames =
-    [](auto selector) {
-      return selector()
-          .template Type<std::string_view>()
-          .Case("@type")
-          .Case("wallet")
-          .Case("balance")
-          .Case("account_state")
-          .Case("last_transaction_id")
-          .Case("wallet_type")
-          .Case("seqno")
-          .Case("wallet_id")
-          .Case("is_signature_allowed");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::WalletInformation::_Type Parse(
-    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
-) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::_Type", value), val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::WalletInformation::Wallet_Type Parse(
-    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
-) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::WalletInformation::Wallet_Type", value),
-      val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::WalletInformation Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
-) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::WalletInformation res;
-
-  res._type =
-      value["@type"]
-          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::_Type>>(
-              ::ton_http::schemas::v2::WalletInformation::_Type::kWalletinformation
-          );
-  res.wallet = value["wallet"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
-  res.balance =
-      value["balance"]
-          .template As<USERVER_NAMESPACE::chaotic::
-                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
-  res.account_state =
-      value["account_state"]
-          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>>();
-  res.last_transaction_id =
-      value["last_transaction_id"]
-          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>>();
-  res.wallet_type =
-      value["wallet_type"]
-          .template As<std::optional<
-              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>>>();
-  res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>>();
-  res.wallet_id = value["wallet_id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<int>>>();
-  res.is_signature_allowed =
-      value["is_signature_allowed"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<bool>>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__WalletInformation_PropertiesNames
   );
 
   return res;

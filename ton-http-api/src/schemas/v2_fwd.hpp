@@ -156,6 +156,9 @@ struct JsonRpcErrorResponse;
 struct JsonRpcRequest;
 
 
+struct WalletInformation;
+
+
 struct MasterchainInfo;
 
 
@@ -220,9 +223,6 @@ struct TransactionsRequest;
 
 
 struct TryLocateTxRequest;
-
-
-struct WalletInformation;
 
 
 }  // namespace v2

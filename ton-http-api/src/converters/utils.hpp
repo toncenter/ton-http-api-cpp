@@ -13,10 +13,12 @@ inline schemas::v2::DetectAddress Convert(core::DetectAddressResult& value) {
 
   block::StdAddress b_addr(value.address);
   b_addr.bounceable = false;
-  result.bounceable =  schemas::v2::DetectAddressBase64Variant{b_addr.rserialize(false), b_addr.rserialize(true)};
+  result.bounceable.b64 = b_addr.rserialize(false);
+  result.bounceable.b64url = b_addr.rserialize(true);
 
   b_addr.bounceable = true;
-  result.non_bounceable = schemas::v2::DetectAddressBase64Variant{b_addr.rserialize(false), b_addr.rserialize(true)};
+  result.non_bounceable.b64 = b_addr.rserialize(false);
+  result.non_bounceable.b64url = b_addr.rserialize(true);
   if (value.given_type == "raw_form") {
     result.given_type = schemas::v2::DetectAddress::Given_Type::kRawForm;
   } else if (value.given_type == "friendly_bounceable") {
