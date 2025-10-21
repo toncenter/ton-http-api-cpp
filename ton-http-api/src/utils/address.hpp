@@ -1,7 +1,4 @@
 #pragma once
 
 
-namespace ton_http::utils {
-
-
-}
+namespace ton_http::utils {}

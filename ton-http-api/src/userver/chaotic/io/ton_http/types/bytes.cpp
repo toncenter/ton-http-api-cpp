@@ -4,7 +4,8 @@
 #include "utils/exceptions.hpp"
 
 
-ton_http::types::bytes userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<ton_http::types::bytes>) {
+ton_http::types::bytes
+userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<ton_http::types::bytes>) {
   if (value.empty()) {
     return ton_http::types::bytes{};
   }

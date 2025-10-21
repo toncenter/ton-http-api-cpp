@@ -13,13 +13,13 @@ namespace ton_http::converters {
 using namespace ton;
 
 template <typename To>
-inline To Convert(tonlib_api::raw_getAccountState::ReturnType&) {
+To Convert(const tonlib_api::raw_getAccountState::ReturnType&) {
   throw std::logic_error("Not implemented");
 }
 
 template <>
 inline schemas::v2::AddressInformation Convert<schemas::v2::AddressInformation>(
-    tonlib_api::raw_getAccountState::ReturnType& value
+  const tonlib_api::raw_getAccountState::ReturnType& value
 ) {
   schemas::v2::AddressInformation result;
   result.balance = types::int256{std::to_string(value->balance_)};
@@ -43,7 +43,7 @@ inline schemas::v2::AddressInformation Convert<schemas::v2::AddressInformation>(
   return result;
 }
 
-inline schemas::v2::ExtendedAddressInformation Convert(tonlib_api::getAccountState::ReturnType& value) {
+inline schemas::v2::ExtendedAddressInformation Convert(const tonlib_api::getAccountState::ReturnType& value) {
   schemas::v2::ExtendedAddressInformation result;
   result.address = Convert(value->address_);
   result.balance = types::int256{std::to_string(value->balance_)};
@@ -56,20 +56,20 @@ inline schemas::v2::ExtendedAddressInformation Convert(tonlib_api::getAccountSta
   return result;
 }
 
-inline void DecodeWalletV1Data(schemas::v2::WalletInformation& value, td::Ref<vm::Cell>& data) {
+inline void DecodeWalletV1Data(schemas::v2::WalletInformation& value, const td::Ref<vm::Cell>& data) {
   auto cs = vm::CellSlice{vm::NoVm{}, data};
   value.seqno = cs.fetch_long(32);
   value.wallet = true;
 }
 
-inline void DecodeWalletV3Data(schemas::v2::WalletInformation& value, td::Ref<vm::Cell>& data) {
+inline void DecodeWalletV3Data(schemas::v2::WalletInformation& value, const td::Ref<vm::Cell>& data) {
   auto cs = vm::CellSlice{vm::NoVm{}, data};
   value.seqno = cs.fetch_long(32);
   value.wallet_id = cs.fetch_long(32);
   value.wallet = true;
 }
 
-inline void DecodeWalletV5Data(schemas::v2::WalletInformation& value, td::Ref<vm::Cell>& data) {
+inline void DecodeWalletV5Data(schemas::v2::WalletInformation& value, const td::Ref<vm::Cell>& data) {
   auto cs = vm::CellSlice{vm::NoVm{}, data};
   value.is_signature_allowed = cs.fetch_long(1);
   value.seqno = cs.fetch_long(32);
@@ -79,7 +79,7 @@ inline void DecodeWalletV5Data(schemas::v2::WalletInformation& value, td::Ref<vm
 
 template <>
 inline schemas::v2::WalletInformation Convert<schemas::v2::WalletInformation>(
-    tonlib_api::raw_getAccountState::ReturnType& value
+  const tonlib_api::raw_getAccountState::ReturnType& value
 ) {
   schemas::v2::WalletInformation result;
 
@@ -179,7 +179,9 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
     result.address = types::ton_addr{val->address_};
     result.total_supply = types::int256{val->total_supply_};
     result.mintable = val->mintable_;
-    result.admin_address = types::ton_addr{val->admin_address_};
+    if (!val->admin_address_.empty()) {
+      result.admin_address = types::ton_addr{val->admin_address_};
+    }
     result.jetton_wallet_code = types::bytes{val->jetton_wallet_code_};
     if (val->jetton_content_onchain_) {
       result.jetton_content.type = schemas::v2::TokenContent::Type::kOnchain;
@@ -199,8 +201,8 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
     schemas::v2::JettonWalletData result;
     result.address = types::ton_addr{val->address_};
     result.balance = types::int256{val->balance_};
-    result.owner_address = types::ton_addr{val->owner_address_};
-    result.jetton_master_address = types::ton_addr{val->jetton_master_address_};
+    result.owner = types::ton_addr{val->owner_address_};
+    result.jetton = types::ton_addr{val->jetton_master_address_};
     result.jetton_wallet_code = types::bytes{val->jetton_wallet_code_};
     result.mintless_is_claimed = val->mintless_is_claimed_;
     return result;
@@ -231,10 +233,13 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
     result.address = types::ton_addr{val->address_};
     result.init = val->init_;
     result.index = types::int256{val->index_};
-    result.collection_address = types::ton_addr{val->collection_address_};
-    result.owner_address = types::ton_addr{val->owner_address_};
+    if (!val->collection_address_.empty()) {
+      result.collection_address = types::ton_addr{val->collection_address_};
+    }
+    if (!val->owner_address_.empty()) {
+      result.owner_address = types::ton_addr{val->owner_address_};
+    }
     if (val->is_dns_) {
-      LOG_ERROR() << "It's DNS!";
       schemas::v2::DnsRecordSet record_set;
       if (val->dns_content_.contains("dns_resolver_next")) {
         record_set.dns_next_resolver = Convert(val->dns_content_["dns_resolver_next"]);
@@ -250,11 +255,10 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
       }
       userver::formats::json::ValueBuilder builder;
       for (auto& [k, v] : val->dns_content_)
-        if (!(k == "dns_resolver_next" || k == "wallet" ||
-          k == "site" || k == "storage")) {
-        auto dns_record = Convert(v);
-        std::visit([&](auto& item) { builder[k] = item; }, dns_record);
-      }
+        if (!(k == "dns_resolver_next" || k == "wallet" || k == "site" || k == "storage")) {
+          auto dns_record = Convert(v);
+          std::visit([&](auto& item) { builder[k] = item; }, dns_record);
+        }
       record_set.extra = builder.ExtractValue();
 
       schemas::v2::DnsContent content;
@@ -262,7 +266,6 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
       content.data = record_set;
       result.content = content;
     } else {
-      LOG_ERROR() << "It's not a DNS!";
       schemas::v2::TokenContent content;
       if (val->content_onchain_) {
         content.type = schemas::v2::TokenContent::Type::kOnchain;

@@ -16,8 +16,8 @@
 #include "vm/boc.h"
 #include "vm/cells/CellSlice.h"
 
-#include "core/tlb/tokens-tlb.h"
 #include "common/checksum.h"
+#include "core/tlb/tokens-tlb.h"
 
 
 using namespace ton;
@@ -31,7 +31,7 @@ std::string to_hex_string_with_prefix(const td::RefInt256& val) {
 }
 
 
-td::Result<userver::formats::json::Value>  ton_http::utils::render_tvm_stack(const std::string& stack_str) {
+td::Result<userver::formats::json::Value> ton_http::utils::render_tvm_stack(const std::string& stack_str) {
   using namespace userver::formats::json;
 
   auto result = ValueBuilder();
@@ -72,8 +72,7 @@ td::Result<std::int64_t> parse_int(const userver::formats::json::Value& element)
   try {
     auto value = element.As<int64_t>();
     return value;
-  }
-  catch (std::exception& ee) {
+  } catch (std::exception& ee) {
     std::stringstream ss;
     ss << "Failed to parse int: " << ee.what();
     return td::Status::Error(ss.str());
@@ -82,7 +81,7 @@ td::Result<std::int64_t> parse_int(const userver::formats::json::Value& element)
 
 
 td::Result<userver::formats::json::Value> ton_http::utils::render_tvm_element(
-    const std::string& element_type, const userver::formats::json::Value& element
+  const std::string& element_type, const userver::formats::json::Value& element
 ) {
   using namespace userver::formats::json;
   auto result = ValueBuilder();
@@ -121,7 +120,7 @@ userver::formats::json::Value ton_http::utils::serialize_tvm_entry(const tonlib_
 
   auto r_cell = vm::std_boc_deserialize(entry.cell_->bytes_);
   if (r_cell.is_error()) {
-    builder["object"] ["error"] = r_cell.move_as_error().to_string();
+    builder["object"]["error"] = r_cell.move_as_error().to_string();
     return builder.ExtractValue();
   }
   auto cell = r_cell.move_as_ok();
@@ -138,7 +137,7 @@ userver::formats::json::Value ton_http::utils::serialize_tvm_entry(const tonlib_
   builder["bytes"] = td::base64_encode(entry.slice_->bytes_);
   auto r_cell = vm::std_boc_deserialize(entry.slice_->bytes_);
   if (r_cell.is_error()) {
-    builder["object"] ["error"] = r_cell.move_as_error().to_string();
+    builder["object"]["error"] = r_cell.move_as_error().to_string();
     return builder.ExtractValue();
   }
   auto cell = r_cell.move_as_ok();
@@ -208,7 +207,8 @@ td::Result<std::string> ton_http::utils::address_from_cell(const std::string& da
   }
 }
 td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(
-    const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
+) {
   std::string data;
   if (entry->get_id() == tonlib_api::tvm_stackEntryCell::ID) {
     auto& entry_cell = dynamic_cast<tonlib_api::tvm_stackEntryCell&>(*entry);
@@ -224,7 +224,8 @@ td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(
 
 
 td::Result<std::string> ton_http::utils::number_from_tvm_stack_entry(
-  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
+) {
   if (entry->get_id() != tonlib_api::tvm_stackEntryNumber::ID) {
     return td::Status::Error(500, "stackEntryNumber expected");
   }
@@ -232,25 +233,27 @@ td::Result<std::string> ton_http::utils::number_from_tvm_stack_entry(
 }
 
 
-td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> ton_http::utils::parse_stack(const std::vector<std::string>& stack_vector) {
+td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> ton_http::utils::parse_stack(
+  const std::vector<std::string>& stack_vector
+) {
   if (stack_vector.empty()) {
     return std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{};
   }
   std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
   stack.reserve(stack_vector.size());
-  for (auto &stack_item_const : stack_vector) {
+  for (auto& stack_item_const : stack_vector) {
     std::string stack_item_str = stack_item_const;
     TRY_RESULT(value, td::json_decode(td::MutableSlice(stack_item_str)));
 
     if (value.type() != td::JsonValue::Type::Array) {
       return td::Status::Error(422, "Invalid stack format: array expected");
     }
-    auto &array = value.get_array();
+    auto& array = value.get_array();
     if (array.size() != 2) {
       return td::Status::Error(422, "Invalid stack entry format: array of exact 2 elemets expected");
     }
     auto tp = array[0].get_string().str();
-    auto &val = array[1];
+    auto& val = array[1];
     if (tp == "int" || tp == "integer" || tp == "num" || tp == "number") {
       std::string int_value;
       if (val.type() == td::JsonValue::Type::Number) {
@@ -280,14 +283,13 @@ td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> ton_
       }
       auto bytes = r_bytes.move_as_ok();
       if (tp == "tvm.Cell") {
-        auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntryCell>(
-          tonlib_api::make_object<tonlib_api::tvm_cell>(bytes)
-        );
+        auto entry =
+          tonlib_api::make_object<tonlib_api::tvm_stackEntryCell>(tonlib_api::make_object<tonlib_api::tvm_cell>(bytes));
         stack.push_back(std::move(entry));
       } else if (tp == "tvm.Slice") {
-        auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(
-          tonlib_api::make_object<tonlib_api::tvm_slice>(bytes)
-        );
+        auto entry =
+          tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(tonlib_api::make_object<tonlib_api::tvm_slice>(bytes)
+          );
         stack.push_back(std::move(entry));
       }
     } else {
@@ -300,41 +302,44 @@ td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> ton_
 }
 
 userver::formats::json::Value ton_http::utils::serialize_tvm_stack(
-    const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack
+  const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack
 ) {
   using namespace userver::formats::json;
   ValueBuilder builder;
-  for (auto & entry : tvm_stack) {
+  for (auto& entry : tvm_stack) {
     ValueBuilder entry_builder;
-    tonlib_api::downcast_call(*entry, td::overloaded(
-      [&](const tonlib_api::tvm_stackEntryCell& val) {
-        entry_builder.PushBack("cell");
-        auto res = serialize_tvm_entry(val);
-        entry_builder.PushBack(res);
-      },
-      [&](const tonlib_api::tvm_stackEntrySlice& val) {
-        entry_builder.PushBack("cell");
-        auto res = serialize_tvm_entry(val);
-        entry_builder.PushBack(res);
-      },
-      [&](const tonlib_api::tvm_stackEntryNumber& val) {
-        entry_builder.PushBack("num");
-        auto res = td::string_to_int256(val.number_->number_);
-        entry_builder.PushBack(to_hex_string_with_prefix(res));
-      },
-      [&](const tonlib_api::tvm_stackEntryTuple& val) {
-        entry_builder.PushBack("tuple");
-        entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.tuple_))));
-      },
-      [&](const tonlib_api::tvm_stackEntryList& val) {
-        entry_builder.PushBack("list");
-        entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.list_))));
-      },
-      [&](const tonlib_api::tvm_stackEntryUnsupported&) {
-        entry_builder.PushBack("unsupported");
-        entry_builder.PushBack(FromString("{}"));
-      }
-      ));
+    tonlib_api::downcast_call(
+      *entry,
+      td::overloaded(
+        [&](const tonlib_api::tvm_stackEntryCell& val) {
+          entry_builder.PushBack("cell");
+          auto res = serialize_tvm_entry(val);
+          entry_builder.PushBack(res);
+        },
+        [&](const tonlib_api::tvm_stackEntrySlice& val) {
+          entry_builder.PushBack("cell");
+          auto res = serialize_tvm_entry(val);
+          entry_builder.PushBack(res);
+        },
+        [&](const tonlib_api::tvm_stackEntryNumber& val) {
+          entry_builder.PushBack("num");
+          auto res = td::string_to_int256(val.number_->number_);
+          entry_builder.PushBack(to_hex_string_with_prefix(res));
+        },
+        [&](const tonlib_api::tvm_stackEntryTuple& val) {
+          entry_builder.PushBack("tuple");
+          entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.tuple_))));
+        },
+        [&](const tonlib_api::tvm_stackEntryList& val) {
+          entry_builder.PushBack("list");
+          entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.list_))));
+        },
+        [&](const tonlib_api::tvm_stackEntryUnsupported&) {
+          entry_builder.PushBack("unsupported");
+          entry_builder.PushBack(FromString("{}"));
+        }
+      )
+    );
     builder.PushBack(entry_builder.ExtractValue());
   }
   return builder.ExtractValue();
@@ -347,7 +352,7 @@ td::Result<std::string> ton_http::utils::parse_snake_data(td::Ref<vm::CellSlice>
 
   while (true) {
     if (bw.offs + data->size() > bsize * 8) {
-      break; // buffer overflow
+      break;  // buffer overflow
     }
     bw.concat(data->prefetch_bits(data->size()));
 
@@ -378,7 +383,7 @@ td::Result<std::string> ton_http::utils::parse_chunks_data(const td::Ref<vm::Cel
       if (auto value = dict.lookup_ref(td::BitArray<32>(c)); value.not_null()) {
         auto loc_data = vm::load_cell_slice_ref(value);
         if (bw.offs + loc_data->size() > bsize * 8) {
-          break; // buffer overflow
+          break;  // buffer overflow
         }
 
         bw.concat(loc_data->prefetch_bits(loc_data->size()));
@@ -417,8 +422,12 @@ td::Result<std::string> ton_http::utils::parse_content_data(const td::Ref<vm::Ce
   }
 }
 
-td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils::parse_token_data(td::Ref<vm::Cell> cell) {
-  static std::string attributes[] = {"uri", "name", "description", "image", "image_data", "symbol", "decimals", "amount_style", "render_type"};
+td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils::parse_token_data(
+  td::Ref<vm::Cell> cell
+) {
+  static std::string attributes[] = {
+    "uri", "name", "description", "image", "image_data", "symbol", "decimals", "amount_style", "render_type"
+  };
 
   try {
     auto cs = vm::load_cell_slice_ref(cell);
@@ -449,7 +458,8 @@ td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils
 
         for (auto attr : attributes) {
           if (auto value_cs = dict.lookup(td::sha256_bits256(attr)); value_cs.not_null()) {
-            // TEP-64 standard requires that all attributes are stored in a dictionary with a single reference as a value:
+            // TEP-64 standard requires that all attributes are stored in a dictionary with a single reference as a
+            // value:
             //    onchain#00 data:(HashmapE 256 ^ContentData) = FullContent;
             // however, some contracts store attributes as a direct value:
             //    onchain#00 data:(HashmapE 256 ContentData) = FullContent;
@@ -551,13 +561,15 @@ td::Result<ton_http::core::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs
   }
 }
 
-td::Result<std::map<std::string, ton_http::core::DnsRecord>> ton_http::utils::parse_dns_content(td::Ref<vm::Cell> cell) {
+td::Result<std::map<std::string, ton_http::core::DnsRecord>> ton_http::utils::parse_dns_content(
+  td::Ref<vm::Cell> cell
+) {
   static std::string attributes[] = {"wallet", "site", "storage", "dns_next_resolver"};
   try {
     vm::Dictionary dict(cell, 256);
     auto it = dict.init_iterator(false);
     std::map<std::string, core::DnsRecord> dns_content;
-    for ( ; !it.eof(); it.next()) {
+    for (; !it.eof(); it.next()) {
       auto attr_hash = it.cur_pos();
       std::string attr;
       for (auto attr_candidate : attributes) {
@@ -574,7 +586,7 @@ td::Result<std::map<std::string, ton_http::core::DnsRecord>> ton_http::utils::pa
           LOG(ERROR) << "Failed to parse attribute " << attr << ": " << attr_data_r.move_as_error().message();
           continue;
         }
-        dns_content[(!attr.empty()? attr : attr_hash.to_hex(256))] = attr_data_r.move_as_ok();
+        dns_content[(!attr.empty() ? attr : attr_hash.to_hex(256))] = attr_data_r.move_as_ok();
       }
     }
     return dns_content;

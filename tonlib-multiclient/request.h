@@ -4,8 +4,8 @@
 #include <functional>
 #include <optional>
 #include <string>
-#include "session.h"
 #include "auto/tl/tonlib_api.h"
+#include "session.h"
 
 namespace multiclient {
 
@@ -28,7 +28,7 @@ struct RequestParameters {
 
     if (mode == RequestMode::Multiple) {
       return !(clients_number.has_value() && lite_server_indexes.has_value()) &&
-          (clients_number.has_value() || lite_server_indexes.has_value());
+        (clients_number.has_value() || lite_server_indexes.has_value());
     }
 
     return true;

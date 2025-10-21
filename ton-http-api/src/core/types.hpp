@@ -12,7 +12,7 @@ using namespace ton;
 struct DetectAddressResult {
   block::StdAddress address;
   std::string given_type;
-  [[nodiscard]] std::string to_raw_form(const bool lower=false) const {
+  [[nodiscard]] std::string to_raw_form(const bool lower = false) const {
     td::StringBuilder sb;
     sb << address.workchain << ":" << address.addr.to_hex();
     auto raw_form = sb.as_cslice().str();
@@ -38,7 +38,8 @@ struct RunGetMethodResult {
 };
 
 struct TokenDataResult {
-  explicit TokenDataResult(std::string  address) : address_(std::move(address)) {}
+  explicit TokenDataResult(std::string address) : address_(std::move(address)) {
+  }
   virtual ~TokenDataResult() = default;
   std::string address_;
 };
@@ -51,7 +52,8 @@ struct JettonMasterDataResult final : public TokenDataResult {
   bool jetton_content_onchain_{false};
   std::map<std::string, std::string> jetton_content_;
   std::string jetton_wallet_code_;
-  explicit JettonMasterDataResult(const std::string& address) : TokenDataResult(address) {}
+  explicit JettonMasterDataResult(const std::string& address) : TokenDataResult(address) {
+  }
 };
 
 struct JettonWalletDataResult final : public TokenDataResult {
@@ -62,7 +64,8 @@ struct JettonWalletDataResult final : public TokenDataResult {
   std::string jetton_wallet_code_;
   bool is_validated_{false};
 
-  explicit JettonWalletDataResult(const std::string& address) : TokenDataResult(address) {}
+  explicit JettonWalletDataResult(const std::string& address) : TokenDataResult(address) {
+  }
 };
 
 struct NFTCollectionDataResult final : public TokenDataResult {
@@ -71,13 +74,13 @@ struct NFTCollectionDataResult final : public TokenDataResult {
   bool collection_content_onchain_{false};
   std::map<std::string, std::string> collection_content_;
 
-  explicit NFTCollectionDataResult(const std::string& address) : TokenDataResult(address) {}
+  explicit NFTCollectionDataResult(const std::string& address) : TokenDataResult(address) {
+  }
 };
 
 
-const std::map<std::string, std::string> TonDnsRoots {
-      {"EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz", ".ton"}
-};;
+const std::map<std::string, std::string> TonDnsRoots{{"EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz", ".ton"}};
+;
 
 struct DnsRecordStorageAddress {
   constexpr static std::string_view kType = "dns_storage_address";
@@ -99,7 +102,8 @@ struct DnsRecordNextResolver {
   block::StdAddress resolver;
 };
 
-using DnsRecord = std::variant<DnsRecordStorageAddress, DnsRecordSmcAddress, DnsRecordAdnlAddress, DnsRecordNextResolver>;
+using DnsRecord =
+  std::variant<DnsRecordStorageAddress, DnsRecordSmcAddress, DnsRecordAdnlAddress, DnsRecordNextResolver>;
 
 
 struct NFTItemDataResult final : public TokenDataResult {
@@ -114,7 +118,8 @@ struct NFTItemDataResult final : public TokenDataResult {
   std::map<std::string, DnsRecord> dns_content_;
   std::string domain_;
   bool is_dns_{false};
-  explicit NFTItemDataResult(const std::string& address) : TokenDataResult(address) {}
+  explicit NFTItemDataResult(const std::string& address) : TokenDataResult(address) {
+  }
 };
-}
-}
+}  // namespace core
+}  // namespace ton_http

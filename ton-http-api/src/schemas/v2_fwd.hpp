@@ -267,4 +267,3 @@ struct TryLocateTxRequest;
 }  // namespace v2
 }  // namespace schemas
 }  // namespace ton_http
-

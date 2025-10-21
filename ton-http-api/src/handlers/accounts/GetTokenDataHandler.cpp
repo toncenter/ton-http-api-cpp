@@ -5,27 +5,29 @@
 #include "converters/convert.hpp"
 
 ton_http::handlers::GetTokenDataHandler::GetTokenDataHandler(
-    const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
-) : TonlibRequestHandler(config, context) {
+  const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
+) :
+    TonlibRequestHandler(config, context) {
 }
 
-ton_http::schemas::v2::TokenDataRequest ton_http::handlers::GetTokenDataHandler::ParseTonlibGetRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
-) const {
+ton_http::schemas::v2::TokenDataRequest ton_http::handlers::GetTokenDataHandler::
+  ParseTonlibGetRequest(const HttpRequest& request, const Value&, RequestContext&) const {
   schemas::v2::TokenDataRequest req;
 
-  req.address = userver::chaotic::convert::Convert(request.GetArg("address"), userver::chaotic::convert::To<ton_http::types::ton_addr>{});
+  req.address = userver::chaotic::convert::Convert(
+    request.GetArg("address"), userver::chaotic::convert::To<ton_http::types::ton_addr>{}
+  );
   if (request.HasArg("seqno")) {
     try {
       req.seqno = boost::lexical_cast<std::int32_t>(request.GetArg("seqno"));
-    } catch (std::exception& exc) {
+    } catch (std::exception&) {
       throw utils::TonlibException("failed to parse seqno", 422);
     }
   }
   return req;
 }
 td::Status ton_http::handlers::GetTokenDataHandler::ValidateRequest(
-    const schemas::v2::TokenDataRequest& request
+  const schemas::v2::TokenDataRequest& request
 ) const {
   if (request.address.empty()) {
     return td::Status::Error(422, "empty address");
@@ -36,9 +38,11 @@ td::Status ton_http::handlers::GetTokenDataHandler::ValidateRequest(
   return td::Status::OK();
 }
 td::Result<ton_http::schemas::v2::TokenData> ton_http::handlers::GetTokenDataHandler::HandleRequestTonlibThrow(
-    schemas::v2::TokenDataRequest& request, multiclient::SessionPtr& session
+  schemas::v2::TokenDataRequest& request, multiclient::SessionPtr& session
 ) const {
-  auto result = tonlib_component_.DoRequest(&core::TonlibWorker::getTokenData, request.address.GetUnderlying(), false, request.seqno, std::nullopt, session);
+  auto result = tonlib_component_.DoRequest(
+    &core::TonlibWorker::getTokenData, request.address.GetUnderlying(), false, request.seqno, std::nullopt, session
+  );
   if (result.is_error()) {
     return result.move_as_error();
   }

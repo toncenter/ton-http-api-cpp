@@ -9,15 +9,16 @@
 #include "userver/yaml_config/merge_schemas.hpp"
 #include "utils/exceptions.hpp"
 
-#include <variant>
 #include <type_traits>
+#include <variant>
 
-template<class> struct is_variant : std::false_type {};
-template<class... Ts> struct is_variant<std::variant<Ts...>> : std::true_type {};
-template<class T>
+template <class>
+struct is_variant : std::false_type {};
+template <class... Ts>
+struct is_variant<std::variant<Ts...>> : std::true_type {};
+template <class T>
 inline constexpr bool is_variant_v = is_variant<std::remove_cvref_t<T>>::value;
-
-template<class T>
+template <class T>
 concept VariantLike = is_variant_v<T>;
 
 namespace ton_http::handlers {
@@ -27,7 +28,9 @@ class TonlibRequestHandler : public userver::server::handlers::HttpHandlerJsonBa
 public:
   using HttpHandlerJsonBase::HttpHandlerJsonBase;
 
-  virtual Request ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const = 0;
+  virtual Request ParseTonlibGetRequest(
+    const HttpRequest& request, const Value& request_json, RequestContext& context
+  ) const = 0;
   virtual Request ParseTonlibPostRequest(const HttpRequest&, const Value& request_json, RequestContext&) const {
     try {
       return request_json.As<Request>();
@@ -40,7 +43,9 @@ public:
   }
   virtual td::Result<Response> HandleRequestTonlibThrow(Request& request, multiclient::SessionPtr& session) const = 0;
 
-  userver::formats::json::Value HandleRequestJsonThrow(const HttpRequest& request, const Value& request_json, RequestContext& context) const override {
+  userver::formats::json::Value HandleRequestJsonThrow(
+    const HttpRequest& request, const Value& request_json, RequestContext& context
+  ) const override {
     auto session = tonlib_component_.GetNewSession();
     try {
       Request tonlib_request;
@@ -62,9 +67,9 @@ public:
       }
       schemas::v2::TonlibResponse response;
       response.ok = true;
-      if constexpr(VariantLike<Response>) {
+      if constexpr (VariantLike<Response>) {
         auto result_ok = result.move_as_ok();
-        std::visit([&](auto&& val) { response.result = std::forward<decltype(val)>(val); }, result_ok);
+        std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, result_ok);
       } else {
         response.result = result.move_as_ok();
       }
@@ -76,7 +81,7 @@ public:
       if (code == 0) {
         code = 500;
       } else if (code == -3) {
-        code = 533;
+        code = 542;
       } else if (code < 0) {
         code = 500;
       }
@@ -89,19 +94,24 @@ public:
 
       request.GetHttpResponse().SetStatus(static_cast<userver::server::http::HttpStatus>(code));
       return userver::formats::json::ValueBuilder{response}.ExtractValue();
-    }
-    catch (const std::exception& exc) {
+    } catch (const std::exception& exc) {
       LOG_ERROR_TO(*logger_) << "Unknown exception: " << exc.what();
-      throw;
+      std::stringstream ss;
+      ss << "unknown exception: " << exc.what();
+      throw utils::TonlibException(ss.str(), 500);
     }
   }
-  TonlibRequestHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context) :
-    HttpHandlerJsonBase(config, context),
-    tonlib_component_(context.FindComponent<core::TonlibComponent>()),
-    logger_(context.FindComponent<userver::components::Logging>().GetLogger(config["logger"].As<std::string>("api-v2"))) {
+  TonlibRequestHandler(
+    const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
+  ) :
+      HttpHandlerJsonBase(config, context),
+      tonlib_component_(context.FindComponent<core::TonlibComponent>()),
+      logger_(
+        context.FindComponent<userver::components::Logging>().GetLogger(config["logger"].As<std::string>("api-v2"))
+      ) {
   }
 
-  static userver::yaml_config::Schema GetStaticConfigSchema()  {
+  static userver::yaml_config::Schema GetStaticConfigSchema() {
     return userver::yaml_config::MergeSchemas<HttpHandlerJsonBase>(R"(
 type: object
 description: TonlibRequest base config
@@ -112,6 +122,7 @@ properties:
     description: logger name
 )");
   }
+
 protected:
   core::TonlibComponent& tonlib_component_;
   userver::logging::LoggerPtr logger_;

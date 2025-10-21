@@ -69,30 +69,30 @@ private:
   template <typename T>
   void send_worker_request(size_t worker_index, T&& request, td::Promise<typename T::ReturnType> promise) {
     td::actor::send_closure(
-        workers_[worker_index].id, &ClientWrapper::send_request<T>, std::move(request), std::move(promise)
+      workers_[worker_index].id, &ClientWrapper::send_request<T>, std::move(request), std::move(promise)
     );
   }
 
   template <typename T>
   void send_worker_request_function(
-      size_t worker_index, ton::tonlib_api::object_ptr<T>&& request, td::Promise<typename T::ReturnType> promise
+    size_t worker_index, ton::tonlib_api::object_ptr<T>&& request, td::Promise<typename T::ReturnType> promise
   ) {
     td::actor::send_closure(
-        workers_[worker_index].id, &ClientWrapper::send_request_function<T>, std::move(request), std::move(promise)
+      workers_[worker_index].id, &ClientWrapper::send_request_function<T>, std::move(request), std::move(promise)
     );
   }
 
   void send_worker_request_json(size_t worker_index, std::string request, td::Promise<std::string> promise) {
     td::actor::send_closure(
-        workers_[worker_index].id, &ClientWrapper::send_request_json, std::move(request), std::move(promise)
+      workers_[worker_index].id, &ClientWrapper::send_request_json, std::move(request), std::move(promise)
     );
   }
 
   void send_worker_callback_request(
-      size_t worker_index, uint64_t request_id, tonlib_api::object_ptr<tonlib_api::Function> request
+    size_t worker_index, uint64_t request_id, tonlib_api::object_ptr<tonlib_api::Function> request
   ) {
     td::actor::send_closure(
-        workers_[worker_index].id, &ClientWrapper::send_callback_request, request_id, std::move(request)
+      workers_[worker_index].id, &ClientWrapper::send_callback_request, request_id, std::move(request)
     );
   }
 
@@ -101,7 +101,7 @@ private:
 
   void check_alive();
   void on_alive_checked(
-      size_t worker_index, std::optional<int32_t> last_mc_seqno, bool first_archival_check_done = false
+    size_t worker_index, std::optional<int32_t> last_mc_seqno, bool first_archival_check_done = false
   );
 
   void check_archival(std::optional<size_t> check_worker_index = std::nullopt);

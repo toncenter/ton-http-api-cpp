@@ -7,56 +7,27 @@
 #include "block.h"
 #include "core/types.hpp"
 #include "td/utils/Status.h"
-#include "td/utils/base64.h"
-#include "td/utils/misc.h"
 #include "vm/cells/Cell.h"
 #include "vm/cells/CellSlice.h"
 
 namespace ton_http::utils {
 using namespace ton;
 
-
-// common
-template <typename T1, typename T2>
-auto value_or_default(const std::optional<T1>& arg, const T2& def) {
-  return (arg.has_value() ? arg.value() : (def));
-}
-
-
-inline std::optional<std::string> stringToHash(const std::string& str) {
-  if (str.empty()) {
-    return str;
-  }
-
-  if (str.length() == 44) {
-    if (auto res = td::base64_decode(str); res.is_ok()) {
-      return res.move_as_ok();
-    }
-    if (auto res = td::base64url_decode(str); res.is_ok()) {
-      return res.move_as_ok();
-    }
-  } else if (str.length() == 43) {
-    if (auto res = td::base64url_decode(str); res.is_ok()) {
-      return res.move_as_ok();
-    }
-  } else if (str.length() == 64) {
-    if (auto res = td::hex_decode(str); res.is_ok()) {
-      return res.move_as_ok();
-    }
-  }
-  return std::nullopt;
-}
-
 // run get method tools
 td::Result<userver::formats::json::Value> render_tvm_stack(const std::string& stack_str);
-td::Result<userver::formats::json::Value> render_tvm_element(const std::string& element_type, const userver::formats::json::Value& element);
+td::Result<userver::formats::json::Value> render_tvm_element(
+  const std::string& element_type, const userver::formats::json::Value& element
+);
 
 userver::formats::json::Value serialize_tvm_stack(
-    const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack);
+  const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack
+);
 userver::formats::json::Value serialize_tvm_entry(const tonlib_api::tvm_stackEntryCell& entry);
 userver::formats::json::Value serialize_tvm_entry(const tonlib_api::tvm_stackEntrySlice& entry);
 
-td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> parse_stack(const std::vector<std::string>& stack_vector);
+td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> parse_stack(
+  const std::vector<std::string>& stack_vector
+);
 
 userver::formats::json::Value serialize_cell(const td::Ref<vm::Cell>& cell);
 
@@ -71,4 +42,4 @@ td::Result<std::string> parse_chunks_data(const td::Ref<vm::CellSlice>& data);
 td::Result<std::string> parse_content_data(const td::Ref<vm::CellSlice>& cs);
 td::Result<std::tuple<bool, std::map<std::string, std::string>>> parse_token_data(td::Ref<vm::Cell> cell);
 td::Result<std::map<std::string, core::DnsRecord>> parse_dns_content(td::Ref<vm::Cell> cell);
-}
+}  // namespace ton_http::utils

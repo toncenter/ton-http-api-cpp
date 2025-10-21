@@ -1,16 +1,18 @@
 #include "smc-envelope/SmartContractCode.h"
 #include "td/utils/base64.h"
 
-#include <variant>
 #include <type_traits>
+#include <variant>
 
 
-template<class> struct is_variant : std::false_type {};
-template<class... Ts> struct is_variant<std::variant<Ts...>> : std::true_type {};
-template<class T>
+template <class>
+struct is_variant : std::false_type {};
+template <class... Ts>
+struct is_variant<std::variant<Ts...>> : std::true_type {};
+template <class T>
 inline constexpr bool is_variant_v = is_variant<std::remove_cvref_t<T>>::value;
 
-template<class T>
+template <class T>
 concept VariantLike = is_variant_v<T>;
 
 template <typename Response>
@@ -21,7 +23,7 @@ public:
 
   void test() {
     auto resp = func2();
-    if constexpr(VariantLike<Response>) {
+    if constexpr (VariantLike<Response>) {
       std::visit([](auto&& val) { std::cout << "std::variant " << val << '\n'; }, resp);
     } else {
       std::cout << "plain " << resp << '\n';
@@ -30,7 +32,9 @@ public:
 };
 
 class A : public Base<int> {
-  int func2() override { return 2; }
+  int func2() override {
+    return 2;
+  }
 };
 
 class B : public Base<std::variant<int, std::string>> {

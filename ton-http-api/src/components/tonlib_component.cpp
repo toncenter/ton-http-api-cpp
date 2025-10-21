@@ -15,21 +15,22 @@
 namespace ton_http::core {
 
 TonlibComponent::TonlibComponent(
-    const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
+  const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
 ) :
     userver::components::ComponentBase(config, context),
     config_(context.FindComponent<userver::components::DynamicConfig>().GetSource()),
     worker_(
-        std::make_unique<TonlibWorker>(multiclient::MultiClientConfig{
-            .global_config_path = config["global_config"].As<std::string>(),
-            .key_store_root = config["keystore"].As<std::string>(),
-            .blockchain_name = "",
-            .reset_key_store = false,
-            .scheduler_threads = config["threads"].As<std::size_t>(),
-        })
+      std::make_unique<TonlibWorker>(multiclient::MultiClientConfig{
+        .global_config_path = config["global_config"].As<std::string>(),
+        .key_store_root = config["keystore"].As<std::string>(),
+        .blockchain_name = "",
+        .reset_key_store = false,
+        .scheduler_threads = config["threads"].As<std::size_t>(),
+      })
     ),
     task_processor_(context.GetTaskProcessor(config["task_processor"].As<std::string>())),
-    logger_(context.FindComponent<userver::components::Logging>().GetLogger("api-v2")) {}
+    logger_(context.FindComponent<userver::components::Logging>().GetLogger("api-v2")) {
+}
 multiclient::SessionPtr TonlibComponent::GetNewSession() const {
   return std::make_shared<multiclient::Session>();
 }
@@ -54,4 +55,4 @@ properties:
         description: task processor name
 )");
 }
-}
+}  // namespace ton_http::core

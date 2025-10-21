@@ -19,7 +19,7 @@ namespace {
 std::vector<std::string> split_global_config_by_liteservers(std::string global_config) {
   auto config_json = td::json_decode(global_config).move_as_ok();
   auto liteservers =
-      get_json_object_field(config_json.get_object(), "liteservers", td::JsonValue::Type::Array, false).move_as_ok();
+    get_json_object_field(config_json.get_object(), "liteservers", td::JsonValue::Type::Array, false).move_as_ok();
   const auto& ls_array = liteservers.get_array();
 
   std::vector<std::string> result;
@@ -99,8 +99,9 @@ void MultiClientActor::send_callback_request(RequestCallback request) {
     if (r_session.is_error()) {
       auto error = r_session.move_as_error_prefix("failed to get session: ");
       callback_->on_error(
-          kUndefinedClientId, request.request_id,
-          tonlib_api::make_object<tonlib_api::error>(error.code(), error.message().str())
+        kUndefinedClientId,
+        request.request_id,
+        tonlib_api::make_object<tonlib_api::error>(error.code(), error.message().str())
       );
       return;
     }
@@ -135,22 +136,24 @@ void MultiClientActor::start_up() {
   LOG(INFO) << "starting " << config_splitted_by_liteservers.size() << " client workers";
 
   for (size_t client_index = 0; client_index < config_splitted_by_liteservers.size(); client_index++) {
-    workers_.push_back(WorkerInfo{
+    workers_.push_back(
+      WorkerInfo{
         .id = td::actor::create_actor<ClientWrapper>(
-            td::actor::ActorOptions().with_name("multiclient_worker_" + std::to_string(client_index)).with_poll(),
-            client_index,
-            ClientConfig{
-                .global_config = config_splitted_by_liteservers[client_index],
-                .key_store = config_.key_store_root.has_value() ?
-                    std::make_optional<std::filesystem::path>(
-                        *config_.key_store_root / ("ls_" + std::to_string(client_index))
-                    ) :
-                    std::nullopt,
-                .blockchain_name = config_.blockchain_name,
-            },
-            callback_
+          td::actor::ActorOptions().with_name("multiclient_worker_" + std::to_string(client_index)).with_poll(),
+          client_index,
+          ClientConfig{
+            .global_config = config_splitted_by_liteservers[client_index],
+            .key_store = config_.key_store_root.has_value() ?
+              std::make_optional<std::filesystem::path>(
+                *config_.key_store_root / ("ls_" + std::to_string(client_index))
+              ) :
+              std::nullopt,
+            .blockchain_name = config_.blockchain_name,
+          },
+          callback_
         ),
-    });
+      }
+    );
   }
 
   alarm_timestamp() = td::Timestamp::in(kFirstAlarmAfter);
@@ -199,22 +202,24 @@ void MultiClientActor::check_alive() {
 
     worker.is_waiting_for_update = true;
     send_worker_request<ton::tonlib_api::blocks_getMasterchainInfo>(
-        worker_index,
-        ton::tonlib_api::blocks_getMasterchainInfo(),
-        [self_id = actor_id(this), worker_index, check_done = first_archival_check_done_](auto result) {
-          td::actor::send_closure(
-              self_id,
-              &MultiClientActor::on_alive_checked,
-              worker_index,
-              result.is_ok() ? std::make_optional(result.ok()->last_->seqno_) : std::nullopt,
-              check_done
-          );
-        }
+      worker_index,
+      ton::tonlib_api::blocks_getMasterchainInfo(),
+      [self_id = actor_id(this), worker_index, check_done = first_archival_check_done_](auto result) {
+        td::actor::send_closure(
+          self_id,
+          &MultiClientActor::on_alive_checked,
+          worker_index,
+          result.is_ok() ? std::make_optional(result.ok()->last_->seqno_) : std::nullopt,
+          check_done
+        );
+      }
     );
   }
 }
 
-void MultiClientActor::on_alive_checked(size_t worker_index, std::optional<int32_t> last_mc_seqno, bool first_archival_check_done) {
+void MultiClientActor::on_alive_checked(
+  size_t worker_index, std::optional<int32_t> last_mc_seqno, bool first_archival_check_done
+) {
   static constexpr double kRetryInterval = 10.0;
   static constexpr int32_t kUndefinedLastMcSeqno = -1;
 
@@ -258,16 +263,16 @@ void MultiClientActor::check_archival(std::optional<size_t> check_worker_index) 
     }
 
     send_worker_request<ton::tonlib_api::blocks_lookupBlock>(
-        worker_index,
-        ton::tonlib_api::blocks_lookupBlock(
-            kLookupMode,
-            ton::tonlib_api::make_object<ton::tonlib_api::ton_blockId>(kBlockWorkchain, kBlockShard, kBlockSeqno),
-            kLookupLt,
-            kLookupUtime
-        ),
-        [self_id = actor_id(this), worker_index](auto result) {
-          td::actor::send_closure(self_id, &MultiClientActor::on_archival_checked, worker_index, result.is_ok());
-        }
+      worker_index,
+      ton::tonlib_api::blocks_lookupBlock(
+        kLookupMode,
+        ton::tonlib_api::make_object<ton::tonlib_api::ton_blockId>(kBlockWorkchain, kBlockShard, kBlockSeqno),
+        kLookupLt,
+        kLookupUtime
+      ),
+      [self_id = actor_id(this), worker_index](auto result) {
+        td::actor::send_closure(self_id, &MultiClientActor::on_archival_checked, worker_index, result.is_ok());
+      }
     );
   }
 }
@@ -293,7 +298,7 @@ void MultiClientActor::get_consensus_block(td::Promise<std::int32_t>&& promise) 
 td::Result<SessionPtr> MultiClientActor::get_session_impl(const RequestParameters& options, SessionPtr session) const {
   auto worker_indices = select_workers(options);
   if (worker_indices.empty()) {
-    return td::Status::Error(533, "no workers available (" + options.to_string() + ")");
+    return td::Status::Error(542, "no workers available (" + options.to_string() + ")");
   }
   if (session) {
     session->set_active_workers(std::move(worker_indices));
@@ -301,7 +306,6 @@ td::Result<SessionPtr> MultiClientActor::get_session_impl(const RequestParameter
   }
   return std::make_shared<Session>(std::move(worker_indices));
 }
-
 
 std::vector<size_t> MultiClientActor::select_workers(const RequestParameters& options) const {
   std::vector<size_t> result;
@@ -312,8 +316,9 @@ std::vector<size_t> MultiClientActor::select_workers(const RequestParameters& op
 
   result.reserve(workers_.size());
   for (size_t i : std::views::iota(0u, workers_.size()) |
-           std::views::filter([&](size_t i) { return workers_[i].is_alive; }) |
-           std::views::filter([&](size_t i) { return options.archival.has_value() ? workers_[i].is_archival == options.archival.value() : true; })) {
+         std::views::filter([&](size_t i) { return workers_[i].is_alive; }) | std::views::filter([&](size_t i) {
+                    return options.archival.has_value() ? workers_[i].is_archival == options.archival.value() : true;
+                  })) {
     result.push_back(i);
   }
 
@@ -328,8 +333,8 @@ std::vector<size_t> MultiClientActor::select_workers(const RequestParameters& op
     case RequestMode::Single: {
       if (options.lite_server_indexes.has_value()) {
         return std::find(result.begin(), result.end(), options.lite_server_indexes->front()) != result.end() ?
-            std::vector<size_t>{options.lite_server_indexes.value().front()} :
-            std::vector<size_t>{};
+          std::vector<size_t>{options.lite_server_indexes.value().front()} :
+          std::vector<size_t>{};
       }
 
       return std::vector<size_t>{result[get_random_index<size_t>(0, result.size() - 1)]};
@@ -345,11 +350,11 @@ std::vector<size_t> MultiClientActor::select_workers(const RequestParameters& op
         std::sort(lite_server_indexes.begin(), lite_server_indexes.end());
 
         std::set_intersection(
-            result.begin(),
-            result.end(),
-            lite_server_indexes.begin(),
-            lite_server_indexes.end(),
-            std::back_inserter(intersection_result)
+          result.begin(),
+          result.end(),
+          lite_server_indexes.begin(),
+          lite_server_indexes.end(),
+          std::back_inserter(intersection_result)
         );
         result = std::move(intersection_result);
       }

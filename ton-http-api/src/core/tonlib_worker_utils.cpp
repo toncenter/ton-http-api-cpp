@@ -3,8 +3,7 @@
 
 
 namespace ton_http::core {
-td::Result<DetectAddressResult> TonlibWorker::detectAddress(
-    const std::string& address, multiclient::SessionPtr) {
+td::Result<DetectAddressResult> TonlibWorker::detectAddress(const std::string& address, multiclient::SessionPtr) {
   auto r_std_address = block::StdAddress::parse(address);
   if (r_std_address.is_error()) {
     return r_std_address.move_as_error();
@@ -36,12 +35,11 @@ td::Result<std::string> TonlibWorker::unpackAddress(const std::string& address, 
   ss << std_address.workchain << ":" << std_address.addr.to_hex();
   return ss.str();
 }
-td::Result<DetectHashResult> TonlibWorker::detectHash(
-    const std::string& hash, multiclient::SessionPtr) {
+td::Result<DetectHashResult> TonlibWorker::detectHash(const std::string& hash, multiclient::SessionPtr) {
   if (hash.empty()) {
     return td::Status::Error(422, "empty hash");
   }
   DetectHashResult result{hash};
   return std::move(result);
 }
-}
+}  // namespace ton_http::core

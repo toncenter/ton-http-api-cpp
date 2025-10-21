@@ -40,4 +40,4 @@ inline schemas::v2::DetectHash Convert(core::DetectHashResult& value) {
   return result;
 }
 
-}
+}  // namespace ton_http::converters

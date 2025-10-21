@@ -5,11 +5,11 @@
 
 namespace ton_http::core {
 td::Result<TokenDataResultPtr> TonlibWorker::getTokenData(
-    const std::string& address,
-    bool skip_verification,
-    std::optional<std::uint32_t> seqno,
-    std::optional<bool> archival,
-    multiclient::SessionPtr session
+  const std::string& address,
+  bool skip_verification,
+  std::optional<std::int32_t> seqno,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
 ) const {
   TRY_RESULT(smc_info, loadContract(address, seqno, archival, session));
   auto r_jetton_master = checkJettonMaster(smc_info->id_, address, skip_verification, seqno, archival, session);
@@ -53,20 +53,23 @@ td::Result<TokenDataResultPtr> TonlibWorker::getTokenData(
 }
 
 td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonMaster(
-    std::int64_t smc_id,
-    const std::string& address,
-    bool,
-    std::optional<std::uint32_t>,
-    std::optional<bool> archival,
-    multiclient::SessionPtr session
+  std::int64_t smc_id,
+  const std::string& address,
+  bool,
+  std::optional<std::int32_t>,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
     .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = smc_id] {
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_jetton_data"),
-        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{});
-    },
+    .request_creator =
+      [id_ = smc_id] {
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_jetton_data"),
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{}
+        );
+      },
     .session = session
   };
   TRY_RESULT(result, send_request_function(std::move(request), false));
@@ -88,13 +91,15 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonMaster(
   if (result->stack_[3]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
     return td::Status::Error(500, "stackEntryCell expected at 3 position");
   }
-  TRY_RESULT(jetton_content_cell,
-    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[3]).cell_->bytes_,
-      true, true)
+  TRY_RESULT(
+    jetton_content_cell,
+    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[3]).cell_->bytes_, true, true)
   );
-  TRY_RESULT_PREFIX(jetton_content,
+  TRY_RESULT_PREFIX(
+    jetton_content,
     utils::parse_token_data(std::move(jetton_content_cell)),
-    "Failed to parse jetton content from the cell: ");
+    "Failed to parse jetton content from the cell: "
+  );
   data->jetton_content_onchain_ = std::get<0>(jetton_content);
   data->jetton_content_ = std::move(std::get<1>(jetton_content));
 
@@ -106,20 +111,23 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonMaster(
   return std::move(data);
 }
 td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
-    std::int64_t smc_id,
-    const std::string& address,
-    bool skip_verification,
-    std::optional<std::uint32_t> seqno,
-    std::optional<bool> archival,
-    multiclient::SessionPtr session
+  std::int64_t smc_id,
+  const std::string& address,
+  bool skip_verification,
+  std::optional<std::int32_t> seqno,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
     .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = smc_id] {
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_wallet_data"),
-        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{});
-    },
+    .request_creator =
+      [id_ = smc_id] {
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_wallet_data"),
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{}
+        );
+      },
     .session = session
   };
   TRY_RESULT(result, send_request_function(std::move(request), false));
@@ -129,12 +137,37 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
   if (result->stack_.size() < 4) {
     return td::Status::Error(500, "Stack size " + std::to_string(result->stack_.size()) + " < 4");
   }
-  auto data = std::make_unique<JettonWalletDataResult>(address);
+
+  // mintless check
+  auto request_mintless = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
+    .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+    .request_creator =
+      [id_ = smc_id] {
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("is_claimed"),
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{}
+        );
+      },
+    .session = session
+  };
+  TRY_RESULT(result_mintless, send_request_function(std::move(request_mintless), false));
 
   // data
+  auto data = std::make_unique<JettonWalletDataResult>(address);
   TRY_RESULT_ASSIGN(data->balance_, utils::number_from_tvm_stack_entry(result->stack_[0]));
   TRY_RESULT_ASSIGN(data->owner_address_, utils::address_from_tvm_stack_entry(result->stack_[1]));
   TRY_RESULT_ASSIGN(data->jetton_master_address_, utils::address_from_tvm_stack_entry(result->stack_[2]));
+
+  // mintless
+  if (result_mintless->exit_code_ == 0 && result_mintless->stack_.size() == 1) {
+    if (result_mintless->stack_[0]->get_id() == tonlib_api::tvm_stackEntryNumber::ID) {
+      if (auto r_is_claimed = utils::number_from_tvm_stack_entry(result_mintless->stack_[0]); r_is_claimed.is_ok()) {
+        auto is_claimed = r_is_claimed.move_as_ok();
+        data->mintless_is_claimed_ = std::stoi(is_claimed);
+      }
+    }
+  }
 
   // jetton_wallet_code_
   if (result->stack_[3]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
@@ -163,16 +196,16 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
 
   // call get_wallet_address on master
   auto request_2 = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
-    .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = parent_smc_info->id_, owner_address_cell_ = owner_address_cell.as_slice().str()] {
-      std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
-      auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_slice>(owner_address_cell_);
-      stack.emplace_back(tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(std::move(tonlib_slice)));
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
-        id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_wallet_address"),
-        std::move(stack));
-    },
+    .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+    .request_creator =
+      [id_ = parent_smc_info->id_, owner_address_cell_ = owner_address_cell.as_slice().str()] {
+        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+        auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_slice>(owner_address_cell_);
+        stack.emplace_back(tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(std::move(tonlib_slice)));
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_wallet_address"), std::move(stack)
+        );
+      },
     .session = session
   };
   TRY_RESULT(result_2, send_request_function(std::move(request_2)));
@@ -196,20 +229,23 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
   return std::move(data);
 }
 td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTCollection(
-    std::int64_t smc_id,
-    const std::string& address,
-    bool,
-    std::optional<std::uint32_t>,
-    std::optional<bool> archival,
-    multiclient::SessionPtr session
+  std::int64_t smc_id,
+  const std::string& address,
+  bool,
+  std::optional<std::int32_t>,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
     .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = smc_id] {
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_collection_data"),
-        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{});
-    },
+    .request_creator =
+      [id_ = smc_id] {
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_collection_data"),
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{}
+        );
+      },
     .session = session
   };
   TRY_RESULT(result, send_request_function(std::move(request), false));
@@ -231,12 +267,15 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTCollection(
   if (result->stack_[1]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
     return td::Status::Error(500, "stackEntryCell expected at 1 position");
   }
-  TRY_RESULT(collection_content_cell,
-    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[1]).cell_->bytes_,
-      true, true));
-  TRY_RESULT_PREFIX(collection_content,
+  TRY_RESULT(
+    collection_content_cell,
+    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[1]).cell_->bytes_, true, true)
+  );
+  TRY_RESULT_PREFIX(
+    collection_content,
     utils::parse_token_data(std::move(collection_content_cell)),
-    "Failed to parse jetton content from the cell: ");
+    "Failed to parse jetton content from the cell: "
+  );
 
   data->collection_content_onchain_ = std::get<0>(collection_content);
   data->collection_content_ = std::move(std::get<1>(collection_content));
@@ -246,20 +285,23 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTCollection(
   return std::move(data);
 }
 td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
-    std::int64_t smc_id,
-    const std::string& address,
-    bool skip_verification,
-    std::optional<std::uint32_t> seqno,
-    std::optional<bool> archival,
-    multiclient::SessionPtr session
+  std::int64_t smc_id,
+  const std::string& address,
+  bool skip_verification,
+  std::optional<std::int32_t> seqno,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
     .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = smc_id] {
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_data"),
-        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{});
-    },
+    .request_creator =
+      [id_ = smc_id] {
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_,
+          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_data"),
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>{}
+        );
+      },
     .session = session
   };
   TRY_RESULT(result, send_request_function(std::move(request), false));
@@ -286,8 +328,9 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
 
   if (data->collection_address_.empty()) {
     TRY_RESULT(content_cell, vm::std_boc_deserialize(ind_content_cell_data, true, true));
-    TRY_RESULT_PREFIX(content, utils::parse_token_data(std::move(content_cell)),
-      "Failed to parse jetton content from the cell: ");
+    TRY_RESULT_PREFIX(
+      content, utils::parse_token_data(std::move(content_cell)), "Failed to parse jetton content from the cell: "
+    );
     data->content_onchain_ = std::get<0>(content);
     data->content_ = std::move(std::get<1>(content));
   }
@@ -305,17 +348,17 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
 
   // verify with master
   auto request_2 = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
-    .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = parent_smc_info->id_, index_ = data->index_] {
-      std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
-      auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>(index_);
-      auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice));
-      stack.push_back(std::move(entry));
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
-        id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_address_by_index"),
-        std::move(stack));
-    },
+    .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+    .request_creator =
+      [id_ = parent_smc_info->id_, index_ = data->index_] {
+        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+        auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>(index_);
+        auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice));
+        stack.push_back(std::move(entry));
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_address_by_index"), std::move(stack)
+        );
+      },
     .session = session
   };
   TRY_RESULT(result_2, send_request_function(std::move(request_2)));
@@ -334,21 +377,21 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
 
   // content_
   auto request_3 = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
-    .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = parent_smc_info->id_, index_ = data->index_, ind_content = std::move(ind_content_cell_data)] {
-      std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
-      auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>(index_);
-      auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice));
-      stack.push_back(std::move(entry));
+    .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+    .request_creator =
+      [id_ = parent_smc_info->id_, index_ = data->index_, ind_content = std::move(ind_content_cell_data)] {
+        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+        auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>(index_);
+        auto entry = tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice));
+        stack.push_back(std::move(entry));
 
-      auto tonlib_slice_2 = tonlib_api::make_object<tonlib_api::tvm_cell>(std::move(ind_content));
-      auto entry_2 = tonlib_api::make_object<tonlib_api::tvm_stackEntryCell>(std::move(tonlib_slice_2));
-      stack.push_back(std::move(entry_2));
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
-        id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_content"),
-        std::move(stack));
-    },
+        auto tonlib_slice_2 = tonlib_api::make_object<tonlib_api::tvm_cell>(std::move(ind_content));
+        auto entry_2 = tonlib_api::make_object<tonlib_api::tvm_stackEntryCell>(std::move(tonlib_slice_2));
+        stack.push_back(std::move(entry_2));
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_nft_content"), std::move(stack)
+        );
+      },
     .session = session
   };
   TRY_RESULT(result_3, send_request_function(std::move(request_3)));
@@ -362,46 +405,50 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
   if (result_3->stack_[0]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
     return td::Status::Error(500, "stackEntryCell expected at 0 position");
   }
-  TRY_RESULT(content_cell,
-    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_3->stack_[0])).cell_->bytes_,
-      true, true));
-  TRY_RESULT_PREFIX(content, utils::parse_token_data(std::move(content_cell)),
-    "Failed to parse nft content from the cell: ");
+  TRY_RESULT(
+    content_cell,
+    vm::std_boc_deserialize(
+      static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_3->stack_[0])).cell_->bytes_, true, true
+    )
+  );
+  TRY_RESULT_PREFIX(
+    content, utils::parse_token_data(std::move(content_cell)), "Failed to parse nft content from the cell: "
+  );
 
   data->content_onchain_ = std::get<0>(content);
   data->content_ = std::move(std::get<1>(content));
 
   // dns resolve
   auto request_dns = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
-    .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
-    .request_creator = [id_ = smc_id] {
-      std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
-      auto zero_byte_cell = vm::CellBuilder().store_bytes("\0").finalize();
-      auto zero_byte_cell_str = vm::std_boc_serialize(zero_byte_cell).move_as_ok();
+    .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+    .request_creator =
+      [id_ = smc_id] {
+        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+        auto zero_byte_cell = vm::CellBuilder().store_bytes("\0").finalize();
+        auto zero_byte_cell_str = vm::std_boc_serialize(zero_byte_cell).move_as_ok();
 
-      auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_slice>(zero_byte_cell_str.as_slice().str());
-      stack.emplace_back(tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(std::move(tonlib_slice)));
+        auto tonlib_slice = tonlib_api::make_object<tonlib_api::tvm_slice>(zero_byte_cell_str.as_slice().str());
+        stack.emplace_back(tonlib_api::make_object<tonlib_api::tvm_stackEntrySlice>(std::move(tonlib_slice)));
 
-      auto tonlib_slice_2 = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>("0");
-      stack.push_back(tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice_2)));
-      return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
-        id_,
-        tonlib_api::make_object<tonlib_api::smc_methodIdName>("dnsresolve"),
-        std::move(stack));
-    },
+        auto tonlib_slice_2 = tonlib_api::make_object<tonlib_api::tvm_numberDecimal>("0");
+        stack.push_back(tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(std::move(tonlib_slice_2)));
+        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+          id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>("dnsresolve"), std::move(stack)
+        );
+      },
     .session = session
   };
   TRY_RESULT(result_dns, send_request_function(std::move(request_dns)));
   if (result_dns->exit_code_ == 0 && result_dns->stack_.size() == 2) {
     auto request_domain = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
-      .parameters = {.mode=multiclient::RequestMode::Single, .archival = archival},
-      .request_creator = [id_ = smc_id] {
-        std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
-        return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
-          id_,
-          tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_domain"),
-          std::move(stack));
-      },
+      .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
+      .request_creator =
+        [id_ = smc_id] {
+          std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> stack;
+          return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
+            id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>("get_domain"), std::move(stack)
+          );
+        },
       .session = session
     };
     TRY_RESULT(result_domain, send_request_function(std::move(request_domain)));
@@ -414,7 +461,7 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
         auto r_domain = td::hex_decode(domain_cs->as_bitslice().to_hex());
         if (r_domain.is_ok()) {
           auto domain = r_domain.move_as_ok();
-          data->domain_ = domain;
+          data->domain_ = domain + ".ton";
 
           std::stringstream ss;
           domain_cs->print_rec(ss, 0);
@@ -434,8 +481,7 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
         LOG(ERROR) << r_dns_content_cell.move_as_error_prefix("Failed to unpack dns content cell: ");
       } else {
         auto dns_content_cell = r_dns_content_cell.move_as_ok();
-        if (auto r_dns_content = utils::parse_dns_content(std::move(dns_content_cell));
-          r_dns_content.is_error()) {
+        if (auto r_dns_content = utils::parse_dns_content(std::move(dns_content_cell)); r_dns_content.is_error()) {
           LOG(ERROR) << r_dns_content.move_as_error_prefix("Failed to parse dns content from the cell: ");
         } else {
           data->dns_content_ = r_dns_content.move_as_ok();
@@ -447,4 +493,4 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
   TRY_STATUS(forgetContract(parent_smc_info->id_, archival, session));
   return std::move(data);
 }
-}
+}  // namespace ton_http::core
