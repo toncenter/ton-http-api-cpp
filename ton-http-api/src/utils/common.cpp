@@ -22,7 +22,7 @@
 
 using namespace ton;
 
-std::string to_hex_string_with_prefix(td::RefInt256& val) {
+std::string to_hex_string_with_prefix(const td::RefInt256& val) {
   auto res = val->to_hex_string();
   if (res[0] == '-') {
     return "-0x" + res.substr(1, res.size() - 1);
@@ -68,7 +68,7 @@ td::Result<userver::formats::json::Value>  ton_http::utils::render_tvm_stack(con
 }
 
 
-td::Result<std::int64_t> _parse_int(const userver::formats::json::Value& element) {
+td::Result<std::int64_t> parse_int(const userver::formats::json::Value& element) {
   try {
     auto value = element.As<int64_t>();
     return value;
@@ -89,7 +89,7 @@ td::Result<userver::formats::json::Value> ton_http::utils::render_tvm_element(
 
   LOG(INFO) << "Element type: '" << element_type << "'";
   if (element_type == "num" || element_type == "number" || element_type == "int") {
-    auto r_value = _parse_int(element);
+    auto r_value = parse_int(element);
     if (r_value.is_error()) {
       return r_value.move_as_error();
     }
@@ -113,7 +113,7 @@ td::Result<userver::formats::json::Value> ton_http::utils::render_tvm_element(
 }
 
 
-userver::formats::json::Value ton_http::utils::serialize_tvm_entry(tonlib_api::tvm_stackEntryCell& entry) {
+userver::formats::json::Value ton_http::utils::serialize_tvm_entry(const tonlib_api::tvm_stackEntryCell& entry) {
   using namespace userver::formats::json;
   ValueBuilder builder;
 
@@ -131,7 +131,7 @@ userver::formats::json::Value ton_http::utils::serialize_tvm_entry(tonlib_api::t
 }
 
 
-userver::formats::json::Value ton_http::utils::serialize_tvm_entry(tonlib_api::tvm_stackEntrySlice& entry) {
+userver::formats::json::Value ton_http::utils::serialize_tvm_entry(const tonlib_api::tvm_stackEntrySlice& entry) {
   using namespace userver::formats::json;
   ValueBuilder builder;
 
@@ -148,7 +148,7 @@ userver::formats::json::Value ton_http::utils::serialize_tvm_entry(tonlib_api::t
 }
 
 
-std::string serialize_data_cell(td::Ref<vm::DataCell>& cell) {
+std::string serialize_data_cell(const td::Ref<vm::DataCell>& cell) {
   auto size = (cell->get_bits() + 7) / 8;
   std::string result;
   result.resize(size);
@@ -156,7 +156,7 @@ std::string serialize_data_cell(td::Ref<vm::DataCell>& cell) {
   return result;
 }
 
-userver::formats::json::Value ton_http::utils::serialize_cell(td::Ref<vm::Cell>& cell) {
+userver::formats::json::Value ton_http::utils::serialize_cell(const td::Ref<vm::Cell>& cell) {
   using namespace userver::formats::json;
   ValueBuilder builder;
 
@@ -181,14 +181,10 @@ userver::formats::json::Value ton_http::utils::serialize_cell(td::Ref<vm::Cell>&
   return builder.ExtractValue();
 }
 
-td::Result<std::string> ton_http::utils::address_from_cell(std::string data) {
-  auto r_cell = vm::std_boc_deserialize(std::move(data), true, false);
-  if (r_cell.is_error()) {
-    return td::Status::Error(500, r_cell.move_as_error().to_string());
-  }
-  auto cell = r_cell.move_as_ok();
+td::Result<std::string> ton_http::utils::address_from_cell(const std::string& data) {
+  TRY_RESULT(cell, vm::std_boc_deserialize(data, true, false));
   auto cs = vm::load_cell_slice(cell);
-  switch ((unsigned)cs.prefetch_ulong(2)) {
+  switch (static_cast<unsigned>(cs.prefetch_ulong(2))) {
     case 0:
       return "";
     case 1:
@@ -207,28 +203,32 @@ td::Result<std::string> ton_http::utils::address_from_cell(std::string data) {
     }
     case 3:
       return td::Status::Error(500, "addr_var is not supported");
+    default:
+      UNREACHABLE();
   }
-  UNREACHABLE();
 }
-td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
+td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(
+    const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
   std::string data;
   if (entry->get_id() == tonlib_api::tvm_stackEntryCell::ID) {
-    auto& entry_cell = static_cast<tonlib_api::tvm_stackEntryCell&>(*entry);
+    auto& entry_cell = dynamic_cast<tonlib_api::tvm_stackEntryCell&>(*entry);
     data = entry_cell.cell_->bytes_;
   } else if (entry->get_id() == tonlib_api::tvm_stackEntrySlice::ID) {
-    auto& entry_slice = static_cast<tonlib_api::tvm_stackEntrySlice&>(*entry);
+    auto& entry_slice = dynamic_cast<tonlib_api::tvm_stackEntrySlice&>(*entry);
     data = entry_slice.slice_->bytes_;
+  } else {
+    return td::Status::Error(500, "stackEntryCell or stackEntrySlice expected");
   }
-
   return address_from_cell(data);
 }
 
 
-td::Result<std::string> ton_http::utils::number_from_tvm_stack_entry(tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
+td::Result<std::string> ton_http::utils::number_from_tvm_stack_entry(
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry) {
   if (entry->get_id() != tonlib_api::tvm_stackEntryNumber::ID) {
     return td::Status::Error(500, "stackEntryNumber expected");
   }
-   return static_cast<const tonlib_api::tvm_stackEntryNumber&>(*entry).number_->number_;
+  return dynamic_cast<const tonlib_api::tvm_stackEntryNumber&>(*entry).number_->number_;
 }
 
 
@@ -300,37 +300,37 @@ td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> ton_
 }
 
 userver::formats::json::Value ton_http::utils::serialize_tvm_stack(
-    std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack
+    const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack
 ) {
   using namespace userver::formats::json;
   ValueBuilder builder;
   for (auto & entry : tvm_stack) {
     ValueBuilder entry_builder;
     tonlib_api::downcast_call(*entry, td::overloaded(
-      [&](tonlib_api::tvm_stackEntryCell& val) {
+      [&](const tonlib_api::tvm_stackEntryCell& val) {
         entry_builder.PushBack("cell");
         auto res = serialize_tvm_entry(val);
         entry_builder.PushBack(res);
       },
-      [&](tonlib_api::tvm_stackEntrySlice& val) {
+      [&](const tonlib_api::tvm_stackEntrySlice& val) {
         entry_builder.PushBack("cell");
         auto res = serialize_tvm_entry(val);
         entry_builder.PushBack(res);
       },
-      [&](tonlib_api::tvm_stackEntryNumber& val) {
+      [&](const tonlib_api::tvm_stackEntryNumber& val) {
         entry_builder.PushBack("num");
         auto res = td::string_to_int256(val.number_->number_);
         entry_builder.PushBack(to_hex_string_with_prefix(res));
       },
-      [&](tonlib_api::tvm_stackEntryTuple& val) {
+      [&](const tonlib_api::tvm_stackEntryTuple& val) {
         entry_builder.PushBack("tuple");
         entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.tuple_))));
       },
-      [&](tonlib_api::tvm_stackEntryList& val) {
+      [&](const tonlib_api::tvm_stackEntryList& val) {
         entry_builder.PushBack("list");
         entry_builder.PushBack(FromString(td::json_encode<td::string>(td::ToJson(val.list_))));
       },
-      [&](tonlib_api::tvm_stackEntryUnsupported& val) {
+      [&](const tonlib_api::tvm_stackEntryUnsupported&) {
         entry_builder.PushBack("unsupported");
         entry_builder.PushBack(FromString("{}"));
       }
@@ -341,7 +341,7 @@ userver::formats::json::Value ton_http::utils::serialize_tvm_stack(
 }
 
 td::Result<std::string> ton_http::utils::parse_snake_data(td::Ref<vm::CellSlice> data) {
-  size_t bsize = 1024 * 8;
+  constexpr size_t bsize = 1024 * 8;
   unsigned char buffer[bsize];
   td::BitPtr bw{buffer};
 
@@ -365,24 +365,23 @@ td::Result<std::string> ton_http::utils::parse_snake_data(td::Ref<vm::CellSlice>
   return std::string(buffer, bw.get_byte_ptr());
 }
 
-td::Result<std::string> ton_http::utils::parse_chunks_data(td::Ref<vm::CellSlice> data) {
+td::Result<std::string> ton_http::utils::parse_chunks_data(const td::Ref<vm::CellSlice>& data) {
   try {
     vm::Dictionary dict(data, 32);
 
-    size_t bsize = 1024 * 8;
+    constexpr size_t bsize = 1024 * 8;
     unsigned char buffer[bsize];
     td::BitPtr bw{buffer};
 
     uint c = 0;
     while (dict.uint_key_exists(c)) {
-      auto value = dict.lookup_ref(td::BitArray<32>(c));
-      if (value.not_null()) {
-        auto data = vm::load_cell_slice_ref(value);
-        if (bw.offs + data->size() > bsize * 8) {
+      if (auto value = dict.lookup_ref(td::BitArray<32>(c)); value.not_null()) {
+        auto loc_data = vm::load_cell_slice_ref(value);
+        if (bw.offs + loc_data->size() > bsize * 8) {
           break; // buffer overflow
         }
 
-        bw.concat(data->prefetch_bits(data->size()));
+        bw.concat(loc_data->prefetch_bits(loc_data->size()));
       }
       c++;
     }
@@ -397,7 +396,7 @@ td::Result<std::string> ton_http::utils::parse_chunks_data(td::Ref<vm::CellSlice
   }
 }
 
-td::Result<std::string> ton_http::utils::parse_content_data(td::Ref<vm::CellSlice> cs) {
+td::Result<std::string> ton_http::utils::parse_content_data(const td::Ref<vm::CellSlice>& cs) {
   switch (tokens::gen::t_ContentData.check_tag(*cs)) {
     case tokens::gen::ContentData::snake: {
       tokens::gen::ContentData::Record_snake snake_record;
@@ -449,8 +448,7 @@ td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils
         std::map<std::string, std::string> res;
 
         for (auto attr : attributes) {
-          auto value_cs = dict.lookup(td::sha256_bits256(attr));
-          if (value_cs.not_null()) {
+          if (auto value_cs = dict.lookup(td::sha256_bits256(attr)); value_cs.not_null()) {
             // TEP-64 standard requires that all attributes are stored in a dictionary with a single reference as a value:
             //    onchain#00 data:(HashmapE 256 ^ContentData) = FullContent;
             // however, some contracts store attributes as a direct value:
@@ -488,15 +486,14 @@ td::Result<std::tuple<bool, std::map<std::string, std::string>>> ton_http::utils
 }
 
 td::Result<ton_http::core::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs) {
-  auto tag = tokens::gen::t_DNSRecord.check_tag(*cs);
-  switch (tag) {
+  switch (auto tag = tokens::gen::t_DNSRecord.check_tag(*cs)) {
     case tokens::gen::DNSRecord::dns_storage_address: {
       tokens::gen::DNSRecord::Record_dns_storage_address record;
       if (!tlb::csr_unpack(cs, record)) {
         return td::Status::Error("Failed to unpack dns_storage_address");
       }
       ton_http::core::DnsRecordStorageAddress result;
-      result.bag_id = record.bag_id.to_hex();
+      result.bag_id = record.bag_id.as_slice().str();
       return result;
     }
     case tokens::gen::DNSRecord::dns_adnl_address: {
@@ -505,7 +502,7 @@ td::Result<ton_http::core::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs
         return td::Status::Error("Failed to unpack dns_adnl_address");
       }
       ton_http::core::DnsRecordAdnlAddress result;
-      result.adnl_addr = record.adnl_addr.to_hex();
+      result.adnl_addr = record.adnl_addr.as_slice().str();
       return result;
     }
     case tokens::gen::DNSRecord::dns_next_resolver: {
@@ -513,9 +510,9 @@ td::Result<ton_http::core::DnsRecord> parse_dns_record(td::Ref<vm::CellSlice> cs
       if (!tlb::csr_unpack(cs, record)) {
         return td::Status::Error("Failed to unpack dns_next_resolver");
       }
-      ton_http::core::DnsRecordNextResolver result;
       switch (tokens::gen::t_MsgAddressInt.check_tag(*record.resolver)) {
         case tokens::gen::MsgAddressInt::addr_std: {
+          ton_http::core::DnsRecordNextResolver result;
           tokens::gen::MsgAddressInt::Record_addr_std addr_std;
           if (!tlb::csr_unpack(record.resolver, addr_std)) {
             return td::Status::Error("Failed to unpack addr_std");

@@ -16,5 +16,21 @@ inline schemas::v2::MasterchainInfo Convert(tonlib_api::blocks_getMasterchainInf
   return result;
 }
 
+inline schemas::v2::BlockSignature Convert(tonlib_api::object_ptr<tonlib_api::blocks_signature>& value) {
+  schemas::v2::BlockSignature result;
+  result.node_id_short = types::ton_hash{value->node_id_short_.as_slice().str()};
+  result.signature = types::bytes{value->signature_};
+  return result;
+}
+
+inline schemas::v2::MasterchainBlockSignatures Convert(tonlib_api::blocks_getMasterchainBlockSignatures::ReturnType& value) {
+  schemas::v2::MasterchainBlockSignatures result;
+  result.id = Convert(value->id_);
+  for (auto& sig : value->signatures_) {
+    result.signatures.push_back(Convert(sig));
+  }
+  return result;
+}
+
 }
 

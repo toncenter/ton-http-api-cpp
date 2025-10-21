@@ -200,5 +200,3 @@ def test_highload_wallets(api_method_call, address):
     assert data['result']['@type'] == 'ext.accounts.walletInformation'
     assert data['result']['wallet'] == False
     return
-
-

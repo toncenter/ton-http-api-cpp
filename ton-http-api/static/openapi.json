@@ -3362,6 +3362,10 @@
         "type": "string",
         "x-usrv-cpp-type": "ton_http::types::ton_hash"
       },
+      "TonHashHex": {
+        "type": "string",
+        "x-usrv-cpp-type": "ton_http::types::ton_hash_hex"
+      },
       "Int256": {
         "type": "string",
         "x-usrv-cpp-type": "ton_http::types::int256"
@@ -4029,6 +4033,413 @@
           }
         }
       },
+      "TokenContentDict": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "DnsRecordStorageAddress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "bag_id"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "dns_storage_address"
+            ],
+            "default": "dns_storage_address"
+          },
+          "bag_id": {
+            "$ref": "#/components/schemas/TonHashHex"
+          }
+        }
+      },
+      "DnsRecordAdnlAddress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "adnl_addr"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "dns_adnl_address"
+            ],
+            "default": "dns_adnl_address"
+          },
+          "adnl_addr": {
+            "$ref": "#/components/schemas/TonHashHex"
+          }
+        }
+      },
+      "SmcAddr": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "workchain_id",
+          "address"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "addr_std"
+            ],
+            "default": "addr_std"
+          },
+          "workchain_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TonHashHex"
+          }
+        }
+      },
+      "DnsRecordSmcAddress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "smc_addr"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "dns_smc_address"
+            ],
+            "default": "dns_smc_address"
+          },
+          "smc_addr": {
+            "$ref": "#/components/schemas/SmcAddr"
+          }
+        }
+      },
+      "DnsRecordNextResolver": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "resolver"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "dns_next_resolver"
+            ],
+            "default": "dns_next_resolver"
+          },
+          "resolver": {
+            "$ref": "#/components/schemas/SmcAddr"
+          }
+        }
+      },
+      "DnsRecord": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/DnsRecordStorageAddress"
+          },
+          {
+            "$ref": "#/components/schemas/DnsRecordSmcAddress"
+          },
+          {
+            "$ref": "#/components/schemas/DnsRecordAdnlAddress"
+          },
+          {
+            "$ref": "#/components/schemas/DnsRecordNextResolver"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "dns_storage_address": "#/components/schemas/DnsRecordStorageAddress",
+            "dns_smc_address": "#/components/schemas/DnsRecordSmcAddress",
+            "dns_adnl_address": "#/components/schemas/DnsRecordAdnlAddress",
+            "dns_next_resolver": "#/components/schemas/DnsRecordNextResolver"
+          }
+        }
+      },
+      "DnsRecordSet": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "dns_next_resolver": {
+            "$ref": "#/components/schemas/DnsRecord"
+          },
+          "wallet": {
+            "$ref": "#/components/schemas/DnsRecord"
+          },
+          "site": {
+            "$ref": "#/components/schemas/DnsRecord"
+          },
+          "storage": {
+            "$ref": "#/components/schemas/DnsRecord"
+          }
+        }
+      },
+      "DnsContent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "domain",
+          "data"
+        ],
+        "properties": {
+          "domain": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/DnsRecordSet"
+          }
+        }
+      },
+      "TokenContent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "data"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "onchain",
+              "offchain"
+            ]
+          },
+          "data": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/TokenContentDict"
+              }
+            ]
+          }
+        }
+      },
+      "JettonMasterData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "address",
+          "contract_type",
+          "total_supply",
+          "mintable",
+          "admin_address",
+          "jetton_content",
+          "jetton_wallet_code"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ext.tokens.jettonMasterData"
+            ],
+            "default": "ext.tokens.jettonMasterData"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "contract_type": {
+            "type": "string",
+            "enum": [
+              "jetton_master"
+            ],
+            "default": "jetton_master"
+          },
+          "total_supply": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "mintable": {
+            "type": "boolean"
+          },
+          "admin_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "jetton_content": {
+            "$ref": "#/components/schemas/TokenContent"
+          },
+          "jetton_wallet_code": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        }
+      },
+      "JettonWalletData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "address",
+          "contract_type",
+          "balance",
+          "owner_address",
+          "jetton_master_address",
+          "jetton_wallet_code"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ext.tokens.jettonWalletData"
+            ],
+            "default": "ext.tokens.jettonWalletData"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "contract_type": {
+            "type": "string",
+            "enum": [
+              "jetton_wallet"
+            ],
+            "default": "jetton_wallet"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "owner_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "jetton_master_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "mintless_is_claimed": {
+            "type": "boolean"
+          },
+          "jetton_wallet_code": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        }
+      },
+      "NftCollectionData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "address",
+          "contract_type",
+          "next_item_index",
+          "collection_content"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ext.tokens.nftCollectionData"
+            ],
+            "default": "ext.tokens.nftCollectionData"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "contract_type": {
+            "type": "string",
+            "enum": [
+              "nft_collection"
+            ],
+            "default": "nft_collection"
+          },
+          "next_item_index": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "owner_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "collection_content": {
+            "$ref": "#/components/schemas/TokenContent"
+          }
+        }
+      },
+      "NftItemData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "address",
+          "contract_type",
+          "init",
+          "index",
+          "content"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ext.tokens.nftItemData"
+            ],
+            "default": "ext.tokens.nftItemData"
+          },
+          "address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "contract_type": {
+            "type": "string",
+            "enum": [
+              "nft_item"
+            ],
+            "default": "nft_item"
+          },
+          "init": {
+            "type": "boolean"
+          },
+          "index": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "collection_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "owner_address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "content": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TokenContent"
+              },
+              {
+                "$ref": "#/components/schemas/DnsContent"
+              }
+            ]
+          }
+        }
+      },
+      "TokenData": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/JettonMasterData"
+          },
+          {
+            "$ref": "#/components/schemas/JettonWalletData"
+          },
+          {
+            "$ref": "#/components/schemas/NftCollectionData"
+          },
+          {
+            "$ref": "#/components/schemas/NftItemData"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "ext.tokens.jettonMasterData": "#/components/schemas/JettonMasterData",
+            "ext.tokens.jettonWalletData": "#/components/schemas/JettonWalletData",
+            "ext.tokens.nftCollectionData": "#/components/schemas/NftCollectionData",
+            "ext.tokens.nftItemData": "#/components/schemas/NftItemData"
+          }
+        }
+      },
       "AccountStateEnum": {
         "type": "string",
         "enum": [
@@ -4589,7 +5000,22 @@
             "$ref": "#/components/schemas/WalletInformation"
           },
           {
+            "$ref": "#/components/schemas/JettonMasterData"
+          },
+          {
+            "$ref": "#/components/schemas/JettonWalletData"
+          },
+          {
+            "$ref": "#/components/schemas/NftCollectionData"
+          },
+          {
+            "$ref": "#/components/schemas/NftItemData"
+          },
+          {
             "$ref": "#/components/schemas/MasterchainInfo"
+          },
+          {
+            "$ref": "#/components/schemas/MasterchainBlockSignatures"
           }
         ],
         "discriminator": {
@@ -4600,7 +5026,12 @@
             "raw.fullAccountState": "#/components/schemas/AddressInformation",
             "fullAccountState": "#/components/schemas/ExtendedAddressInformation",
             "ext.accounts.walletInformation": "#/components/schemas/WalletInformation",
-            "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo"
+            "ext.tokens.jettonMasterData": "#/components/schemas/JettonMasterData",
+            "ext.tokens.jettonWalletData": "#/components/schemas/JettonWalletData",
+            "ext.tokens.nftCollectionData": "#/components/schemas/NftCollectionData",
+            "ext.tokens.nftItemData": "#/components/schemas/NftItemData",
+            "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo",
+            "blocks.blockSignatures": "#/components/schemas/MasterchainBlockSignatures"
           }
         }
       },
@@ -4623,6 +5054,9 @@
             "oneOf": [
               {
                 "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/AccountStateEnum"
               },
               {
                 "$ref": "#/components/schemas/TonlibObject"

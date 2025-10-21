@@ -16,9 +16,9 @@ userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::T
     return ton_http::types::ton_addr{raw_addr};
   }
 
-  return ton_http::types::ton_addr{addr.rserialize()};
+  return ton_http::types::ton_addr{addr.rserialize(true)};
 }
 std::string
-userver::chaotic::convert::Convert(const ton_http::types::ton_addr& hash, chaotic::convert::To<std::string>) {
-  return hash.GetUnderlying();
+userver::chaotic::convert::Convert(const ton_http::types::ton_addr& addr, chaotic::convert::To<std::string>) {
+  return addr.GetUnderlying();
 }

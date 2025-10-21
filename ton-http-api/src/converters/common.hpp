@@ -114,7 +114,7 @@ inline schemas::v2::PChanState Convert(const tonlib_api::object_ptr<tonlib_api::
       res.B = val.B_;
       result = res;
     },
-    [&](auto& val) {
+    [&](auto&) {
       LOG_ERROR() << "Unsupported pchan state type: " << value->get_id();
     }
   ));

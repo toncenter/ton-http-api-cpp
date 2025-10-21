@@ -2,6 +2,7 @@
 
 #include <boost/lexical_cast.hpp>
 #include "converters/convert.hpp"
+#include "utils/suspended.hpp"
 
 ton_http::handlers::GetAddressInformationHandler::GetAddressInformationHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context

@@ -18,7 +18,7 @@ ton_http::schemas::v2::PackAddressRequest ton_http::handlers::PackAddressHandler
 td::Result<ton_http::schemas::v2::PackAddress> ton_http::handlers::PackAddressHandler::HandleRequestTonlibThrow(
     schemas::v2::PackAddressRequest& request, multiclient::SessionPtr& session
 ) const {
-  auto result = tonlib_component_.DoRequest(&core::TonlibWorker::packAddress, request.address.GetUnderlying(), session);
+  auto result = tonlib_component_.DoStaticRequest(&core::TonlibWorker::packAddress, request.address.GetUnderlying(), session);
   if (result.is_error()) {
     return result.move_as_error();
   }

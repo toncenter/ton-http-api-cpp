@@ -114,7 +114,6 @@ struct NFTItemDataResult final : public TokenDataResult {
   std::map<std::string, DnsRecord> dns_content_;
   std::string domain_;
   bool is_dns_{false};
-  // TODO: implement dns entry parsing
   explicit NFTItemDataResult(const std::string& address) : TokenDataResult(address) {}
 };
 }

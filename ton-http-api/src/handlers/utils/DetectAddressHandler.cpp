@@ -17,7 +17,7 @@ ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::DetectAddressHan
 td::Result<ton_http::schemas::v2::DetectAddress> ton_http::handlers::DetectAddressHandler::HandleRequestTonlibThrow(
     schemas::v2::DetectAddressRequest& request, multiclient::SessionPtr& session
 ) const {
-  auto result = tonlib_component_.DoRequest(&core::TonlibWorker::detectAddress, request.address.GetUnderlying(), session);
+  auto result = tonlib_component_.DoStaticRequest(&core::TonlibWorker::detectAddress, request.address.GetUnderlying(), session);
   if (result.is_error()) {
     return result.move_as_error();
   }

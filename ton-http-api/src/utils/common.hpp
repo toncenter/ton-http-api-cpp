@@ -51,23 +51,24 @@ inline std::optional<std::string> stringToHash(const std::string& str) {
 td::Result<userver::formats::json::Value> render_tvm_stack(const std::string& stack_str);
 td::Result<userver::formats::json::Value> render_tvm_element(const std::string& element_type, const userver::formats::json::Value& element);
 
-userver::formats::json::Value serialize_tvm_stack(std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack);
-userver::formats::json::Value serialize_tvm_entry(tonlib_api::tvm_stackEntryCell& entry);
-userver::formats::json::Value serialize_tvm_entry(tonlib_api::tvm_stackEntrySlice& entry);
+userver::formats::json::Value serialize_tvm_stack(
+    const std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>& tvm_stack);
+userver::formats::json::Value serialize_tvm_entry(const tonlib_api::tvm_stackEntryCell& entry);
+userver::formats::json::Value serialize_tvm_entry(const tonlib_api::tvm_stackEntrySlice& entry);
 
 td::Result<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>> parse_stack(const std::vector<std::string>& stack_vector);
 
-userver::formats::json::Value serialize_cell(td::Ref<vm::Cell>& cell);
+userver::formats::json::Value serialize_cell(const td::Ref<vm::Cell>& cell);
 
-td::Result<std::string> address_from_cell(std::string data);
+td::Result<std::string> address_from_cell(const std::string& data);
 
-td::Result<std::string> address_from_tvm_stack_entry(tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
-td::Result<std::string> number_from_tvm_stack_entry(tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
+td::Result<std::string> address_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
+td::Result<std::string> number_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
 
 // tokens
 td::Result<std::string> parse_snake_data(td::Ref<vm::CellSlice> data);
-td::Result<std::string> parse_chunks_data(td::Ref<vm::CellSlice> data);
-td::Result<std::string> parse_content_data(td::Ref<vm::CellSlice> cs);
+td::Result<std::string> parse_chunks_data(const td::Ref<vm::CellSlice>& data);
+td::Result<std::string> parse_content_data(const td::Ref<vm::CellSlice>& cs);
 td::Result<std::tuple<bool, std::map<std::string, std::string>>> parse_token_data(td::Ref<vm::Cell> cell);
 td::Result<std::map<std::string, core::DnsRecord>> parse_dns_content(td::Ref<vm::Cell> cell);
 }

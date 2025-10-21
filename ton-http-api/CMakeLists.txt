@@ -8,9 +8,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
         src/components/tonlib_component.cpp
         src/schemas/v2.cpp
-        src/core/types.hpp
-        src/core/tonlib_worker.cpp
-        src/core/tlb/tokens-tlb.cpp
+        src/userver/chaotic/io/ton_http/types/ton_hash_hex.cpp
         src/userver/chaotic/io/ton_http/types/ton_hash.cpp
         src/userver/chaotic/io/ton_http/types/ton_addr.cpp
         src/userver/chaotic/io/ton_http/types/int256.cpp
@@ -34,6 +32,24 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/accounts/GetWalletInformationHandler.h
         src/handlers/accounts/GetWalletInformationHandler.cpp
         src/utils/wallets.hpp
+        src/handlers/accounts/GetAddressBalanceHandler.h
+        src/handlers/accounts/GetAddressBalanceHandler.cpp
+        src/handlers/accounts/GetAddressStateHandler.h
+        src/handlers/accounts/GetAddressStateHandler.cpp
+        src/handlers/blocks/GetMasterchainBlockSignaturesHandler.h
+        src/handlers/blocks/GetMasterchainBlockSignaturesHandler.cpp
+        src/handlers/accounts/GetTokenDataHandler.h
+        src/handlers/accounts/GetTokenDataHandler.cpp
+        src/core/tonlib_worker.cpp
+        src/core/tlb/tokens-tlb.cpp
+        src/core/tonlib_worker_utils.cpp
+        src/core/tonlib_worker_accounts.cpp
+        src/core/tonlib_worker_blocks.cpp
+        src/core/tonlib_worker_config.cpp
+        src/core/tonlib_worker_transactions.cpp
+        src/core/tonlib_worker_send.cpp
+        src/core/tonlib_worker_tokens.cpp
+        src/userver/chaotic/io/ton_http/types/ton_hash_hex.hpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp

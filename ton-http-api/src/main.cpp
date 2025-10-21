@@ -12,9 +12,13 @@
 
 #include "components/tonlib_component.h"
 #include "handlers/JsonRpcHandler.h"
+#include "handlers/accounts/GetAddressBalanceHandler.h"
 #include "handlers/accounts/GetAddressInformationHandler.h"
+#include "handlers/accounts/GetAddressStateHandler.h"
 #include "handlers/accounts/GetExtendedAddressInformationHandler.h"
+#include "handlers/accounts/GetTokenDataHandler.h"
 #include "handlers/accounts/GetWalletInformationHandler.h"
+#include "handlers/blocks/GetMasterchainBlockSignaturesHandler.h"
 #include "handlers/blocks/GetMasterchainInfoHandler.h"
 #include "handlers/utils/DetectAddressHandler.h"
 #include "handlers/utils/DetectHashHandler.h"
@@ -49,9 +53,13 @@ int main(int argc, char* argv[]) {
   component_list.Append<ton_http::handlers::GetAddressInformationHandler>();
   component_list.Append<ton_http::handlers::GetExtendedAddressInformationHandler>();
   component_list.Append<ton_http::handlers::GetWalletInformationHandler>();
+  component_list.Append<ton_http::handlers::GetAddressBalanceHandler>();
+  component_list.Append<ton_http::handlers::GetAddressStateHandler>();
+  component_list.Append<ton_http::handlers::GetTokenDataHandler>();
 
   // blocks
   component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();
+  component_list.Append<ton_http::handlers::GetMasterchainBlockSignaturesHandler>();
 
   // transactions
 

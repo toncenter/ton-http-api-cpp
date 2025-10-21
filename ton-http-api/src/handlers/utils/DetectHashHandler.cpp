@@ -18,7 +18,7 @@ ton_http::schemas::v2::DetectHashRequest ton_http::handlers::DetectHashHandler::
 td::Result<ton_http::schemas::v2::DetectHash> ton_http::handlers::DetectHashHandler::HandleRequestTonlibThrow(
     schemas::v2::DetectHashRequest& request, multiclient::SessionPtr& session
 ) const {
-  auto result = tonlib_component_.DoRequest(&core::TonlibWorker::detectHash, request.hash.GetUnderlying(), session);
+  auto result = tonlib_component_.DoStaticRequest(&core::TonlibWorker::detectHash, request.hash.GetUnderlying(), session);
   if (result.is_error()) {
     return result.move_as_error();
   }

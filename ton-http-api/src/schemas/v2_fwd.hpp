@@ -123,6 +123,27 @@ struct DetectHash;
 struct DetectHashRequest;
 
 
+struct DnsRecordStorageAddress;
+
+
+struct SmcAddr;
+
+
+struct DnsRecordSmcAddress;
+
+
+struct DnsRecordAdnlAddress;
+
+
+struct DnsRecordNextResolver;
+
+
+struct DnsRecordSet;
+
+
+struct DnsContent;
+
+
 struct EstimateFeeRequest;
 
 
@@ -147,6 +168,18 @@ struct ExtTransaction;
 struct ExtendedAddressInformation;
 
 
+struct TokenContentDict;
+
+
+struct TokenContent;
+
+
+struct JettonMasterData;
+
+
+struct JettonWalletData;
+
+
 struct TonlibErrorResponse;
 
 
@@ -159,7 +192,16 @@ struct JsonRpcRequest;
 struct WalletInformation;
 
 
+struct NftCollectionData;
+
+
+struct NftItemData;
+
+
 struct MasterchainInfo;
+
+
+struct MasterchainBlockSignatures;
 
 
 struct TonlibResponse;
@@ -178,9 +220,6 @@ struct LibraryResult;
 
 
 struct LookupBlockRequest;
-
-
-struct MasterchainBlockSignatures;
 
 
 struct SeqnoRequest;

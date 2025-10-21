@@ -2269,6 +2269,373 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__DnsRecordStorageAddress___Type_Mapping = [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type::kDnsStorageAddress, "dns_storage_address"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__DnsRecordStorageAddress_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("bag_id");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordStorageAddress::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__DnsRecordStorageAddress___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordStorageAddress Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsRecordStorageAddress res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>>(
+              ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type::kDnsStorageAddress
+          );
+  res.bag_id = value["bag_id"]
+                   .template As<USERVER_NAMESPACE::chaotic::WithType<
+                       USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                       ton_http::types::ton_hash_hex>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__DnsRecordStorageAddress_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__SmcAddr___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::SmcAddr::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::SmcAddr::_Type::kAddrStd, "addr_std"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__SmcAddr_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("workchain_id").Case("address");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::SmcAddr::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__SmcAddr___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::SmcAddr::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::SmcAddr Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::SmcAddr res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::SmcAddr::_Type>>(
+          ::ton_http::schemas::v2::SmcAddr::_Type::kAddrStd
+      );
+  res.workchain_id = value["workchain_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
+  res.address = value["address"]
+                    .template As<USERVER_NAMESPACE::chaotic::WithType<
+                        USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                        ton_http::types::ton_hash_hex>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(value, k__ton_http__schemas__v2__SmcAddr_PropertiesNames);
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DnsRecordSmcAddress___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type::kDnsSmcAddress, "dns_smc_address"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DnsRecordSmcAddress_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("smc_addr");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordSmcAddress::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__DnsRecordSmcAddress___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordSmcAddress Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsRecordSmcAddress res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>>(
+              ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type::kDnsSmcAddress
+          );
+  res.smc_addr =
+      value["smc_addr"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::SmcAddr>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__DnsRecordSmcAddress_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DnsRecordAdnlAddress___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type::kDnsAdnlAddress, "dns_adnl_address"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DnsRecordAdnlAddress_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("adnl_addr");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__DnsRecordAdnlAddress___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordAdnlAddress Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsRecordAdnlAddress res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>>(
+              ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type::kDnsAdnlAddress
+          );
+  res.adnl_addr = value["adnl_addr"]
+                      .template As<USERVER_NAMESPACE::chaotic::WithType<
+                          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                          ton_http::types::ton_hash_hex>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__DnsRecordAdnlAddress_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__DnsRecordNextResolver___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::DnsRecordNextResolver::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::DnsRecordNextResolver::_Type::kDnsNextResolver, "dns_next_resolver"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DnsRecordNextResolver_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("resolver");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordNextResolver::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__DnsRecordNextResolver___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::DnsRecordNextResolver::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordNextResolver Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsRecordNextResolver res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>>(
+              ::ton_http::schemas::v2::DnsRecordNextResolver::_Type::kDnsNextResolver
+          );
+  res.resolver =
+      value["resolver"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::SmcAddr>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__DnsRecordNextResolver_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DnsRecordSet_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("dns_next_resolver")
+          .Case("wallet")
+          .Case("site")
+          .Case("storage");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsRecordSet Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsRecordSet res;
+
+  res.dns_next_resolver =
+      value["dns_next_resolver"]
+          .template As<std::optional<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+              &::ton_http::schemas::v2::kDnsRecord_Settings,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordStorageAddress>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSmcAddress>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordAdnlAddress>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordNextResolver>>>>();
+  res.wallet = value["wallet"]
+                   .template As<std::optional<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                       &::ton_http::schemas::v2::kDnsRecord_Settings,
+                       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordStorageAddress>,
+                       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSmcAddress>,
+                       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordAdnlAddress>,
+                       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordNextResolver>>>>();
+  res.site = value["site"]
+                 .template As<std::optional<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                     &::ton_http::schemas::v2::kDnsRecord_Settings,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordStorageAddress>,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSmcAddress>,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordAdnlAddress>,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordNextResolver>>>>();
+  res.storage = value["storage"]
+                    .template As<std::optional<USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                        &::ton_http::schemas::v2::kDnsRecord_Settings,
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordStorageAddress>,
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSmcAddress>,
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordAdnlAddress>,
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordNextResolver>>>>();
+
+
+  res.extra = USERVER_NAMESPACE::chaotic::ExtractAdditionalPropertiesTrue(
+      value, k__ton_http__schemas__v2__DnsRecordSet_PropertiesNames
+  );
+
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__DnsContent_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("domain").Case("data");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::DnsContent Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::DnsContent res;
+
+  res.domain = value["domain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
+  res.data = value["data"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsRecordSet>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__DnsContent_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__EstimateFeeRequest_PropertiesNames =
     [](auto selector) {
       return selector()
@@ -2834,6 +3201,307 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TokenContentDict_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>();
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TokenContentDict Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TokenContentDict res;
+
+
+  res.extra = USERVER_NAMESPACE::chaotic::ExtractAdditionalPropertiesTrue(
+      value, k__ton_http__schemas__v2__TokenContentDict_PropertiesNames
+  );
+
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__TokenContent__Type_Mapping =
+    [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::TokenContent::Type, std::string_view>()
+          .Case(::ton_http::schemas::v2::TokenContent::Type::kOnchain, "onchain")
+          .Case(::ton_http::schemas::v2::TokenContent::Type::kOffchain, "offchain");
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TokenContent_PropertiesNames =
+    [](auto selector) {
+      return selector().template Type<std::string_view>().Case("type").Case("data");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::TokenContent::Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__TokenContent__Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::TokenContent::Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::TokenContent Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::TokenContent res;
+
+  res.type =
+      value["type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TokenContent::Type>>();
+  res.data = value["data"]
+                 .template As<USERVER_NAMESPACE::chaotic::Variant<
+                     USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TokenContentDict>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__TokenContent_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__JettonMasterData___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::JettonMasterData::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::JettonMasterData::_Type::kExtTokensJettonmasterdata, "ext.tokens.jettonMasterData"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__JettonMasterData__Contract_Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::JettonMasterData::Contract_Type, std::string_view>()
+          .Case(::ton_http::schemas::v2::JettonMasterData::Contract_Type::kJettonMaster, "jetton_master");
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__JettonMasterData_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("address")
+          .Case("contract_type")
+          .Case("total_supply")
+          .Case("mintable")
+          .Case("admin_address")
+          .Case("jetton_content")
+          .Case("jetton_wallet_code");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonMasterData::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__JettonMasterData___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::JettonMasterData::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonMasterData::Contract_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__JettonMasterData__Contract_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::JettonMasterData::Contract_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonMasterData Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JettonMasterData res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData::_Type>>(
+                      ::ton_http::schemas::v2::JettonMasterData::_Type::kExtTokensJettonmasterdata
+                  );
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.contract_type =
+      value["contract_type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData::Contract_Type>>(
+              ::ton_http::schemas::v2::JettonMasterData::Contract_Type::kJettonMaster
+          );
+  res.total_supply =
+      value["total_supply"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
+  res.mintable = value["mintable"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.admin_address =
+      value["admin_address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.jetton_content = value["jetton_content"]
+                           .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TokenContent>>();
+  res.jetton_wallet_code =
+      value["jetton_wallet_code"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__JettonMasterData_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__JettonWalletData___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::JettonWalletData::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::JettonWalletData::_Type::kExtTokensJettonwalletdata, "ext.tokens.jettonWalletData"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__JettonWalletData__Contract_Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::JettonWalletData::Contract_Type, std::string_view>()
+          .Case(::ton_http::schemas::v2::JettonWalletData::Contract_Type::kJettonWallet, "jetton_wallet");
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__JettonWalletData_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("address")
+          .Case("contract_type")
+          .Case("balance")
+          .Case("owner_address")
+          .Case("jetton_master_address")
+          .Case("mintless_is_claimed")
+          .Case("jetton_wallet_code");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonWalletData::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__JettonWalletData___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::JettonWalletData::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonWalletData::Contract_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__JettonWalletData__Contract_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::JettonWalletData::Contract_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::JettonWalletData Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::JettonWalletData res;
+
+  res._type = value["@type"]
+                  .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData::_Type>>(
+                      ::ton_http::schemas::v2::JettonWalletData::_Type::kExtTokensJettonwalletdata
+                  );
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.contract_type =
+      value["contract_type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData::Contract_Type>>(
+              ::ton_http::schemas::v2::JettonWalletData::Contract_Type::kJettonWallet
+          );
+  res.balance =
+      value["balance"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
+  res.owner_address =
+      value["owner_address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.jetton_master_address =
+      value["jetton_master_address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.mintless_is_claimed =
+      value["mintless_is_claimed"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<bool>>>();
+  res.jetton_wallet_code =
+      value["jetton_wallet_code"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__JettonWalletData_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibErrorResponse_PropertiesNames =
     [](auto selector) {
       return selector()
@@ -3088,6 +3756,221 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__NftCollectionData___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::NftCollectionData::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::NftCollectionData::_Type::kExtTokensNftcollectiondata, "ext.tokens.nftCollectionData"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__NftCollectionData__Contract_Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::NftCollectionData::Contract_Type, std::string_view>()
+          .Case(::ton_http::schemas::v2::NftCollectionData::Contract_Type::kNftCollection, "nft_collection");
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__NftCollectionData_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("address")
+          .Case("contract_type")
+          .Case("next_item_index")
+          .Case("owner_address")
+          .Case("collection_content");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftCollectionData::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__NftCollectionData___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::NftCollectionData::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftCollectionData::Contract_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__NftCollectionData__Contract_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::NftCollectionData::Contract_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftCollectionData Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::NftCollectionData res;
+
+  res._type =
+      value["@type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData::_Type>>(
+              ::ton_http::schemas::v2::NftCollectionData::_Type::kExtTokensNftcollectiondata
+          );
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.contract_type =
+      value["contract_type"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData::Contract_Type>>(
+              ::ton_http::schemas::v2::NftCollectionData::Contract_Type::kNftCollection
+          );
+  res.next_item_index =
+      value["next_item_index"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
+  res.owner_address = value["owner_address"]
+                          .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                              USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                              ton_http::types::ton_addr>>>();
+  res.collection_content =
+      value["collection_content"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TokenContent>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__NftCollectionData_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__NftItemData___Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::NftItemData::_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::NftItemData::_Type::kExtTokensNftitemdata, "ext.tokens.nftItemData"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__NftItemData__Contract_Type_Mapping =
+    [](auto selector) {
+      return selector().template Type<::ton_http::schemas::v2::NftItemData::Contract_Type, std::string_view>().Case(
+          ::ton_http::schemas::v2::NftItemData::Contract_Type::kNftItem, "nft_item"
+      );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__NftItemData_PropertiesNames =
+    [](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("@type")
+          .Case("address")
+          .Case("contract_type")
+          .Case("init")
+          .Case("index")
+          .Case("collection_address")
+          .Case("owner_address")
+          .Case("content");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftItemData::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__NftItemData___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::NftItemData::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftItemData::Contract_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__NftItemData__Contract_Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::NftItemData::Contract_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::NftItemData Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::NftItemData res;
+
+  res._type =
+      value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData::_Type>>(
+          ::ton_http::schemas::v2::NftItemData::_Type::kExtTokensNftitemdata
+      );
+  res.address =
+      value["address"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
+  res.contract_type =
+      value["contract_type"]
+          .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData::Contract_Type>>(
+              ::ton_http::schemas::v2::NftItemData::Contract_Type::kNftItem
+          );
+  res.init = value["init"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>();
+  res.index =
+      value["index"]
+          .template As<USERVER_NAMESPACE::chaotic::
+                           WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>>();
+  res.collection_address = value["collection_address"]
+                               .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                                   USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                                   ton_http::types::ton_addr>>>();
+  res.owner_address = value["owner_address"]
+                          .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+                              USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+                              ton_http::types::ton_addr>>>();
+  res.content = value["content"]
+                    .template As<USERVER_NAMESPACE::chaotic::Variant<
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TokenContent>,
+                        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DnsContent>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__NftItemData_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping =
     [](auto selector) {
       return selector().template Type<::ton_http::schemas::v2::MasterchainInfo::_Type, std::string_view>().Case(
@@ -3151,6 +4034,69 @@ template <typename Value>
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
+    k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping = [](auto selector) {
+      return selector()
+          .template Type<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type, std::string_view>()
+          .Case(
+              ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures,
+              "blocks.blockSignatures"
+          );
+    };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet
+    k__ton_http__schemas__v2__MasterchainBlockSignatures_PropertiesNames = [](auto selector) {
+      return selector().template Type<std::string_view>().Case("@type").Case("id").Case("signatures");
+    };
+
+
+template <typename Value>
+::ton_http::schemas::v2::MasterchainBlockSignatures::_Type Parse(
+    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type", value),
+      val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::MasterchainBlockSignatures Parse(
+    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::MasterchainBlockSignatures res;
+
+  res._type =
+      value["@type"]
+          .template As<
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>>(
+              ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures
+          );
+  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.signatures = value["signatures"]
+                       .template As<USERVER_NAMESPACE::chaotic::Array<
+                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockSignature>,
+                           std::vector<::ton_http::schemas::v2::BlockSignature>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+      value, k__ton_http__schemas__v2__MasterchainBlockSignatures_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibResponse_PropertiesNames =
     [](auto selector) {
       return selector().template Type<std::string_view>().Case("ok").Case("result").Case("@extra").Case("jsonrpc").Case(
@@ -3169,17 +4115,24 @@ template <typename Value>
   ::ton_http::schemas::v2::TonlibResponse res;
 
   res.ok = value["ok"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(true);
-  res.result = value["result"]
-                   .template As<USERVER_NAMESPACE::chaotic::Variant<
-                       USERVER_NAMESPACE::chaotic::Primitive<std::string>,
-                       USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
-                           &::ton_http::schemas::v2::kTonlibObject_Settings,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation>,
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>>>>();
+  res.result =
+      value["result"]
+          .template As<USERVER_NAMESPACE::chaotic::Variant<
+              USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountStateEnum>,
+              USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+                  &::ton_http::schemas::v2::kTonlibObject_Settings,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>>>>();
   res._extra = value["@extra"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.jsonrpc = value["jsonrpc"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
   res.id = value["id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
@@ -3413,69 +4366,6 @@ template <typename Value>
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
       value, k__ton_http__schemas__v2__LookupBlockRequest_PropertiesNames
-  );
-
-  return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap
-    k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping = [](auto selector) {
-      return selector()
-          .template Type<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type, std::string_view>()
-          .Case(
-              ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures,
-              "blocks.blockSignatures"
-          );
-    };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet
-    k__ton_http__schemas__v2__MasterchainBlockSignatures_PropertiesNames = [](auto selector) {
-      return selector().template Type<std::string_view>().Case("@type").Case("id").Case("signatures");
-    };
-
-
-template <typename Value>
-::ton_http::schemas::v2::MasterchainBlockSignatures::_Type Parse(
-    Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
-) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-      fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type", value),
-      val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::MasterchainBlockSignatures Parse(
-    Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
-) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::MasterchainBlockSignatures res;
-
-  res._type =
-      value["@type"]
-          .template As<
-              USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>>(
-              ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures
-          );
-  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.signatures = value["signatures"]
-                       .template As<USERVER_NAMESPACE::chaotic::Array<
-                           USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockSignature>,
-                           std::vector<::ton_http::schemas::v2::BlockSignature>>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-      value, k__ton_http__schemas__v2__MasterchainBlockSignatures_PropertiesNames
   );
 
   return res;

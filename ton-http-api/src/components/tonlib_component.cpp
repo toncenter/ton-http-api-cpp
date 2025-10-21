@@ -29,51 +29,13 @@ TonlibComponent::TonlibComponent(
         })
     ),
     task_processor_(context.GetTaskProcessor(config["task_processor"].As<std::string>())),
-    external_message_endpoints_(config["external_message_endpoints"].As<std::vector<std::string>>(std::vector<std::string>{})),
-    logger_(context.FindComponent<userver::components::Logging>().GetLogger("api-v2")),
-    http_client_(context.FindComponent<userver::components::HttpClient>().GetHttpClient()){
-  if(external_message_endpoints_.size()) {
-    std::stringstream ss;
-    bool is_first = false;
-    for(auto& endpoint : external_message_endpoints_) {
-      if (is_first) { 
-        is_first = false;
-      } else {
-        ss << ",";
-      }
-      ss << endpoint;
-    }
-    LOG_WARNING_TO(*logger_) << "Found endpoints: " << ss.str();
-  }
-}
+    logger_(context.FindComponent<userver::components::Logging>().GetLogger("api-v2")) {}
 multiclient::SessionPtr TonlibComponent::GetNewSession() const {
   return std::make_shared<multiclient::Session>();
 }
 
-bool TonlibComponent::SendBocToExternalRequest(const std::string& boc_b64) const {
-  if (external_message_endpoints_.empty()) {
-    return true;
-  }
-
-  userver::formats::json::ValueBuilder builder;
-  builder["boc"] = boc_b64;
-  auto body = ToString(builder.ExtractValue());
-
-  auto success = true;
-  for (const auto& endpoint : external_message_endpoints_) {
-    auto request = http_client_.CreateRequest().post(endpoint, body) \
-    .headers({{"Content-Type", "application/json"}}) \
-    .timeout(std::chrono::seconds(1)).perform();
-    if (!request->IsOk()) {
-      LOG_WARNING_TO(*logger_) << "Failed to send BOC to external endpoint: " << endpoint
-                               << " Error: " << request->body_view();
-      success = false;
-    }
-  }
-  return success;
-}
 userver::yaml_config::Schema TonlibComponent::GetStaticConfigSchema() {
-  return userver::yaml_config::MergeSchemas<userver::components::ComponentBase>(R"(
+  return userver::yaml_config::MergeSchemas<ComponentBase>(R"(
 type: object
 description: tonlib component config
 additionalProperties: false
@@ -87,18 +49,9 @@ properties:
     threads:
         type: integer
         description: number of Tonlib threads
-    external_message_endpoints:
-        type: array
-        description: list of external endpoints for sendBoc method
-        defaultDescription: <empty>
-        items:
-          type: string
-          description: external endpoint url
     task_processor:
         type: string
         description: task processor name
 )");
 }
-
-
 }

@@ -13,7 +13,7 @@ public:
   static constexpr std::string_view kName = "tonlib";
 
   TonlibComponent(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
-  ~TonlibComponent() final = default;
+  ~TonlibComponent() override = default;
 
   multiclient::SessionPtr GetNewSession() const;
 
@@ -33,15 +33,26 @@ public:
     return task.Get();
   }
 
-  bool SendBocToExternalRequest(const std::string& boc_b64) const;
+  template<typename Func, typename... Args>
+  auto DoStaticRequest(Func&& func, Args&&... args) -> decltype(auto) {
+    auto task = userver::utils::Async(task_processor_, "tonlib_static_request", [this, func, ...args = std::forward<Args>(args)] {
+      return (*func)(args...);
+    });
+    return task.Get();
+  }
 
+  template<typename Func>
+  auto DoStaticRequest(Func&& func) -> decltype(auto) {
+    auto task = userver::utils::Async(task_processor_, "tonlib_static_request", [this, func] {
+      return (*func)();
+    });
+    return task.Get();
+  }
   static userver::yaml_config::Schema GetStaticConfigSchema();
 private:
   userver::dynamic_config::Source config_;
   std::unique_ptr<TonlibWorker> worker_;
   userver::engine::TaskProcessor& task_processor_;
-  std::vector<std::string> external_message_endpoints_;
   userver::logging::LoggerPtr logger_;
-  userver::clients::http::Client& http_client_;
 };
 }

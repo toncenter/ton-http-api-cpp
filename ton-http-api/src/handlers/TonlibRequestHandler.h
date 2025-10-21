@@ -9,6 +9,17 @@
 #include "userver/yaml_config/merge_schemas.hpp"
 #include "utils/exceptions.hpp"
 
+#include <variant>
+#include <type_traits>
+
+template<class> struct is_variant : std::false_type {};
+template<class... Ts> struct is_variant<std::variant<Ts...>> : std::true_type {};
+template<class T>
+inline constexpr bool is_variant_v = is_variant<std::remove_cvref_t<T>>::value;
+
+template<class T>
+concept VariantLike = is_variant_v<T>;
+
 namespace ton_http::handlers {
 
 template <typename Request, typename Response>
@@ -51,7 +62,12 @@ public:
       }
       schemas::v2::TonlibResponse response;
       response.ok = true;
-      response.result = result.move_as_ok();
+      if constexpr(VariantLike<Response>) {
+        auto result_ok = result.move_as_ok();
+        std::visit([&](auto&& val) { response.result = std::forward<decltype(val)>(val); }, result_ok);
+      } else {
+        response.result = result.move_as_ok();
+      }
       response._extra = session->to_string();
       return userver::formats::json::ValueBuilder{response}.ExtractValue();
 

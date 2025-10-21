@@ -23,7 +23,7 @@ struct RequestParameters {
 
   bool are_valid() const {
     if (mode == RequestMode::Single) {
-      return !lite_server_indexes.has_value() || !lite_server_indexes->empty() && lite_server_indexes->size() == 1;
+      return !lite_server_indexes.has_value() || (!lite_server_indexes->empty() && lite_server_indexes->size() == 1);
     }
 
     if (mode == RequestMode::Multiple) {

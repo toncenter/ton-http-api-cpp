@@ -14,6 +14,7 @@
 #include <userver/chaotic/io/ton_http/types/int256.hpp>
 #include <userver/chaotic/io/ton_http/types/ton_addr.hpp>
 #include <userver/chaotic/io/ton_http/types/ton_hash.hpp>
+#include <userver/chaotic/io/ton_http/types/ton_hash_hex.hpp>
 #include <userver/chaotic/oneof_with_discriminator.hpp>
 #include <userver/formats/json/serialize_variant.hpp>
 #include <userver/formats/json/value.hpp>
@@ -2588,6 +2589,430 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 );
 
 
+using TonHashHex = std::string;
+
+
+struct DnsRecordStorageAddress {
+  enum class _Type {
+    kDnsStorageAddress,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kDnsStorageAddress,
+  };
+
+
+  ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type _type{
+      ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type::kDnsStorageAddress
+  };
+  ton_http::types::ton_hash_hex bag_id{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::DnsRecordStorageAddress& lhs,
+    const ::ton_http::schemas::v2::DnsRecordStorageAddress& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordStorageAddress& value
+);
+
+
+DnsRecordStorageAddress::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
+
+
+DnsRecordStorageAddress Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>
+);
+
+
+DnsRecordStorageAddress::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
+
+
+DnsRecordStorageAddress::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordStorageAddress& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::DnsRecordStorageAddress::_Type value);
+
+
+struct SmcAddr {
+  enum class _Type {
+    kAddrStd,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kAddrStd,
+  };
+
+
+  ::ton_http::schemas::v2::SmcAddr::_Type _type{::ton_http::schemas::v2::SmcAddr::_Type::kAddrStd};
+  std::int32_t workchain_id{};
+  ton_http::types::ton_hash_hex address{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::SmcAddr& lhs, const ::ton_http::schemas::v2::SmcAddr& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::SmcAddr::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::SmcAddr& value
+);
+
+
+SmcAddr::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
+
+
+SmcAddr Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>
+);
+
+
+SmcAddr::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
+
+
+SmcAddr::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::SmcAddr::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::SmcAddr& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::SmcAddr::_Type value);
+
+
+struct DnsRecordSmcAddress {
+  enum class _Type {
+    kDnsSmcAddress,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kDnsSmcAddress,
+  };
+
+
+  ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type _type{
+      ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type::kDnsSmcAddress
+  };
+  ::ton_http::schemas::v2::SmcAddr smc_addr{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::DnsRecordSmcAddress& lhs, const ::ton_http::schemas::v2::DnsRecordSmcAddress& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordSmcAddress& value
+);
+
+
+DnsRecordSmcAddress::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
+
+
+DnsRecordSmcAddress Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>
+);
+
+
+DnsRecordSmcAddress::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
+
+
+DnsRecordSmcAddress::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordSmcAddress& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::DnsRecordSmcAddress::_Type value);
+
+
+struct DnsRecordAdnlAddress {
+  enum class _Type {
+    kDnsAdnlAddress,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kDnsAdnlAddress,
+  };
+
+
+  ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type _type{
+      ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type::kDnsAdnlAddress
+  };
+  ton_http::types::ton_hash_hex adnl_addr{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::DnsRecordAdnlAddress& lhs, const ::ton_http::schemas::v2::DnsRecordAdnlAddress& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value
+);
+
+
+DnsRecordAdnlAddress::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
+
+
+DnsRecordAdnlAddress Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>
+);
+
+
+DnsRecordAdnlAddress::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
+
+
+DnsRecordAdnlAddress::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type value);
+
+
+struct DnsRecordNextResolver {
+  enum class _Type {
+    kDnsNextResolver,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kDnsNextResolver,
+  };
+
+
+  ::ton_http::schemas::v2::DnsRecordNextResolver::_Type _type{
+      ::ton_http::schemas::v2::DnsRecordNextResolver::_Type::kDnsNextResolver
+  };
+  ::ton_http::schemas::v2::SmcAddr resolver{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::DnsRecordNextResolver& lhs, const ::ton_http::schemas::v2::DnsRecordNextResolver& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordNextResolver& value
+);
+
+
+DnsRecordNextResolver::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
+
+
+DnsRecordNextResolver Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>
+);
+
+
+DnsRecordNextResolver::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
+
+
+DnsRecordNextResolver::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordNextResolver& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::DnsRecordNextResolver::_Type value);
+
+
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kDnsRecord_Settings = {
+    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("dns_storage_address")
+          .Case("dns_smc_address")
+          .Case("dns_adnl_address")
+          .Case("dns_next_resolver");
+    })
+};
+
+
+using DnsRecord = std::variant<
+    ::ton_http::schemas::v2::DnsRecordStorageAddress,
+    ::ton_http::schemas::v2::DnsRecordSmcAddress,
+    ::ton_http::schemas::v2::DnsRecordAdnlAddress,
+    ::ton_http::schemas::v2::DnsRecordNextResolver>;
+
+
+struct DnsRecordSet {
+  std::optional<::ton_http::schemas::v2::DnsRecord> dns_next_resolver{};
+  std::optional<::ton_http::schemas::v2::DnsRecord> wallet{};
+  std::optional<::ton_http::schemas::v2::DnsRecord> site{};
+  std::optional<::ton_http::schemas::v2::DnsRecord> storage{};
+
+
+  USERVER_NAMESPACE::formats::json::Value extra;
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::DnsRecordSet& lhs, const ::ton_http::schemas::v2::DnsRecordSet& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsRecordSet& value
+);
+
+
+DnsRecordSet Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsRecordSet& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct DnsContent {
+  std::string domain{};
+  ::ton_http::schemas::v2::DnsRecordSet data{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::DnsContent& lhs, const ::ton_http::schemas::v2::DnsContent& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::DnsContent& value
+);
+
+
+DnsContent Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::DnsContent& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
 struct EstimateFeeRequest {
   ton_http::types::ton_addr address{};
   ton_http::types::bytes body{};
@@ -3126,6 +3551,339 @@ std::string ToString(::ton_http::schemas::v2::ExtendedAddressInformation::_Type 
 using ExtendedAddressInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
+struct TokenContentDict {
+  USERVER_NAMESPACE::formats::json::Value extra;
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::TokenContentDict& lhs, const ::ton_http::schemas::v2::TokenContentDict& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TokenContentDict& value
+);
+
+
+TokenContentDict Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TokenContentDict& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+struct TokenContent {
+  enum class Type {
+    kOnchain,
+    kOffchain,
+  };
+
+  static constexpr Type kTypeValues[] = {
+      Type::kOnchain,
+      Type::kOffchain,
+  };
+
+
+  using Data = std::variant<std::string, ::ton_http::schemas::v2::TokenContentDict>;
+
+
+  ::ton_http::schemas::v2::TokenContent::Type type{};
+  ::ton_http::schemas::v2::TokenContent::Data data{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::TokenContent& lhs, const ::ton_http::schemas::v2::TokenContent& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TokenContent::Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TokenContent& value
+);
+
+
+TokenContent::Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
+
+
+TokenContent Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>
+);
+
+
+TokenContent::Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
+
+
+TokenContent::Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TokenContent::Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::TokenContent& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::TokenContent::Type value);
+
+
+struct JettonMasterData {
+  enum class _Type {
+    kExtTokensJettonmasterdata,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtTokensJettonmasterdata,
+  };
+
+
+  enum class Contract_Type {
+    kJettonMaster,
+  };
+
+  static constexpr Contract_Type kContract_TypeValues[] = {
+      Contract_Type::kJettonMaster,
+  };
+
+
+  ::ton_http::schemas::v2::JettonMasterData::_Type _type{
+      ::ton_http::schemas::v2::JettonMasterData::_Type::kExtTokensJettonmasterdata
+  };
+  ton_http::types::ton_addr address{};
+  ::ton_http::schemas::v2::JettonMasterData::Contract_Type contract_type{
+      ::ton_http::schemas::v2::JettonMasterData::Contract_Type::kJettonMaster
+  };
+  ton_http::types::int256 total_supply{};
+  bool mintable{};
+  ton_http::types::ton_addr admin_address{};
+  ::ton_http::schemas::v2::TokenContent jetton_content{};
+  ton_http::types::bytes jetton_wallet_code{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JettonMasterData& lhs, const ::ton_http::schemas::v2::JettonMasterData& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonMasterData::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonMasterData& value
+);
+
+
+JettonMasterData::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
+
+
+JettonMasterData::Contract_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
+
+
+JettonMasterData Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>
+);
+
+
+JettonMasterData::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
+
+
+JettonMasterData::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
+
+
+JettonMasterData::Contract_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
+
+
+JettonMasterData::Contract_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonMasterData::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonMasterData& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::JettonMasterData::_Type value);
+
+
+std::string ToString(::ton_http::schemas::v2::JettonMasterData::Contract_Type value);
+
+
+struct JettonWalletData {
+  enum class _Type {
+    kExtTokensJettonwalletdata,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtTokensJettonwalletdata,
+  };
+
+
+  enum class Contract_Type {
+    kJettonWallet,
+  };
+
+  static constexpr Contract_Type kContract_TypeValues[] = {
+      Contract_Type::kJettonWallet,
+  };
+
+
+  ::ton_http::schemas::v2::JettonWalletData::_Type _type{
+      ::ton_http::schemas::v2::JettonWalletData::_Type::kExtTokensJettonwalletdata
+  };
+  ton_http::types::ton_addr address{};
+  ::ton_http::schemas::v2::JettonWalletData::Contract_Type contract_type{
+      ::ton_http::schemas::v2::JettonWalletData::Contract_Type::kJettonWallet
+  };
+  ton_http::types::int256 balance{};
+  ton_http::types::ton_addr owner_address{};
+  ton_http::types::ton_addr jetton_master_address{};
+  std::optional<bool> mintless_is_claimed{};
+  ton_http::types::bytes jetton_wallet_code{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::JettonWalletData& lhs, const ::ton_http::schemas::v2::JettonWalletData& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonWalletData::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::JettonWalletData& value
+);
+
+
+JettonWalletData::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
+
+
+JettonWalletData::Contract_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
+
+
+JettonWalletData Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>
+);
+
+
+JettonWalletData::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
+
+
+JettonWalletData::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
+
+
+JettonWalletData::Contract_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
+
+
+JettonWalletData::Contract_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonWalletData::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::JettonWalletData& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::JettonWalletData::_Type value);
+
+
+std::string ToString(::ton_http::schemas::v2::JettonWalletData::Contract_Type value);
+
+
 // TonlibErrorResponse
 struct TonlibErrorResponse {
   static constexpr auto kCodeMinimum = 100;
@@ -3422,6 +4180,237 @@ std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value);
 std::string ToString(::ton_http::schemas::v2::WalletInformation::Wallet_Type value);
 
 
+struct NftCollectionData {
+  enum class _Type {
+    kExtTokensNftcollectiondata,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtTokensNftcollectiondata,
+  };
+
+
+  enum class Contract_Type {
+    kNftCollection,
+  };
+
+  static constexpr Contract_Type kContract_TypeValues[] = {
+      Contract_Type::kNftCollection,
+  };
+
+
+  ::ton_http::schemas::v2::NftCollectionData::_Type _type{
+      ::ton_http::schemas::v2::NftCollectionData::_Type::kExtTokensNftcollectiondata
+  };
+  ton_http::types::ton_addr address{};
+  ::ton_http::schemas::v2::NftCollectionData::Contract_Type contract_type{
+      ::ton_http::schemas::v2::NftCollectionData::Contract_Type::kNftCollection
+  };
+  ton_http::types::int256 next_item_index{};
+  std::optional<ton_http::types::ton_addr> owner_address{};
+  ::ton_http::schemas::v2::TokenContent collection_content{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::NftCollectionData& lhs, const ::ton_http::schemas::v2::NftCollectionData& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftCollectionData::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftCollectionData& value
+);
+
+
+NftCollectionData::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
+
+
+NftCollectionData::Contract_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
+
+
+NftCollectionData Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>
+);
+
+
+NftCollectionData::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
+
+
+NftCollectionData::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
+
+
+NftCollectionData::Contract_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
+
+
+NftCollectionData::Contract_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftCollectionData::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftCollectionData& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::NftCollectionData::_Type value);
+
+
+std::string ToString(::ton_http::schemas::v2::NftCollectionData::Contract_Type value);
+
+
+struct NftItemData {
+  enum class _Type {
+    kExtTokensNftitemdata,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kExtTokensNftitemdata,
+  };
+
+
+  enum class Contract_Type {
+    kNftItem,
+  };
+
+  static constexpr Contract_Type kContract_TypeValues[] = {
+      Contract_Type::kNftItem,
+  };
+
+
+  using Content = std::variant<::ton_http::schemas::v2::TokenContent, ::ton_http::schemas::v2::DnsContent>;
+
+
+  ::ton_http::schemas::v2::NftItemData::_Type _type{::ton_http::schemas::v2::NftItemData::_Type::kExtTokensNftitemdata};
+  ton_http::types::ton_addr address{};
+  ::ton_http::schemas::v2::NftItemData::Contract_Type contract_type{
+      ::ton_http::schemas::v2::NftItemData::Contract_Type::kNftItem
+  };
+  bool init{};
+  ton_http::types::int256 index{};
+  std::optional<ton_http::types::ton_addr> collection_address{};
+  std::optional<ton_http::types::ton_addr> owner_address{};
+  ::ton_http::schemas::v2::NftItemData::Content content{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::NftItemData& lhs, const ::ton_http::schemas::v2::NftItemData& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftItemData::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftItemData::Contract_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::NftItemData& value
+);
+
+
+NftItemData::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
+
+
+NftItemData::Contract_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
+
+
+NftItemData Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>
+);
+
+
+NftItemData::_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
+
+
+NftItemData::_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
+
+
+NftItemData::Contract_Type FromString(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
+
+
+NftItemData::Contract_Type Parse(
+    std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftItemData::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftItemData::Contract_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::NftItemData& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::NftItemData::_Type value);
+
+
+std::string ToString(::ton_http::schemas::v2::NftItemData::Contract_Type value);
+
+
 // Information about the latest masterchain block.
 struct MasterchainInfo {
   enum class _Type {
@@ -3494,6 +4483,79 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
 
 
+struct MasterchainBlockSignatures {
+  enum class _Type {
+    kBlocksBlocksignatures,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+      _Type::kBlocksBlocksignatures,
+  };
+
+
+  ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type _type{
+      ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt id{};
+  std::vector<::ton_http::schemas::v2::BlockSignature> signatures{};
+};
+
+
+bool operator==(
+    const ::ton_http::schemas::v2::MasterchainBlockSignatures& lhs,
+    const ::ton_http::schemas::v2::MasterchainBlockSignatures& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainBlockSignatures& value
+);
+
+
+MasterchainBlockSignatures::_Type Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
+
+
+MasterchainBlockSignatures Parse(
+    USERVER_NAMESPACE::formats::json::Value json,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
+);
+
+
+MasterchainBlockSignatures::_Type FromString(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
+
+
+MasterchainBlockSignatures::_Type Parse(
+    std::string_view value,
+    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+    const ::ton_http::schemas::v2::MasterchainBlockSignatures& value,
+    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type value);
+
+
 [[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTonlibObject_Settings = {
     "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
       return selector()
@@ -3503,7 +4565,12 @@ std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
           .Case("raw.fullAccountState")
           .Case("fullAccountState")
           .Case("ext.accounts.walletInformation")
-          .Case("blocks.masterchainInfo");
+          .Case("ext.tokens.jettonMasterData")
+          .Case("ext.tokens.jettonWalletData")
+          .Case("ext.tokens.nftCollectionData")
+          .Case("ext.tokens.nftItemData")
+          .Case("blocks.masterchainInfo")
+          .Case("blocks.blockSignatures");
     })
 };
 
@@ -3514,12 +4581,18 @@ using TonlibObject = std::variant<
     ::ton_http::schemas::v2::AddressInformation,
     ::ton_http::schemas::v2::ExtendedAddressInformation,
     ::ton_http::schemas::v2::WalletInformation,
-    ::ton_http::schemas::v2::MasterchainInfo>;
+    ::ton_http::schemas::v2::JettonMasterData,
+    ::ton_http::schemas::v2::JettonWalletData,
+    ::ton_http::schemas::v2::NftCollectionData,
+    ::ton_http::schemas::v2::NftItemData,
+    ::ton_http::schemas::v2::MasterchainInfo,
+    ::ton_http::schemas::v2::MasterchainBlockSignatures>;
 
 
 // TonlibResponse
 struct TonlibResponse {
-  using Result = std::variant<std::string, ::ton_http::schemas::v2::TonlibObject>;
+  using Result =
+      std::variant<std::string, ::ton_http::schemas::v2::AccountStateEnum, ::ton_http::schemas::v2::TonlibObject>;
 
 
   bool ok{true};
@@ -3801,79 +4874,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
     const ::ton_http::schemas::v2::LookupBlockRequest& value,
     USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
-
-
-struct MasterchainBlockSignatures {
-  enum class _Type {
-    kBlocksBlocksignatures,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-      _Type::kBlocksBlocksignatures,
-  };
-
-
-  ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type _type{
-      ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type::kBlocksBlocksignatures
-  };
-  ::ton_http::schemas::v2::TonBlockIdExt id{};
-  std::vector<::ton_http::schemas::v2::BlockSignature> signatures{};
-};
-
-
-bool operator==(
-    const ::ton_http::schemas::v2::MasterchainBlockSignatures& lhs,
-    const ::ton_http::schemas::v2::MasterchainBlockSignatures& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-    USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MasterchainBlockSignatures& value
-);
-
-
-MasterchainBlockSignatures::_Type Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
-);
-
-
-MasterchainBlockSignatures Parse(
-    USERVER_NAMESPACE::formats::json::Value json,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
-);
-
-
-MasterchainBlockSignatures::_Type FromString(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
-);
-
-
-MasterchainBlockSignatures::_Type Parse(
-    std::string_view value,
-    USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-    const ::ton_http::schemas::v2::MasterchainBlockSignatures& value,
-    USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type value);
 
 
 struct SeqnoRequest {
@@ -4459,6 +5459,25 @@ std::string ToString(::ton_http::schemas::v2::Shards::_Type value);
 using ShardsRequest = ::ton_http::schemas::v2::SeqnoRequest;
 
 
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTokenData_Settings = {
+    "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+      return selector()
+          .template Type<std::string_view>()
+          .Case("ext.tokens.jettonMasterData")
+          .Case("ext.tokens.jettonWalletData")
+          .Case("ext.tokens.nftCollectionData")
+          .Case("ext.tokens.nftItemData");
+    })
+};
+
+
+using TokenData = std::variant<
+    ::ton_http::schemas::v2::JettonMasterData,
+    ::ton_http::schemas::v2::JettonWalletData,
+    ::ton_http::schemas::v2::NftCollectionData,
+    ::ton_http::schemas::v2::NftItemData>;
+
+
 using TokenDataRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
@@ -5001,6 +6020,64 @@ struct fmt::formatter<::ton_http::schemas::v2::DetectHash::_Type> {
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::SmcAddr::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::SmcAddr::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::DnsRecordNextResolver::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::MsgDataRaw::_Type> {
   fmt::format_context::iterator format(const ::ton_http::schemas::v2::MsgDataRaw::_Type&, fmt::format_context&) const;
 
@@ -5079,6 +6156,64 @@ struct fmt::formatter<::ton_http::schemas::v2::ExtendedAddressInformation::_Type
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::TokenContent::Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::TokenContent::Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::JettonMasterData::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::Contract_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::JettonMasterData::Contract_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::JettonWalletData::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::Contract_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::JettonWalletData::Contract_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::WalletInformation::_Type&, fmt::format_context&
@@ -5103,9 +6238,67 @@ struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type> {
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::NftCollectionData::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::NftCollectionData::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::NftCollectionData::Contract_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::NftCollectionData::Contract_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::NftItemData::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::NftItemData::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::NftItemData::Contract_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::NftItemData::Contract_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::MasterchainInfo::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::MasterchainInfo::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type> {
+  fmt::format_context::iterator format(
+      const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type&, fmt::format_context&
   ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
@@ -5128,18 +6321,6 @@ template <>
 struct fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type> {
   fmt::format_context::iterator format(
       const ::ton_http::schemas::v2::LibraryResult::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type> {
-  fmt::format_context::iterator format(
-      const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type&, fmt::format_context&
   ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {

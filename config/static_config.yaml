@@ -66,8 +66,8 @@ components_manager:
       keystore#fallback: /tmp/keystore/
       threads: $tonlib_threads
       threads#fallback: 4
-      external_message_endpoints: $tonlib_boc_endpoints
-      external_message_endpoints#fallback: []
+      # external_message_endpoints: $tonlib_boc_endpoints
+      # external_message_endpoints#fallback: []
       task_processor: main-task-processor
     dns-client:
       fs-task-processor: fs-task-processor
@@ -116,10 +116,26 @@ components_manager:
       path: /api/v2/getWalletInformation
       method: GET,POST
       logger: api-v2
+    handler-GetAddressBalance:
+      path: /api/v2/getAddressBalance
+      method: GET,POST
+      logger: api-v2
+    handler-GetAddressState:
+      path: /api/v2/getAddressState
+      method: GET,POST
+      logger: api-v2
+    handler-GetTokenData:
+      path: /api/v2/getTokenData
+      method: GET,POST
+      logger: api-v2
 
     ## blocks
     handler-GetMasterchainInfo:
       path: /api/v2/getMasterchainInfo
+      method: GET,POST
+      logger: api-v2
+    handler-GetMasterchainBlockSignatures:
+      path: /api/v2/getMasterchainBlockSignatures
       method: GET,POST
       logger: api-v2
 

@@ -18,7 +18,7 @@ ton_http::schemas::v2::UnpackAddressRequest ton_http::handlers::UnpackAddressHan
 td::Result<ton_http::schemas::v2::UnpackAddress> ton_http::handlers::UnpackAddressHandler::HandleRequestTonlibThrow(
     schemas::v2::UnpackAddressRequest& request, multiclient::SessionPtr& session
 ) const {
-  auto result = tonlib_component_.DoRequest(&core::TonlibWorker::unpackAddress, request.address.GetUnderlying(), session);
+  auto result = tonlib_component_.DoStaticRequest(&core::TonlibWorker::unpackAddress, request.address.GetUnderlying(), session);
   if (result.is_error()) {
     return result.move_as_error();
   }
