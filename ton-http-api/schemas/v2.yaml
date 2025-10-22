@@ -596,7 +596,7 @@ paths:
         - name: from_seqno
           in: query
           description: Seqno of masterchain block starting from which proof is required. If not specified latest masterchain block is used
-          required: true
+          required: false
           schema:
             type: integer
             format: int32
@@ -1787,7 +1787,11 @@ components:
           type: integer
           format: int32
         shard:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
           type: integer
@@ -1808,13 +1812,21 @@ components:
           type: integer
           format: int32
         shard:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
           type: integer
           format: int32
         lt:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         unixtime:
           type: integer
@@ -1833,7 +1845,11 @@ components:
           type: integer
           format: int32
         shard:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
           type: integer
@@ -1856,7 +1872,11 @@ components:
           type: integer
           format: int32
         shard:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
           type: integer
@@ -1866,7 +1886,11 @@ components:
         file_hash:
           $ref: '#/components/schemas/TonHash'
         after_lt:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         after_hash:
           $ref: '#/components/schemas/TonHash'
@@ -1884,14 +1908,21 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         lt:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         hash:
           $ref: '#/components/schemas/TonHash'
         to_lt:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
-          default: '0'
         archival:
           type: boolean
           default: false
@@ -1913,7 +1944,11 @@ components:
         destination:
           $ref: '#/components/schemas/TonAddr'
         created_lt:
-          type: string
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
     TryLocateResultTxRequest:
       $ref: '#/components/schemas/TryLocateTxRequest'
@@ -3172,6 +3207,7 @@ components:
         - $ref: '#/components/schemas/NftItemData'
         - $ref: '#/components/schemas/MasterchainInfo'
         - $ref: '#/components/schemas/MasterchainBlockSignatures'
+        - $ref: '#/components/schemas/ShardBlockProof'
       discriminator:
         propertyName: '@type'
         mapping:
@@ -3186,6 +3222,7 @@ components:
           'ext.tokens.nftItemData': '#/components/schemas/NftItemData'
           'blocks.masterchainInfo': '#/components/schemas/MasterchainInfo'
           'blocks.blockSignatures': '#/components/schemas/MasterchainBlockSignatures'
+          'blocks.shardBlockProof': '#/components/schemas/ShardBlockProof'
     TonlibResponse:
       type: object
       title: TonlibResponse

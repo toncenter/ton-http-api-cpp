@@ -204,6 +204,12 @@ struct MasterchainInfo;
 struct MasterchainBlockSignatures;
 
 
+struct ShardBlockLink;
+
+
+struct ShardBlockProof;
+
+
 struct TonlibResponse;
 
 
@@ -243,12 +249,6 @@ struct SendBocRequest;
 struct SendQueryRequest;
 
 
-struct ShardBlockLink;
-
-
-struct ShardBlockProof;
-
-
 struct ShardBlockProofRequest;
 
 
@@ -267,3 +267,4 @@ struct TryLocateTxRequest;
 }  // namespace v2
 }  // namespace schemas
 }  // namespace ton_http
+

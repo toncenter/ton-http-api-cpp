@@ -1030,7 +1030,7 @@
             "name": "from_seqno",
             "in": "query",
             "description": "Seqno of masterchain block starting from which proof is required. If not specified latest masterchain block is used",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -3028,7 +3028,16 @@
             "format": "int32"
           },
           "shard": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
@@ -3057,7 +3066,16 @@
             "format": "int32"
           },
           "shard": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
@@ -3065,7 +3083,16 @@
             "format": "int32"
           },
           "lt": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "unixtime": {
@@ -3091,7 +3118,16 @@
             "format": "int32"
           },
           "shard": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
@@ -3123,7 +3159,16 @@
             "format": "int32"
           },
           "shard": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
@@ -3137,7 +3182,16 @@
             "$ref": "#/components/schemas/TonHash"
           },
           "after_lt": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "after_hash": {
@@ -3163,16 +3217,33 @@
             "$ref": "#/components/schemas/TonAddr"
           },
           "lt": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           },
           "hash": {
             "$ref": "#/components/schemas/TonHash"
           },
           "to_lt": {
-            "type": "string",
-            "x-usrv-cpp-type": "std::int64_t",
-            "default": "0"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "archival": {
             "type": "boolean",
@@ -3203,7 +3274,16 @@
             "$ref": "#/components/schemas/TonAddr"
           },
           "created_lt": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int64",
+                "x-usrv-cpp-type": "std::int64_t"
+              }
+            ],
             "x-usrv-cpp-type": "std::int64_t"
           }
         }
@@ -5015,6 +5095,9 @@
           },
           {
             "$ref": "#/components/schemas/MasterchainBlockSignatures"
+          },
+          {
+            "$ref": "#/components/schemas/ShardBlockProof"
           }
         ],
         "discriminator": {
@@ -5030,7 +5113,8 @@
             "ext.tokens.nftCollectionData": "#/components/schemas/NftCollectionData",
             "ext.tokens.nftItemData": "#/components/schemas/NftItemData",
             "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo",
-            "blocks.blockSignatures": "#/components/schemas/MasterchainBlockSignatures"
+            "blocks.blockSignatures": "#/components/schemas/MasterchainBlockSignatures",
+            "blocks.shardBlockProof": "#/components/schemas/ShardBlockProof"
           }
         }
       },

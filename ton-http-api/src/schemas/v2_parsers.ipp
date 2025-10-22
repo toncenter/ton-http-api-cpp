@@ -36,8 +36,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountAddress::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>) {
+::ton_http::schemas::v2::AccountAddress::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -50,8 +51,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountAddress
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress>) {
+::ton_http::schemas::v2::AccountAddress Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -91,8 +93,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateRaw::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>) {
+::ton_http::schemas::v2::AccountStateRaw::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateRaw___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -105,8 +108,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateRaw
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw>) {
+::ton_http::schemas::v2::AccountStateRaw Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -151,8 +155,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletV3::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletV3::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateWalletV3___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -165,8 +170,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletV3
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>) {
+::ton_http::schemas::v2::AccountStateWalletV3 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -204,8 +210,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletV4::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletV4::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateWalletV4___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -218,8 +225,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletV4
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>) {
+::ton_http::schemas::v2::AccountStateWalletV4 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -260,8 +268,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV1___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -275,8 +284,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletHighloadV1
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV1 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -317,8 +327,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV2___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -332,8 +343,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateWalletHighloadV2
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV2 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -370,8 +382,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateDns::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>) {
+::ton_http::schemas::v2::AccountStateDns::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateDns___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -384,8 +397,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateDns
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>) {
+::ton_http::schemas::v2::AccountStateDns Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -421,8 +435,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::RWalletLimit::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>) {
+::ton_http::schemas::v2::RWalletLimit::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__RWalletLimit___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -435,8 +450,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::RWalletLimit
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>) {
+::ton_http::schemas::v2::RWalletLimit Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -473,8 +489,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::RWalletConfig::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>) {
+::ton_http::schemas::v2::RWalletConfig::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__RWalletConfig___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -487,8 +504,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::RWalletConfig
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>) {
+::ton_http::schemas::v2::RWalletConfig Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -534,8 +552,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateRWallet::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>) {
+::ton_http::schemas::v2::AccountStateRWallet::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateRWallet___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -548,8 +567,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateRWallet
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>) {
+::ton_http::schemas::v2::AccountStateRWallet Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -599,8 +619,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanConfig::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>) {
+::ton_http::schemas::v2::PChanConfig::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__PChanConfig___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -613,8 +634,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanConfig
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>) {
+::ton_http::schemas::v2::PChanConfig Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -625,9 +647,8 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
       ::ton_http::schemas::v2::PChanConfig::_Type::kPchanConfig
     );
   res.alice_public_key = value["alice_public_key"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
-  res.alice_address =
-    value["alice_address"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>>(
-    );
+  res.alice_address = value["alice_address"]
+                        .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>>();
   res.bob_public_key = value["bob_public_key"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.bob_address =
     value["bob_address"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>>();
@@ -668,8 +689,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStateInit::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>) {
+::ton_http::schemas::v2::PChanStateInit::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__PChanStateInit___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -682,8 +704,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStateInit
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>) {
+::ton_http::schemas::v2::PChanStateInit Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -734,8 +757,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStateClose::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>) {
+::ton_http::schemas::v2::PChanStateClose::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__PChanStateClose___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -748,8 +772,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStateClose
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>) {
+::ton_http::schemas::v2::PChanStateClose Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -791,8 +816,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStatePayout::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>) {
+::ton_http::schemas::v2::PChanStatePayout::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__PChanStatePayout___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -805,8 +831,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::PChanStatePayout
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>) {
+::ton_http::schemas::v2::PChanStatePayout Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -843,8 +870,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStatePChan::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>) {
+::ton_http::schemas::v2::AccountStatePChan::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStatePChan___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -857,8 +885,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStatePChan
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>) {
+::ton_http::schemas::v2::AccountStatePChan Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -902,8 +931,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateUninited::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>) {
+::ton_http::schemas::v2::AccountStateUninited::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateUninited___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -916,8 +946,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateUninited
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>) {
+::ton_http::schemas::v2::AccountStateUninited Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -953,8 +984,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2
 
 
 template <typename Value>
-::ton_http::schemas::v2::AccountStateEnum
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>) {
+::ton_http::schemas::v2::AccountStateEnum Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AccountStateEnum_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -973,8 +1005,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::AddressWithSeqnoRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>) {
+::ton_http::schemas::v2::AddressWithSeqnoRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1010,8 +1043,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtraCurrencyBalance::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>) {
+::ton_http::schemas::v2::ExtraCurrencyBalance::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ExtraCurrencyBalance___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1024,8 +1058,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtraCurrencyBalance
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance>) {
+::ton_http::schemas::v2::ExtraCurrencyBalance Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1066,8 +1101,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::InternalTransactionId::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>) {
+::ton_http::schemas::v2::InternalTransactionId::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__InternalTransactionId___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1080,8 +1116,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::InternalTransactionId
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId>) {
+::ton_http::schemas::v2::InternalTransactionId Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1132,8 +1169,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TonBlockIdExt::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>) {
+::ton_http::schemas::v2::TonBlockIdExt::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__TonBlockIdExt___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1146,8 +1184,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::TonBlockIdExt
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt>) {
+::ton_http::schemas::v2::TonBlockIdExt Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1208,8 +1247,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AddressInformation::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>) {
+::ton_http::schemas::v2::AddressInformation::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__AddressInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1222,8 +1262,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::AddressInformation
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation>) {
+::ton_http::schemas::v2::AddressInformation Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1277,8 +1318,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::AddressRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>) {
+::ton_http::schemas::v2::AddressRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1332,8 +1374,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockHeader::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>) {
+::ton_http::schemas::v2::BlockHeader::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__BlockHeader___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1346,8 +1389,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockHeader
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader>) {
+::ton_http::schemas::v2::BlockHeader Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1408,8 +1452,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockHeaderRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>) {
+::ton_http::schemas::v2::BlockHeaderRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1418,8 +1463,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
   res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.shard =
     value["shard"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+      .template As<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>();
   res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.root_hash =
     value["root_hash"]
@@ -1464,8 +1512,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockLinkBack::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>) {
+::ton_http::schemas::v2::BlockLinkBack::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__BlockLinkBack___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1478,8 +1527,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockLinkBack
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack>) {
+::ton_http::schemas::v2::BlockLinkBack Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1528,8 +1578,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockSignature::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>) {
+::ton_http::schemas::v2::BlockSignature::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__BlockSignature___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1542,8 +1593,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockSignature
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature>) {
+::ton_http::schemas::v2::BlockSignature Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1588,8 +1640,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ShortTxId::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>) {
+::ton_http::schemas::v2::ShortTxId::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ShortTxId___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1602,8 +1655,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ShortTxId
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId>) {
+::ton_http::schemas::v2::ShortTxId Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1657,8 +1711,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockTransactions::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>) {
+::ton_http::schemas::v2::BlockTransactions::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__BlockTransactions___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1671,8 +1726,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockTransactions
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions>) {
+::ton_http::schemas::v2::BlockTransactions Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1715,8 +1771,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::BlockTransactionsRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>) {
+::ton_http::schemas::v2::BlockTransactionsRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1725,8 +1782,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
   res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.shard =
     value["shard"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+      .template As<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>();
   res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.root_hash =
     value["root_hash"]
@@ -1740,8 +1800,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
                         WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>>();
   res.after_lt =
     value["after_lt"]
-      .template As<std::optional<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>>();
   res.after_hash =
     value["after_hash"]
       .template As<
@@ -1765,8 +1828,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::EmptyRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>) {
+::ton_http::schemas::v2::EmptyRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1796,8 +1860,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TvmCell::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>) {
+::ton_http::schemas::v2::TvmCell::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__TvmCell___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1810,8 +1875,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::TvmCell
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell>) {
+::ton_http::schemas::v2::TvmCell Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1847,8 +1913,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ConfigInfo::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>) {
+::ton_http::schemas::v2::ConfigInfo::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ConfigInfo___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1861,8 +1928,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ConfigInfo
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo>) {
+::ton_http::schemas::v2::ConfigInfo Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1890,8 +1958,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ConfigParamRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>) {
+::ton_http::schemas::v2::ConfigParamRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1923,8 +1992,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ConsensusBlock::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>) {
+::ton_http::schemas::v2::ConsensusBlock::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ConsensusBlock___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1937,8 +2007,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ConsensusBlock
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock>) {
+::ton_http::schemas::v2::ConsensusBlock Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -1978,8 +2049,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectAddressBase64Variant::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>) {
+::ton_http::schemas::v2::DetectAddressBase64Variant::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -1993,8 +2065,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectAddressBase64Variant
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant>) {
+::ton_http::schemas::v2::DetectAddressBase64Variant Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2049,8 +2122,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectAddress::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>) {
+::ton_http::schemas::v2::DetectAddress::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DetectAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2063,8 +2137,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectAddress::Given_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>) {
+::ton_http::schemas::v2::DetectAddress::Given_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DetectAddress__Given_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2077,8 +2152,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectAddress
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress>) {
+::ton_http::schemas::v2::DetectAddress Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2124,8 +2200,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectHash::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>) {
+::ton_http::schemas::v2::DetectHash::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DetectHash___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2138,8 +2215,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectHash
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash>) {
+::ton_http::schemas::v2::DetectHash Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2169,8 +2247,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DetectHashRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>) {
+::ton_http::schemas::v2::DetectHashRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2205,8 +2284,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordStorageAddress::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordStorageAddress::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DnsRecordStorageAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2219,8 +2299,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordStorageAddress
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>) {
+::ton_http::schemas::v2::DnsRecordStorageAddress Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2260,8 +2341,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::SmcAddr::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>) {
+::ton_http::schemas::v2::SmcAddr::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__SmcAddr___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2274,8 +2356,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::SmcAddr
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>) {
+::ton_http::schemas::v2::SmcAddr Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2313,8 +2396,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordSmcAddress::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordSmcAddress::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DnsRecordSmcAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2327,8 +2411,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordSmcAddress
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>) {
+::ton_http::schemas::v2::DnsRecordSmcAddress Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2366,8 +2451,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DnsRecordAdnlAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2380,8 +2466,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordAdnlAddress
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>) {
+::ton_http::schemas::v2::DnsRecordAdnlAddress Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2421,8 +2508,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordNextResolver::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>) {
+::ton_http::schemas::v2::DnsRecordNextResolver::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__DnsRecordNextResolver___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2435,8 +2523,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordNextResolver
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>) {
+::ton_http::schemas::v2::DnsRecordNextResolver Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2471,8 +2560,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsRecordSet
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>) {
+::ton_http::schemas::v2::DnsRecordSet Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2525,8 +2615,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::DnsContent
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>) {
+::ton_http::schemas::v2::DnsContent Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2557,8 +2648,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::EstimateFeeRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>) {
+::ton_http::schemas::v2::EstimateFeeRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2605,8 +2697,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataRaw::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>) {
+::ton_http::schemas::v2::MsgDataRaw::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2619,8 +2712,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataRaw
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>) {
+::ton_http::schemas::v2::MsgDataRaw Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2665,8 +2759,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataText::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>) {
+::ton_http::schemas::v2::MsgDataText::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2679,8 +2774,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataText
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>) {
+::ton_http::schemas::v2::MsgDataText Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2716,8 +2812,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataDecryptedText::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>) {
+::ton_http::schemas::v2::MsgDataDecryptedText::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2730,8 +2827,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataDecryptedText
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>) {
+::ton_http::schemas::v2::MsgDataDecryptedText Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2768,8 +2866,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataEncryptedText::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>) {
+::ton_http::schemas::v2::MsgDataEncryptedText::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2782,8 +2881,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MsgDataEncryptedText
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>) {
+::ton_http::schemas::v2::MsgDataEncryptedText Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2834,8 +2934,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtMessage::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>) {
+::ton_http::schemas::v2::ExtMessage::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ExtMessage___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2848,8 +2949,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtMessage
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage>) {
+::ton_http::schemas::v2::ExtMessage Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -2939,8 +3041,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtTransaction::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>) {
+::ton_http::schemas::v2::ExtTransaction::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ExtTransaction___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -2953,8 +3056,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtTransaction
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction>) {
+::ton_http::schemas::v2::ExtTransaction Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3025,8 +3129,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtendedAddressInformation::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>) {
+::ton_http::schemas::v2::ExtendedAddressInformation::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__ExtendedAddressInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3040,8 +3145,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::ExtendedAddressInformation
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation>) {
+::ton_http::schemas::v2::ExtendedAddressInformation Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3098,8 +3204,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TokenContentDict
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>) {
+::ton_http::schemas::v2::TokenContentDict Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3131,8 +3238,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TokenContent::Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>) {
+::ton_http::schemas::v2::TokenContent::Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__TokenContent__Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3145,8 +3253,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::TokenContent
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>) {
+::ton_http::schemas::v2::TokenContent Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3200,8 +3309,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonMasterData::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>) {
+::ton_http::schemas::v2::JettonMasterData::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__JettonMasterData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3214,8 +3324,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonMasterData::Contract_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>) {
+::ton_http::schemas::v2::JettonMasterData::Contract_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__JettonMasterData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3228,8 +3339,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonMasterData
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>) {
+::ton_http::schemas::v2::JettonMasterData Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3306,8 +3418,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonWalletData::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>) {
+::ton_http::schemas::v2::JettonWalletData::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__JettonWalletData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3320,8 +3433,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonWalletData::Contract_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>) {
+::ton_http::schemas::v2::JettonWalletData::Contract_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__JettonWalletData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3334,8 +3448,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::JettonWalletData
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>) {
+::ton_http::schemas::v2::JettonWalletData Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3396,8 +3511,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TonlibErrorResponse
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>) {
+::ton_http::schemas::v2::TonlibErrorResponse Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3430,8 +3546,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcErrorResponse__P0
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>) {
+::ton_http::schemas::v2::JsonRpcErrorResponse__P0 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3450,8 +3567,9 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcErrorResponse
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>) {
+::ton_http::schemas::v2::JsonRpcErrorResponse Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>
+) {
   return ::ton_http::schemas::v2::JsonRpcErrorResponse(
     value.template As<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>(),
     value.template As<::ton_http::schemas::v2::TonlibErrorResponse>()
@@ -3472,8 +3590,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcRequest::Params
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>) {
+::ton_http::schemas::v2::JsonRpcRequest::Params Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3490,8 +3609,9 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>) {
+::ton_http::schemas::v2::JsonRpcRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3500,9 +3620,8 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
   res.jsonrpc = value["jsonrpc"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>("2.0");
   res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.method = value["method"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
-  res.params =
-    value["params"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JsonRpcRequest::Params>>(
-    );
+  res.params = value["params"]
+                 .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JsonRpcRequest::Params>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
@@ -3556,8 +3675,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::WalletInformation::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>) {
+::ton_http::schemas::v2::WalletInformation::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3570,8 +3690,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::WalletInformation::Wallet_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>) {
+::ton_http::schemas::v2::WalletInformation::Wallet_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3584,8 +3705,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::WalletInformation
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>) {
+::ton_http::schemas::v2::WalletInformation Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3608,9 +3730,8 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
       .template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>>();
   res.wallet_type =
     value["wallet_type"]
-      .template As<
-        std::optional<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>>>(
-      );
+      .template As<std::optional<
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>>>();
   res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>>>();
   res.wallet_id = value["wallet_id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<int>>>();
   res.is_signature_allowed =
@@ -3655,8 +3776,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftCollectionData::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>) {
+::ton_http::schemas::v2::NftCollectionData::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__NftCollectionData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3669,8 +3791,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftCollectionData::Contract_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>) {
+::ton_http::schemas::v2::NftCollectionData::Contract_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__NftCollectionData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3684,8 +3807,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftCollectionData
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>) {
+::ton_http::schemas::v2::NftCollectionData Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3758,8 +3882,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftItemData::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>) {
+::ton_http::schemas::v2::NftItemData::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__NftItemData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3772,8 +3897,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftItemData::Contract_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>) {
+::ton_http::schemas::v2::NftItemData::Contract_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__NftItemData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3786,8 +3912,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::NftItemData
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>) {
+::ton_http::schemas::v2::NftItemData Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3849,8 +3976,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::MasterchainInfo::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>) {
+::ton_http::schemas::v2::MasterchainInfo::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3863,8 +3991,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MasterchainInfo
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>) {
+::ton_http::schemas::v2::MasterchainInfo Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3907,8 +4036,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet
 
 
 template <typename Value>
-::ton_http::schemas::v2::MasterchainBlockSignatures::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>) {
+::ton_http::schemas::v2::MasterchainBlockSignatures::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -3922,8 +4052,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::MasterchainBlockSignatures
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>) {
+::ton_http::schemas::v2::MasterchainBlockSignatures Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3949,6 +4080,127 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 }
 
 
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping =
+  [](auto selector) {
+    return selector().template Type<::ton_http::schemas::v2::ShardBlockLink::_Type, std::string_view>().Case(
+      ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink, "blocks.shardBlockLink"
+    );
+  };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockLink_PropertiesNames =
+  [](auto selector) {
+    return selector().template Type<std::string_view>().Case("@type").Case("id").Case("proof");
+  };
+
+
+template <typename Value>
+::ton_http::schemas::v2::ShardBlockLink::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockLink::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::ShardBlockLink Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::ShardBlockLink res;
+
+  res._type =
+    value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink::_Type>>(
+      ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink
+    );
+  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.proof = value["proof"]
+                .template As<USERVER_NAMESPACE::chaotic::
+                               WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+    value, k__ton_http__schemas__v2__ShardBlockLink_PropertiesNames
+  );
+
+  return res;
+}
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping =
+  [](auto selector) {
+    return selector().template Type<::ton_http::schemas::v2::ShardBlockProof::_Type, std::string_view>().Case(
+      ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof, "blocks.shardBlockProof"
+    );
+  };
+
+
+static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockProof_PropertiesNames =
+  [](auto selector) {
+    return selector().template Type<std::string_view>().Case("@type").Case("from").Case("mc_id").Case("links").Case(
+      "mc_proof"
+    );
+  };
+
+
+template <typename Value>
+::ton_http::schemas::v2::ShardBlockProof::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>
+) {
+  const auto value = val.template As<std::string>();
+  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  USERVER_NAMESPACE::chaotic::ThrowForValue(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockProof::_Type", value), val
+  );
+}
+
+
+template <typename Value>
+::ton_http::schemas::v2::ShardBlockProof Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof>
+) {
+  value.CheckNotMissing();
+  value.CheckObjectOrNull();
+
+  ::ton_http::schemas::v2::ShardBlockProof res;
+
+  res._type =
+    value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof::_Type>>(
+      ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof
+    );
+  res.from = value["from"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.mc_id =
+    value["mc_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
+  res.links = value["links"]
+                .template As<USERVER_NAMESPACE::chaotic::Array<
+                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink>,
+                  std::vector<::ton_http::schemas::v2::ShardBlockLink>>>();
+  res.mc_proof = value["mc_proof"]
+                   .template As<USERVER_NAMESPACE::chaotic::Array<
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockLinkBack>,
+                     std::vector<::ton_http::schemas::v2::BlockLinkBack>>>();
+
+
+  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
+    value, k__ton_http__schemas__v2__ShardBlockProof_PropertiesNames
+  );
+
+  return res;
+}
+
+
 static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__TonlibResponse_PropertiesNames =
   [](auto selector) {
     return selector().template Type<std::string_view>().Case("ok").Case("result").Case("@extra").Case("jsonrpc").Case(
@@ -3958,8 +4210,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TonlibResponse
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>) {
+::ton_http::schemas::v2::TonlibResponse Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -3982,7 +4235,8 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData>,
                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData>,
                      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
-                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>>>>();
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>,
+                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof>>>>();
   res._extra = value["@extra"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::string>>();
   res.jsonrpc = value["jsonrpc"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
   res.id = value["id"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::string>>>();
@@ -4003,8 +4257,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcResponse__P0
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>) {
+::ton_http::schemas::v2::JsonRpcResponse__P0 Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4023,8 +4278,9 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 
 
 template <typename Value>
-::ton_http::schemas::v2::JsonRpcResponse
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>) {
+::ton_http::schemas::v2::JsonRpcResponse Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>
+) {
   return ::ton_http::schemas::v2::JsonRpcResponse(
     value.template As<::ton_http::schemas::v2::JsonRpcResponse__P0>(),
     value.template As<::ton_http::schemas::v2::TonlibResponse>()
@@ -4039,8 +4295,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::LibrariesRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>) {
+::ton_http::schemas::v2::LibrariesRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4076,8 +4333,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::LibraryEntry::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>) {
+::ton_http::schemas::v2::LibraryEntry::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__LibraryEntry___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4090,8 +4348,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::LibraryEntry
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry>) {
+::ton_http::schemas::v2::LibraryEntry Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4133,8 +4392,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::LibraryResult::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>) {
+::ton_http::schemas::v2::LibraryResult::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__LibraryResult___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4147,8 +4407,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::LibraryResult
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult>) {
+::ton_http::schemas::v2::LibraryResult Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4185,8 +4446,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::LookupBlockRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>) {
+::ton_http::schemas::v2::LookupBlockRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4195,13 +4457,19 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
   res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.shard =
     value["shard"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+      .template As<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>();
   res.seqno = value["seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
   res.lt =
     value["lt"]
-      .template As<std::optional<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>>();
   res.unixtime = value["unixtime"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
 
 
@@ -4220,8 +4488,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::SeqnoRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>) {
+::ton_http::schemas::v2::SeqnoRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4265,8 +4534,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::Message::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>) {
+::ton_http::schemas::v2::Message::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4279,8 +4549,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::Message
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>) {
+::ton_http::schemas::v2::Message Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4350,8 +4621,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::OutMsgQueueSize::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>) {
+::ton_http::schemas::v2::OutMsgQueueSize::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4364,8 +4636,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::OutMsgQueueSize
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>) {
+::ton_http::schemas::v2::OutMsgQueueSize Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4402,8 +4675,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::OutMsgQueueSizes::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>) {
+::ton_http::schemas::v2::OutMsgQueueSizes::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4416,8 +4690,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::OutMsgQueueSizes
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>) {
+::ton_http::schemas::v2::OutMsgQueueSizes Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4450,8 +4725,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::RunGetMethodRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>) {
+::ton_http::schemas::v2::RunGetMethodRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4482,8 +4758,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::SendBocRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>) {
+::ton_http::schemas::v2::SendBocRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4514,8 +4791,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::SendQueryRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>) {
+::ton_http::schemas::v2::SendQueryRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4546,123 +4824,6 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 }
 
 
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping =
-  [](auto selector) {
-    return selector().template Type<::ton_http::schemas::v2::ShardBlockLink::_Type, std::string_view>().Case(
-      ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink, "blocks.shardBlockLink"
-    );
-  };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockLink_PropertiesNames =
-  [](auto selector) {
-    return selector().template Type<std::string_view>().Case("@type").Case("id").Case("proof");
-  };
-
-
-template <typename Value>
-::ton_http::schemas::v2::ShardBlockLink::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockLink::_Type", value), val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::ShardBlockLink
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink>) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::ShardBlockLink res;
-
-  res._type =
-    value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink::_Type>>(
-      ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink
-    );
-  res.id = value["id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.proof = value["proof"]
-                .template As<USERVER_NAMESPACE::chaotic::
-                               WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-    value, k__ton_http__schemas__v2__ShardBlockLink_PropertiesNames
-  );
-
-  return res;
-}
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialBiMap k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping =
-  [](auto selector) {
-    return selector().template Type<::ton_http::schemas::v2::ShardBlockProof::_Type, std::string_view>().Case(
-      ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof, "blocks.shardBlockProof"
-    );
-  };
-
-
-static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockProof_PropertiesNames =
-  [](auto selector) {
-    return selector().template Type<std::string_view>().Case("@type").Case("from").Case("mc_id").Case("links").Case(
-      "mc_proof"
-    );
-  };
-
-
-template <typename Value>
-::ton_http::schemas::v2::ShardBlockProof::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>) {
-  const auto value = val.template As<std::string>();
-  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  USERVER_NAMESPACE::chaotic::ThrowForValue(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockProof::_Type", value), val
-  );
-}
-
-
-template <typename Value>
-::ton_http::schemas::v2::ShardBlockProof
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof>) {
-  value.CheckNotMissing();
-  value.CheckObjectOrNull();
-
-  ::ton_http::schemas::v2::ShardBlockProof res;
-
-  res._type =
-    value["@type"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof::_Type>>(
-      ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof
-    );
-  res.from = value["from"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.mc_id =
-    value["mc_id"].template As<USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>>();
-  res.links = value["links"]
-                .template As<USERVER_NAMESPACE::chaotic::Array<
-                  USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink>,
-                  std::vector<::ton_http::schemas::v2::ShardBlockLink>>>();
-  res.mc_proof = value["mc_proof"]
-                   .template As<USERVER_NAMESPACE::chaotic::Array<
-                     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockLinkBack>,
-                     std::vector<::ton_http::schemas::v2::BlockLinkBack>>>();
-
-
-  USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
-    value, k__ton_http__schemas__v2__ShardBlockProof_PropertiesNames
-  );
-
-  return res;
-}
-
-
 static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__ShardBlockProofRequest_PropertiesNames =
   [](auto selector) {
     return selector()
@@ -4675,8 +4836,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::ShardBlockProofRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>) {
+::ton_http::schemas::v2::ShardBlockProofRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4685,8 +4847,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
   res.workchain = value["workchain"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.shard =
     value["shard"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+      .template As<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>();
   res.seqno = value["seqno"].template As<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>();
   res.from_seqno =
     value["from_seqno"].template As<std::optional<USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>>>();
@@ -4715,8 +4880,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::Shards::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>) {
+::ton_http::schemas::v2::Shards::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4729,8 +4895,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::Shards
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>) {
+::ton_http::schemas::v2::Shards Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4778,8 +4945,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::Transaction::_Type
-Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>) {
+::ton_http::schemas::v2::Transaction::_Type Parse(
+  Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+) {
   const auto value = val.template As<std::string>();
   const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
@@ -4792,8 +4960,9 @@ Parse(Value val, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::
 
 
 template <typename Value>
-::ton_http::schemas::v2::Transaction
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>) {
+::ton_http::schemas::v2::Transaction Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4856,8 +5025,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TransactionsRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>) {
+::ton_http::schemas::v2::TransactionsRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4869,8 +5039,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
                      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
   res.lt =
     value["lt"]
-      .template As<std::optional<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>>();
+      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>>();
   res.hash =
     value["hash"]
       .template As<
@@ -4878,10 +5051,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
                         WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>>>();
   res.to_lt =
     value["to_lt"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>(
-        Convert(std::string_view("0"), USERVER_NAMESPACE::chaotic::convert::To<std::int64_t>{})
-      );
+      .template As<std::optional<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>>();
   res.archival = value["archival"].template As<USERVER_NAMESPACE::chaotic::Primitive<bool>>(false);
   res.limit = value["limit"].template As<USERVER_NAMESPACE::chaotic::Primitive<int>>(10);
 
@@ -4901,8 +5075,9 @@ static constexpr USERVER_NAMESPACE::utils::TrivialSet k__ton_http__schemas__v2__
 
 
 template <typename Value>
-::ton_http::schemas::v2::TryLocateTxRequest
-Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>) {
+::ton_http::schemas::v2::TryLocateTxRequest Parse(
+  Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>
+) {
   value.CheckNotMissing();
   value.CheckObjectOrNull();
 
@@ -4918,8 +5093,11 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
                      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>>();
   res.created_lt =
     value["created_lt"]
-      .template As<
-        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>>();
+      .template As<USERVER_NAMESPACE::chaotic::WithType<
+        USERVER_NAMESPACE::chaotic::Variant<
+          USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+          USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+        std::int64_t>>();
 
 
   USERVER_NAMESPACE::chaotic::ValidateNoAdditionalProperties(
@@ -4933,3 +5111,4 @@ Parse(Value value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2
 }  // namespace v2
 }  // namespace schemas
 }  // namespace ton_http
+

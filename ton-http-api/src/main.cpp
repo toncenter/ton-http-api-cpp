@@ -20,6 +20,7 @@
 #include "handlers/accounts/GetWalletInformationHandler.h"
 #include "handlers/blocks/GetMasterchainBlockSignaturesHandler.h"
 #include "handlers/blocks/GetMasterchainInfoHandler.h"
+#include "handlers/blocks/GetShardBlockProofHandler.h"
 #include "handlers/utils/DetectAddressHandler.h"
 #include "handlers/utils/DetectHashHandler.h"
 #include "handlers/utils/PackAddressHandler.h"
@@ -60,6 +61,7 @@ int main(int argc, char* argv[]) {
   // blocks
   component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();
   component_list.Append<ton_http::handlers::GetMasterchainBlockSignaturesHandler>();
+  component_list.Append<ton_http::handlers::GetShardBlockProofHandler>();
 
   // transactions
 

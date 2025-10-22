@@ -138,6 +138,10 @@ components_manager:
       path: /api/v2/getMasterchainBlockSignatures
       method: GET,POST
       logger: api-v2
+    handler-GetShardBlockProof:
+      path: /api/v2/getShardBlockProof
+      method: GET,POST
+      logger: api-v2
 
     #
     # jsonrpc handler

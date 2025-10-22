@@ -2,7 +2,7 @@
 
 #include <boost/lexical_cast.hpp>
 #include "converters/convert.hpp"
-#include "utils/suspended.hpp"
+#include "utils/wallets.hpp"
 
 ton_http::handlers::GetAddressInformationHandler::GetAddressInformationHandler(
   const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
@@ -51,6 +51,6 @@ ton_http::handlers::GetAddressInformationHandler::HandleRequestTonlibThrow(
 
   // prepare response
   auto response = converters::Convert<schemas::v2::AddressInformation>(result_ok);
-  response.suspended = utils::is_suspended(request.address.GetUnderlying(), response.sync_utime);
+  response.suspended = utils::wallets::is_suspended(request.address.GetUnderlying(), response.sync_utime);
   return response;
 }

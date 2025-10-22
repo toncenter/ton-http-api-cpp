@@ -8,7 +8,6 @@
 #include "userver/dynamic_config/value.hpp"
 #include "userver/formats/json/value_builder.hpp"
 #include "userver/logging/component.hpp"
-#include "userver/logging/log.hpp"
 #include "userver/yaml_config/merge_schemas.hpp"
 
 

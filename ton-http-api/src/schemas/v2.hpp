@@ -58,28 +58,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountAddress::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>);
+AccountAddress::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>
+);
 
 
-AccountAddress
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress>);
+AccountAddress Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress>
+);
 
 
-AccountAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>);
+AccountAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>
+);
 
 
-AccountAddress::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>);
+AccountAddress::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountAddress::_Type value);
@@ -125,28 +135,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateRaw::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>);
+AccountStateRaw::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>
+);
 
 
-AccountStateRaw
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw>);
+AccountStateRaw Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw>
+);
 
 
-AccountStateRaw::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>);
+AccountStateRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>
+);
 
 
-AccountStateRaw::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>);
+AccountStateRaw::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRaw::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRaw& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateRaw::_Type value);
@@ -185,28 +205,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateWalletV3::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>);
+AccountStateWalletV3::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
 
 
-AccountStateWalletV3
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>);
+AccountStateWalletV3 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3>
+);
 
 
-AccountStateWalletV3::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>);
+AccountStateWalletV3::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
 
 
-AccountStateWalletV3::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>);
+AccountStateWalletV3::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV3& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV3& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateWalletV3::_Type value);
@@ -245,28 +275,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateWalletV4::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>);
+AccountStateWalletV4::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
 
 
-AccountStateWalletV4
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>);
+AccountStateWalletV4 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4>
+);
 
 
-AccountStateWalletV4::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>);
+AccountStateWalletV4::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
 
 
-AccountStateWalletV4::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>);
+AccountStateWalletV4::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV4& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV4& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateWalletV4::_Type value);
@@ -306,28 +346,40 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateWalletHighloadV1::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>);
+AccountStateWalletHighloadV1::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
 
 
-AccountStateWalletHighloadV1
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>);
+AccountStateWalletHighloadV1 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1>
+);
 
 
-AccountStateWalletHighloadV1::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>);
+AccountStateWalletHighloadV1::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
 
 
-AccountStateWalletHighloadV1::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>);
+AccountStateWalletHighloadV1::_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type value);
@@ -366,28 +418,40 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateWalletHighloadV2::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>);
+AccountStateWalletHighloadV2::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
 
 
-AccountStateWalletHighloadV2
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>);
+AccountStateWalletHighloadV2 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2>
+);
 
 
-AccountStateWalletHighloadV2::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>);
+AccountStateWalletHighloadV2::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
 
 
-AccountStateWalletHighloadV2::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>);
+AccountStateWalletHighloadV2::_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type value);
@@ -425,28 +489,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateDns::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>);
+AccountStateDns::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
 
 
-AccountStateDns
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>);
+AccountStateDns Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns>
+);
 
 
-AccountStateDns::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>);
+AccountStateDns::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
 
 
-AccountStateDns::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>);
+AccountStateDns::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateDns::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateDns::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateDns& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateDns& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateDns::_Type value);
@@ -481,28 +555,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-RWalletLimit::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>);
+RWalletLimit::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
 
 
-RWalletLimit
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>);
+RWalletLimit Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit>
+);
 
 
-RWalletLimit::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>);
+RWalletLimit::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
 
 
-RWalletLimit::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>);
+RWalletLimit::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletLimit::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletLimit::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletLimit& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletLimit& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::RWalletLimit::_Type value);
@@ -537,28 +621,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-RWalletConfig::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>);
+RWalletConfig::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
 
 
-RWalletConfig
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>);
+RWalletConfig Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig>
+);
 
 
-RWalletConfig::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>);
+RWalletConfig::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
 
 
-RWalletConfig::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>);
+RWalletConfig::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletConfig::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletConfig::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletConfig& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletConfig& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::RWalletConfig::_Type value);
@@ -599,28 +693,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateRWallet::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>);
+AccountStateRWallet::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
 
 
-AccountStateRWallet
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>);
+AccountStateRWallet Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet>
+);
 
 
-AccountStateRWallet::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>);
+AccountStateRWallet::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
 
 
-AccountStateRWallet::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>);
+AccountStateRWallet::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRWallet& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRWallet& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateRWallet::_Type value);
@@ -660,28 +764,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-PChanConfig::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>);
+PChanConfig::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
 
 
-PChanConfig
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>);
+PChanConfig Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig>
+);
 
 
-PChanConfig::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>);
+PChanConfig::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
 
 
-PChanConfig::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>);
+PChanConfig::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanConfig::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanConfig::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanConfig& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanConfig& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::PChanConfig::_Type value);
@@ -721,28 +835,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-PChanStateInit::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>);
+PChanStateInit::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
 
 
-PChanStateInit
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>);
+PChanStateInit Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit>
+);
 
 
-PChanStateInit::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>);
+PChanStateInit::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
 
 
-PChanStateInit::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>);
+PChanStateInit::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateInit::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateInit::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateInit& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateInit& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::PChanStateInit::_Type value);
@@ -786,28 +910,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-PChanStateClose::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>);
+PChanStateClose::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
 
 
-PChanStateClose
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>);
+PChanStateClose Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose>
+);
 
 
-PChanStateClose::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>);
+PChanStateClose::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
 
 
-PChanStateClose::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>);
+PChanStateClose::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateClose::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateClose::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateClose& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateClose& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::PChanStateClose::_Type value);
@@ -846,28 +980,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-PChanStatePayout::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>);
+PChanStatePayout::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
 
 
-PChanStatePayout
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>);
+PChanStatePayout Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout>
+);
 
 
-PChanStatePayout::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>);
+PChanStatePayout::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
 
 
-PChanStatePayout::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>);
+PChanStatePayout::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStatePayout::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStatePayout::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStatePayout& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStatePayout& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::PChanStatePayout::_Type value);
@@ -924,28 +1068,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStatePChan::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>);
+AccountStatePChan::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
 
 
-AccountStatePChan
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>);
+AccountStatePChan Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan>
+);
 
 
-AccountStatePChan::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>);
+AccountStatePChan::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
 
 
-AccountStatePChan::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>);
+AccountStatePChan::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStatePChan::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStatePChan::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStatePChan& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStatePChan& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStatePChan::_Type value);
@@ -983,28 +1137,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateUninited::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>);
+AccountStateUninited::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
 
 
-AccountStateUninited
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>);
+AccountStateUninited Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited>
+);
 
 
-AccountStateUninited::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>);
+AccountStateUninited::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
 
 
-AccountStateUninited::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>);
+AccountStateUninited::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateUninited::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateUninited::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateUninited& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateUninited& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateUninited::_Type value);
@@ -1057,20 +1221,26 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AccountStateEnum
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>);
+AccountStateEnum Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
 
 
-AccountStateEnum
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>);
+AccountStateEnum FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
 
 
-AccountStateEnum
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>);
+AccountStateEnum Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateEnum& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateEnum& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AccountStateEnum value);
@@ -1102,12 +1272,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AddressWithSeqnoRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>);
+AddressWithSeqnoRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressWithSeqnoRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using AddressBalanceRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
@@ -1146,28 +1320,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ExtraCurrencyBalance::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>);
+ExtraCurrencyBalance::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>
+);
 
 
-ExtraCurrencyBalance
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance>);
+ExtraCurrencyBalance Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance>
+);
 
 
-ExtraCurrencyBalance::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>);
+ExtraCurrencyBalance::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>
+);
 
 
-ExtraCurrencyBalance::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>);
+ExtraCurrencyBalance::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtraCurrencyBalance& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtraCurrencyBalance& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ExtraCurrencyBalance::_Type value);
@@ -1207,28 +1391,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-InternalTransactionId::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>);
+InternalTransactionId::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>
+);
 
 
-InternalTransactionId
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId>);
+InternalTransactionId Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId>
+);
 
 
-InternalTransactionId::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>);
+InternalTransactionId::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>
+);
 
 
-InternalTransactionId::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>);
+InternalTransactionId::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::InternalTransactionId::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::InternalTransactionId::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::InternalTransactionId& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::InternalTransactionId& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::InternalTransactionId::_Type value);
@@ -1267,28 +1461,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TonBlockIdExt::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>);
+TonBlockIdExt::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>
+);
 
 
-TonBlockIdExt
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt>);
+TonBlockIdExt Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt>
+);
 
 
-TonBlockIdExt::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>);
+TonBlockIdExt::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>
+);
 
 
-TonBlockIdExt::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>);
+TonBlockIdExt::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TonBlockIdExt::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TonBlockIdExt::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TonBlockIdExt& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TonBlockIdExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::TonBlockIdExt::_Type value);
@@ -1335,28 +1539,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AddressInformation::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>);
+AddressInformation::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>
+);
 
 
-AddressInformation
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation>);
+AddressInformation Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation>
+);
 
 
-AddressInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>);
+AddressInformation::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>
+);
 
 
-AddressInformation::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>);
+AddressInformation::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AddressInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AddressInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AddressInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AddressInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::AddressInformation::_Type value);
@@ -1378,12 +1592,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-AddressRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>);
+AddressRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AddressRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AddressRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using AddressState = ::ton_http::schemas::v2::AccountStateEnum;
@@ -1440,34 +1658,47 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockHeader::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>);
+BlockHeader::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>
+);
 
 
-BlockHeader
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader>);
+BlockHeader Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader>
+);
 
 
-BlockHeader::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>);
+BlockHeader::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>
+);
 
 
-BlockHeader::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>);
+BlockHeader::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockHeader::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockHeader::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockHeader& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockHeader& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::BlockHeader::_Type value);
 
 
 struct BlockHeaderRequest {
+  using Shard = std::variant<std::string, std::int64_t>;
+
+
   std::int32_t workchain{};
   std::int64_t shard{};
   std::int32_t seqno{};
@@ -1486,12 +1717,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockHeaderRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>);
+BlockHeaderRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeaderRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockHeaderRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockHeaderRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct BlockLinkBack {
@@ -1529,28 +1764,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockLinkBack::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>);
+BlockLinkBack::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>
+);
 
 
-BlockLinkBack
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack>);
+BlockLinkBack Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack>
+);
 
 
-BlockLinkBack::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>);
+BlockLinkBack::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>
+);
 
 
-BlockLinkBack::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>);
+BlockLinkBack::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockLinkBack::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockLinkBack::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockLinkBack& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockLinkBack& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::BlockLinkBack::_Type value);
@@ -1566,7 +1811,8 @@ struct BlockSignature {
   };
 
 
-  ::ton_http::schemas::v2::BlockSignature::_Type _type{::ton_http::schemas::v2::BlockSignature::_Type::kBlocksSignature
+  ::ton_http::schemas::v2::BlockSignature::_Type _type{
+    ::ton_http::schemas::v2::BlockSignature::_Type::kBlocksSignature
   };
   ton_http::types::ton_hash node_id_short{};
   ton_http::types::bytes signature{};
@@ -1586,28 +1832,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockSignature::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>);
+BlockSignature::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>
+);
 
 
-BlockSignature
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature>);
+BlockSignature Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature>
+);
 
 
-BlockSignature::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>);
+BlockSignature::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>
+);
 
 
-BlockSignature::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>);
+BlockSignature::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockSignature::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockSignature::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockSignature& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockSignature& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::BlockSignature::_Type value);
@@ -1645,28 +1901,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ShortTxId::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>);
+ShortTxId::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>
+);
 
 
-ShortTxId
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId>);
+ShortTxId Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId>
+);
 
 
-ShortTxId::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>);
+ShortTxId::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>
+);
 
 
-ShortTxId::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>);
+ShortTxId::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShortTxId::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShortTxId::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShortTxId& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShortTxId& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ShortTxId::_Type value);
@@ -1708,34 +1974,50 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockTransactions::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>);
+BlockTransactions::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>
+);
 
 
-BlockTransactions
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions>);
+BlockTransactions Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions>
+);
 
 
-BlockTransactions::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>);
+BlockTransactions::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>
+);
 
 
-BlockTransactions::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>);
+BlockTransactions::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockTransactions::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactions::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockTransactions& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactions& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::BlockTransactions::_Type value);
 
 
 struct BlockTransactionsRequest {
+  using Shard = std::variant<std::string, std::int64_t>;
+
+
+  using After_Lt = std::variant<std::string, std::int64_t>;
+
+
   std::int32_t workchain{};
   std::int64_t shard{};
   std::int32_t seqno{};
@@ -1758,12 +2040,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-BlockTransactionsRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>);
+BlockTransactionsRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockTransactionsRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactionsRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using BlockTransactionsExtRequest = ::ton_http::schemas::v2::BlockTransactionsRequest;
@@ -1783,12 +2069,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-EmptyRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>);
+EmptyRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EmptyRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::EmptyRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::EmptyRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using ConfigAllRequest = ::ton_http::schemas::v2::EmptyRequest;
@@ -1822,28 +2112,37 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TvmCell::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>);
+TvmCell::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>
+);
 
 
-TvmCell
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell>);
+TvmCell Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell>
+);
 
 
-TvmCell::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>);
+TvmCell::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>
+);
 
 
-TvmCell::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>);
+TvmCell::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TvmCell::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TvmCell::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TvmCell& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TvmCell& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::TvmCell::_Type value);
@@ -1877,28 +2176,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ConfigInfo::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>);
+ConfigInfo::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>
+);
 
 
-ConfigInfo
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo>);
+ConfigInfo Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo>
+);
 
 
-ConfigInfo::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>);
+ConfigInfo::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>
+);
 
 
-ConfigInfo::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>);
+ConfigInfo::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConfigInfo::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConfigInfo::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConfigInfo& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConfigInfo& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ConfigInfo::_Type value);
@@ -1919,12 +2228,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ConfigParamRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>);
+ConfigParamRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigParamRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConfigParamRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConfigParamRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct ConsensusBlock {
@@ -1958,28 +2271,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ConsensusBlock::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>);
+ConsensusBlock::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>
+);
 
 
-ConsensusBlock
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock>);
+ConsensusBlock Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock>
+);
 
 
-ConsensusBlock::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>);
+ConsensusBlock::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>
+);
 
 
-ConsensusBlock::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>);
+ConsensusBlock::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConsensusBlock::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConsensusBlock::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConsensusBlock& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConsensusBlock& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ConsensusBlock::_Type value);
@@ -2023,28 +2346,40 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DetectAddressBase64Variant::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>);
+DetectAddressBase64Variant::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+);
 
 
-DetectAddressBase64Variant
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant>);
+DetectAddressBase64Variant Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant>
+);
 
 
-DetectAddressBase64Variant::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>);
+DetectAddressBase64Variant::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+);
 
 
-DetectAddressBase64Variant::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>);
+DetectAddressBase64Variant::_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddressBase64Variant& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddressBase64Variant& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DetectAddressBase64Variant::_Type value);
@@ -2103,44 +2438,60 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DetectAddress::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>);
+DetectAddress::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>
+);
 
 
-DetectAddress::Given_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>);
+DetectAddress::Given_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>
+);
 
 
-DetectAddress
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress>);
+DetectAddress Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress>
+);
 
 
-DetectAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>);
+DetectAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>
+);
 
 
-DetectAddress::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>);
+DetectAddress::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>
+);
 
 
-DetectAddress::Given_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>);
+DetectAddress::Given_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>
+);
 
 
-DetectAddress::Given_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>);
+DetectAddress::Given_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddress::Given_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddress::Given_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DetectAddress::_Type value);
@@ -2182,28 +2533,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DetectHash::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>);
+DetectHash::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>
+);
 
 
-DetectHash
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash>);
+DetectHash Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash>
+);
 
 
-DetectHash::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>);
+DetectHash::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>
+);
 
 
-DetectHash::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>);
+DetectHash::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectHash::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectHash::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectHash& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectHash& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DetectHash::_Type value);
@@ -2224,12 +2585,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DetectHashRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>);
+DetectHashRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHashRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectHashRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectHashRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using TonHashHex = std::string;
@@ -2268,28 +2633,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsRecordStorageAddress::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>);
+DnsRecordStorageAddress::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
 
 
-DnsRecordStorageAddress
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>);
+DnsRecordStorageAddress Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress>
+);
 
 
-DnsRecordStorageAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>);
+DnsRecordStorageAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
 
 
-DnsRecordStorageAddress::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>);
+DnsRecordStorageAddress::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordStorageAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordStorageAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DnsRecordStorageAddress::_Type value);
@@ -2324,28 +2699,37 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-SmcAddr::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>);
+SmcAddr::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
 
 
-SmcAddr
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>);
+SmcAddr Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr>
+);
 
 
-SmcAddr::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>);
+SmcAddr::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
 
 
-SmcAddr::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>);
+SmcAddr::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SmcAddr::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SmcAddr::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SmcAddr& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SmcAddr& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::SmcAddr::_Type value);
@@ -2383,28 +2767,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsRecordSmcAddress::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>);
+DnsRecordSmcAddress::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
 
 
-DnsRecordSmcAddress
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>);
+DnsRecordSmcAddress Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress>
+);
 
 
-DnsRecordSmcAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>);
+DnsRecordSmcAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
 
 
-DnsRecordSmcAddress::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>);
+DnsRecordSmcAddress::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordSmcAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordSmcAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DnsRecordSmcAddress::_Type value);
@@ -2442,28 +2836,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsRecordAdnlAddress::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>);
+DnsRecordAdnlAddress::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
 
 
-DnsRecordAdnlAddress
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>);
+DnsRecordAdnlAddress Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress>
+);
 
 
-DnsRecordAdnlAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>);
+DnsRecordAdnlAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
 
 
-DnsRecordAdnlAddress::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>);
+DnsRecordAdnlAddress::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type value);
@@ -2501,28 +2905,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsRecordNextResolver::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>);
+DnsRecordNextResolver::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
 
 
-DnsRecordNextResolver
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>);
+DnsRecordNextResolver Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver>
+);
 
 
-DnsRecordNextResolver::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>);
+DnsRecordNextResolver::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
 
 
-DnsRecordNextResolver::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>);
+DnsRecordNextResolver::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordNextResolver& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordNextResolver& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::DnsRecordNextResolver::_Type value);
@@ -2566,12 +2980,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsRecordSet
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>);
+DnsRecordSet Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSet>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordSet& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordSet& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct DnsContent {
@@ -2588,12 +3006,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-DnsContent
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>);
+DnsContent Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsContent>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsContent& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsContent& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct EstimateFeeRequest {
@@ -2615,12 +3037,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-EstimateFeeRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>);
+EstimateFeeRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::EstimateFeeRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::EstimateFeeRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::EstimateFeeRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct MsgDataRaw {
@@ -2652,28 +3078,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MsgDataRaw::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>);
+MsgDataRaw::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
 
 
-MsgDataRaw
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>);
+MsgDataRaw Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>
+);
 
 
-MsgDataRaw::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>);
+MsgDataRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
 
 
-MsgDataRaw::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>);
+MsgDataRaw::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataRaw::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataRaw& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MsgDataRaw::_Type value);
@@ -2707,28 +3143,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MsgDataText::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>);
+MsgDataText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
 
 
-MsgDataText
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>);
+MsgDataText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>
+);
 
 
-MsgDataText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>);
+MsgDataText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
 
 
-MsgDataText::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>);
+MsgDataText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MsgDataText::_Type value);
@@ -2766,28 +3212,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MsgDataDecryptedText::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>);
+MsgDataDecryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
 
 
-MsgDataDecryptedText
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>);
+MsgDataDecryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>
+);
 
 
-MsgDataDecryptedText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>);
+MsgDataDecryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
 
 
-MsgDataDecryptedText::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>);
+MsgDataDecryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataDecryptedText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MsgDataDecryptedText::_Type value);
@@ -2825,28 +3281,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MsgDataEncryptedText::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>);
+MsgDataEncryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
 
 
-MsgDataEncryptedText
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>);
+MsgDataEncryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>
+);
 
 
-MsgDataEncryptedText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>);
+MsgDataEncryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
 
 
-MsgDataEncryptedText::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>);
+MsgDataEncryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataEncryptedText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MsgDataEncryptedText::_Type value);
@@ -2898,28 +3364,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ExtMessage::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>);
+ExtMessage::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
+);
 
 
-ExtMessage
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage>);
+ExtMessage Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage>
+);
 
 
-ExtMessage::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>);
+ExtMessage::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
+);
 
 
-ExtMessage::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>);
+ExtMessage::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtMessage::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtMessage::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtMessage& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtMessage& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ExtMessage::_Type value);
@@ -2961,28 +3437,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ExtTransaction::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>);
+ExtTransaction::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
+);
 
 
-ExtTransaction
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction>);
+ExtTransaction Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction>
+);
 
 
-ExtTransaction::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>);
+ExtTransaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
+);
 
 
-ExtTransaction::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>);
+ExtTransaction::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtTransaction::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtTransaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtTransaction& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtTransaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ExtTransaction::_Type value);
@@ -3028,28 +3514,40 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ExtendedAddressInformation::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>);
+ExtendedAddressInformation::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>
+);
 
 
-ExtendedAddressInformation
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation>);
+ExtendedAddressInformation Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation>
+);
 
 
-ExtendedAddressInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>);
+ExtendedAddressInformation::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>
+);
 
 
-ExtendedAddressInformation::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>);
+ExtendedAddressInformation::_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtendedAddressInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtendedAddressInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::ExtendedAddressInformation::_Type value);
@@ -3073,12 +3571,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TokenContentDict
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>);
+TokenContentDict Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContentDict>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TokenContentDict& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TokenContentDict& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct TokenContent {
@@ -3114,28 +3616,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TokenContent::Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>);
+TokenContent::Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
 
 
-TokenContent
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>);
+TokenContent Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent>
+);
 
 
-TokenContent::Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>);
+TokenContent::Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
 
 
-TokenContent::Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>);
+TokenContent::Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TokenContent::Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TokenContent::Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TokenContent& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TokenContent& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::TokenContent::Type value);
@@ -3195,44 +3707,62 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-JettonMasterData::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>);
+JettonMasterData::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
 
 
-JettonMasterData::Contract_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>);
+JettonMasterData::Contract_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
 
 
-JettonMasterData
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>);
+JettonMasterData Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData>
+);
 
 
-JettonMasterData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>);
+JettonMasterData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
 
 
-JettonMasterData::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>);
+JettonMasterData::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+);
 
 
-JettonMasterData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>);
+JettonMasterData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
 
 
-JettonMasterData::Contract_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>);
+JettonMasterData::Contract_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonMasterData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonMasterData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonMasterData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonMasterData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::JettonMasterData::_Type value);
@@ -3295,44 +3825,62 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-JettonWalletData::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>);
+JettonWalletData::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
 
 
-JettonWalletData::Contract_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>);
+JettonWalletData::Contract_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
 
 
-JettonWalletData
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>);
+JettonWalletData Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData>
+);
 
 
-JettonWalletData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>);
+JettonWalletData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
 
 
-JettonWalletData::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>);
+JettonWalletData::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+);
 
 
-JettonWalletData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>);
+JettonWalletData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
 
 
-JettonWalletData::Contract_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>);
+JettonWalletData::Contract_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonWalletData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonWalletData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonWalletData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonWalletData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::JettonWalletData::_Type value);
@@ -3368,12 +3916,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TonlibErrorResponse
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>);
+TonlibErrorResponse Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibErrorResponse>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TonlibErrorResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TonlibErrorResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct JsonRpcErrorResponse__P0 {
@@ -3416,20 +3968,28 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-JsonRpcErrorResponse__P0
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>);
+JsonRpcErrorResponse__P0 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>
+);
 
 
-JsonRpcErrorResponse
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>);
+JsonRpcErrorResponse Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcErrorResponse>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcErrorResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcErrorResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct JsonRpcRequest {
@@ -3463,20 +4023,28 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-JsonRpcRequest::Params
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>);
+JsonRpcRequest::Params Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest::Params>
+);
 
 
-JsonRpcRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>);
+JsonRpcRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcRequest::Params& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcRequest::Params& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct WalletInformation {
@@ -3552,44 +4120,60 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-WalletInformation::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>);
+WalletInformation::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
 
 
-WalletInformation::Wallet_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>);
+WalletInformation::Wallet_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
 
 
-WalletInformation
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>);
+WalletInformation Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation>
+);
 
 
-WalletInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>);
+WalletInformation::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
 
 
-WalletInformation::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>);
+WalletInformation::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+);
 
 
-WalletInformation::Wallet_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>);
+WalletInformation::Wallet_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
 
 
-WalletInformation::Wallet_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>);
+WalletInformation::Wallet_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::WalletInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::WalletInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::WalletInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::WalletInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::WalletInformation::_Type value);
@@ -3650,44 +4234,62 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-NftCollectionData::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>);
+NftCollectionData::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
 
 
-NftCollectionData::Contract_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>);
+NftCollectionData::Contract_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
 
 
-NftCollectionData
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>);
+NftCollectionData Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData>
+);
 
 
-NftCollectionData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>);
+NftCollectionData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
 
 
-NftCollectionData::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>);
+NftCollectionData::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+);
 
 
-NftCollectionData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>);
+NftCollectionData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
 
 
-NftCollectionData::Contract_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>);
+NftCollectionData::Contract_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftCollectionData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftCollectionData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftCollectionData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftCollectionData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::NftCollectionData::_Type value);
@@ -3749,44 +4351,60 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-NftItemData::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>);
+NftItemData::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
 
 
-NftItemData::Contract_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>);
+NftItemData::Contract_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
 
 
-NftItemData
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>);
+NftItemData Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData>
+);
 
 
-NftItemData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>);
+NftItemData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
 
 
-NftItemData::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>);
+NftItemData::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+);
 
 
-NftItemData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>);
+NftItemData::Contract_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
 
 
-NftItemData::Contract_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>);
+NftItemData::Contract_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftItemData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftItemData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftItemData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftItemData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftItemData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftItemData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::NftItemData::_Type value);
@@ -3830,28 +4448,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MasterchainInfo::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>);
+MasterchainInfo::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
 
 
-MasterchainInfo
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>);
+MasterchainInfo Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo>
+);
 
 
-MasterchainInfo::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>);
+MasterchainInfo::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
 
 
-MasterchainInfo::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>);
+MasterchainInfo::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainInfo::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainInfo::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainInfo& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainInfo& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MasterchainInfo::_Type value);
@@ -3891,31 +4519,183 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-MasterchainBlockSignatures::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>);
+MasterchainBlockSignatures::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
 
 
-MasterchainBlockSignatures
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>);
+MasterchainBlockSignatures Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures>
+);
 
 
-MasterchainBlockSignatures::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>);
+MasterchainBlockSignatures::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
 
 
-MasterchainBlockSignatures::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>);
+MasterchainBlockSignatures::_Type Parse(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainBlockSignatures& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainBlockSignatures& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type value);
+
+
+struct ShardBlockLink {
+  enum class _Type {
+    kBlocksShardblocklink,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksShardblocklink,
+  };
+
+
+  ::ton_http::schemas::v2::ShardBlockLink::_Type _type{
+    ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt id{};
+  ton_http::types::bytes proof{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::ShardBlockLink& lhs, const ::ton_http::schemas::v2::ShardBlockLink& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink& value
+);
+
+
+ShardBlockLink::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>
+);
+
+
+ShardBlockLink Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink>
+);
+
+
+ShardBlockLink::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>
+);
+
+
+ShardBlockLink::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockLink::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockLink& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::ShardBlockLink::_Type value);
+
+
+struct ShardBlockProof {
+  enum class _Type {
+    kBlocksShardblockproof,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksShardblockproof,
+  };
+
+
+  ::ton_http::schemas::v2::ShardBlockProof::_Type _type{
+    ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt from{};
+  ::ton_http::schemas::v2::TonBlockIdExt mc_id{};
+  std::vector<::ton_http::schemas::v2::ShardBlockLink> links{};
+  std::vector<::ton_http::schemas::v2::BlockLinkBack> mc_proof{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::ShardBlockProof& lhs, const ::ton_http::schemas::v2::ShardBlockProof& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof& value
+);
+
+
+ShardBlockProof::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>
+);
+
+
+ShardBlockProof Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof>
+);
+
+
+ShardBlockProof::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>
+);
+
+
+ShardBlockProof::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockProof::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockProof& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value);
 
 
 [[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTonlibObject_Settings = {
@@ -3932,7 +4712,8 @@ std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type 
       .Case("ext.tokens.nftCollectionData")
       .Case("ext.tokens.nftItemData")
       .Case("blocks.masterchainInfo")
-      .Case("blocks.blockSignatures");
+      .Case("blocks.blockSignatures")
+      .Case("blocks.shardBlockProof");
   })
 };
 
@@ -3948,7 +4729,8 @@ using TonlibObject = std::variant<
   ::ton_http::schemas::v2::NftCollectionData,
   ::ton_http::schemas::v2::NftItemData,
   ::ton_http::schemas::v2::MasterchainInfo,
-  ::ton_http::schemas::v2::MasterchainBlockSignatures>;
+  ::ton_http::schemas::v2::MasterchainBlockSignatures,
+  ::ton_http::schemas::v2::ShardBlockProof>;
 
 
 // TonlibResponse
@@ -3973,12 +4755,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TonlibResponse
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>);
+TonlibResponse Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonlibResponse>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TonlibResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TonlibResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct JsonRpcResponse__P0 {
@@ -4018,20 +4804,28 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-JsonRpcResponse__P0
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>);
+JsonRpcResponse__P0 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse__P0>
+);
 
 
-JsonRpcResponse
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>);
+JsonRpcResponse Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JsonRpcResponse>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcResponse__P0& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcResponse__P0& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct LibrariesRequest {
@@ -4049,12 +4843,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-LibrariesRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>);
+LibrariesRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibrariesRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibrariesRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibrariesRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct LibraryEntry {
@@ -4086,28 +4884,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-LibraryEntry::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>);
+LibraryEntry::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>
+);
 
 
-LibraryEntry
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry>);
+LibraryEntry Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry>
+);
 
 
-LibraryEntry::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>);
+LibraryEntry::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>
+);
 
 
-LibraryEntry::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>);
+LibraryEntry::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryEntry::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryEntry::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryEntry& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryEntry& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::LibraryEntry::_Type value);
@@ -4141,28 +4949,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-LibraryResult::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>);
+LibraryResult::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>
+);
 
 
-LibraryResult
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult>);
+LibraryResult Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult>
+);
 
 
-LibraryResult::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>);
+LibraryResult::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>
+);
 
 
-LibraryResult::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>);
+LibraryResult::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryResult::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryResult::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryResult& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryResult& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::LibraryResult::_Type value);
@@ -4172,6 +4990,12 @@ using LookupBlock = ::ton_http::schemas::v2::TonBlockIdExt;
 
 
 struct LookupBlockRequest {
+  using Shard = std::variant<std::string, std::int64_t>;
+
+
+  using Lt = std::variant<std::string, std::int64_t>;
+
+
   std::int32_t workchain{};
   std::int64_t shard{};
   std::optional<std::int32_t> seqno{};
@@ -4190,12 +5014,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-LookupBlockRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>);
+LookupBlockRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LookupBlockRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LookupBlockRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LookupBlockRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct SeqnoRequest {
@@ -4211,12 +5039,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-SeqnoRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>);
+SeqnoRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SeqnoRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SeqnoRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SeqnoRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using MasterchainBlockSignaturesRequest = ::ton_http::schemas::v2::SeqnoRequest;
@@ -4269,28 +5101,37 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-Message::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>);
+Message::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
 
 
-Message
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>);
+Message Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>
+);
 
 
-Message::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>);
+Message::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
 
 
-Message::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>);
+Message::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Message::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Message& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::Message::_Type value);
@@ -4329,28 +5170,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-OutMsgQueueSize::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>);
+OutMsgQueueSize::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
 
 
-OutMsgQueueSize
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>);
+OutMsgQueueSize Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>
+);
 
 
-OutMsgQueueSize::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>);
+OutMsgQueueSize::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
 
 
-OutMsgQueueSize::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>);
+OutMsgQueueSize::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSize& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value);
@@ -4392,28 +5243,38 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-OutMsgQueueSizes::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>);
+OutMsgQueueSizes::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
 
 
-OutMsgQueueSizes
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>);
+OutMsgQueueSizes Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>
+);
 
 
-OutMsgQueueSizes::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>);
+OutMsgQueueSizes::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
 
 
-OutMsgQueueSizes::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>);
+OutMsgQueueSizes::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSizes& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value);
@@ -4442,12 +5303,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-RunGetMethodRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>);
+RunGetMethodRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RunGetMethodRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RunGetMethodRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RunGetMethodRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct SendBocRequest {
@@ -4463,12 +5328,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-SendBocRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>);
+SendBocRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendBocRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SendBocRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SendBocRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct SendQueryRequest {
@@ -4489,135 +5358,22 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-SendQueryRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>);
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SendQueryRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
-
-
-struct ShardBlockLink {
-  enum class _Type {
-    kBlocksShardblocklink,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kBlocksShardblocklink,
-  };
-
-
-  ::ton_http::schemas::v2::ShardBlockLink::_Type _type{
-    ::ton_http::schemas::v2::ShardBlockLink::_Type::kBlocksShardblocklink
-  };
-  ::ton_http::schemas::v2::TonBlockIdExt id{};
-  ton_http::types::bytes proof{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::ShardBlockLink& lhs, const ::ton_http::schemas::v2::ShardBlockLink& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink::_Type& value
+SendQueryRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SendQueryRequest>
 );
 
 
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink& value
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SendQueryRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
-
-
-ShardBlockLink::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>);
-
-
-ShardBlockLink
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink>);
-
-
-ShardBlockLink::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>);
-
-
-ShardBlockLink::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>);
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockLink::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockLink& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
-
-
-std::string ToString(::ton_http::schemas::v2::ShardBlockLink::_Type value);
-
-
-struct ShardBlockProof {
-  enum class _Type {
-    kBlocksShardblockproof,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kBlocksShardblockproof,
-  };
-
-
-  ::ton_http::schemas::v2::ShardBlockProof::_Type _type{
-    ::ton_http::schemas::v2::ShardBlockProof::_Type::kBlocksShardblockproof
-  };
-  ::ton_http::schemas::v2::TonBlockIdExt from{};
-  ::ton_http::schemas::v2::TonBlockIdExt mc_id{};
-  std::vector<::ton_http::schemas::v2::ShardBlockLink> links{};
-  std::vector<::ton_http::schemas::v2::BlockLinkBack> mc_proof{};
-};
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::ShardBlockProof& lhs, const ::ton_http::schemas::v2::ShardBlockProof& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof& value
-);
-
-
-ShardBlockProof::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>);
-
-
-ShardBlockProof
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof>);
-
-
-ShardBlockProof::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>);
-
-
-ShardBlockProof::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>);
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockProof::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockProof& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
-
-
-std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value);
 
 
 struct ShardBlockProofRequest {
+  using Shard = std::variant<std::string, std::int64_t>;
+
+
   std::int32_t workchain{};
   std::int64_t shard{};
   std::int32_t seqno{};
@@ -4635,12 +5391,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-ShardBlockProofRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>);
+ShardBlockProofRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProofRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockProofRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockProofRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 struct Shards {
@@ -4671,28 +5431,37 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-Shards::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>);
+Shards::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
 
 
-Shards
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>);
+Shards Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>
+);
 
 
-Shards::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>);
+Shards::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
 
 
-Shards::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>);
+Shards::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Shards::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Shards& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::Shards::_Type value);
@@ -4760,38 +5529,54 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-Transaction::_Type
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>);
+Transaction::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
 
 
-Transaction
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>);
+Transaction Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>
+);
 
 
-Transaction::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>);
+Transaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
 
 
-Transaction::_Type
-Parse(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>);
+Transaction::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Transaction::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Transaction& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 std::string ToString(::ton_http::schemas::v2::Transaction::_Type value);
 
 
 struct TransactionsRequest {
+  using Lt = std::variant<std::string, std::int64_t>;
+
+
+  using To_Lt = std::variant<std::string, std::int64_t>;
+
+
   ton_http::types::ton_addr address{};
   std::optional<std::int64_t> lt{};
   std::optional<ton_http::types::ton_hash> hash{};
-  std::int64_t to_lt{Convert(std::string_view("0"), USERVER_NAMESPACE::chaotic::convert::To<std::int64_t>{})};
+  std::optional<std::int64_t> to_lt{};
   bool archival{false};
   int limit{10};
 };
@@ -4807,18 +5592,25 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TransactionsRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>);
+TransactionsRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TransactionsRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionsRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using TransactionsV2Request = ::ton_http::schemas::v2::TransactionsRequest;
 
 
 struct TryLocateTxRequest {
+  using Created_Lt = std::variant<std::string, std::int64_t>;
+
+
   ton_http::types::ton_addr source{};
   ton_http::types::ton_addr destination{};
   std::int64_t created_lt{};
@@ -4835,12 +5627,16 @@ USERVER_NAMESPACE::logging::LogHelper& operator<<(
 );
 
 
-TryLocateTxRequest
-Parse(USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>);
+TryLocateTxRequest Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TryLocateTxRequest>
+);
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TryLocateTxRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>);
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TryLocateTxRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
 
 
 using TryLocateResultTxRequest = ::ton_http::schemas::v2::TryLocateTxRequest;
@@ -4865,8 +5661,9 @@ using WalletInformationRequest = ::ton_http::schemas::v2::AddressWithSeqnoReques
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountAddress::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountAddress::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountAddress::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4876,8 +5673,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountAddress::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateRaw::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateRaw::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateRaw::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4887,8 +5685,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateRaw::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV3::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateWalletV3::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateWalletV3::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4898,8 +5697,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV3::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV4::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateWalletV4::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateWalletV4::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4909,8 +5709,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletV4::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4920,8 +5721,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Ty
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4931,8 +5733,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Ty
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateDns::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateDns::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateDns::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4952,8 +5755,9 @@ struct fmt::formatter<::ton_http::schemas::v2::RWalletLimit::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::RWalletConfig::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::RWalletConfig::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::RWalletConfig::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4963,8 +5767,9 @@ struct fmt::formatter<::ton_http::schemas::v2::RWalletConfig::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateRWallet::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateRWallet::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateRWallet::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4984,8 +5789,9 @@ struct fmt::formatter<::ton_http::schemas::v2::PChanConfig::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::PChanStateInit::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::PChanStateInit::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::PChanStateInit::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -4995,8 +5801,9 @@ struct fmt::formatter<::ton_http::schemas::v2::PChanStateInit::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::PChanStateClose::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::PChanStateClose::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::PChanStateClose::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5006,8 +5813,9 @@ struct fmt::formatter<::ton_http::schemas::v2::PChanStateClose::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::PChanStatePayout::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::PChanStatePayout::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::PChanStatePayout::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5017,8 +5825,9 @@ struct fmt::formatter<::ton_http::schemas::v2::PChanStatePayout::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStatePChan::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStatePChan::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStatePChan::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5028,8 +5837,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStatePChan::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AccountStateUninited::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AccountStateUninited::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AccountStateUninited::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5049,8 +5859,9 @@ struct fmt::formatter<::ton_http::schemas::v2::AccountStateEnum> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5060,8 +5871,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::InternalTransactionId::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::InternalTransactionId::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::InternalTransactionId::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5071,8 +5883,9 @@ struct fmt::formatter<::ton_http::schemas::v2::InternalTransactionId::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::TonBlockIdExt::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::TonBlockIdExt::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::TonBlockIdExt::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5082,8 +5895,9 @@ struct fmt::formatter<::ton_http::schemas::v2::TonBlockIdExt::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::AddressInformation::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::AddressInformation::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::AddressInformation::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5103,8 +5917,9 @@ struct fmt::formatter<::ton_http::schemas::v2::BlockHeader::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::BlockLinkBack::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::BlockLinkBack::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::BlockLinkBack::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5114,8 +5929,9 @@ struct fmt::formatter<::ton_http::schemas::v2::BlockLinkBack::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::BlockSignature::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::BlockSignature::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::BlockSignature::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5135,8 +5951,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ShortTxId::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::BlockTransactions::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::BlockTransactions::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::BlockTransactions::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5166,8 +5983,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ConfigInfo::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::ConsensusBlock::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ConsensusBlock::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ConsensusBlock::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5177,8 +5995,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ConsensusBlock::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5188,8 +6007,9 @@ struct fmt::formatter<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DetectAddress::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DetectAddress::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DetectAddress::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5199,8 +6019,9 @@ struct fmt::formatter<::ton_http::schemas::v2::DetectAddress::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DetectAddress::Given_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DetectAddress::Given_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DetectAddress::Given_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5220,8 +6041,9 @@ struct fmt::formatter<::ton_http::schemas::v2::DetectHash::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5241,8 +6063,9 @@ struct fmt::formatter<::ton_http::schemas::v2::SmcAddr::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5252,8 +6075,9 @@ struct fmt::formatter<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5263,8 +6087,9 @@ struct fmt::formatter<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::DnsRecordNextResolver::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5294,8 +6119,9 @@ struct fmt::formatter<::ton_http::schemas::v2::MsgDataText::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5305,8 +6131,9 @@ struct fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5326,8 +6153,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ExtMessage::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::ExtTransaction::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ExtTransaction::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ExtTransaction::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5337,8 +6165,9 @@ struct fmt::formatter<::ton_http::schemas::v2::ExtTransaction::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::ExtendedAddressInformation::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5358,8 +6187,9 @@ struct fmt::formatter<::ton_http::schemas::v2::TokenContent::Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::JettonMasterData::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::JettonMasterData::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5369,8 +6199,9 @@ struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::Contract_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::JettonMasterData::Contract_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::JettonMasterData::Contract_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5380,8 +6211,9 @@ struct fmt::formatter<::ton_http::schemas::v2::JettonMasterData::Contract_Type> 
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::JettonWalletData::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::JettonWalletData::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5391,8 +6223,9 @@ struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::Contract_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::JettonWalletData::Contract_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::JettonWalletData::Contract_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5402,8 +6235,9 @@ struct fmt::formatter<::ton_http::schemas::v2::JettonWalletData::Contract_Type> 
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::WalletInformation::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::WalletInformation::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5413,8 +6247,9 @@ struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::WalletInformation::Wallet_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::WalletInformation::Wallet_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5424,8 +6259,9 @@ struct fmt::formatter<::ton_http::schemas::v2::WalletInformation::Wallet_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::NftCollectionData::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::NftCollectionData::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::NftCollectionData::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5435,8 +6271,9 @@ struct fmt::formatter<::ton_http::schemas::v2::NftCollectionData::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::NftCollectionData::Contract_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::NftCollectionData::Contract_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::NftCollectionData::Contract_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5456,8 +6293,9 @@ struct fmt::formatter<::ton_http::schemas::v2::NftItemData::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::NftItemData::Contract_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::NftItemData::Contract_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::NftItemData::Contract_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5467,8 +6305,9 @@ struct fmt::formatter<::ton_http::schemas::v2::NftItemData::Contract_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::MasterchainInfo::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::MasterchainInfo::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MasterchainInfo::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5478,8 +6317,33 @@ struct fmt::formatter<::ton_http::schemas::v2::MasterchainInfo::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::ShardBlockLink::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ShardBlockLink::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::ShardBlockProof::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::ShardBlockProof::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5499,8 +6363,9 @@ struct fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::LibraryResult::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::LibraryResult::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5520,8 +6385,9 @@ struct fmt::formatter<::ton_http::schemas::v2::Message::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::OutMsgQueueSize::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::OutMsgQueueSize::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::OutMsgQueueSize::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5531,30 +6397,9 @@ struct fmt::formatter<::ton_http::schemas::v2::OutMsgQueueSize::_Type> {
 
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::ShardBlockLink::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ShardBlockLink::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::ShardBlockProof::_Type> {
-  fmt::format_context::iterator
-  format(const ::ton_http::schemas::v2::ShardBlockProof::_Type&, fmt::format_context&) const;
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -5580,3 +6425,4 @@ struct fmt::formatter<::ton_http::schemas::v2::Transaction::_Type> {
     return ctx.begin();
   }
 };
+

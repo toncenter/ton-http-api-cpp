@@ -33,4 +33,35 @@ inline schemas::v2::MasterchainBlockSignatures Convert(
   }
   return result;
 }
+
+inline schemas::v2::ShardBlockLink Convert(const tonlib_api::object_ptr<tonlib_api::blocks_shardBlockLink>& value) {
+  schemas::v2::ShardBlockLink result;
+  result.id = Convert(value->id_);
+  result.proof = types::bytes{value->proof_};
+  return result;
+}
+
+inline schemas::v2::BlockLinkBack Convert(const tonlib_api::object_ptr<tonlib_api::blocks_blockLinkBack>& value) {
+  schemas::v2::BlockLinkBack result;
+  result.to_key_block = value->to_key_block_;
+  result.from = Convert(value->from_);
+  result.to = Convert(value->to_);
+  result.dest_proof = types::bytes{value->dest_proof_};
+  result.proof = types::bytes{value->proof_};
+  result.state_proof = types::bytes{value->state_proof_};
+  return result;
+}
+
+inline schemas::v2::ShardBlockProof Convert(const tonlib_api::blocks_getShardBlockProof::ReturnType& value) {
+  schemas::v2::ShardBlockProof result;
+  result.from = Convert(value->from_);
+  result.mc_id = Convert(value->mc_id_);
+  for (auto& link : value->links_) {
+    result.links.emplace_back(Convert(link));
+  }
+  for (auto& link : value->mc_proof_) {
+    result.mc_proof.emplace_back(Convert(link));
+  }
+  return result;
+}
 }  // namespace ton_http::converters

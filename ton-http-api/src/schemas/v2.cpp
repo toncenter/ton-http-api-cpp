@@ -47,8 +47,9 @@ AccountAddress Parse(
 }
 
 
-::ton_http::schemas::v2::AccountAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>) {
+::ton_http::schemas::v2::AccountAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountAddress::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -65,14 +66,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -135,8 +140,9 @@ AccountStateRaw Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateRaw::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>) {
+::ton_http::schemas::v2::AccountStateRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRaw::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateRaw___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -153,14 +159,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRaw::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateRaw& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -232,8 +242,9 @@ AccountStateWalletV3 Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateWalletV3::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletV3::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV3::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateWalletV3___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -250,14 +261,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV3::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletV3& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletV3& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -319,8 +334,9 @@ AccountStateWalletV4 Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateWalletV4::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletV4::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletV4::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateWalletV4___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -337,14 +353,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletV4::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletV4& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletV4& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -407,8 +427,10 @@ AccountStateWalletHighloadV1 Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV1___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -426,14 +448,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV1::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletHighloadV1& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -496,8 +522,10 @@ AccountStateWalletHighloadV2 Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>) {
+::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateWalletHighloadV2___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -515,14 +543,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateWalletHighloadV2::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateWalletHighloadV2& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -582,8 +614,9 @@ AccountStateDns Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateDns::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>) {
+::ton_http::schemas::v2::AccountStateDns::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateDns::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateDns___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -600,14 +633,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateDns::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateDns::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateDns& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateDns& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -664,8 +701,9 @@ RWalletLimit Parse(
 }
 
 
-::ton_http::schemas::v2::RWalletLimit::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>) {
+::ton_http::schemas::v2::RWalletLimit::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletLimit::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__RWalletLimit___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -682,14 +720,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletLimit::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletLimit::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::RWalletLimit& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::RWalletLimit& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -748,8 +790,9 @@ RWalletConfig Parse(
 }
 
 
-::ton_http::schemas::v2::RWalletConfig::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>) {
+::ton_http::schemas::v2::RWalletConfig::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::RWalletConfig::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__RWalletConfig___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -766,14 +809,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::RWalletConfig::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::RWalletConfig::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::RWalletConfig& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::RWalletConfig& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -837,8 +884,9 @@ AccountStateRWallet Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateRWallet::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>) {
+::ton_http::schemas::v2::AccountStateRWallet::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateRWallet::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateRWallet___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -855,14 +903,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateRWallet::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateRWallet& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateRWallet& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -928,8 +980,9 @@ PChanConfig Parse(
 }
 
 
-::ton_http::schemas::v2::PChanConfig::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>) {
+::ton_http::schemas::v2::PChanConfig::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanConfig::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__PChanConfig___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -946,14 +999,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanConfig::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanConfig::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::PChanConfig& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::PChanConfig& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1027,8 +1084,9 @@ PChanStateInit Parse(
 }
 
 
-::ton_http::schemas::v2::PChanStateInit::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>) {
+::ton_http::schemas::v2::PChanStateInit::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateInit::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__PChanStateInit___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1045,14 +1103,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateInit::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateInit::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::PChanStateInit& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::PChanStateInit& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1125,8 +1187,9 @@ PChanStateClose Parse(
 }
 
 
-::ton_http::schemas::v2::PChanStateClose::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>) {
+::ton_http::schemas::v2::PChanStateClose::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStateClose::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__PChanStateClose___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1143,14 +1206,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStateClose::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStateClose::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::PChanStateClose& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::PChanStateClose& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1221,8 +1288,9 @@ PChanStatePayout Parse(
 }
 
 
-::ton_http::schemas::v2::PChanStatePayout::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>) {
+::ton_http::schemas::v2::PChanStatePayout::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::PChanStatePayout::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__PChanStatePayout___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1239,14 +1307,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::PChanStatePayout::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::PChanStatePayout::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::PChanStatePayout& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::PChanStatePayout& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1308,8 +1380,9 @@ AccountStatePChan Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStatePChan::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>) {
+::ton_http::schemas::v2::AccountStatePChan::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStatePChan::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStatePChan___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1326,14 +1399,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStatePChan::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStatePChan::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStatePChan& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStatePChan& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1400,8 +1477,9 @@ AccountStateUninited Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateUninited::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>) {
+::ton_http::schemas::v2::AccountStateUninited::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateUninited::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateUninited___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1418,14 +1496,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateUninited::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateUninited::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AccountStateUninited& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AccountStateUninited& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1466,8 +1548,9 @@ AccountStateEnum Parse(
 }
 
 
-::ton_http::schemas::v2::AccountStateEnum
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>) {
+::ton_http::schemas::v2::AccountStateEnum FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AccountStateEnum>
+) {
   const auto result = k__ton_http__schemas__v2__AccountStateEnum_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1484,8 +1567,10 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AccountStateEnum& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AccountStateEnum& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
@@ -1522,8 +1607,10 @@ AddressWithSeqnoRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AddressWithSeqnoRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1578,8 +1665,9 @@ ExtraCurrencyBalance Parse(
 }
 
 
-::ton_http::schemas::v2::ExtraCurrencyBalance::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>) {
+::ton_http::schemas::v2::ExtraCurrencyBalance::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtraCurrencyBalance::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ExtraCurrencyBalance___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1596,14 +1684,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtraCurrencyBalance::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ExtraCurrencyBalance& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ExtraCurrencyBalance& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1668,8 +1760,9 @@ InternalTransactionId Parse(
 }
 
 
-::ton_http::schemas::v2::InternalTransactionId::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>) {
+::ton_http::schemas::v2::InternalTransactionId::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::InternalTransactionId::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__InternalTransactionId___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1687,14 +1780,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::InternalTransactionId::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::InternalTransactionId::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::InternalTransactionId& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::InternalTransactionId& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1759,8 +1856,9 @@ TonBlockIdExt Parse(
 }
 
 
-::ton_http::schemas::v2::TonBlockIdExt::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>) {
+::ton_http::schemas::v2::TonBlockIdExt::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TonBlockIdExt::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__TonBlockIdExt___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1777,14 +1875,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TonBlockIdExt::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TonBlockIdExt::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TonBlockIdExt& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TonBlockIdExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1861,8 +1963,9 @@ AddressInformation Parse(
 }
 
 
-::ton_http::schemas::v2::AddressInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>) {
+::ton_http::schemas::v2::AddressInformation::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::AddressInformation::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__AddressInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -1879,14 +1982,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::AddressInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::AddressInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AddressInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AddressInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -1965,8 +2072,10 @@ AddressRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::AddressRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::AddressRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2023,8 +2132,9 @@ BlockHeader Parse(
 }
 
 
-::ton_http::schemas::v2::BlockHeader::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>) {
+::ton_http::schemas::v2::BlockHeader::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockHeader::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__BlockHeader___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2041,14 +2151,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockHeader::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockHeader::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockHeader& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockHeader& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = value.extra;
 
 
@@ -2086,7 +2200,8 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockHeader& value, US
     };
 
   vb["end_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{value.end_lt
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{
+      value.end_lt
     };
 
   vb["gen_utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.gen_utime};
@@ -2132,15 +2247,20 @@ BlockHeaderRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockHeaderRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockHeaderRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
   vb["workchain"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.workchain};
 
-  vb["shard"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.shard};
+  vb["shard"] = USERVER_NAMESPACE::chaotic::WithType<
+    USERVER_NAMESPACE::chaotic::Variant<
+      USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+    std::int64_t>{value.shard};
 
   vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.seqno};
 
@@ -2195,8 +2315,9 @@ BlockLinkBack Parse(
 }
 
 
-::ton_http::schemas::v2::BlockLinkBack::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>) {
+::ton_http::schemas::v2::BlockLinkBack::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockLinkBack::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__BlockLinkBack___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2213,14 +2334,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockLinkBack::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockLinkBack::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockLinkBack& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockLinkBack& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2298,8 +2423,9 @@ BlockSignature Parse(
 }
 
 
-::ton_http::schemas::v2::BlockSignature::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>) {
+::ton_http::schemas::v2::BlockSignature::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockSignature::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__BlockSignature___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2316,14 +2442,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockSignature::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockSignature::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockSignature& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockSignature& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2389,8 +2519,9 @@ ShortTxId Parse(
 }
 
 
-::ton_http::schemas::v2::ShortTxId::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>) {
+::ton_http::schemas::v2::ShortTxId::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShortTxId::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ShortTxId___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2407,14 +2538,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShortTxId::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShortTxId::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ShortTxId& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ShortTxId& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2487,8 +2622,9 @@ BlockTransactions Parse(
 }
 
 
-::ton_http::schemas::v2::BlockTransactions::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>) {
+::ton_http::schemas::v2::BlockTransactions::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactions::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__BlockTransactions___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2505,14 +2641,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::BlockTransactions::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactions::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactions& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactions& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2567,15 +2707,20 @@ BlockTransactionsRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactionsRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactionsRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
   vb["workchain"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.workchain};
 
-  vb["shard"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.shard};
+  vb["shard"] = USERVER_NAMESPACE::chaotic::WithType<
+    USERVER_NAMESPACE::chaotic::Variant<
+      USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+    std::int64_t>{value.shard};
 
   vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.seqno};
 
@@ -2590,10 +2735,11 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactionsReque
   }
 
   if (value.after_lt) {
-    vb["after_lt"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
-        *value.after_lt
-      };
+    vb["after_lt"] = USERVER_NAMESPACE::chaotic::WithType<
+      USERVER_NAMESPACE::chaotic::Variant<
+        USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+      std::int64_t>{*value.after_lt};
   }
 
   if (value.after_hash) {
@@ -2633,8 +2779,10 @@ EmptyRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::EmptyRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::EmptyRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2677,8 +2825,9 @@ TvmCell Parse(
 }
 
 
-::ton_http::schemas::v2::TvmCell::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>) {
+::ton_http::schemas::v2::TvmCell::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TvmCell::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__TvmCell___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2695,14 +2844,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TvmCell::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TvmCell::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TvmCell& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TvmCell& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2762,8 +2915,9 @@ ConfigInfo Parse(
 }
 
 
-::ton_http::schemas::v2::ConfigInfo::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>) {
+::ton_http::schemas::v2::ConfigInfo::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConfigInfo::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ConfigInfo___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2780,14 +2934,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConfigInfo::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConfigInfo::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ConfigInfo& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ConfigInfo& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2831,8 +2989,10 @@ ConfigParamRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ConfigParamRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ConfigParamRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2880,8 +3040,9 @@ ConsensusBlock Parse(
 }
 
 
-::ton_http::schemas::v2::ConsensusBlock::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>) {
+::ton_http::schemas::v2::ConsensusBlock::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ConsensusBlock::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ConsensusBlock___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2898,14 +3059,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ConsensusBlock::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ConsensusBlock::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ConsensusBlock& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ConsensusBlock& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -2967,8 +3132,10 @@ DetectAddressBase64Variant Parse(
 }
 
 
-::ton_http::schemas::v2::DetectAddressBase64Variant::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>) {
+::ton_http::schemas::v2::DetectAddressBase64Variant::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddressBase64Variant::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DetectAddressBase64Variant___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -2986,14 +3153,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddressBase64Variant::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DetectAddressBase64Variant& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DetectAddressBase64Variant& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3070,8 +3241,9 @@ DetectAddress Parse(
 }
 
 
-::ton_http::schemas::v2::DetectAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>) {
+::ton_http::schemas::v2::DetectAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DetectAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3088,8 +3260,9 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::DetectAddress::Given_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>) {
+::ton_http::schemas::v2::DetectAddress::Given_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectAddress::Given_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DetectAddress__Given_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3106,20 +3279,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectAddress::Given_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectAddress::Given_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DetectAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DetectAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3196,8 +3375,9 @@ DetectHash Parse(
 }
 
 
-::ton_http::schemas::v2::DetectHash::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>) {
+::ton_http::schemas::v2::DetectHash::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DetectHash::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DetectHash___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3214,14 +3394,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DetectHash::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DetectHash::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DetectHash& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DetectHash& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3269,8 +3453,10 @@ DetectHashRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DetectHashRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DetectHashRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3322,8 +3508,9 @@ DnsRecordStorageAddress Parse(
 }
 
 
-::ton_http::schemas::v2::DnsRecordStorageAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordStorageAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordStorageAddress::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DnsRecordStorageAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3341,14 +3528,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordStorageAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordStorageAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordStorageAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3407,8 +3598,9 @@ SmcAddr Parse(
 }
 
 
-::ton_http::schemas::v2::SmcAddr::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>) {
+::ton_http::schemas::v2::SmcAddr::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::SmcAddr::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__SmcAddr___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3425,14 +3617,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::SmcAddr::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::SmcAddr::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::SmcAddr& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::SmcAddr& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3494,8 +3690,9 @@ DnsRecordSmcAddress Parse(
 }
 
 
-::ton_http::schemas::v2::DnsRecordSmcAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordSmcAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordSmcAddress::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DnsRecordSmcAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3512,14 +3709,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordSmcAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordSmcAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordSmcAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3578,8 +3779,9 @@ DnsRecordAdnlAddress Parse(
 }
 
 
-::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>) {
+::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DnsRecordAdnlAddress___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3596,14 +3798,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordAdnlAddress::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordAdnlAddress& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3664,8 +3870,9 @@ DnsRecordNextResolver Parse(
 }
 
 
-::ton_http::schemas::v2::DnsRecordNextResolver::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>) {
+::ton_http::schemas::v2::DnsRecordNextResolver::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__DnsRecordNextResolver___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3683,14 +3890,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordNextResolver& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordNextResolver& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3736,8 +3947,10 @@ DnsRecordSet Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordSet& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsRecordSet& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = value.extra;
 
 
@@ -3802,8 +4015,10 @@ DnsContent Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::DnsContent& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::DnsContent& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3839,8 +4054,10 @@ EstimateFeeRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::EstimateFeeRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::EstimateFeeRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -3906,8 +4123,9 @@ MsgDataRaw Parse(
 }
 
 
-::ton_http::schemas::v2::MsgDataRaw::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>) {
+::ton_http::schemas::v2::MsgDataRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -3924,14 +4142,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataRaw::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MsgDataRaw& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4000,8 +4222,9 @@ MsgDataText Parse(
 }
 
 
-::ton_http::schemas::v2::MsgDataText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>) {
+::ton_http::schemas::v2::MsgDataText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4018,14 +4241,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MsgDataText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4086,8 +4313,9 @@ MsgDataDecryptedText Parse(
 }
 
 
-::ton_http::schemas::v2::MsgDataDecryptedText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>) {
+::ton_http::schemas::v2::MsgDataDecryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4104,14 +4332,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MsgDataDecryptedText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4173,8 +4405,9 @@ MsgDataEncryptedText Parse(
 }
 
 
-::ton_http::schemas::v2::MsgDataEncryptedText::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>) {
+::ton_http::schemas::v2::MsgDataEncryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4191,14 +4424,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MsgDataEncryptedText& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4262,8 +4499,9 @@ ExtMessage Parse(
 }
 
 
-::ton_http::schemas::v2::ExtMessage::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>) {
+::ton_http::schemas::v2::ExtMessage::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ExtMessage___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4280,14 +4518,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtMessage::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtMessage::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ExtMessage& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ExtMessage& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4404,8 +4646,9 @@ ExtTransaction Parse(
 }
 
 
-::ton_http::schemas::v2::ExtTransaction::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>) {
+::ton_http::schemas::v2::ExtTransaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ExtTransaction___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4422,14 +4665,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtTransaction::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtTransaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ExtTransaction& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ExtTransaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4523,8 +4770,10 @@ ExtendedAddressInformation Parse(
 }
 
 
-::ton_http::schemas::v2::ExtendedAddressInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>) {
+::ton_http::schemas::v2::ExtendedAddressInformation::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtendedAddressInformation::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__ExtendedAddressInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4542,14 +4791,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ExtendedAddressInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ExtendedAddressInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ExtendedAddressInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4631,8 +4884,10 @@ TokenContentDict Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TokenContentDict& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TokenContentDict& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = value.extra;
 
 
@@ -4675,8 +4930,9 @@ TokenContent Parse(
 }
 
 
-::ton_http::schemas::v2::TokenContent::Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>) {
+::ton_http::schemas::v2::TokenContent::Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TokenContent::Type>
+) {
   const auto result = k__ton_http__schemas__v2__TokenContent__Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4693,14 +4949,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::TokenContent::Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TokenContent::Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TokenContent& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TokenContent& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4778,8 +5038,9 @@ JettonMasterData Parse(
 }
 
 
-::ton_http::schemas::v2::JettonMasterData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>) {
+::ton_http::schemas::v2::JettonMasterData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__JettonMasterData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4796,8 +5057,10 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::JettonMasterData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>) {
+::ton_http::schemas::v2::JettonMasterData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonMasterData::Contract_Type>
+) {
   const auto result = k__ton_http__schemas__v2__JettonMasterData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4815,20 +5078,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonMasterData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonMasterData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonMasterData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JettonMasterData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JettonMasterData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -4839,9 +5108,9 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JettonMasterData& valu
       value.address
     };
 
-  vb["contract_type"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData::Contract_Type>{value.contract_type
-    };
+  vb["contract_type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData::Contract_Type>{
+    value.contract_type
+  };
 
   vb["total_supply"] =
     USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
@@ -4940,8 +5209,9 @@ JettonWalletData Parse(
 }
 
 
-::ton_http::schemas::v2::JettonWalletData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>) {
+::ton_http::schemas::v2::JettonWalletData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__JettonWalletData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4958,8 +5228,10 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::JettonWalletData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>) {
+::ton_http::schemas::v2::JettonWalletData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::JettonWalletData::Contract_Type>
+) {
   const auto result = k__ton_http__schemas__v2__JettonWalletData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -4977,20 +5249,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonWalletData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonWalletData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JettonWalletData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JettonWalletData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JettonWalletData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5001,9 +5279,9 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JettonWalletData& valu
       value.address
     };
 
-  vb["contract_type"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData::Contract_Type>{value.contract_type
-    };
+  vb["contract_type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData::Contract_Type>{
+    value.contract_type
+  };
 
   vb["balance"] =
     USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
@@ -5075,8 +5353,10 @@ TonlibErrorResponse Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TonlibErrorResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TonlibErrorResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5154,8 +5434,10 @@ JsonRpcErrorResponse Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcErrorResponse__P0& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5168,12 +5450,15 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcErrorResponse__
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcErrorResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcErrorResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
   USERVER_NAMESPACE::formats::common::Merge(
     vb,
-    USERVER_NAMESPACE::formats::json::ValueBuilder{static_cast<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>(value)
+    USERVER_NAMESPACE::formats::json::ValueBuilder{
+      static_cast<::ton_http::schemas::v2::JsonRpcErrorResponse__P0>(value)
     }
       .ExtractValue()
   );
@@ -5237,8 +5522,10 @@ JsonRpcRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcRequest::Params& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcRequest::Params& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = value.extra;
 
 
@@ -5246,8 +5533,10 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcRequest::Params
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5319,8 +5608,9 @@ WalletInformation Parse(
 }
 
 
-::ton_http::schemas::v2::WalletInformation::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>) {
+::ton_http::schemas::v2::WalletInformation::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__WalletInformation___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5337,8 +5627,9 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::WalletInformation::Wallet_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>) {
+::ton_http::schemas::v2::WalletInformation::Wallet_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::WalletInformation::Wallet_Type>
+) {
   const auto result = k__ton_http__schemas__v2__WalletInformation__Wallet_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5356,20 +5647,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::WalletInformation::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::WalletInformation::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::WalletInformation::Wallet_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::WalletInformation& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::WalletInformation& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5389,9 +5686,9 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::WalletInformation& val
     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.last_transaction_id};
 
   if (value.wallet_type) {
-    vb["wallet_type"] =
-      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>{*value.wallet_type
-      };
+    vb["wallet_type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation::Wallet_Type>{
+      *value.wallet_type
+    };
   }
 
   if (value.seqno) {
@@ -5483,8 +5780,9 @@ NftCollectionData Parse(
 }
 
 
-::ton_http::schemas::v2::NftCollectionData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>) {
+::ton_http::schemas::v2::NftCollectionData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__NftCollectionData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5501,8 +5799,10 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::NftCollectionData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>) {
+::ton_http::schemas::v2::NftCollectionData::Contract_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftCollectionData::Contract_Type>
+) {
   const auto result = k__ton_http__schemas__v2__NftCollectionData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5520,20 +5820,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftCollectionData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftCollectionData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftCollectionData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::NftCollectionData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::NftCollectionData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5545,7 +5851,8 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::NftCollectionData& val
     };
 
   vb["contract_type"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData::Contract_Type>{value.contract_type
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData::Contract_Type>{
+      value.contract_type
     };
 
   vb["next_item_index"] =
@@ -5636,8 +5943,9 @@ NftItemData Parse(
 }
 
 
-::ton_http::schemas::v2::NftItemData::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>) {
+::ton_http::schemas::v2::NftItemData::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__NftItemData___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5654,8 +5962,9 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-::ton_http::schemas::v2::NftItemData::Contract_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>) {
+::ton_http::schemas::v2::NftItemData::Contract_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::NftItemData::Contract_Type>
+) {
   const auto result = k__ton_http__schemas__v2__NftItemData__Contract_Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5672,20 +5981,26 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftItemData::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftItemData::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::NftItemData::Contract_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::NftItemData::Contract_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::NftItemData& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::NftItemData& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5708,7 +6023,8 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::NftItemData& value, US
 
   if (value.collection_address) {
     vb["collection_address"] = USERVER_NAMESPACE::chaotic::
-      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{*value.collection_address
+      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
+        *value.collection_address
       };
   }
 
@@ -5782,8 +6098,9 @@ MasterchainInfo Parse(
 }
 
 
-::ton_http::schemas::v2::MasterchainInfo::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>) {
+::ton_http::schemas::v2::MasterchainInfo::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainInfo::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MasterchainInfo___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5800,14 +6117,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainInfo::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainInfo::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MasterchainInfo& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MasterchainInfo& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5874,8 +6195,10 @@ MasterchainBlockSignatures Parse(
 }
 
 
-::ton_http::schemas::v2::MasterchainBlockSignatures::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>) {
+::ton_http::schemas::v2::MasterchainBlockSignatures::_Type FromString(
+  std::string_view value,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MasterchainBlockSignatures::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -5893,14 +6216,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MasterchainBlockSignatures::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MasterchainBlockSignatures& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MasterchainBlockSignatures& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5920,6 +6247,200 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::MasterchainBlockSignat
 
 std::string ToString(::ton_http::schemas::v2::MasterchainBlockSignatures::_Type value) {
   const auto result = k__ton_http__schemas__v2__MasterchainBlockSignatures___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::ShardBlockLink& lhs, const ::ton_http::schemas::v2::ShardBlockLink& rhs
+) {
+  return lhs._type == rhs._type && lhs.id == rhs.id && lhs.proof == rhs.proof && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+ShardBlockLink::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+ShardBlockLink Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::ShardBlockLink::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockLink::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::ShardBlockLink::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockLink::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockLink& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink::_Type>{value._type};
+
+  vb["id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.id};
+
+  vb["proof"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
+      value.proof
+    };
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::ShardBlockLink::_Type value) {
+  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::ShardBlockProof& lhs, const ::ton_http::schemas::v2::ShardBlockProof& rhs
+) {
+  return lhs._type == rhs._type && lhs.from == rhs.from && lhs.mc_id == rhs.mc_id && lhs.links == rhs.links &&
+    lhs.mc_proof == rhs.mc_proof && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+ShardBlockProof::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+ShardBlockProof Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::ShardBlockProof::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockProof::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::ShardBlockProof::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::ShardBlockProof::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockProof& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof::_Type>{value._type};
+
+  vb["from"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.from};
+
+  vb["mc_id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.mc_id};
+
+  vb["links"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink>,
+    std::vector<::ton_http::schemas::v2::ShardBlockLink>>{value.links};
+
+  vb["mc_proof"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockLinkBack>,
+    std::vector<::ton_http::schemas::v2::BlockLinkBack>>{value.mc_proof};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value) {
+  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindByFirst(value);
   if (result.has_value()) {
     return std::string{*result};
   }
@@ -5950,8 +6471,10 @@ TonlibResponse Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TonlibResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TonlibResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -5972,7 +6495,8 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TonlibResponse& value,
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData>,
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData>,
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
-      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>>>{value.result};
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof>>>{value.result};
 
   vb["@extra"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{value._extra};
 
@@ -6036,8 +6560,10 @@ JsonRpcResponse Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcResponse__P0& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcResponse__P0& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6050,8 +6576,10 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::JsonRpcResponse__P0& v
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::JsonRpcResponse& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::JsonRpcResponse& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
   USERVER_NAMESPACE::formats::common::Merge(
     vb,
@@ -6089,8 +6617,10 @@ LibrariesRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::LibrariesRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::LibrariesRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6138,8 +6668,9 @@ LibraryEntry Parse(
 }
 
 
-::ton_http::schemas::v2::LibraryEntry::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>) {
+::ton_http::schemas::v2::LibraryEntry::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryEntry::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__LibraryEntry___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -6156,14 +6687,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryEntry::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryEntry::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::LibraryEntry& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::LibraryEntry& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6228,8 +6763,9 @@ LibraryResult Parse(
 }
 
 
-::ton_http::schemas::v2::LibraryResult::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>) {
+::ton_http::schemas::v2::LibraryResult::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::LibraryResult::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__LibraryResult___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -6246,14 +6782,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::LibraryResult::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::LibraryResult::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::LibraryResult& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::LibraryResult& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6300,23 +6840,31 @@ LookupBlockRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::LookupBlockRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::LookupBlockRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
   vb["workchain"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.workchain};
 
-  vb["shard"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.shard};
+  vb["shard"] = USERVER_NAMESPACE::chaotic::WithType<
+    USERVER_NAMESPACE::chaotic::Variant<
+      USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+    std::int64_t>{value.shard};
 
   if (value.seqno) {
     vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{*value.seqno};
   }
 
   if (value.lt) {
-    vb["lt"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{*value.lt};
+    vb["lt"] = USERVER_NAMESPACE::chaotic::WithType<
+      USERVER_NAMESPACE::chaotic::Variant<
+        USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+      std::int64_t>{*value.lt};
   }
 
   if (value.unixtime) {
@@ -6348,8 +6896,10 @@ SeqnoRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::SeqnoRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::SeqnoRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6398,8 +6948,9 @@ Message Parse(
 }
 
 
-::ton_http::schemas::v2::Message::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>) {
+::ton_http::schemas::v2::Message::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -6416,14 +6967,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Message::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::Message& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Message& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6524,8 +7079,9 @@ OutMsgQueueSize Parse(
 }
 
 
-::ton_http::schemas::v2::OutMsgQueueSize::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>) {
+::ton_http::schemas::v2::OutMsgQueueSize::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -6542,14 +7098,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSize& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSize& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6611,8 +7171,9 @@ OutMsgQueueSizes Parse(
 }
 
 
-::ton_http::schemas::v2::OutMsgQueueSizes::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>) {
+::ton_http::schemas::v2::OutMsgQueueSizes::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -6629,14 +7190,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSizes& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6684,8 +7249,10 @@ RunGetMethodRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::RunGetMethodRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::RunGetMethodRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6728,8 +7295,10 @@ SendBocRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::SendBocRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::SendBocRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6766,8 +7335,10 @@ SendQueryRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::SendQueryRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::SendQueryRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -6797,190 +7368,6 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::SendQueryRequest& valu
 
 
 bool operator==(
-  const ::ton_http::schemas::v2::ShardBlockLink& lhs, const ::ton_http::schemas::v2::ShardBlockLink& rhs
-) {
-  return lhs._type == rhs._type && lhs.id == rhs.id && lhs.proof == rhs.proof && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockLink& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-ShardBlockLink::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-ShardBlockLink Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::ShardBlockLink::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type>) {
-  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockLink::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::ShardBlockLink::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockLink::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockLink::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockLink& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink::_Type>{value._type};
-
-  vb["id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.id};
-
-  vb["proof"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
-      value.proof
-    };
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::ShardBlockLink::_Type value) {
-  const auto result = k__ton_http__schemas__v2__ShardBlockLink___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::ShardBlockProof& lhs, const ::ton_http::schemas::v2::ShardBlockProof& rhs
-) {
-  return lhs._type == rhs._type && lhs.from == rhs.from && lhs.mc_id == rhs.mc_id && lhs.links == rhs.links &&
-    lhs.mc_proof == rhs.mc_proof && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ShardBlockProof& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-ShardBlockProof::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-ShardBlockProof Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::ShardBlockProof::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type>) {
-  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ShardBlockProof::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::ShardBlockProof::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ShardBlockProof::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::ShardBlockProof::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockProof& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof::_Type>{value._type};
-
-  vb["from"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.from};
-
-  vb["mc_id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.mc_id};
-
-  vb["links"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockLink>,
-    std::vector<::ton_http::schemas::v2::ShardBlockLink>>{value.links};
-
-  vb["mc_proof"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockLinkBack>,
-    std::vector<::ton_http::schemas::v2::BlockLinkBack>>{value.mc_proof};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value) {
-  const auto result = k__ton_http__schemas__v2__ShardBlockProof___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
   const ::ton_http::schemas::v2::ShardBlockProofRequest& lhs, const ::ton_http::schemas::v2::ShardBlockProofRequest& rhs
 ) {
   return lhs.workchain == rhs.workchain && lhs.shard == rhs.shard && lhs.seqno == rhs.seqno &&
@@ -7003,15 +7390,20 @@ ShardBlockProofRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockProofRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::ShardBlockProofRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
   vb["workchain"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.workchain};
 
-  vb["shard"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.shard};
+  vb["shard"] = USERVER_NAMESPACE::chaotic::WithType<
+    USERVER_NAMESPACE::chaotic::Variant<
+      USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+    std::int64_t>{value.shard};
 
   vb["seqno"] = USERVER_NAMESPACE::chaotic::Primitive<std::int32_t>{value.seqno};
 
@@ -7059,8 +7451,9 @@ Shards Parse(
 }
 
 
-::ton_http::schemas::v2::Shards::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>) {
+::ton_http::schemas::v2::Shards::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -7077,14 +7470,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Shards::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::Shards& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Shards& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -7146,8 +7543,9 @@ Transaction Parse(
 }
 
 
-::ton_http::schemas::v2::Transaction::_Type
-FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>) {
+::ton_http::schemas::v2::Transaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+) {
   const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindBySecond(value);
   if (result.has_value()) {
     return *result;
@@ -7164,14 +7562,18 @@ FromString(std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_h
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize(const ::ton_http::schemas::v2::Transaction::_Type& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::Transaction& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Transaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -7252,8 +7654,10 @@ TransactionsRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TransactionsRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TransactionsRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -7263,8 +7667,11 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TransactionsRequest& v
     };
 
   if (value.lt) {
-    vb["lt"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{*value.lt};
+    vb["lt"] = USERVER_NAMESPACE::chaotic::WithType<
+      USERVER_NAMESPACE::chaotic::Variant<
+        USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+      std::int64_t>{*value.lt};
   }
 
   if (value.hash) {
@@ -7272,8 +7679,13 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TransactionsRequest& v
       WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{*value.hash};
   }
 
-  vb["to_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.to_lt};
+  if (value.to_lt) {
+    vb["to_lt"] = USERVER_NAMESPACE::chaotic::WithType<
+      USERVER_NAMESPACE::chaotic::Variant<
+        USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+        USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+      std::int64_t>{*value.to_lt};
+  }
 
   vb["archival"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{value.archival};
 
@@ -7306,8 +7718,10 @@ TryLocateTxRequest Parse(
 }
 
 
-USERVER_NAMESPACE::formats::json::Value
-Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TryLocateTxRequest& value, USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>) {
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TryLocateTxRequest& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
   USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
 
 
@@ -7321,10 +7735,11 @@ Serialize([[maybe_unused]] const ::ton_http::schemas::v2::TryLocateTxRequest& va
       value.destination
     };
 
-  vb["created_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
-      value.created_lt
-    };
+  vb["created_lt"] = USERVER_NAMESPACE::chaotic::WithType<
+    USERVER_NAMESPACE::chaotic::Variant<
+      USERVER_NAMESPACE::chaotic::Primitive<std::string>,
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::int64_t>, std::int64_t>>,
+    std::int64_t>{value.created_lt};
 
 
   return vb.ExtractValue();
@@ -7742,6 +8157,20 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Masterchai
 }
 
 
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ShardBlockLink::_Type>::format(
+  const ::ton_http::schemas::v2::ShardBlockLink::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ShardBlockProof::_Type>::format(
+  const ::ton_http::schemas::v2::ShardBlockProof::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type>::format(
   const ::ton_http::schemas::v2::LibraryEntry::_Type& value, fmt::format_context& ctx
 ) const {
@@ -7777,20 +8206,6 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::OutMsgQueu
 }
 
 
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ShardBlockLink::_Type>::format(
-  const ::ton_http::schemas::v2::ShardBlockLink::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ShardBlockProof::_Type>::format(
-  const ::ton_http::schemas::v2::ShardBlockProof::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Shards::_Type>::format(
   const ::ton_http::schemas::v2::Shards::_Type& value, fmt::format_context& ctx
 ) const {
@@ -7803,3 +8218,4 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Transactio
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }
+

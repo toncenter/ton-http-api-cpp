@@ -25,8 +25,6 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/utils/UnpackAddressHandler.cpp
         src/handlers/accounts/GetAddressInformationHandler.h
         src/handlers/accounts/GetAddressInformationHandler.cpp
-        src/utils/suspended.hpp
-        src/utils/address.hpp
         src/handlers/accounts/GetExtendedAddressInformationHandler.h
         src/handlers/accounts/GetExtendedAddressInformationHandler.cpp
         src/handlers/accounts/GetWalletInformationHandler.h
@@ -50,6 +48,9 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
         src/userver/chaotic/io/ton_http/types/ton_hash_hex.hpp
+        src/handlers/blocks/GetShardBlockProofHandler.h
+        src/handlers/blocks/GetShardBlockProofHandler.cpp
+        src/userver/chaotic/io/std/int32_t.hpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp
