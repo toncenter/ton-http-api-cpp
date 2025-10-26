@@ -1,0 +1,12 @@
+//
+// Created by Ruslan Gabdullin on 26.10.2025.
+//
+
+#ifndef TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H
+#define TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H
+
+
+class GetTransactionsHandler {};
+
+
+#endif  // TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H

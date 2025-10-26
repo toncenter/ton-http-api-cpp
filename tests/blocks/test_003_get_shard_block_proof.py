@@ -98,4 +98,3 @@ def test_old_seqno(api_method_call, last_mc_seqno):
     data = response.json()
     assert data['ok'] == True
     return
-
