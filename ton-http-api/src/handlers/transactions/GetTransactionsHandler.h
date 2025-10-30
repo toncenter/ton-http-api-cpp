@@ -1,12 +1,22 @@
-//
-// Created by Ruslan Gabdullin on 26.10.2025.
-//
-
-#ifndef TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H
-#define TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H
+#pragma once
+#include "handlers/TonlibRequestHandler.h"
+#include "schemas/v2.hpp"
 
 
-class GetTransactionsHandler {};
+namespace ton_http::handlers {
 
+class GetTransactionsHandler : public TonlibRequestHandler<schemas::v2::TransactionsRequest, schemas::v2::Transactions> {
+public:
+  static constexpr std::string_view kName = "handler-GetTransactions";
 
-#endif  // TONLIB_MULTICLIENT_GETTRANSACTIONSHANDLER_H
+  GetTransactionsHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
+
+  td::Status ValidateRequest(const schemas::v2::TransactionsRequest& request) const override;
+  schemas::v2::TransactionsRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+
+  td::Result<schemas::v2::Transactions> HandleRequestTonlibThrow(
+      schemas::v2::TransactionsRequest& request, multiclient::SessionPtr& session
+  ) const override;
+};
+
+} // namespace ton_http::handlers

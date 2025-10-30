@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-
+#include <variant>
+#include <cstdint>
 #include "userver/chaotic/convert/to.hpp"
 
 USERVER_NAMESPACE_BEGIN

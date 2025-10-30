@@ -1,5 +1,4 @@
 #include "tonlib_worker.h"
-#include "userver/formats/json.hpp"
 #include "utils/common.hpp"
 
 namespace ton_http::core {
@@ -147,10 +146,14 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
-  if (session == nullptr && archival.has_value()) {
+  if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
     TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
   }
+
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
   if (!root_hash.empty() && !file_hash.empty()) {
     blk_id = tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain, shard, seqno, root_hash, file_hash);
@@ -211,10 +214,14 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
-  if (session == nullptr && archival.has_value()) {
+  if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
     TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
   }
+
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
   if (!root_hash.empty() && !file_hash.empty()) {
     blk_id = tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain, shard, seqno, root_hash, file_hash);
@@ -274,10 +281,14 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::getTrans
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
-  if (session == nullptr && archival.has_value()) {
+  if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
     TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
   }
+
   if (!(from_transaction_lt.has_value() && !from_transaction_hash.empty())) {
     TRY_RESULT(account_state, getAddressInformation(account_address, std::nullopt, session));
     from_transaction_lt = account_state->last_transaction_id_->lt_;
@@ -333,6 +344,14 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::getTrans
 td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocateTransactionByIncomingMessage(
   const std::string& source, const std::string& destination, std::int64_t created_lt, multiclient::SessionPtr session
 ) const {
+  if (session == nullptr) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+  }
+
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");
   TRY_RESULT_PREFIX(dest, block::StdAddress::parse(destination), "failed to parse destination: ");
   auto workchain = dest.workchain;
@@ -420,6 +439,14 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
 td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocateTransactionByOutgoingMessage(
   const std::string& source, const std::string& destination, std::int64_t created_lt, multiclient::SessionPtr session
 ) const {
+  if (session == nullptr) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+  }
+
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");
   TRY_RESULT_PREFIX(dest, block::StdAddress::parse(destination), "failed to parse destination: ");
   auto workchain = src.workchain;

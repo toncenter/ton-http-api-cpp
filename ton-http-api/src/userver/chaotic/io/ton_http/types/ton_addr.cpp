@@ -1,18 +1,17 @@
 #include "ton_addr.hpp"
 
 #include "block.h"
-#include "utils/exceptions.hpp"
 
 
 ton_http::types::ton_addr
 userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<ton_http::types::ton_addr>) {
   auto r_addr = block::StdAddress::parse(value);
   if (r_addr.is_error()) {
-    throw ton_http::utils::TonlibException{"Failed to parse ton_addr: '" + value + "'", 422};
+    throw std::invalid_argument("Failed to parse ton_addr: '" + value + "'");
   }
   auto addr = r_addr.move_as_ok();
   if (value.find(':') != std::string::npos) {
-    auto raw_addr = fmt::format("{}:{}", addr.workchain, td::hex_encode(addr.addr.as_slice()));
+    auto raw_addr = fmt::format("{}:{}", addr.workchain, addr.addr.to_hex());
     return ton_http::types::ton_addr{raw_addr};
   }
 

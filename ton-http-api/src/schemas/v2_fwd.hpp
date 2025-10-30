@@ -93,6 +93,30 @@ struct ShortTxId;
 struct BlockTransactions;
 
 
+struct MsgDataRaw;
+
+
+struct MsgDataText;
+
+
+struct MsgDataDecryptedText;
+
+
+struct MsgDataEncryptedText;
+
+
+struct MessageStd;
+
+
+struct TransactionStd;
+
+
+struct TransactionExt;
+
+
+struct BlockTransactionsExt;
+
+
 struct BlockTransactionsRequest;
 
 
@@ -147,24 +171,6 @@ struct DnsContent;
 struct EstimateFeeRequest;
 
 
-struct MsgDataRaw;
-
-
-struct MsgDataText;
-
-
-struct MsgDataDecryptedText;
-
-
-struct MsgDataEncryptedText;
-
-
-struct ExtMessage;
-
-
-struct ExtTransaction;
-
-
 struct ExtendedAddressInformation;
 
 
@@ -210,6 +216,24 @@ struct ShardBlockLink;
 struct ShardBlockProof;
 
 
+struct Shards;
+
+
+struct OutMsgQueueSize;
+
+
+struct OutMsgQueueSizes;
+
+
+struct Message;
+
+
+struct Transaction;
+
+
+struct TransactionsStd;
+
+
 struct TonlibResponse;
 
 
@@ -231,15 +255,6 @@ struct LookupBlockRequest;
 struct SeqnoRequest;
 
 
-struct Message;
-
-
-struct OutMsgQueueSize;
-
-
-struct OutMsgQueueSizes;
-
-
 struct RunGetMethodRequest;
 
 
@@ -250,12 +265,6 @@ struct SendQueryRequest;
 
 
 struct ShardBlockProofRequest;
-
-
-struct Shards;
-
-
-struct Transaction;
 
 
 struct TransactionsRequest;

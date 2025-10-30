@@ -1644,7 +1644,7 @@
             "$ref": "#/components/parameters/shard"
           },
           {
-            "$ref": "#/components/parameters/seqnoOptional"
+            "$ref": "#/components/parameters/seqno"
           },
           {
             "$ref": "#/components/parameters/rootHashOptional"
@@ -1823,14 +1823,14 @@
         ]
       }
     },
-    "/api/v2/getTransactionsV2": {
+    "/api/v2/getTransactionsStd": {
       "get": {
         "tags": [
           "transactions"
         ],
-        "summary": "Get Transactions V2",
-        "description": "Get transactions for specified address with additional options",
-        "operationId": "getTransactionsV2_get",
+        "summary": "Get Transactions Std",
+        "description": "Standardized version of getTransactions",
+        "operationId": "getTransactionsStd_get",
         "parameters": [
           {
             "$ref": "#/components/parameters/address"
@@ -1880,14 +1880,14 @@
         "tags": [
           "rpc"
         ],
-        "summary": "Get Transactions V2",
-        "description": "Get transactions for specified address with additional options",
-        "operationId": "getTransactionsV2_post",
+        "summary": "Get Transactions Std",
+        "description": "Standardized version of getTransactions",
+        "operationId": "getTransactionsStd_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TransactionsV2Request"
+                "$ref": "#/components/schemas/TransactionsStdRequest"
               }
             }
           },
@@ -2423,6 +2423,7 @@
     "/api/v2/runGetMethod": {
       "post": {
         "tags": [
+          "run method",
           "rpc"
         ],
         "summary": "Run Get Method",
@@ -2776,7 +2777,7 @@
         "required": false,
         "schema": {
           "type": "string",
-          "x-usrv-cpp-type": "#/components/schemas/TonHash"
+          "x-usrv-cpp-type": "#/components/schemas/TonAddrWithoutWorkchain"
         }
       },
       "countOptional": {
@@ -2806,7 +2807,7 @@
         "required": false,
         "schema": {
           "type": "string",
-          "x-usrv-cpp-type": "std::uint64_t"
+          "x-usrv-cpp-type": "std::int64_t"
         }
       },
       "toLtOptional": {
@@ -2816,7 +2817,7 @@
         "required": false,
         "schema": {
           "type": "string",
-          "x-usrv-cpp-type": "std::uint64_t",
+          "x-usrv-cpp-type": "std::int64_t",
           "default": 0
         }
       },
@@ -2855,7 +2856,7 @@
         "required": true,
         "schema": {
           "type": "string",
-          "x-usrv-cpp-type": "std::uint64_t"
+          "x-usrv-cpp-type": "std::int64_t"
         }
       }
     },
@@ -3195,7 +3196,7 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "after_hash": {
-            "$ref": "#/components/schemas/TonHash"
+            "$ref": "#/components/schemas/TonAddrWithoutWorkchain"
           },
           "count": {
             "type": "integer",
@@ -3246,8 +3247,7 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "archival": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
           },
           "limit": {
             "type": "integer",
@@ -3438,6 +3438,10 @@
         "type": "string",
         "x-usrv-cpp-type": "ton_http::types::ton_addr"
       },
+      "TonAddrWithoutWorkchain": {
+        "type": "string",
+        "x-usrv-cpp-type": "ton_http::types::ton_addr_without_workchain"
+      },
       "TonHash": {
         "type": "string",
         "x-usrv-cpp-type": "ton_http::types::ton_hash"
@@ -3579,7 +3583,7 @@
           "lt": {
             "type": "string",
             "description": "Logical time",
-            "x-usrv-cpp-type": "std::uint64_t"
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "hash": {
             "$ref": "#/components/schemas/TonHash"
@@ -4708,7 +4712,7 @@
           "lt": {
             "type": "string",
             "description": "Logical time of the transaction",
-            "x-usrv-cpp-type": "std::uint64_t"
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "hash": {
             "$ref": "#/components/schemas/TonHash",
@@ -4790,7 +4794,32 @@
           }
         }
       },
-      "Message": {
+      "MsgData": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/MsgDataRaw"
+          },
+          {
+            "$ref": "#/components/schemas/MsgDataText"
+          },
+          {
+            "$ref": "#/components/schemas/MsgDataDecryptedText"
+          },
+          {
+            "$ref": "#/components/schemas/MsgDataEncryptedText"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "msg.dataRaw": "#/components/schemas/MsgDataRaw",
+            "msg.dataText": "#/components/schemas/MsgDataText",
+            "msg.dataDecryptedText": "#/components/schemas/MsgDataDecryptedText",
+            "msg.dataEncryptedText": "#/components/schemas/MsgDataEncryptedText"
+          }
+        }
+      },
+      "MessageStd": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -4828,26 +4857,158 @@
           "created_lt": {
             "type": "string",
             "description": "Logical time of the transaction",
-            "x-usrv-cpp-type": "std::uint64_t"
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "body_hash": {
             "$ref": "#/components/schemas/TonHash"
           },
           "msg_data": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/MsgDataRaw"
+            "$ref": "#/components/schemas/MsgData"
+          }
+        },
+        "required": [
+          "@type",
+          "hash",
+          "source",
+          "destination",
+          "value",
+          "extra_currencies",
+          "fwd_fee",
+          "ihr_fee",
+          "created_lt",
+          "body_hash",
+          "msg_data"
+        ]
+      },
+      "TransactionStd": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "raw.transaction"
+            ],
+            "default": "raw.transaction"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AccountAddress"
+          },
+          "utime": {
+            "type": "integer",
+            "description": "UNIX timestamp of transaction"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Bytes"
+          },
+          "transaction_id": {
+            "$ref": "#/components/schemas/InternalTransactionId"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "storage_fee": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "other_fee": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "in_msg": {
+            "$ref": "#/components/schemas/MessageStd"
+          },
+          "out_msgs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageStd"
+            }
+          }
+        },
+        "required": [
+          "@type",
+          "address",
+          "utime",
+          "data",
+          "transaction_id",
+          "fee",
+          "storage_fee",
+          "other_fee",
+          "out_msgs"
+        ]
+      },
+      "TransactionExt": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/TransactionStd"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "raw.transactionExt"
+                ],
+                "default": "raw.transactionExt"
               },
-              {
-                "$ref": "#/components/schemas/MsgDataText"
-              },
-              {
-                "$ref": "#/components/schemas/MsgDataDecryptedText"
-              },
-              {
-                "$ref": "#/components/schemas/MsgDataEncryptedText"
+              "account": {
+                "$ref": "#/components/schemas/TonAddr"
               }
-            ]
+            }
+          }
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ext.message"
+            ],
+            "default": "ext.message"
+          },
+          "hash": {
+            "$ref": "#/components/schemas/TonHash"
+          },
+          "source": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "value": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "extra_currencies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtraCurrencyBalance"
+            }
+          },
+          "fwd_fee": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "ihr_fee": {
+            "$ref": "#/components/schemas/Int256"
+          },
+          "created_lt": {
+            "type": "string",
+            "description": "Logical time of the transaction",
+            "x-usrv-cpp-type": "std::int64_t"
+          },
+          "body_hash": {
+            "$ref": "#/components/schemas/TonHash"
+          },
+          "msg_data": {
+            "$ref": "#/components/schemas/MsgData"
+          },
+          "message": {
+            "type": "string"
+          },
+          "message_decode_error": {
+            "type": "string"
           }
         },
         "required": [
@@ -4871,16 +5032,15 @@
           "@type": {
             "type": "string",
             "enum": [
-              "raw.transaction"
+              "ext.transaction"
             ],
-            "default": "raw.transaction"
+            "default": "ext.transaction"
           },
           "address": {
             "$ref": "#/components/schemas/AccountAddress"
           },
           "account": {
-            "$ref": "#/components/schemas/TonAddr",
-            "description": "Account address in a raw form"
+            "$ref": "#/components/schemas/TonAddr"
           },
           "utime": {
             "type": "integer",
@@ -4921,143 +5081,6 @@
           "fee",
           "storage_fee",
           "other_fee",
-          "in_msg",
-          "out_msgs"
-        ]
-      },
-      "ExtMessage": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "@type": {
-            "type": "string",
-            "enum": [
-              "ext.message"
-            ],
-            "default": "ext.message"
-          },
-          "hash": {
-            "$ref": "#/components/schemas/TonHash"
-          },
-          "source": {
-            "$ref": "#/components/schemas/TonAddr"
-          },
-          "destination": {
-            "$ref": "#/components/schemas/TonAddr"
-          },
-          "value": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "extra_currencies": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ExtraCurrencyBalance"
-            }
-          },
-          "fwd_fee": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "ihr_fee": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "created_lt": {
-            "type": "string",
-            "description": "Logical time of the transaction",
-            "x-usrv-cpp-type": "std::uint64_t"
-          },
-          "body_hash": {
-            "$ref": "#/components/schemas/TonHash"
-          },
-          "msg_data": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/MsgDataRaw"
-              },
-              {
-                "$ref": "#/components/schemas/MsgDataText"
-              },
-              {
-                "$ref": "#/components/schemas/MsgDataDecryptedText"
-              },
-              {
-                "$ref": "#/components/schemas/MsgDataEncryptedText"
-              }
-            ]
-          },
-          "message": {
-            "type": "string"
-          },
-          "message_decode_error": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "@type",
-          "hash",
-          "source",
-          "destination",
-          "value",
-          "extra_currencies",
-          "fwd_fee",
-          "ihr_fee",
-          "created_lt",
-          "body_hash",
-          "msg_data"
-        ]
-      },
-      "ExtTransaction": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "@type": {
-            "type": "string",
-            "enum": [
-              "ext.transaction"
-            ],
-            "default": "ext.transaction"
-          },
-          "address": {
-            "$ref": "#/components/schemas/AccountAddress"
-          },
-          "utime": {
-            "type": "integer",
-            "description": "UNIX timestamp of transaction"
-          },
-          "data": {
-            "$ref": "#/components/schemas/Bytes"
-          },
-          "transaction_id": {
-            "$ref": "#/components/schemas/InternalTransactionId"
-          },
-          "fee": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "storage_fee": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "other_fee": {
-            "$ref": "#/components/schemas/Int256"
-          },
-          "in_msg": {
-            "$ref": "#/components/schemas/ExtMessage"
-          },
-          "out_msgs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ExtMessage"
-            }
-          }
-        },
-        "required": [
-          "@type",
-          "address",
-          "utime",
-          "data",
-          "transaction_id",
-          "fee",
-          "storage_fee",
-          "other_fee",
-          "in_msg",
           "out_msgs"
         ]
       },
@@ -5098,6 +5121,33 @@
           },
           {
             "$ref": "#/components/schemas/ShardBlockProof"
+          },
+          {
+            "$ref": "#/components/schemas/ConsensusBlock"
+          },
+          {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          {
+            "$ref": "#/components/schemas/Shards"
+          },
+          {
+            "$ref": "#/components/schemas/BlockHeader"
+          },
+          {
+            "$ref": "#/components/schemas/OutMsgQueueSizes"
+          },
+          {
+            "$ref": "#/components/schemas/BlockTransactions"
+          },
+          {
+            "$ref": "#/components/schemas/BlockTransactionsExt"
+          },
+          {
+            "$ref": "#/components/schemas/Transaction"
+          },
+          {
+            "$ref": "#/components/schemas/TransactionsStd"
           }
         ],
         "discriminator": {
@@ -5114,7 +5164,16 @@
             "ext.tokens.nftItemData": "#/components/schemas/NftItemData",
             "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo",
             "blocks.blockSignatures": "#/components/schemas/MasterchainBlockSignatures",
-            "blocks.shardBlockProof": "#/components/schemas/ShardBlockProof"
+            "blocks.shardBlockProof": "#/components/schemas/ShardBlockProof",
+            "ext.blocks.consensusBlock": "#/components/schemas/ConsensusBlock",
+            "ton.blockIdExt": "#/components/schemas/TonBlockIdExt",
+            "blocks.shards": "#/components/schemas/Shards",
+            "blocks.header": "#/components/schemas/BlockHeader",
+            "blocks.outMsgQueueSizes": "#/components/schemas/OutMsgQueueSizes",
+            "blocks.transactions": "#/components/schemas/BlockTransactions",
+            "blocks.transactionsExt": "#/components/schemas/BlockTransactionsExt",
+            "ext.transaction": "#/components/schemas/Transaction",
+            "raw.transactions": "#/components/schemas/TransactionsStd"
           }
         }
       },
@@ -5143,6 +5202,12 @@
               },
               {
                 "$ref": "#/components/schemas/TonlibObject"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TonlibObject"
+                }
               }
             ]
           },
@@ -5602,9 +5667,9 @@
           "@type": {
             "type": "string",
             "enum": [
-              "ext.consensusBlock"
+              "ext.blocks.consensusBlock"
             ],
-            "default": "ext.consensusBlock"
+            "default": "ext.blocks.consensusBlock"
           },
           "consensus_block": {
             "type": "integer",
@@ -5714,12 +5779,12 @@
           "start_lt": {
             "type": "string",
             "description": "Starting logical time.",
-            "x-usrv-cpp-type": "std::uint64_t"
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "end_lt": {
             "type": "string",
             "description": "Ending logical time.",
-            "x-usrv-cpp-type": "std::uint64_t"
+            "x-usrv-cpp-type": "std::int64_t"
           },
           "gen_utime": {
             "type": "integer",
@@ -5865,6 +5930,79 @@
           "incomplete",
           "transactions"
         ]
+      },
+      "BlockTransactionsExt": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Block transactions information",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "blocks.transactionsExt"
+            ],
+            "default": "blocks.transactionsExt"
+          },
+          "id": {
+            "description": "Identifier of the block containing the transactions",
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "req_count": {
+            "type": "integer",
+            "description": "Number of requested transactions"
+          },
+          "incomplete": {
+            "type": "boolean",
+            "description": "Indicates if the transaction list is incomplete"
+          },
+          "transactions": {
+            "type": "array",
+            "description": "List of short transaction identifiers",
+            "items": {
+              "$ref": "#/components/schemas/TransactionExt"
+            }
+          }
+        },
+        "required": [
+          "@type",
+          "id",
+          "req_count",
+          "incomplete",
+          "transactions"
+        ]
+      },
+      "Transactions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Transaction"
+        }
+      },
+      "TransactionsStd": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "transactions",
+          "previous_transaction_id"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "raw.transactions"
+            ],
+            "default": "raw.transactions"
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionStd"
+            }
+          },
+          "previous_transaction_id": {
+            "$ref": "#/components/schemas/InternalTransactionId"
+          }
+        }
       }
     }
   }

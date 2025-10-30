@@ -5,17 +5,17 @@
 
 namespace ton_http::handlers {
 
-class NAME : public TonlibRequestHandler<schemas::v2::REQUEST, schemas::v2::RESPONSE> {
+class GetBlockHeaderHandler : public TonlibRequestHandler<schemas::v2::BlockHeaderRequest, schemas::v2::BlockHeader> {
 public:
-  static constexpr std::string_view kName = "handler-NAME";
+  static constexpr std::string_view kName = "handler-GetBlockHeader";
 
-  NAME(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
+  GetBlockHeaderHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
 
-  td::Status ValidateRequest(const schemas::v2::REQUEST& request) const override;
-  schemas::v2::REQUEST ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+  td::Status ValidateRequest(const schemas::v2::BlockHeaderRequest& request) const override;
+  schemas::v2::BlockHeaderRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
 
-  td::Result<schemas::v2::RESPONSE> HandleRequestTonlibThrow(
-      schemas::v2::REQUEST& request, multiclient::SessionPtr& session
+  td::Result<schemas::v2::BlockHeader> HandleRequestTonlibThrow(
+      schemas::v2::BlockHeaderRequest& request, multiclient::SessionPtr& session
   ) const override;
 };
 

@@ -3,18 +3,29 @@ project(ton-http-api-cpp CXX)
 
 
 userver_setup_environment()
+set(USERVER_TYPES_SOURCE
+        src/userver/chaotic/io/ton_http/types/ton_hash_hex.cpp
+        src/userver/chaotic/io/ton_http/types/ton_hash.cpp
+        src/userver/chaotic/io/ton_http/types/ton_addr.cpp
+        src/userver/chaotic/io/ton_http/types/ton_addr_without_workchain.cpp
+        src/userver/chaotic/io/ton_http/types/int256.cpp
+        src/userver/chaotic/io/ton_http/types/bytes.cpp
+        src/userver/chaotic/io/std/int64_t.cpp
+        src/userver/chaotic/io/std/uint64_t.cpp
+        src/userver/chaotic/io/std/int32_t.cpp
+        src/userver/chaotic/io/std/uint32_t.cpp)
+add_library(${PROJECT_NAME}-userver-types STATIC ${USERVER_TYPES_SOURCE})
+target_link_libraries(${PROJECT_NAME}-userver-types
+        tdutils ton_crypto ton_block userver::core userver::chaotic)
+target_include_directories(${PROJECT_NAME}-userver-types PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
+        ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
+        ${CMAKE_CURRENT_SOURCE_DIR}/../external/userver)
 
 set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
         src/components/tonlib_component.cpp
         src/schemas/v2.cpp
-        src/userver/chaotic/io/ton_http/types/ton_hash_hex.cpp
-        src/userver/chaotic/io/ton_http/types/ton_hash.cpp
-        src/userver/chaotic/io/ton_http/types/ton_addr.cpp
-        src/userver/chaotic/io/ton_http/types/int256.cpp
-        src/userver/chaotic/io/ton_http/types/bytes.cpp
-        src/userver/chaotic/io/std/int64_t.cpp
-        src/userver/chaotic/io/std/uint64_t.cpp
         src/converters/convert.hpp
         src/utils/common.cpp
         src/handlers/JsonRpcHandler.cpp
@@ -47,10 +58,27 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_transactions.cpp
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
-        src/userver/chaotic/io/ton_http/types/ton_hash_hex.hpp
         src/handlers/blocks/GetShardBlockProofHandler.h
         src/handlers/blocks/GetShardBlockProofHandler.cpp
-        src/userver/chaotic/io/std/int32_t.hpp
+        src/handlers/blocks/GetConsensusBlockHandler.h
+        src/handlers/blocks/GetConsensusBlockHandler.cpp
+        src/handlers/blocks/LookupBlockHandler.h
+        src/handlers/blocks/LookupBlockHandler.cpp
+        src/handlers/blocks/GetShardsHandler.cpp
+        src/handlers/blocks/GetShardsHandler.h
+        src/handlers/blocks/GetBlockHeaderHandler.cpp
+        src/handlers/blocks/GetBlockHeaderHandler.h
+        src/handlers/blocks/GetOutMsgQueueSizeHandler.cpp
+        src/handlers/blocks/GetOutMsgQueueSizeHandler.h
+        src/handlers/transactions/GetBlockTransactionsHandler.cpp
+        src/handlers/transactions/GetBlockTransactionsHandler.h
+        src/converters/transactions.hpp
+        src/handlers/transactions/GetBlockTransactionsExtHandler.cpp
+        src/handlers/transactions/GetBlockTransactionsExtHandler.h
+        src/handlers/transactions/GetTransactionsStdHandler.cpp
+        src/handlers/transactions/GetTransactionsStdHandler.h
+        src/handlers/transactions/GetTransactionsHandler.cpp
+        src/handlers/transactions/GetTransactionsHandler.h
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp
@@ -91,6 +119,7 @@ userver_target_generate_chaotic(
         LAYOUT "/components/schemas/([^/]*)/=ton_http::schemas::v2::{0}"
         OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/
         SCHEMAS ${API_SCHEMAS}
+        LINK_TARGETS ${PROJECT_NAME}-userver-types
         INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
         RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
 )
@@ -105,7 +134,7 @@ target_include_directories(${PROJECT_NAME}
 
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-target_link_libraries(${PROJECT_NAME} userver::core tonlib::multiclient)
+target_link_libraries(${PROJECT_NAME} userver::core userver::chaotic tonlib::multiclient ${PROJECT_NAME}-userver-types)
 target_link_options(${PROJECT_NAME} PUBLIC -rdynamic)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)

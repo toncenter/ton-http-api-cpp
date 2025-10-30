@@ -142,6 +142,48 @@ components_manager:
       path: /api/v2/getShardBlockProof
       method: GET,POST
       logger: api-v2
+    handler-GetConsensusBlock:
+      path: /api/v2/getConsensusBlock
+      method: GET,POST
+      logger: api-v2
+    handler-LookupBlock:
+      path: /api/v2/lookupBlock
+      method: GET,POST
+      logger: api-v2
+    handler-GetShards:
+      path: /api/v2/getShards
+      method: GET,POST
+      logger: api-v2
+    handler-Shards:
+      path: /api/v2/shards
+      method: GET,POST
+      logger: api-v2
+    handler-GetBlockHeader:
+      path: /api/v2/getBlockHeader
+      method: GET,POST
+      logger: api-v2
+    handler-GetOutMsgQueueSize:
+      path: /api/v2/getOutMsgQueueSize
+      method: GET,POST
+      logger: api-v2
+
+    ## transactions
+    handler-GetBlockTransactions:
+      path: /api/v2/getBlockTransactions
+      method: GET,POST
+      logger: api-v2
+    handler-GetBlockTransactionsExt:
+      path: /api/v2/getBlockTransactionsExt
+      method: GET,POST
+      logger: api-v2
+    handler-GetTransactions:
+      path: /api/v2/getTransactions
+      method: GET,POST
+      logger: api-v2
+    handler-GetTransactionsStd:
+      path: /api/v2/getTransactionsStd
+      method: GET,POST
+      logger: api-v2
 
     #
     # jsonrpc handler

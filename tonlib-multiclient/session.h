@@ -33,6 +33,9 @@ public:
         .count();
     return double(now - start_time_) / 1000;
   }
+  std::uint64_t start_time() const {
+    return start_time_;
+  }
 
   std::string to_string() const {
     std::stringstream res;

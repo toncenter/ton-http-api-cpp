@@ -5,17 +5,17 @@
 
 namespace ton_http::handlers {
 
-class NAME : public TonlibRequestHandler<schemas::v2::REQUEST, schemas::v2::RESPONSE> {
+class GetConsensusBlockHandler : public TonlibRequestHandler<schemas::v2::ConsensusBlockRequest, schemas::v2::ConsensusBlock> {
 public:
-  static constexpr std::string_view kName = "handler-NAME";
+  static constexpr std::string_view kName = "handler-GetConsensusBlock";
 
-  NAME(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
+  GetConsensusBlockHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
 
-  td::Status ValidateRequest(const schemas::v2::REQUEST& request) const override;
-  schemas::v2::REQUEST ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+  td::Status ValidateRequest(const schemas::v2::ConsensusBlockRequest& request) const override;
+  schemas::v2::ConsensusBlockRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
 
-  td::Result<schemas::v2::RESPONSE> HandleRequestTonlibThrow(
-      schemas::v2::REQUEST& request, multiclient::SessionPtr& session
+  td::Result<schemas::v2::ConsensusBlock> HandleRequestTonlibThrow(
+      schemas::v2::ConsensusBlockRequest& request, multiclient::SessionPtr& session
   ) const override;
 };
 

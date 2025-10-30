@@ -8,11 +8,11 @@
 #include <optional>
 #include <string>
 #include <userver/chaotic/io/std/int64_t.hpp>
-#include <userver/chaotic/io/std/uint64_t.hpp>
 #include <userver/chaotic/io/std/vector.hpp>
 #include <userver/chaotic/io/ton_http/types/bytes.hpp>
 #include <userver/chaotic/io/ton_http/types/int256.hpp>
 #include <userver/chaotic/io/ton_http/types/ton_addr.hpp>
+#include <userver/chaotic/io/ton_http/types/ton_addr_without_workchain.hpp>
 #include <userver/chaotic/io/ton_http/types/ton_hash.hpp>
 #include <userver/chaotic/io/ton_http/types/ton_hash_hex.hpp>
 #include <userver/chaotic/oneof_with_discriminator.hpp>
@@ -1371,7 +1371,7 @@ struct InternalTransactionId {
   ::ton_http::schemas::v2::InternalTransactionId::_Type _type{
     ::ton_http::schemas::v2::InternalTransactionId::_Type::kInternalTransactionid
   };
-  std::uint64_t lt{};
+  std::int64_t lt{};
   ton_http::types::ton_hash hash{};
 };
 
@@ -1635,8 +1635,8 @@ struct BlockHeader {
   int min_ref_mc_seqno{};
   bool is_key_block{};
   int prev_key_block_seqno{};
-  std::uint64_t start_lt{};
-  std::uint64_t end_lt{};
+  std::int64_t start_lt{};
+  std::int64_t end_lt{};
   int gen_utime{};
   std::vector<::ton_http::schemas::v2::TonBlockIdExt> prev_blocks{};
 
@@ -1883,7 +1883,7 @@ struct ShortTxId {
   ::ton_http::schemas::v2::ShortTxId::_Type _type{::ton_http::schemas::v2::ShortTxId::_Type::kBlocksShorttxid};
   int mode{};
   ton_http::types::ton_addr account{};
-  std::uint64_t lt{};
+  std::int64_t lt{};
   ton_http::types::ton_hash hash{};
 };
 
@@ -2011,6 +2011,617 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::BlockTransactions::_Type value);
 
 
+struct MsgDataRaw {
+  enum class _Type {
+    kMsgDataraw,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kMsgDataraw,
+  };
+
+
+  ::ton_http::schemas::v2::MsgDataRaw::_Type _type{::ton_http::schemas::v2::MsgDataRaw::_Type::kMsgDataraw};
+  std::optional<ton_http::types::bytes> body{};
+  std::optional<ton_http::types::bytes> init_state{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::MsgDataRaw& lhs, const ::ton_http::schemas::v2::MsgDataRaw& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw& value
+);
+
+
+MsgDataRaw::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
+
+
+MsgDataRaw Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>
+);
+
+
+MsgDataRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
+
+
+MsgDataRaw::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataRaw::_Type value);
+
+
+struct MsgDataText {
+  enum class _Type {
+    kMsgDatatext,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kMsgDatatext,
+  };
+
+
+  ::ton_http::schemas::v2::MsgDataText::_Type _type{::ton_http::schemas::v2::MsgDataText::_Type::kMsgDatatext};
+  std::optional<std::string> text{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::MsgDataText& lhs, const ::ton_http::schemas::v2::MsgDataText& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText& value
+);
+
+
+MsgDataText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
+
+
+MsgDataText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>
+);
+
+
+MsgDataText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
+
+
+MsgDataText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataText::_Type value);
+
+
+struct MsgDataDecryptedText {
+  enum class _Type {
+    kMsgDatadecryptedtext,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kMsgDatadecryptedtext,
+  };
+
+
+  ::ton_http::schemas::v2::MsgDataDecryptedText::_Type _type{
+    ::ton_http::schemas::v2::MsgDataDecryptedText::_Type::kMsgDatadecryptedtext
+  };
+  std::optional<std::string> text{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText& lhs, const ::ton_http::schemas::v2::MsgDataDecryptedText& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText& value
+);
+
+
+MsgDataDecryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
+
+
+MsgDataDecryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>
+);
+
+
+MsgDataDecryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
+
+
+MsgDataDecryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataDecryptedText::_Type value);
+
+
+struct MsgDataEncryptedText {
+  enum class _Type {
+    kMsgDataencryptedtext,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kMsgDataencryptedtext,
+  };
+
+
+  ::ton_http::schemas::v2::MsgDataEncryptedText::_Type _type{
+    ::ton_http::schemas::v2::MsgDataEncryptedText::_Type::kMsgDataencryptedtext
+  };
+  std::optional<std::string> text{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText& lhs, const ::ton_http::schemas::v2::MsgDataEncryptedText& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText& value
+);
+
+
+MsgDataEncryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
+
+
+MsgDataEncryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>
+);
+
+
+MsgDataEncryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
+
+
+MsgDataEncryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataEncryptedText::_Type value);
+
+
+[[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kMsgData_Settings = {
+  "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
+    return selector()
+      .template Type<std::string_view>()
+      .Case("msg.dataRaw")
+      .Case("msg.dataText")
+      .Case("msg.dataDecryptedText")
+      .Case("msg.dataEncryptedText");
+  })
+};
+
+
+using MsgData = std::variant<
+  ::ton_http::schemas::v2::MsgDataRaw,
+  ::ton_http::schemas::v2::MsgDataText,
+  ::ton_http::schemas::v2::MsgDataDecryptedText,
+  ::ton_http::schemas::v2::MsgDataEncryptedText>;
+
+
+struct MessageStd {
+  enum class _Type {
+    kRawMessage,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kRawMessage,
+  };
+
+
+  ::ton_http::schemas::v2::MessageStd::_Type _type{::ton_http::schemas::v2::MessageStd::_Type::kRawMessage};
+  ton_http::types::ton_hash hash{};
+  ::ton_http::schemas::v2::AccountAddress source{};
+  ::ton_http::schemas::v2::AccountAddress destination{};
+  ton_http::types::int256 value{};
+  std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance> extra_currencies{};
+  ton_http::types::int256 fwd_fee{};
+  ton_http::types::int256 ihr_fee{};
+  std::int64_t created_lt{};
+  ton_http::types::ton_hash body_hash{};
+  ::ton_http::schemas::v2::MsgData msg_data{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::MessageStd& lhs, const ::ton_http::schemas::v2::MessageStd& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MessageStd::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MessageStd& value
+);
+
+
+MessageStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type>
+);
+
+
+MessageStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd>
+);
+
+
+MessageStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type>
+);
+
+
+MessageStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MessageStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MessageStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::MessageStd::_Type value);
+
+
+struct TransactionStd {
+  enum class _Type {
+    kRawTransaction,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kRawTransaction,
+  };
+
+
+  ::ton_http::schemas::v2::TransactionStd::_Type _type{::ton_http::schemas::v2::TransactionStd::_Type::kRawTransaction};
+  ::ton_http::schemas::v2::AccountAddress address{};
+  int utime{};
+  ton_http::types::bytes data{};
+  ::ton_http::schemas::v2::InternalTransactionId transaction_id{};
+  ton_http::types::int256 fee{};
+  ton_http::types::int256 storage_fee{};
+  ton_http::types::int256 other_fee{};
+  std::optional<::ton_http::schemas::v2::MessageStd> in_msg{};
+  std::vector<::ton_http::schemas::v2::MessageStd> out_msgs{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::TransactionStd& lhs, const ::ton_http::schemas::v2::TransactionStd& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionStd::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionStd& value
+);
+
+
+TransactionStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type>
+);
+
+
+TransactionStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd>
+);
+
+
+TransactionStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type>
+);
+
+
+TransactionStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionStd::_Type value);
+
+
+struct TransactionExt__P1 {
+  enum class _Type {
+    kRawTransactionext,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kRawTransactionext,
+  };
+
+
+  ::ton_http::schemas::v2::TransactionExt__P1::_Type _type{
+    ::ton_http::schemas::v2::TransactionExt__P1::_Type::kRawTransactionext
+  };
+  std::optional<ton_http::types::ton_addr> account{};
+};
+
+
+struct TransactionExt : public ::ton_http::schemas::v2::TransactionStd,
+                        public ::ton_http::schemas::v2::TransactionExt__P1 {
+  TransactionExt() = default;
+
+  TransactionExt(::ton_http::schemas::v2::TransactionStd&& a0, ::ton_http::schemas::v2::TransactionExt__P1&& a1) :
+      ::ton_http::schemas::v2::TransactionStd(std::move(a0)),
+      ::ton_http::schemas::v2::TransactionExt__P1(std::move(a1)) {
+  }
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionExt__P1& lhs, const ::ton_http::schemas::v2::TransactionExt__P1& rhs
+);
+
+
+bool operator==(const ::ton_http::schemas::v2::TransactionExt& lhs, const ::ton_http::schemas::v2::TransactionExt& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt__P1::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt__P1& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt& value
+);
+
+
+TransactionExt__P1::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type>
+);
+
+
+TransactionExt__P1 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1>
+);
+
+
+TransactionExt Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt>
+);
+
+
+TransactionExt__P1::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type>
+);
+
+
+TransactionExt__P1::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionExt__P1::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionExt__P1& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionExt__P1::_Type value);
+
+
+// Block transactions information
+struct BlockTransactionsExt {
+  enum class _Type {
+    kBlocksTransactionsext,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksTransactionsext,
+  };
+
+
+  ::ton_http::schemas::v2::BlockTransactionsExt::_Type _type{
+    ::ton_http::schemas::v2::BlockTransactionsExt::_Type::kBlocksTransactionsext
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt id{};
+  int req_count{};
+  bool incomplete{};
+  std::vector<::ton_http::schemas::v2::TransactionExt> transactions{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::BlockTransactionsExt& lhs, const ::ton_http::schemas::v2::BlockTransactionsExt& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockTransactionsExt::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockTransactionsExt& value
+);
+
+
+BlockTransactionsExt::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type>
+);
+
+
+BlockTransactionsExt Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt>
+);
+
+
+BlockTransactionsExt::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type>
+);
+
+
+BlockTransactionsExt::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactionsExt::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactionsExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::BlockTransactionsExt::_Type value);
+
+
+using TonAddrWithoutWorkchain = std::string;
+
+
 struct BlockTransactionsRequest {
   using Shard = std::variant<std::string, std::int64_t>;
 
@@ -2024,7 +2635,7 @@ struct BlockTransactionsRequest {
   std::optional<ton_http::types::ton_hash> root_hash{};
   std::optional<ton_http::types::ton_hash> file_hash{};
   std::optional<std::int64_t> after_lt{};
-  std::optional<ton_http::types::ton_hash> after_hash{};
+  std::optional<ton_http::types::ton_addr_without_workchain> after_hash{};
   int count{40};
 };
 
@@ -2242,16 +2853,16 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 struct ConsensusBlock {
   enum class _Type {
-    kExtConsensusblock,
+    kExtBlocksConsensusblock,
   };
 
   static constexpr _Type k_TypeValues[] = {
-    _Type::kExtConsensusblock,
+    _Type::kExtBlocksConsensusblock,
   };
 
 
   ::ton_http::schemas::v2::ConsensusBlock::_Type _type{
-    ::ton_http::schemas::v2::ConsensusBlock::_Type::kExtConsensusblock
+    ::ton_http::schemas::v2::ConsensusBlock::_Type::kExtBlocksConsensusblock
   };
   std::int32_t consensus_block{};
   std::int32_t timestamp{};
@@ -3047,431 +3658,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
   const ::ton_http::schemas::v2::EstimateFeeRequest& value,
   USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
 );
-
-
-struct MsgDataRaw {
-  enum class _Type {
-    kMsgDataraw,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kMsgDataraw,
-  };
-
-
-  ::ton_http::schemas::v2::MsgDataRaw::_Type _type{::ton_http::schemas::v2::MsgDataRaw::_Type::kMsgDataraw};
-  std::optional<ton_http::types::bytes> body{};
-  std::optional<ton_http::types::bytes> init_state{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::MsgDataRaw& lhs, const ::ton_http::schemas::v2::MsgDataRaw& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw& value
-);
-
-
-MsgDataRaw::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
-);
-
-
-MsgDataRaw Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw>
-);
-
-
-MsgDataRaw::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
-);
-
-
-MsgDataRaw::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataRaw& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataRaw::_Type value);
-
-
-struct MsgDataText {
-  enum class _Type {
-    kMsgDatatext,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kMsgDatatext,
-  };
-
-
-  ::ton_http::schemas::v2::MsgDataText::_Type _type{::ton_http::schemas::v2::MsgDataText::_Type::kMsgDatatext};
-  std::optional<std::string> text{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::MsgDataText& lhs, const ::ton_http::schemas::v2::MsgDataText& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText& value
-);
-
-
-MsgDataText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
-);
-
-
-MsgDataText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText>
-);
-
-
-MsgDataText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
-);
-
-
-MsgDataText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataText::_Type value);
-
-
-struct MsgDataDecryptedText {
-  enum class _Type {
-    kMsgDatadecryptedtext,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kMsgDatadecryptedtext,
-  };
-
-
-  ::ton_http::schemas::v2::MsgDataDecryptedText::_Type _type{
-    ::ton_http::schemas::v2::MsgDataDecryptedText::_Type::kMsgDatadecryptedtext
-  };
-  std::optional<std::string> text{};
-};
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText& lhs, const ::ton_http::schemas::v2::MsgDataDecryptedText& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText& value
-);
-
-
-MsgDataDecryptedText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
-);
-
-
-MsgDataDecryptedText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText>
-);
-
-
-MsgDataDecryptedText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
-);
-
-
-MsgDataDecryptedText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataDecryptedText::_Type value);
-
-
-struct MsgDataEncryptedText {
-  enum class _Type {
-    kMsgDataencryptedtext,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kMsgDataencryptedtext,
-  };
-
-
-  ::ton_http::schemas::v2::MsgDataEncryptedText::_Type _type{
-    ::ton_http::schemas::v2::MsgDataEncryptedText::_Type::kMsgDataencryptedtext
-  };
-  std::optional<std::string> text{};
-};
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText& lhs, const ::ton_http::schemas::v2::MsgDataEncryptedText& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText& value
-);
-
-
-MsgDataEncryptedText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
-);
-
-
-MsgDataEncryptedText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText>
-);
-
-
-MsgDataEncryptedText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
-);
-
-
-MsgDataEncryptedText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataEncryptedText::_Type value);
-
-
-struct ExtMessage {
-  enum class _Type {
-    kExtMessage,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kExtMessage,
-  };
-
-
-  using Msg_Data = std::variant<
-    ::ton_http::schemas::v2::MsgDataRaw,
-    ::ton_http::schemas::v2::MsgDataText,
-    ::ton_http::schemas::v2::MsgDataDecryptedText,
-    ::ton_http::schemas::v2::MsgDataEncryptedText>;
-
-
-  ::ton_http::schemas::v2::ExtMessage::_Type _type{::ton_http::schemas::v2::ExtMessage::_Type::kExtMessage};
-  ton_http::types::ton_hash hash{};
-  ton_http::types::ton_addr source{};
-  ton_http::types::ton_addr destination{};
-  ton_http::types::int256 value{};
-  std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance> extra_currencies{};
-  ton_http::types::int256 fwd_fee{};
-  ton_http::types::int256 ihr_fee{};
-  std::uint64_t created_lt{};
-  ton_http::types::ton_hash body_hash{};
-  ::ton_http::schemas::v2::ExtMessage::Msg_Data msg_data{};
-  std::optional<std::string> message{};
-  std::optional<std::string> message_decode_error{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::ExtMessage& lhs, const ::ton_http::schemas::v2::ExtMessage& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtMessage::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtMessage& value
-);
-
-
-ExtMessage::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
-);
-
-
-ExtMessage Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage>
-);
-
-
-ExtMessage::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
-);
-
-
-ExtMessage::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtMessage::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtMessage& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::ExtMessage::_Type value);
-
-
-struct ExtTransaction {
-  enum class _Type {
-    kExtTransaction,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kExtTransaction,
-  };
-
-
-  ::ton_http::schemas::v2::ExtTransaction::_Type _type{::ton_http::schemas::v2::ExtTransaction::_Type::kExtTransaction};
-  ::ton_http::schemas::v2::AccountAddress address{};
-  int utime{};
-  ton_http::types::bytes data{};
-  ::ton_http::schemas::v2::InternalTransactionId transaction_id{};
-  ton_http::types::int256 fee{};
-  ton_http::types::int256 storage_fee{};
-  ton_http::types::int256 other_fee{};
-  ::ton_http::schemas::v2::ExtMessage in_msg{};
-  std::vector<::ton_http::schemas::v2::ExtMessage> out_msgs{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::ExtTransaction& lhs, const ::ton_http::schemas::v2::ExtTransaction& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtTransaction::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtTransaction& value
-);
-
-
-ExtTransaction::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
-);
-
-
-ExtTransaction Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction>
-);
-
-
-ExtTransaction::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
-);
-
-
-ExtTransaction::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtTransaction::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtTransaction& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::ExtTransaction::_Type value);
 
 
 struct ExtendedAddressInformation {
@@ -4698,6 +4884,429 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value);
 
 
+struct Shards {
+  enum class _Type {
+    kBlocksShards,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksShards,
+  };
+
+
+  ::ton_http::schemas::v2::Shards::_Type _type{::ton_http::schemas::v2::Shards::_Type::kBlocksShards};
+  std::vector<::ton_http::schemas::v2::TonBlockIdExt> shards{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::Shards& lhs, const ::ton_http::schemas::v2::Shards& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards& value
+);
+
+
+Shards::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
+
+
+Shards Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>
+);
+
+
+Shards::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
+
+
+Shards::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::Shards::_Type value);
+
+
+struct OutMsgQueueSize {
+  enum class _Type {
+    kBlocksOutmsgqueuesize,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksOutmsgqueuesize,
+  };
+
+
+  ::ton_http::schemas::v2::OutMsgQueueSize::_Type _type{
+    ::ton_http::schemas::v2::OutMsgQueueSize::_Type::kBlocksOutmsgqueuesize
+  };
+  ::ton_http::schemas::v2::TonBlockIdExt id{};
+  int size{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::OutMsgQueueSize& lhs, const ::ton_http::schemas::v2::OutMsgQueueSize& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize& value
+);
+
+
+OutMsgQueueSize::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
+
+
+OutMsgQueueSize Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>
+);
+
+
+OutMsgQueueSize::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
+
+
+OutMsgQueueSize::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value);
+
+
+struct OutMsgQueueSizes {
+  enum class _Type {
+    kBlocksOutmsgqueuesizes,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kBlocksOutmsgqueuesizes,
+  };
+
+
+  ::ton_http::schemas::v2::OutMsgQueueSizes::_Type _type{
+    ::ton_http::schemas::v2::OutMsgQueueSizes::_Type::kBlocksOutmsgqueuesizes
+  };
+  std::vector<::ton_http::schemas::v2::OutMsgQueueSize> shards{};
+  int ext_msg_queue_size_limit{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes& lhs, const ::ton_http::schemas::v2::OutMsgQueueSizes& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes& value
+);
+
+
+OutMsgQueueSizes::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
+
+
+OutMsgQueueSizes Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>
+);
+
+
+OutMsgQueueSizes::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
+
+
+OutMsgQueueSizes::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value);
+
+
+struct Message {
+  enum class _Type {
+    kExtMessage,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kExtMessage,
+  };
+
+
+  ::ton_http::schemas::v2::Message::_Type _type{::ton_http::schemas::v2::Message::_Type::kExtMessage};
+  ton_http::types::ton_hash hash{};
+  ton_http::types::ton_addr source{};
+  ton_http::types::ton_addr destination{};
+  ton_http::types::int256 value{};
+  std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance> extra_currencies{};
+  ton_http::types::int256 fwd_fee{};
+  ton_http::types::int256 ihr_fee{};
+  std::int64_t created_lt{};
+  ton_http::types::ton_hash body_hash{};
+  ::ton_http::schemas::v2::MsgData msg_data{};
+  std::optional<std::string> message{};
+  std::optional<std::string> message_decode_error{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::Message& lhs, const ::ton_http::schemas::v2::Message& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message& value
+);
+
+
+Message::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
+
+
+Message Parse(
+  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>
+);
+
+
+Message::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
+
+
+Message::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::Message::_Type value);
+
+
+struct Transaction {
+  enum class _Type {
+    kExtTransaction,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kExtTransaction,
+  };
+
+
+  ::ton_http::schemas::v2::Transaction::_Type _type{::ton_http::schemas::v2::Transaction::_Type::kExtTransaction};
+  ::ton_http::schemas::v2::AccountAddress address{};
+  ton_http::types::ton_addr account{};
+  int utime{};
+  ton_http::types::bytes data{};
+  ::ton_http::schemas::v2::InternalTransactionId transaction_id{};
+  ton_http::types::int256 fee{};
+  ton_http::types::int256 storage_fee{};
+  ton_http::types::int256 other_fee{};
+  std::optional<::ton_http::schemas::v2::Message> in_msg{};
+  std::vector<::ton_http::schemas::v2::Message> out_msgs{};
+};
+
+
+bool operator==(const ::ton_http::schemas::v2::Transaction& lhs, const ::ton_http::schemas::v2::Transaction& rhs);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction& value
+);
+
+
+Transaction::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
+
+
+Transaction Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>
+);
+
+
+Transaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
+
+
+Transaction::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::Transaction::_Type value);
+
+
+struct TransactionsStd {
+  enum class _Type {
+    kRawTransactions,
+  };
+
+  static constexpr _Type k_TypeValues[] = {
+    _Type::kRawTransactions,
+  };
+
+
+  ::ton_http::schemas::v2::TransactionsStd::_Type _type{
+    ::ton_http::schemas::v2::TransactionsStd::_Type::kRawTransactions
+  };
+  std::vector<::ton_http::schemas::v2::TransactionStd> transactions{};
+  ::ton_http::schemas::v2::InternalTransactionId previous_transaction_id{};
+};
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionsStd& lhs, const ::ton_http::schemas::v2::TransactionsStd& rhs
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionsStd::_Type& value
+);
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionsStd& value
+);
+
+
+TransactionsStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type>
+);
+
+
+TransactionsStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd>
+);
+
+
+TransactionsStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type>
+);
+
+
+TransactionsStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionsStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionsStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+);
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionsStd::_Type value);
+
+
 [[maybe_unused]] static constexpr USERVER_NAMESPACE::chaotic::OneOfStringSettings kTonlibObject_Settings = {
   "@type", USERVER_NAMESPACE::utils::TrivialSet([](auto selector) {
     return selector()
@@ -4713,7 +5322,16 @@ std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value);
       .Case("ext.tokens.nftItemData")
       .Case("blocks.masterchainInfo")
       .Case("blocks.blockSignatures")
-      .Case("blocks.shardBlockProof");
+      .Case("blocks.shardBlockProof")
+      .Case("ext.blocks.consensusBlock")
+      .Case("ton.blockIdExt")
+      .Case("blocks.shards")
+      .Case("blocks.header")
+      .Case("blocks.outMsgQueueSizes")
+      .Case("blocks.transactions")
+      .Case("blocks.transactionsExt")
+      .Case("ext.transaction")
+      .Case("raw.transactions");
   })
 };
 
@@ -4730,13 +5348,25 @@ using TonlibObject = std::variant<
   ::ton_http::schemas::v2::NftItemData,
   ::ton_http::schemas::v2::MasterchainInfo,
   ::ton_http::schemas::v2::MasterchainBlockSignatures,
-  ::ton_http::schemas::v2::ShardBlockProof>;
+  ::ton_http::schemas::v2::ShardBlockProof,
+  ::ton_http::schemas::v2::ConsensusBlock,
+  ::ton_http::schemas::v2::TonBlockIdExt,
+  ::ton_http::schemas::v2::Shards,
+  ::ton_http::schemas::v2::BlockHeader,
+  ::ton_http::schemas::v2::OutMsgQueueSizes,
+  ::ton_http::schemas::v2::BlockTransactions,
+  ::ton_http::schemas::v2::BlockTransactionsExt,
+  ::ton_http::schemas::v2::Transaction,
+  ::ton_http::schemas::v2::TransactionsStd>;
 
 
 // TonlibResponse
 struct TonlibResponse {
-  using Result =
-    std::variant<std::string, ::ton_http::schemas::v2::AccountStateEnum, ::ton_http::schemas::v2::TonlibObject>;
+  using Result = std::variant<
+    std::string,
+    ::ton_http::schemas::v2::AccountStateEnum,
+    ::ton_http::schemas::v2::TonlibObject,
+    std::vector<::ton_http::schemas::v2::TonlibObject>>;
 
 
   bool ok{true};
@@ -5057,227 +5687,7 @@ using MasterchainBlockSignaturesRequest = ::ton_http::schemas::v2::SeqnoRequest;
 using MasterchainInfoRequest = ::ton_http::schemas::v2::EmptyRequest;
 
 
-struct Message {
-  enum class _Type {
-    kRawMessage,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kRawMessage,
-  };
-
-
-  using Msg_Data = std::variant<
-    ::ton_http::schemas::v2::MsgDataRaw,
-    ::ton_http::schemas::v2::MsgDataText,
-    ::ton_http::schemas::v2::MsgDataDecryptedText,
-    ::ton_http::schemas::v2::MsgDataEncryptedText>;
-
-
-  ::ton_http::schemas::v2::Message::_Type _type{::ton_http::schemas::v2::Message::_Type::kRawMessage};
-  ton_http::types::ton_hash hash{};
-  ::ton_http::schemas::v2::AccountAddress source{};
-  ::ton_http::schemas::v2::AccountAddress destination{};
-  ton_http::types::int256 value{};
-  std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance> extra_currencies{};
-  ton_http::types::int256 fwd_fee{};
-  ton_http::types::int256 ihr_fee{};
-  std::uint64_t created_lt{};
-  ton_http::types::ton_hash body_hash{};
-  ::ton_http::schemas::v2::Message::Msg_Data msg_data{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::Message& lhs, const ::ton_http::schemas::v2::Message& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message& value
-);
-
-
-Message::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
-);
-
-
-Message Parse(
-  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message>
-);
-
-
-Message::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
-);
-
-
-Message::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Message::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Message& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::Message::_Type value);
-
-
-struct OutMsgQueueSize {
-  enum class _Type {
-    kBlocksOutmsgqueuesize,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kBlocksOutmsgqueuesize,
-  };
-
-
-  ::ton_http::schemas::v2::OutMsgQueueSize::_Type _type{
-    ::ton_http::schemas::v2::OutMsgQueueSize::_Type::kBlocksOutmsgqueuesize
-  };
-  ::ton_http::schemas::v2::TonBlockIdExt id{};
-  int size{};
-};
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::OutMsgQueueSize& lhs, const ::ton_http::schemas::v2::OutMsgQueueSize& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize& value
-);
-
-
-OutMsgQueueSize::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
-);
-
-
-OutMsgQueueSize Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize>
-);
-
-
-OutMsgQueueSize::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
-);
-
-
-OutMsgQueueSize::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSize& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value);
-
-
 using OutMsgQueueSizeRequest = ::ton_http::schemas::v2::EmptyRequest;
-
-
-struct OutMsgQueueSizes {
-  enum class _Type {
-    kBlocksOutmsgqueuesizes,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kBlocksOutmsgqueuesizes,
-  };
-
-
-  ::ton_http::schemas::v2::OutMsgQueueSizes::_Type _type{
-    ::ton_http::schemas::v2::OutMsgQueueSizes::_Type::kBlocksOutmsgqueuesizes
-  };
-  std::vector<::ton_http::schemas::v2::OutMsgQueueSize> shards{};
-  int ext_msg_queue_size_limit{};
-};
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::OutMsgQueueSizes& lhs, const ::ton_http::schemas::v2::OutMsgQueueSizes& rhs
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes& value
-);
-
-
-OutMsgQueueSizes::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
-);
-
-
-OutMsgQueueSizes Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes>
-);
-
-
-OutMsgQueueSizes::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
-);
-
-
-OutMsgQueueSizes::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value);
 
 
 using PackAddress = std::string;
@@ -5403,70 +5813,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 );
 
 
-struct Shards {
-  enum class _Type {
-    kBlocksShards,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kBlocksShards,
-  };
-
-
-  ::ton_http::schemas::v2::Shards::_Type _type{::ton_http::schemas::v2::Shards::_Type::kBlocksShards};
-  std::vector<::ton_http::schemas::v2::TonBlockIdExt> shards{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::Shards& lhs, const ::ton_http::schemas::v2::Shards& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards& value
-);
-
-
-Shards::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
-);
-
-
-Shards Parse(
-  USERVER_NAMESPACE::formats::json::Value json, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards>
-);
-
-
-Shards::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
-);
-
-
-Shards::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Shards::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Shards& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::Shards::_Type value);
-
-
 using ShardsRequest = ::ton_http::schemas::v2::SeqnoRequest;
 
 
@@ -5492,78 +5838,7 @@ using TokenData = std::variant<
 using TokenDataRequest = ::ton_http::schemas::v2::AddressWithSeqnoRequest;
 
 
-struct Transaction {
-  enum class _Type {
-    kRawTransaction,
-  };
-
-  static constexpr _Type k_TypeValues[] = {
-    _Type::kRawTransaction,
-  };
-
-
-  ::ton_http::schemas::v2::Transaction::_Type _type{::ton_http::schemas::v2::Transaction::_Type::kRawTransaction};
-  ::ton_http::schemas::v2::AccountAddress address{};
-  ton_http::types::ton_addr account{};
-  int utime{};
-  ton_http::types::bytes data{};
-  ::ton_http::schemas::v2::InternalTransactionId transaction_id{};
-  ton_http::types::int256 fee{};
-  ton_http::types::int256 storage_fee{};
-  ton_http::types::int256 other_fee{};
-  ::ton_http::schemas::v2::Message in_msg{};
-  std::vector<::ton_http::schemas::v2::Message> out_msgs{};
-};
-
-
-bool operator==(const ::ton_http::schemas::v2::Transaction& lhs, const ::ton_http::schemas::v2::Transaction& rhs);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction::_Type& value
-);
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction& value
-);
-
-
-Transaction::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
-);
-
-
-Transaction Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction>
-);
-
-
-Transaction::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
-);
-
-
-Transaction::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Transaction::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Transaction& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-);
-
-
-std::string ToString(::ton_http::schemas::v2::Transaction::_Type value);
+using Transactions = std::vector<::ton_http::schemas::v2::Transaction>;
 
 
 struct TransactionsRequest {
@@ -5577,7 +5852,7 @@ struct TransactionsRequest {
   std::optional<std::int64_t> lt{};
   std::optional<ton_http::types::ton_hash> hash{};
   std::optional<std::int64_t> to_lt{};
-  bool archival{false};
+  std::optional<bool> archival{};
   int limit{10};
 };
 
@@ -5962,6 +6237,96 @@ struct fmt::formatter<::ton_http::schemas::v2::BlockTransactions::_Type> {
 
 
 template <>
+struct fmt::formatter<::ton_http::schemas::v2::MsgDataRaw::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::MsgDataRaw::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::MsgDataText::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::MsgDataText::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::MessageStd::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::MessageStd::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::TransactionStd::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::TransactionStd::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::TransactionExt__P1::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::TransactionExt__P1::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::BlockTransactionsExt::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::BlockTransactionsExt::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
 struct fmt::formatter<::ton_http::schemas::v2::TvmCell::_Type> {
   fmt::format_context::iterator format(const ::ton_http::schemas::v2::TvmCell::_Type&, fmt::format_context&) const;
 
@@ -6089,72 +6454,6 @@ template <>
 struct fmt::formatter<::ton_http::schemas::v2::DnsRecordNextResolver::_Type> {
   fmt::format_context::iterator format(
     const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MsgDataRaw::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::MsgDataRaw::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MsgDataText::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::MsgDataText::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> {
-  fmt::format_context::iterator format(
-    const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> {
-  fmt::format_context::iterator format(
-    const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::ExtMessage::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::ExtMessage::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::ExtTransaction::_Type> {
-  fmt::format_context::iterator format(
-    const ::ton_http::schemas::v2::ExtTransaction::_Type&, fmt::format_context&
   ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
@@ -6352,30 +6651,8 @@ struct fmt::formatter<::ton_http::schemas::v2::ShardBlockProof::_Type> {
 
 
 template <>
-struct fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::LibraryEntry::_Type&, fmt::format_context&) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type> {
-  fmt::format_context::iterator format(
-    const ::ton_http::schemas::v2::LibraryResult::_Type&, fmt::format_context&
-  ) const;
-
-  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-};
-
-
-template <>
-struct fmt::formatter<::ton_http::schemas::v2::Message::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::Message::_Type&, fmt::format_context&) const;
+struct fmt::formatter<::ton_http::schemas::v2::Shards::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::Shards::_Type&, fmt::format_context&) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -6408,8 +6685,8 @@ struct fmt::formatter<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> {
 
 
 template <>
-struct fmt::formatter<::ton_http::schemas::v2::Shards::_Type> {
-  fmt::format_context::iterator format(const ::ton_http::schemas::v2::Shards::_Type&, fmt::format_context&) const;
+struct fmt::formatter<::ton_http::schemas::v2::Message::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::Message::_Type&, fmt::format_context&) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();
@@ -6420,6 +6697,40 @@ struct fmt::formatter<::ton_http::schemas::v2::Shards::_Type> {
 template <>
 struct fmt::formatter<::ton_http::schemas::v2::Transaction::_Type> {
   fmt::format_context::iterator format(const ::ton_http::schemas::v2::Transaction::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::TransactionsStd::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::TransactionsStd::_Type&, fmt::format_context&
+  ) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type> {
+  fmt::format_context::iterator format(const ::ton_http::schemas::v2::LibraryEntry::_Type&, fmt::format_context&) const;
+
+  constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+};
+
+
+template <>
+struct fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type> {
+  fmt::format_context::iterator format(
+    const ::ton_http::schemas::v2::LibraryResult::_Type&, fmt::format_context&
+  ) const;
 
   constexpr fmt::format_parse_context::iterator parse(fmt::format_parse_context& ctx) {
     return ctx.begin();

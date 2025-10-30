@@ -941,7 +941,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/workchain'
         - $ref: '#/components/parameters/shard'
-        - $ref: '#/components/parameters/seqnoOptional'
+        - $ref: '#/components/parameters/seqno'
         - $ref: '#/components/parameters/rootHashOptional'
         - $ref: '#/components/parameters/fileHashOptional'
         - $ref: '#/components/parameters/afterLtOptional'
@@ -1034,13 +1034,13 @@ paths:
       security:
         - APIKeyHeader: [ ]
         - APIKeyQuery: [ ]
-  /api/v2/getTransactionsV2:
+  /api/v2/getTransactionsStd:
     get:
       tags:
         - transactions
-      summary: Get Transactions V2
-      description: Get transactions for specified address with additional options
-      operationId: getTransactionsV2_get
+      summary: Get Transactions Std
+      description: Standardized version of getTransactions
+      operationId: getTransactionsStd_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/limitOptional'
@@ -1064,14 +1064,14 @@ paths:
     post:
       tags:
         - rpc
-      summary: Get Transactions V2
-      description: Get transactions for specified address with additional options
-      operationId: getTransactionsV2_post
+      summary: Get Transactions Std
+      description: Standardized version of getTransactions
+      operationId: getTransactionsStd_post
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransactionsV2Request'
+              $ref: '#/components/schemas/TransactionsStdRequest'
         required: true
       responses:
         200:
@@ -1375,6 +1375,7 @@ paths:
   /api/v2/runGetMethod:
     post:
       tags:
+        - run method
         - rpc
       summary: Run Get Method
       description: Run get method of smart contract
@@ -1600,7 +1601,7 @@ components:
       required: false
       schema:
         type: string
-        x-usrv-cpp-type: '#/components/schemas/TonHash'
+        x-usrv-cpp-type: '#/components/schemas/TonAddrWithoutWorkchain'
     countOptional:
       name: count
       in: query
@@ -1624,7 +1625,7 @@ components:
       required: false
       schema:
         type: string
-        x-usrv-cpp-type: 'std::uint64_t'
+        x-usrv-cpp-type: 'std::int64_t'
     toLtOptional:
       name: to_lt
       in: query
@@ -1632,7 +1633,7 @@ components:
       required: false
       schema:
         type: string
-        x-usrv-cpp-type: 'std::uint64_t'
+        x-usrv-cpp-type: 'std::int64_t'
         default: 0
     archivalOptional:
       name: archival
@@ -1663,7 +1664,7 @@ components:
       required: true
       schema:
         type: string
-        x-usrv-cpp-type: 'std::uint64_t'
+        x-usrv-cpp-type: 'std::int64_t'
   responses:
     default:
       description: Tonlib error
@@ -1893,7 +1894,7 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         after_hash:
-          $ref: '#/components/schemas/TonHash'
+          $ref: '#/components/schemas/TonAddrWithoutWorkchain'
         count:
           type: integer
           default: 40
@@ -1925,7 +1926,6 @@ components:
           x-usrv-cpp-type: 'std::int64_t'
         archival:
           type: boolean
-          default: false
         limit:
           type: integer
           default: 10
@@ -2056,6 +2056,9 @@ components:
     TonAddr:
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_addr'
+    TonAddrWithoutWorkchain:
+      type: string
+      x-usrv-cpp-type: 'ton_http::types::ton_addr_without_workchain'
     TonHash:
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_hash'
@@ -2162,7 +2165,7 @@ components:
         lt:
           type: string
           description: Logical time
-          x-usrv-cpp-type: 'std::uint64_t'
+          x-usrv-cpp-type: 'std::int64_t'
         hash:
           $ref: '#/components/schemas/TonHash'
       required:
@@ -2948,7 +2951,7 @@ components:
         lt:
           type: string
           description: Logical time of the transaction
-          x-usrv-cpp-type: 'std::uint64_t'
+          x-usrv-cpp-type: 'std::int64_t'
         hash:
           $ref: '#/components/schemas/TonHash'
           description: Base64 hash of the transaction
@@ -3004,7 +3007,20 @@ components:
           default: msg.dataEncryptedText
         text:
           type: string
-    Message:
+    MsgData:
+      oneOf:
+        - $ref: '#/components/schemas/MsgDataRaw'
+        - $ref: '#/components/schemas/MsgDataText'
+        - $ref: '#/components/schemas/MsgDataDecryptedText'
+        - $ref: '#/components/schemas/MsgDataEncryptedText'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          'msg.dataRaw': '#/components/schemas/MsgDataRaw'
+          'msg.dataText': '#/components/schemas/MsgDataText'
+          'msg.dataDecryptedText': '#/components/schemas/MsgDataDecryptedText'
+          'msg.dataEncryptedText': '#/components/schemas/MsgDataEncryptedText'
+    MessageStd:
       type: object
       additionalProperties: false
       properties:
@@ -3032,15 +3048,113 @@ components:
         created_lt:
           type: string
           description: Logical time of the transaction
-          x-usrv-cpp-type: 'std::uint64_t'
+          x-usrv-cpp-type: 'std::int64_t'
         body_hash:
           $ref: '#/components/schemas/TonHash'
         msg_data:
-          oneOf:
-            - $ref: '#/components/schemas/MsgDataRaw'
-            - $ref: '#/components/schemas/MsgDataText'
-            - $ref: '#/components/schemas/MsgDataDecryptedText'
-            - $ref: '#/components/schemas/MsgDataEncryptedText'
+          $ref: '#/components/schemas/MsgData'
+      required:
+        - '@type'
+        - hash
+        - source
+        - destination
+        - value
+        - extra_currencies
+        - fwd_fee
+        - ihr_fee
+        - created_lt
+        - body_hash
+        - msg_data
+    TransactionStd:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - raw.transaction
+          default: raw.transaction
+        address:
+          $ref: '#/components/schemas/AccountAddress'
+        utime:
+          type: integer
+          description: UNIX timestamp of transaction
+        data:
+          $ref: '#/components/schemas/Bytes'
+        transaction_id:
+          $ref: '#/components/schemas/InternalTransactionId'
+        fee:
+          $ref: '#/components/schemas/Int256'
+        storage_fee:
+          $ref: '#/components/schemas/Int256'
+        other_fee:
+          $ref: '#/components/schemas/Int256'
+        in_msg:
+          $ref: '#/components/schemas/MessageStd'
+        out_msgs:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageStd'
+      required:
+        - '@type'
+        - address
+        - utime
+        - data
+        - transaction_id
+        - fee
+        - storage_fee
+        - other_fee
+        - out_msgs
+    TransactionExt:
+      allOf:
+        - $ref: '#/components/schemas/TransactionStd'
+        - type: object
+          additionalProperties: false
+          properties:
+            '@type':
+              type: string
+              enum:
+                - raw.transactionExt
+              default: raw.transactionExt
+            account:
+              $ref: '#/components/schemas/TonAddr'
+    Message:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - ext.message
+          default: ext.message
+        hash:
+          $ref: '#/components/schemas/TonHash'
+        source:
+          $ref: '#/components/schemas/TonAddr'
+        destination:
+          $ref: '#/components/schemas/TonAddr'
+        value:
+          $ref: '#/components/schemas/Int256'
+        extra_currencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtraCurrencyBalance'
+        fwd_fee:
+          $ref: '#/components/schemas/Int256'
+        ihr_fee:
+          $ref: '#/components/schemas/Int256'
+        created_lt:
+          type: string
+          description: Logical time of the transaction
+          x-usrv-cpp-type: 'std::int64_t'
+        body_hash:
+          $ref: '#/components/schemas/TonHash'
+        msg_data:
+          $ref: '#/components/schemas/MsgData'
+        message:
+          type: string
+        message_decode_error:
+          type: string
       required:
         - '@type'
         - hash
@@ -3060,13 +3174,12 @@ components:
         '@type':
           type: string
           enum:
-            - raw.transaction
-          default: raw.transaction
+            - ext.transaction
+          default: ext.transaction
         address:
           $ref: '#/components/schemas/AccountAddress'
         account:
           $ref: '#/components/schemas/TonAddr'
-          description: Account address in a raw form
         utime:
           type: integer
           description: UNIX timestamp of transaction
@@ -3096,101 +3209,6 @@ components:
         - fee
         - storage_fee
         - other_fee
-        - in_msg
-        - out_msgs
-    ExtMessage:
-      type: object
-      additionalProperties: false
-      properties:
-        '@type':
-          type: string
-          enum:
-            - ext.message
-          default: ext.message
-        hash:
-          $ref: '#/components/schemas/TonHash'
-        source:
-          $ref: '#/components/schemas/TonAddr'
-        destination:
-          $ref: '#/components/schemas/TonAddr'
-        value:
-          $ref: '#/components/schemas/Int256'
-        extra_currencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtraCurrencyBalance'
-        fwd_fee:
-          $ref: '#/components/schemas/Int256'
-        ihr_fee:
-          $ref: '#/components/schemas/Int256'
-        created_lt:
-          type: string
-          description: Logical time of the transaction
-          x-usrv-cpp-type: 'std::uint64_t'
-        body_hash:
-          $ref: '#/components/schemas/TonHash'
-        msg_data:
-          oneOf:
-            - $ref: '#/components/schemas/MsgDataRaw'
-            - $ref: '#/components/schemas/MsgDataText'
-            - $ref: '#/components/schemas/MsgDataDecryptedText'
-            - $ref: '#/components/schemas/MsgDataEncryptedText'
-        message:
-          type: string
-        message_decode_error:
-          type: string
-      required:
-        - '@type'
-        - hash
-        - source
-        - destination
-        - value
-        - extra_currencies
-        - fwd_fee
-        - ihr_fee
-        - created_lt
-        - body_hash
-        - msg_data
-    ExtTransaction:
-      type: object
-      additionalProperties: false
-      properties:
-        '@type':
-          type: string
-          enum:
-            - ext.transaction
-          default: ext.transaction
-        address:
-          $ref: '#/components/schemas/AccountAddress'
-        utime:
-          type: integer
-          description: UNIX timestamp of transaction
-        data:
-          $ref: '#/components/schemas/Bytes'
-        transaction_id:
-          $ref: '#/components/schemas/InternalTransactionId'
-        fee:
-          $ref: '#/components/schemas/Int256'
-        storage_fee:
-          $ref: '#/components/schemas/Int256'
-        other_fee:
-          $ref: '#/components/schemas/Int256'
-        in_msg:
-          $ref: '#/components/schemas/ExtMessage'
-        out_msgs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtMessage'
-      required:
-        - '@type'
-        - address
-        - utime
-        - data
-        - transaction_id
-        - fee
-        - storage_fee
-        - other_fee
-        - in_msg
         - out_msgs
 
 # method responses
@@ -3208,6 +3226,15 @@ components:
         - $ref: '#/components/schemas/MasterchainInfo'
         - $ref: '#/components/schemas/MasterchainBlockSignatures'
         - $ref: '#/components/schemas/ShardBlockProof'
+        - $ref: '#/components/schemas/ConsensusBlock'
+        - $ref: '#/components/schemas/TonBlockIdExt'
+        - $ref: '#/components/schemas/Shards'
+        - $ref: '#/components/schemas/BlockHeader'
+        - $ref: '#/components/schemas/OutMsgQueueSizes'
+        - $ref: '#/components/schemas/BlockTransactions'
+        - $ref: '#/components/schemas/BlockTransactionsExt'
+        - $ref: '#/components/schemas/Transaction'
+        - $ref: '#/components/schemas/TransactionsStd'
       discriminator:
         propertyName: '@type'
         mapping:
@@ -3223,6 +3250,15 @@ components:
           'blocks.masterchainInfo': '#/components/schemas/MasterchainInfo'
           'blocks.blockSignatures': '#/components/schemas/MasterchainBlockSignatures'
           'blocks.shardBlockProof': '#/components/schemas/ShardBlockProof'
+          'ext.blocks.consensusBlock': '#/components/schemas/ConsensusBlock'
+          'ton.blockIdExt': '#/components/schemas/TonBlockIdExt'
+          'blocks.shards': '#/components/schemas/Shards'
+          'blocks.header': '#/components/schemas/BlockHeader'
+          'blocks.outMsgQueueSizes': '#/components/schemas/OutMsgQueueSizes'
+          'blocks.transactions': '#/components/schemas/BlockTransactions'
+          'blocks.transactionsExt': '#/components/schemas/BlockTransactionsExt'
+          'ext.transaction': '#/components/schemas/Transaction'
+          'raw.transactions': '#/components/schemas/TransactionsStd'
     TonlibResponse:
       type: object
       title: TonlibResponse
@@ -3241,6 +3277,9 @@ components:
             - type: string
             - $ref: '#/components/schemas/AccountStateEnum'
             - $ref: '#/components/schemas/TonlibObject'
+            - type: array
+              items:
+                $ref: '#/components/schemas/TonlibObject'
         '@extra':
           type: string
           title: Extra information
@@ -3569,8 +3608,8 @@ components:
         '@type':
           type: string
           enum:
-            - ext.consensusBlock
-          default: ext.consensusBlock
+            - ext.blocks.consensusBlock
+          default: ext.blocks.consensusBlock
         consensus_block:
           type: integer
           format: int32
@@ -3651,11 +3690,11 @@ components:
         start_lt:
           type: string
           description: Starting logical time.
-          x-usrv-cpp-type: 'std::uint64_t'
+          x-usrv-cpp-type: 'std::int64_t'
         end_lt:
           type: string
           description: Ending logical time.
-          x-usrv-cpp-type: 'std::uint64_t'
+          x-usrv-cpp-type: 'std::int64_t'
         gen_utime:
           type: integer
           description: Block generation UNIX timestamp.
@@ -3764,3 +3803,56 @@ components:
         - req_count
         - incomplete
         - transactions
+    BlockTransactionsExt:
+      type: object
+      additionalProperties: false
+      description: Block transactions information
+      properties:
+        '@type':
+          type: string
+          enum:
+            - blocks.transactionsExt
+          default: blocks.transactionsExt
+        id:
+          description: Identifier of the block containing the transactions
+          $ref: '#/components/schemas/TonBlockIdExt'
+        req_count:
+          type: integer
+          description: Number of requested transactions
+        incomplete:
+          type: boolean
+          description: Indicates if the transaction list is incomplete
+        transactions:
+          type: array
+          description: List of short transaction identifiers
+          items:
+            $ref: '#/components/schemas/TransactionExt'
+      required:
+        - '@type'
+        - id
+        - req_count
+        - incomplete
+        - transactions
+    Transactions:
+      type: array
+      items:
+        $ref: '#/components/schemas/Transaction'
+    TransactionsStd:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - transactions
+        - previous_transaction_id
+      properties:
+        '@type':
+          type: string
+          enum:
+            - raw.transactions
+          default: raw.transactions
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionStd'
+        previous_transaction_id:
+          $ref: '#/components/schemas/InternalTransactionId'

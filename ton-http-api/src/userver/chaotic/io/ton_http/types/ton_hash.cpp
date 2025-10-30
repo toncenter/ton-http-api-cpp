@@ -2,7 +2,6 @@
 
 #include "td/utils/base64.h"
 #include "td/utils/misc.h"
-#include "utils/exceptions.hpp"
 
 
 ton_http::types::ton_hash
@@ -27,7 +26,7 @@ userver::chaotic::convert::Convert(const std::string& str, chaotic::convert::To<
       return ton_http::types::ton_hash{res.move_as_ok()};
     }
   }
-  throw ton_http::utils::TonlibException("invalid hash: '" + str + "'", 422);
+  throw std::invalid_argument("invalid hash: '" + str + "'");
 }
 std::string
 userver::chaotic::convert::Convert(const ton_http::types::ton_hash& hash, chaotic::convert::To<std::string>) {

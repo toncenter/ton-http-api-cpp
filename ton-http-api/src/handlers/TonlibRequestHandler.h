@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <variant>
 
+// check std::variant
 template <class>
 struct is_variant : std::false_type {};
 template <class... Ts>
@@ -20,6 +21,16 @@ template <class T>
 inline constexpr bool is_variant_v = is_variant<std::remove_cvref_t<T>>::value;
 template <class T>
 concept VariantLike = is_variant_v<T>;
+
+// check std::vector
+template <class>
+struct is_vector : std::false_type {};
+template <class T>
+struct is_vector<std::vector<T>> : std::true_type {};
+template <class T>
+inline constexpr bool is_vector_v = is_vector<std::remove_cvref_t<T>>::value;
+template <class T>
+concept VectorLike = is_vector_v<T>;
 
 namespace ton_http::handlers {
 
@@ -70,6 +81,13 @@ public:
       if constexpr (VariantLike<Response>) {
         auto result_ok = result.move_as_ok();
         std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, result_ok);
+      } else if constexpr (VectorLike<Response>) {
+        std::vector<schemas::v2::TonlibObject> result_vector;
+        auto result_ok = result.move_as_ok();
+        for (auto& item : result_ok) {
+          result_vector.emplace_back(item);
+        }
+        response.result = result_vector;
       } else {
         response.result = result.move_as_ok();
       }

@@ -1799,7 +1799,7 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
     USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId::_Type>{value._type};
 
   vb["lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{value.lt};
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.lt};
 
   vb["hash"] =
     USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
@@ -2195,14 +2195,13 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
   vb["prev_key_block_seqno"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.prev_key_block_seqno};
 
   vb["start_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
       value.start_lt
     };
 
-  vb["end_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{
-      value.end_lt
-    };
+  vb["end_lt"] = USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
+    value.end_lt
+  };
 
   vb["gen_utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.gen_utime};
 
@@ -2563,7 +2562,7 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
     };
 
   vb["lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{value.lt};
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{value.lt};
 
   vb["hash"] =
     USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
@@ -2682,6 +2681,870 @@ std::string ToString(::ton_http::schemas::v2::BlockTransactions::_Type value) {
 }
 
 
+bool operator==(const ::ton_http::schemas::v2::MsgDataRaw& lhs, const ::ton_http::schemas::v2::MsgDataRaw& rhs) {
+  return lhs._type == rhs._type && lhs.body == rhs.body && lhs.init_state == rhs.init_state && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+MsgDataRaw::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+MsgDataRaw Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::MsgDataRaw::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataRaw::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::MsgDataRaw::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataRaw& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw::_Type>{value._type};
+
+  if (value.body) {
+    vb["body"] =
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
+        *value.body
+      };
+  }
+
+  if (value.init_state) {
+    vb["init_state"] =
+      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
+        *value.init_state
+      };
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataRaw::_Type value) {
+  const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(const ::ton_http::schemas::v2::MsgDataText& lhs, const ::ton_http::schemas::v2::MsgDataText& rhs) {
+  return lhs._type == rhs._type && lhs.text == rhs.text && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+MsgDataText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+MsgDataText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::MsgDataText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataText::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::MsgDataText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText::_Type>{value._type};
+
+  if (value.text) {
+    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataText::_Type value) {
+  const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText& lhs, const ::ton_http::schemas::v2::MsgDataDecryptedText& rhs
+) {
+  return lhs._type == rhs._type && lhs.text == rhs.text && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+MsgDataDecryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+MsgDataDecryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::MsgDataDecryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataDecryptedText::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::MsgDataDecryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] =
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>{value._type};
+
+  if (value.text) {
+    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataDecryptedText::_Type value) {
+  const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText& lhs, const ::ton_http::schemas::v2::MsgDataEncryptedText& rhs
+) {
+  return lhs._type == rhs._type && lhs.text == rhs.text && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+MsgDataEncryptedText::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+MsgDataEncryptedText Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::MsgDataEncryptedText::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataEncryptedText::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::MsgDataEncryptedText::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] =
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>{value._type};
+
+  if (value.text) {
+    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::MsgDataEncryptedText::_Type value) {
+  const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(const ::ton_http::schemas::v2::MessageStd& lhs, const ::ton_http::schemas::v2::MessageStd& rhs) {
+  return lhs._type == rhs._type && lhs.hash == rhs.hash && lhs.source == rhs.source &&
+    lhs.destination == rhs.destination && lhs.value == rhs.value && lhs.extra_currencies == rhs.extra_currencies &&
+    lhs.fwd_fee == rhs.fwd_fee && lhs.ihr_fee == rhs.ihr_fee && lhs.created_lt == rhs.created_lt &&
+    lhs.body_hash == rhs.body_hash && lhs.msg_data == rhs.msg_data && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MessageStd::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MessageStd& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+MessageStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+MessageStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::MessageStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__MessageStd___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MessageStd::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::MessageStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MessageStd::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::MessageStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::MessageStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MessageStd::_Type>{value._type};
+
+  vb["hash"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
+      value.hash
+    };
+
+  vb["source"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.source};
+
+  vb["destination"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.destination};
+
+  vb["value"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.value
+    };
+
+  vb["extra_currencies"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtraCurrencyBalance>,
+    std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance>>{value.extra_currencies};
+
+  vb["fwd_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.fwd_fee
+    };
+
+  vb["ihr_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.ihr_fee
+    };
+
+  vb["created_lt"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
+      value.created_lt
+    };
+
+  vb["body_hash"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
+      value.body_hash
+    };
+
+  vb["msg_data"] = USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+    &::ton_http::schemas::v2::kMsgData_Settings,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText>>{value.msg_data};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::MessageStd::_Type value) {
+  const auto result = k__ton_http__schemas__v2__MessageStd___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionStd& lhs, const ::ton_http::schemas::v2::TransactionStd& rhs
+) {
+  return lhs._type == rhs._type && lhs.address == rhs.address && lhs.utime == rhs.utime && lhs.data == rhs.data &&
+    lhs.transaction_id == rhs.transaction_id && lhs.fee == rhs.fee && lhs.storage_fee == rhs.storage_fee &&
+    lhs.other_fee == rhs.other_fee && lhs.in_msg == rhs.in_msg && lhs.out_msgs == rhs.out_msgs && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionStd::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionStd& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+TransactionStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+TransactionStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::TransactionStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__TransactionStd___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::TransactionStd::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::TransactionStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionStd::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TransactionStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionStd::_Type>{value._type};
+
+  vb["address"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.address};
+
+  vb["utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.utime};
+
+  vb["data"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
+      value.data
+    };
+
+  vb["transaction_id"] =
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.transaction_id};
+
+  vb["fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.fee
+    };
+
+  vb["storage_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.storage_fee
+    };
+
+  vb["other_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.other_fee
+    };
+
+  if (value.in_msg) {
+    vb["in_msg"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MessageStd>{*value.in_msg};
+  }
+
+  vb["out_msgs"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MessageStd>,
+    std::vector<::ton_http::schemas::v2::MessageStd>>{value.out_msgs};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionStd::_Type value) {
+  const auto result = k__ton_http__schemas__v2__TransactionStd___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionExt__P1& lhs, const ::ton_http::schemas::v2::TransactionExt__P1& rhs
+) {
+  return lhs._type == rhs._type && lhs.account == rhs.account && true;
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionExt& lhs, const ::ton_http::schemas::v2::TransactionExt& rhs
+) {
+  return static_cast<const ::ton_http::schemas::v2::TransactionStd&>(lhs) ==
+    static_cast<const ::ton_http::schemas::v2::TransactionStd&>(rhs) &&
+    static_cast<const ::ton_http::schemas::v2::TransactionExt__P1&>(lhs) ==
+    static_cast<const ::ton_http::schemas::v2::TransactionExt__P1&>(rhs);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt__P1::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt__P1& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionExt& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+TransactionExt__P1::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+TransactionExt__P1 Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+TransactionExt Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::TransactionExt__P1::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__TransactionExt__P1___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::TransactionExt__P1::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::TransactionExt__P1::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionExt__P1::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionExt__P1::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TransactionExt__P1& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionExt__P1::_Type>{value._type};
+
+  if (value.account) {
+    vb["account"] = USERVER_NAMESPACE::chaotic::
+      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{*value.account};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+  USERVER_NAMESPACE::formats::common::Merge(
+    vb,
+    USERVER_NAMESPACE::formats::json::ValueBuilder{static_cast<::ton_http::schemas::v2::TransactionStd>(value)}
+      .ExtractValue()
+  );
+  USERVER_NAMESPACE::formats::common::Merge(
+    vb,
+    USERVER_NAMESPACE::formats::json::ValueBuilder{static_cast<::ton_http::schemas::v2::TransactionExt__P1>(value)}
+      .ExtractValue()
+  );
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionExt__P1::_Type value) {
+  const auto result = k__ton_http__schemas__v2__TransactionExt__P1___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::BlockTransactionsExt& lhs, const ::ton_http::schemas::v2::BlockTransactionsExt& rhs
+) {
+  return lhs._type == rhs._type && lhs.id == rhs.id && lhs.req_count == rhs.req_count &&
+    lhs.incomplete == rhs.incomplete && lhs.transactions == rhs.transactions && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockTransactionsExt::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::BlockTransactionsExt& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+BlockTransactionsExt::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+BlockTransactionsExt Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::BlockTransactionsExt::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__BlockTransactionsExt___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::BlockTransactionsExt::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::BlockTransactionsExt::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::BlockTransactionsExt::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::BlockTransactionsExt::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::BlockTransactionsExt& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] =
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockTransactionsExt::_Type>{value._type};
+
+  vb["id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.id};
+
+  vb["req_count"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.req_count};
+
+  vb["incomplete"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{value.incomplete};
+
+  vb["transactions"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionExt>,
+    std::vector<::ton_http::schemas::v2::TransactionExt>>{value.transactions};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::BlockTransactionsExt::_Type value) {
+  const auto result = k__ton_http__schemas__v2__BlockTransactionsExt___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
 bool operator==(
   const ::ton_http::schemas::v2::BlockTransactionsRequest& lhs,
   const ::ton_http::schemas::v2::BlockTransactionsRequest& rhs
@@ -2744,7 +3607,9 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
   if (value.after_hash) {
     vb["after_hash"] = USERVER_NAMESPACE::chaotic::
-      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{*value.after_hash};
+      WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr_without_workchain>{
+        *value.after_hash
+      };
   }
 
   vb["count"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.count};
@@ -4085,647 +4950,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 
 
   return vb.ExtractValue();
-}
-
-
-bool operator==(const ::ton_http::schemas::v2::MsgDataRaw& lhs, const ::ton_http::schemas::v2::MsgDataRaw& rhs) {
-  return lhs._type == rhs._type && lhs.body == rhs.body && lhs.init_state == rhs.init_state && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataRaw& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-MsgDataRaw::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-MsgDataRaw Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::MsgDataRaw::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataRaw::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::MsgDataRaw::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataRaw::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataRaw& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw::_Type>{value._type};
-
-  if (value.body) {
-    vb["body"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
-        *value.body
-      };
-  }
-
-  if (value.init_state) {
-    vb["init_state"] =
-      USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
-        *value.init_state
-      };
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataRaw::_Type value) {
-  const auto result = k__ton_http__schemas__v2__MsgDataRaw___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(const ::ton_http::schemas::v2::MsgDataText& lhs, const ::ton_http::schemas::v2::MsgDataText& rhs) {
-  return lhs._type == rhs._type && lhs.text == rhs.text && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataText& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-MsgDataText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-MsgDataText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::MsgDataText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataText::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::MsgDataText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataText::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText::_Type>{value._type};
-
-  if (value.text) {
-    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataText::_Type value) {
-  const auto result = k__ton_http__schemas__v2__MsgDataText___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText& lhs, const ::ton_http::schemas::v2::MsgDataDecryptedText& rhs
-) {
-  return lhs._type == rhs._type && lhs.text == rhs.text && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataDecryptedText& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-MsgDataDecryptedText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-MsgDataDecryptedText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::MsgDataDecryptedText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataDecryptedText::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::MsgDataDecryptedText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataDecryptedText::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataDecryptedText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>{value._type};
-
-  if (value.text) {
-    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataDecryptedText::_Type value) {
-  const auto result = k__ton_http__schemas__v2__MsgDataDecryptedText___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText& lhs, const ::ton_http::schemas::v2::MsgDataEncryptedText& rhs
-) {
-  return lhs._type == rhs._type && lhs.text == rhs.text && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::MsgDataEncryptedText& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-MsgDataEncryptedText::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-MsgDataEncryptedText Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::MsgDataEncryptedText::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::MsgDataEncryptedText::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::MsgDataEncryptedText::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::MsgDataEncryptedText::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::MsgDataEncryptedText& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>{value._type};
-
-  if (value.text) {
-    vb["text"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.text};
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::MsgDataEncryptedText::_Type value) {
-  const auto result = k__ton_http__schemas__v2__MsgDataEncryptedText___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(const ::ton_http::schemas::v2::ExtMessage& lhs, const ::ton_http::schemas::v2::ExtMessage& rhs) {
-  return lhs._type == rhs._type && lhs.hash == rhs.hash && lhs.source == rhs.source &&
-    lhs.destination == rhs.destination && lhs.value == rhs.value && lhs.extra_currencies == rhs.extra_currencies &&
-    lhs.fwd_fee == rhs.fwd_fee && lhs.ihr_fee == rhs.ihr_fee && lhs.created_lt == rhs.created_lt &&
-    lhs.body_hash == rhs.body_hash && lhs.msg_data == rhs.msg_data && lhs.message == rhs.message &&
-    lhs.message_decode_error == rhs.message_decode_error && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtMessage::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtMessage& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-ExtMessage::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-ExtMessage Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::ExtMessage::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__ExtMessage___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ExtMessage::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::ExtMessage::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtMessage::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtMessage::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::ExtMessage& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtMessage::_Type>{value._type};
-
-  vb["hash"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
-      value.hash
-    };
-
-  vb["source"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
-      value.source
-    };
-
-  vb["destination"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
-      value.destination
-    };
-
-  vb["value"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.value
-    };
-
-  vb["extra_currencies"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtraCurrencyBalance>,
-    std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance>>{value.extra_currencies};
-
-  vb["fwd_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.fwd_fee
-    };
-
-  vb["ihr_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.ihr_fee
-    };
-
-  vb["created_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{
-      value.created_lt
-    };
-
-  vb["body_hash"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
-      value.body_hash
-    };
-
-  vb["msg_data"] = USERVER_NAMESPACE::chaotic::Variant<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText>>{value.msg_data};
-
-  if (value.message) {
-    vb["message"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.message};
-  }
-
-  if (value.message_decode_error) {
-    vb["message_decode_error"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.message_decode_error};
-  }
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::ExtMessage::_Type value) {
-  const auto result = k__ton_http__schemas__v2__ExtMessage___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::ExtTransaction& lhs, const ::ton_http::schemas::v2::ExtTransaction& rhs
-) {
-  return lhs._type == rhs._type && lhs.address == rhs.address && lhs.utime == rhs.utime && lhs.data == rhs.data &&
-    lhs.transaction_id == rhs.transaction_id && lhs.fee == rhs.fee && lhs.storage_fee == rhs.storage_fee &&
-    lhs.other_fee == rhs.other_fee && lhs.in_msg == rhs.in_msg && lhs.out_msgs == rhs.out_msgs && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtTransaction::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::ExtTransaction& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-ExtTransaction::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-ExtTransaction Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::ExtTransaction::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__ExtTransaction___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::ExtTransaction::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::ExtTransaction::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::ExtTransaction::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::ExtTransaction::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::ExtTransaction& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtTransaction::_Type>{value._type};
-
-  vb["address"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.address};
-
-  vb["utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.utime};
-
-  vb["data"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
-      value.data
-    };
-
-  vb["transaction_id"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.transaction_id};
-
-  vb["fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.fee
-    };
-
-  vb["storage_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.storage_fee
-    };
-
-  vb["other_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.other_fee
-    };
-
-  vb["in_msg"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtMessage>{value.in_msg};
-
-  vb["out_msgs"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtMessage>,
-    std::vector<::ton_http::schemas::v2::ExtMessage>>{value.out_msgs};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::ExtTransaction::_Type value) {
-  const auto result = k__ton_http__schemas__v2__ExtTransaction___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
 }
 
 
@@ -6448,6 +6672,652 @@ std::string ToString(::ton_http::schemas::v2::ShardBlockProof::_Type value) {
 }
 
 
+bool operator==(const ::ton_http::schemas::v2::Shards& lhs, const ::ton_http::schemas::v2::Shards& rhs) {
+  return lhs._type == rhs._type && lhs.shards == rhs.shards && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+Shards::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+Shards Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::Shards::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Shards::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::Shards::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Shards::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Shards& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Shards::_Type>{value._type};
+
+  vb["shards"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>,
+    std::vector<::ton_http::schemas::v2::TonBlockIdExt>>{value.shards};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::Shards::_Type value) {
+  const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::OutMsgQueueSize& lhs, const ::ton_http::schemas::v2::OutMsgQueueSize& rhs
+) {
+  return lhs._type == rhs._type && lhs.id == rhs.id && lhs.size == rhs.size && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+OutMsgQueueSize::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+OutMsgQueueSize Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::OutMsgQueueSize::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::OutMsgQueueSize::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::OutMsgQueueSize::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSize& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSize::_Type>{value._type};
+
+  vb["id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.id};
+
+  vb["size"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.size};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value) {
+  const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes& lhs, const ::ton_http::schemas::v2::OutMsgQueueSizes& rhs
+) {
+  return lhs._type == rhs._type && lhs.shards == rhs.shards &&
+    lhs.ext_msg_queue_size_limit == rhs.ext_msg_queue_size_limit && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+OutMsgQueueSizes::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+OutMsgQueueSizes Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::OutMsgQueueSizes::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::OutMsgQueueSizes::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::OutMsgQueueSizes::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>{value._type};
+
+  vb["shards"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSize>,
+    std::vector<::ton_http::schemas::v2::OutMsgQueueSize>>{value.shards};
+
+  vb["ext_msg_queue_size_limit"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.ext_msg_queue_size_limit};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value) {
+  const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(const ::ton_http::schemas::v2::Message& lhs, const ::ton_http::schemas::v2::Message& rhs) {
+  return lhs._type == rhs._type && lhs.hash == rhs.hash && lhs.source == rhs.source &&
+    lhs.destination == rhs.destination && lhs.value == rhs.value && lhs.extra_currencies == rhs.extra_currencies &&
+    lhs.fwd_fee == rhs.fwd_fee && lhs.ihr_fee == rhs.ihr_fee && lhs.created_lt == rhs.created_lt &&
+    lhs.body_hash == rhs.body_hash && lhs.msg_data == rhs.msg_data && lhs.message == rhs.message &&
+    lhs.message_decode_error == rhs.message_decode_error && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+Message::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+Message Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::Message::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Message::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::Message::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Message::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Message& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message::_Type>{value._type};
+
+  vb["hash"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
+      value.hash
+    };
+
+  vb["source"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
+      value.source
+    };
+
+  vb["destination"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
+      value.destination
+    };
+
+  vb["value"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.value
+    };
+
+  vb["extra_currencies"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtraCurrencyBalance>,
+    std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance>>{value.extra_currencies};
+
+  vb["fwd_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.fwd_fee
+    };
+
+  vb["ihr_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.ihr_fee
+    };
+
+  vb["created_lt"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::int64_t>{
+      value.created_lt
+    };
+
+  vb["body_hash"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
+      value.body_hash
+    };
+
+  vb["msg_data"] = USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+    &::ton_http::schemas::v2::kMsgData_Settings,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText>,
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText>>{value.msg_data};
+
+  if (value.message) {
+    vb["message"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.message};
+  }
+
+  if (value.message_decode_error) {
+    vb["message_decode_error"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{*value.message_decode_error};
+  }
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::Message::_Type value) {
+  const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(const ::ton_http::schemas::v2::Transaction& lhs, const ::ton_http::schemas::v2::Transaction& rhs) {
+  return lhs._type == rhs._type && lhs.address == rhs.address && lhs.account == rhs.account && lhs.utime == rhs.utime &&
+    lhs.data == rhs.data && lhs.transaction_id == rhs.transaction_id && lhs.fee == rhs.fee &&
+    lhs.storage_fee == rhs.storage_fee && lhs.other_fee == rhs.other_fee && lhs.in_msg == rhs.in_msg &&
+    lhs.out_msgs == rhs.out_msgs && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+Transaction::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+Transaction Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::Transaction::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Transaction::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::Transaction::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::Transaction::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::Transaction& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Transaction::_Type>{value._type};
+
+  vb["address"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.address};
+
+  vb["account"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
+      value.account
+    };
+
+  vb["utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.utime};
+
+  vb["data"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
+      value.data
+    };
+
+  vb["transaction_id"] =
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.transaction_id};
+
+  vb["fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.fee
+    };
+
+  vb["storage_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.storage_fee
+    };
+
+  vb["other_fee"] =
+    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
+      value.other_fee
+    };
+
+  if (value.in_msg) {
+    vb["in_msg"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message>{*value.in_msg};
+  }
+
+  vb["out_msgs"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message>,
+    std::vector<::ton_http::schemas::v2::Message>>{value.out_msgs};
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::Transaction::_Type value) {
+  const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
+bool operator==(
+  const ::ton_http::schemas::v2::TransactionsStd& lhs, const ::ton_http::schemas::v2::TransactionsStd& rhs
+) {
+  return lhs._type == rhs._type && lhs.transactions == rhs.transactions &&
+    lhs.previous_transaction_id == rhs.previous_transaction_id && true;
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionsStd::_Type& value
+) {
+  return lh << ToString(value);
+}
+
+
+USERVER_NAMESPACE::logging::LogHelper& operator<<(
+  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::TransactionsStd& value
+) {
+  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
+}
+
+
+TransactionsStd::_Type Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+TransactionsStd Parse(
+  USERVER_NAMESPACE::formats::json::Value json,
+  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd> to
+) {
+  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
+}
+
+
+::ton_http::schemas::v2::TransactionsStd::_Type FromString(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type>
+) {
+  const auto result = k__ton_http__schemas__v2__TransactionsStd___Type_Mapping.TryFindBySecond(value);
+  if (result.has_value()) {
+    return *result;
+  }
+  throw std::runtime_error(
+    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::TransactionsStd::_Type", value)
+  );
+}
+
+::ton_http::schemas::v2::TransactionsStd::_Type Parse(
+  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::TransactionsStd::_Type> to
+) {
+  return FromString(value, to);
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  const ::ton_http::schemas::v2::TransactionsStd::_Type& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
+}
+
+
+USERVER_NAMESPACE::formats::json::Value Serialize(
+  [[maybe_unused]] const ::ton_http::schemas::v2::TransactionsStd& value,
+  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
+) {
+  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
+
+
+  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionsStd::_Type>{value._type};
+
+  vb["transactions"] = USERVER_NAMESPACE::chaotic::Array<
+    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionStd>,
+    std::vector<::ton_http::schemas::v2::TransactionStd>>{value.transactions};
+
+  vb["previous_transaction_id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{
+    value.previous_transaction_id
+  };
+
+
+  return vb.ExtractValue();
+}
+
+
+std::string ToString(::ton_http::schemas::v2::TransactionsStd::_Type value) {
+  const auto result = k__ton_http__schemas__v2__TransactionsStd___Type_Mapping.TryFindByFirst(value);
+  if (result.has_value()) {
+    return std::string{*result};
+  }
+  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
+}
+
+
 bool operator==(
   const ::ton_http::schemas::v2::TonlibResponse& lhs, const ::ton_http::schemas::v2::TonlibResponse& rhs
 ) {
@@ -6496,7 +7366,41 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData>,
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
       USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>,
-      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof>>>{value.result};
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ConsensusBlock>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Shards>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockHeader>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSizes>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockTransactions>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockTransactionsExt>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Transaction>,
+      USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionsStd>>,
+    USERVER_NAMESPACE::chaotic::Array<
+      USERVER_NAMESPACE::chaotic::OneOfWithDiscriminator<
+        &::ton_http::schemas::v2::kTonlibObject_Settings,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectAddress>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::DetectHash>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AddressInformation>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtendedAddressInformation>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::WalletInformation>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonMasterData>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::JettonWalletData>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftCollectionData>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::NftItemData>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainInfo>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MasterchainBlockSignatures>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ShardBlockProof>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ConsensusBlock>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Shards>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockHeader>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSizes>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockTransactions>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::BlockTransactionsExt>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Transaction>,
+        USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TransactionsStd>>,
+      std::vector<::ton_http::schemas::v2::TonlibObject>>>{value.result};
 
   vb["@extra"] = USERVER_NAMESPACE::chaotic::Primitive<std::string>{value._extra};
 
@@ -6910,323 +7814,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 }
 
 
-bool operator==(const ::ton_http::schemas::v2::Message& lhs, const ::ton_http::schemas::v2::Message& rhs) {
-  return lhs._type == rhs._type && lhs.hash == rhs.hash && lhs.source == rhs.source &&
-    lhs.destination == rhs.destination && lhs.value == rhs.value && lhs.extra_currencies == rhs.extra_currencies &&
-    lhs.fwd_fee == rhs.fwd_fee && lhs.ihr_fee == rhs.ihr_fee && lhs.created_lt == rhs.created_lt &&
-    lhs.body_hash == rhs.body_hash && lhs.msg_data == rhs.msg_data && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Message& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-Message::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-Message Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::Message::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Message::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::Message::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Message::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Message::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::Message& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message::_Type>{value._type};
-
-  vb["hash"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
-      value.hash
-    };
-
-  vb["source"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.source};
-
-  vb["destination"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.destination};
-
-  vb["value"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.value
-    };
-
-  vb["extra_currencies"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::ExtraCurrencyBalance>,
-    std::vector<::ton_http::schemas::v2::ExtraCurrencyBalance>>{value.extra_currencies};
-
-  vb["fwd_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.fwd_fee
-    };
-
-  vb["ihr_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.ihr_fee
-    };
-
-  vb["created_lt"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, std::uint64_t>{
-      value.created_lt
-    };
-
-  vb["body_hash"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_hash>{
-      value.body_hash
-    };
-
-  vb["msg_data"] = USERVER_NAMESPACE::chaotic::Variant<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataRaw>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataText>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataDecryptedText>,
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::MsgDataEncryptedText>>{value.msg_data};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::Message::_Type value) {
-  const auto result = k__ton_http__schemas__v2__Message___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::OutMsgQueueSize& lhs, const ::ton_http::schemas::v2::OutMsgQueueSize& rhs
-) {
-  return lhs._type == rhs._type && lhs.id == rhs.id && lhs.size == rhs.size && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSize& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-OutMsgQueueSize::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-OutMsgQueueSize Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::OutMsgQueueSize::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::OutMsgQueueSize::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::OutMsgQueueSize::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSize::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSize::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSize& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSize::_Type>{value._type};
-
-  vb["id"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>{value.id};
-
-  vb["size"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.size};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::OutMsgQueueSize::_Type value) {
-  const auto result = k__ton_http__schemas__v2__OutMsgQueueSize___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(
-  const ::ton_http::schemas::v2::OutMsgQueueSizes& lhs, const ::ton_http::schemas::v2::OutMsgQueueSizes& rhs
-) {
-  return lhs._type == rhs._type && lhs.shards == rhs.shards &&
-    lhs.ext_msg_queue_size_limit == rhs.ext_msg_queue_size_limit && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::OutMsgQueueSizes& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-OutMsgQueueSizes::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-OutMsgQueueSizes Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::OutMsgQueueSizes::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::OutMsgQueueSizes::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::OutMsgQueueSizes::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::OutMsgQueueSizes::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::OutMsgQueueSizes::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::OutMsgQueueSizes& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSizes::_Type>{value._type};
-
-  vb["shards"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::OutMsgQueueSize>,
-    std::vector<::ton_http::schemas::v2::OutMsgQueueSize>>{value.shards};
-
-  vb["ext_msg_queue_size_limit"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.ext_msg_queue_size_limit};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::OutMsgQueueSizes::_Type value) {
-  const auto result = k__ton_http__schemas__v2__OutMsgQueueSizes___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
 bool operator==(
   const ::ton_http::schemas::v2::RunGetMethodRequest& lhs, const ::ton_http::schemas::v2::RunGetMethodRequest& rhs
 ) {
@@ -7416,221 +8003,6 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
 }
 
 
-bool operator==(const ::ton_http::schemas::v2::Shards& lhs, const ::ton_http::schemas::v2::Shards& rhs) {
-  return lhs._type == rhs._type && lhs.shards == rhs.shards && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Shards& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-Shards::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-Shards Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::Shards::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Shards::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::Shards::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Shards::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Shards::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::Shards& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Shards::_Type>{value._type};
-
-  vb["shards"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::TonBlockIdExt>,
-    std::vector<::ton_http::schemas::v2::TonBlockIdExt>>{value.shards};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::Shards::_Type value) {
-  const auto result = k__ton_http__schemas__v2__Shards___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
-bool operator==(const ::ton_http::schemas::v2::Transaction& lhs, const ::ton_http::schemas::v2::Transaction& rhs) {
-  return lhs._type == rhs._type && lhs.address == rhs.address && lhs.account == rhs.account && lhs.utime == rhs.utime &&
-    lhs.data == rhs.data && lhs.transaction_id == rhs.transaction_id && lhs.fee == rhs.fee &&
-    lhs.storage_fee == rhs.storage_fee && lhs.other_fee == rhs.other_fee && lhs.in_msg == rhs.in_msg &&
-    lhs.out_msgs == rhs.out_msgs && true;
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction::_Type& value
-) {
-  return lh << ToString(value);
-}
-
-
-USERVER_NAMESPACE::logging::LogHelper& operator<<(
-  USERVER_NAMESPACE::logging::LogHelper& lh, const ::ton_http::schemas::v2::Transaction& value
-) {
-  return lh << ToString(USERVER_NAMESPACE::formats::json::ValueBuilder(value).ExtractValue());
-}
-
-
-Transaction::_Type Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-Transaction Parse(
-  USERVER_NAMESPACE::formats::json::Value json,
-  USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction> to
-) {
-  return Parse<USERVER_NAMESPACE::formats::json::Value>(json, to);
-}
-
-
-::ton_http::schemas::v2::Transaction::_Type FromString(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type>
-) {
-  const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindBySecond(value);
-  if (result.has_value()) {
-    return *result;
-  }
-  throw std::runtime_error(
-    fmt::format("Invalid enum value ({}) for type ::ton_http::schemas::v2::Transaction::_Type", value)
-  );
-}
-
-::ton_http::schemas::v2::Transaction::_Type Parse(
-  std::string_view value, USERVER_NAMESPACE::formats::parse::To<::ton_http::schemas::v2::Transaction::_Type> to
-) {
-  return FromString(value, to);
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  const ::ton_http::schemas::v2::Transaction::_Type& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  return USERVER_NAMESPACE::formats::json::ValueBuilder(ToString(value)).ExtractValue();
-}
-
-
-USERVER_NAMESPACE::formats::json::Value Serialize(
-  [[maybe_unused]] const ::ton_http::schemas::v2::Transaction& value,
-  USERVER_NAMESPACE::formats::serialize::To<USERVER_NAMESPACE::formats::json::Value>
-) {
-  USERVER_NAMESPACE::formats::json::ValueBuilder vb = USERVER_NAMESPACE::formats::common::Type::kObject;
-
-
-  vb["@type"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Transaction::_Type>{value._type};
-
-  vb["address"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::AccountAddress>{value.address};
-
-  vb["account"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::ton_addr>{
-      value.account
-    };
-
-  vb["utime"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.utime};
-
-  vb["data"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::bytes>{
-      value.data
-    };
-
-  vb["transaction_id"] =
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::InternalTransactionId>{value.transaction_id};
-
-  vb["fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.fee
-    };
-
-  vb["storage_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.storage_fee
-    };
-
-  vb["other_fee"] =
-    USERVER_NAMESPACE::chaotic::WithType<USERVER_NAMESPACE::chaotic::Primitive<std::string>, ton_http::types::int256>{
-      value.other_fee
-    };
-
-  vb["in_msg"] = USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message>{value.in_msg};
-
-  vb["out_msgs"] = USERVER_NAMESPACE::chaotic::Array<
-    USERVER_NAMESPACE::chaotic::Primitive<::ton_http::schemas::v2::Message>,
-    std::vector<::ton_http::schemas::v2::Message>>{value.out_msgs};
-
-
-  return vb.ExtractValue();
-}
-
-
-std::string ToString(::ton_http::schemas::v2::Transaction::_Type value) {
-  const auto result = k__ton_http__schemas__v2__Transaction___Type_Mapping.TryFindByFirst(value);
-  if (result.has_value()) {
-    return std::string{*result};
-  }
-  throw std::runtime_error(fmt::format("Invalid enum value: {}", static_cast<int>(value)));
-}
-
-
 bool operator==(
   const ::ton_http::schemas::v2::TransactionsRequest& lhs, const ::ton_http::schemas::v2::TransactionsRequest& rhs
 ) {
@@ -7687,7 +8059,9 @@ USERVER_NAMESPACE::formats::json::Value Serialize(
       std::int64_t>{*value.to_lt};
   }
 
-  vb["archival"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{value.archival};
+  if (value.archival) {
+    vb["archival"] = USERVER_NAMESPACE::chaotic::Primitive<bool>{*value.archival};
+  }
 
   vb["limit"] = USERVER_NAMESPACE::chaotic::Primitive<int>{value.limit};
 
@@ -7933,6 +8307,62 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::BlockTrans
 }
 
 
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataRaw::_Type>::format(
+  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataText::_Type>::format(
+  const ::ton_http::schemas::v2::MsgDataText::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>::format(
+  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>::format(
+  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MessageStd::_Type>::format(
+  const ::ton_http::schemas::v2::MessageStd::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::TransactionStd::_Type>::format(
+  const ::ton_http::schemas::v2::TransactionStd::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::TransactionExt__P1::_Type>::format(
+  const ::ton_http::schemas::v2::TransactionExt__P1::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::BlockTransactionsExt::_Type>::format(
+  const ::ton_http::schemas::v2::BlockTransactionsExt::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::TvmCell::_Type>::format(
   const ::ton_http::schemas::v2::TvmCell::_Type& value, fmt::format_context& ctx
 ) const {
@@ -8012,48 +8442,6 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::DnsRecordA
 
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::DnsRecordNextResolver::_Type>::format(
   const ::ton_http::schemas::v2::DnsRecordNextResolver::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataRaw::_Type>::format(
-  const ::ton_http::schemas::v2::MsgDataRaw::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataText::_Type>::format(
-  const ::ton_http::schemas::v2::MsgDataText::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataDecryptedText::_Type>::format(
-  const ::ton_http::schemas::v2::MsgDataDecryptedText::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::MsgDataEncryptedText::_Type>::format(
-  const ::ton_http::schemas::v2::MsgDataEncryptedText::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ExtMessage::_Type>::format(
-  const ::ton_http::schemas::v2::ExtMessage::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ExtTransaction::_Type>::format(
-  const ::ton_http::schemas::v2::ExtTransaction::_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }
@@ -8171,22 +8559,8 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::ShardBlock
 }
 
 
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type>::format(
-  const ::ton_http::schemas::v2::LibraryEntry::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type>::format(
-  const ::ton_http::schemas::v2::LibraryResult::_Type& value, fmt::format_context& ctx
-) const {
-  return fmt::format_to(ctx.out(), "{}", ToString(value));
-}
-
-
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Message::_Type>::format(
-  const ::ton_http::schemas::v2::Message::_Type& value, fmt::format_context& ctx
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Shards::_Type>::format(
+  const ::ton_http::schemas::v2::Shards::_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }
@@ -8206,8 +8580,8 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::OutMsgQueu
 }
 
 
-fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Shards::_Type>::format(
-  const ::ton_http::schemas::v2::Shards::_Type& value, fmt::format_context& ctx
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Message::_Type>::format(
+  const ::ton_http::schemas::v2::Message::_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }
@@ -8215,6 +8589,27 @@ fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Shards::_T
 
 fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::Transaction::_Type>::format(
   const ::ton_http::schemas::v2::Transaction::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::TransactionsStd::_Type>::format(
+  const ::ton_http::schemas::v2::TransactionsStd::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::LibraryEntry::_Type>::format(
+  const ::ton_http::schemas::v2::LibraryEntry::_Type& value, fmt::format_context& ctx
+) const {
+  return fmt::format_to(ctx.out(), "{}", ToString(value));
+}
+
+
+fmt::format_context::iterator fmt::formatter<::ton_http::schemas::v2::LibraryResult::_Type>::format(
+  const ::ton_http::schemas::v2::LibraryResult::_Type& value, fmt::format_context& ctx
 ) const {
   return fmt::format_to(ctx.out(), "{}", ToString(value));
 }

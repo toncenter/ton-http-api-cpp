@@ -1,7 +1,5 @@
 #pragma once
 
-#include <utility>
-
 #include "auto/tl/tonlib_api.h"
 #include "block.h"
 

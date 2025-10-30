@@ -64,4 +64,59 @@ inline schemas::v2::ShardBlockProof Convert(const tonlib_api::blocks_getShardBlo
   }
   return result;
 }
+
+inline schemas::v2::ConsensusBlock Convert(const core::ConsensusBlockResult& value) {
+  schemas::v2::ConsensusBlock result;
+  result.consensus_block = value.seqno;
+  result.timestamp = value.timestamp;
+  return result;
+}
+
+inline schemas::v2::Shards Convert(const tonlib_api::blocks_getShards::ReturnType& value) {
+  schemas::v2::Shards result;
+  for (const auto& item : value->shards_) {
+    result.shards.emplace_back(Convert(item));
+  }
+  return result;
+}
+
+inline schemas::v2::BlockHeader Convert(const tonlib_api::blocks_getBlockHeader::ReturnType& value) {
+  schemas::v2::BlockHeader result;
+  result.id = Convert(value->id_);
+  result.global_id = value->global_id_;
+  result.version = value->version_;
+  result.after_merge = value->after_merge_;
+  result.after_split = value->after_split_;
+  result.before_split = value->before_split_;
+  result.want_merge = value->want_merge_;
+  result.want_split = value->want_split_;
+  result.validator_list_hash_short = value->validator_list_hash_short_;
+  result.catchain_seqno = value->catchain_seqno_;
+  result.min_ref_mc_seqno = value->min_ref_mc_seqno_;
+  result.is_key_block = value->is_key_block_;
+  result.prev_key_block_seqno = value->prev_key_block_seqno_;
+  result.start_lt = value->start_lt_;
+  result.end_lt = value->end_lt_;
+  result.gen_utime = value->gen_utime_;
+  for (const auto& item : value->prev_blocks_) {
+    result.prev_blocks.emplace_back(Convert(item));
+  }
+  return result;
+}
+
+inline schemas::v2::OutMsgQueueSize Convert(const tonlib_api::object_ptr<tonlib_api::blocks_outMsgQueueSize>& value) {
+  schemas::v2::OutMsgQueueSize result;
+  result.id = Convert(value->id_);
+  result.size = value->size_;
+  return result;
+}
+
+inline schemas::v2::OutMsgQueueSizes Convert(const tonlib_api::blocks_getOutMsgQueueSizes::ReturnType& value) {
+  schemas::v2::OutMsgQueueSizes result;
+  for (const auto& item : value->shards_) {
+    result.shards.emplace_back(Convert(item));
+  }
+  result.ext_msg_queue_size_limit = value->ext_msg_queue_size_limit_;
+  return result;
+}
 }  // namespace ton_http::converters

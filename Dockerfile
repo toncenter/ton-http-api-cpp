@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:24.04 as builder
 RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     && apt install -y wget curl build-essential cmake clang openssl  \
     libssl-dev zlib1g-dev gperf wget git ninja-build libsodium-dev libmicrohttpd-dev liblz4-dev  \
@@ -13,15 +13,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     ragel yasm zlib1g-dev liblzma-dev libre2-dev clang-format gcc g++ yq \
     && rm -rf /var/lib/apt/lists/*
 
-ENV CC=/usr/bin/gcc
-ENV CXX=/usr/bin/g++
+ENV CC=/usr/bin/clang
+ENV CXX=/usr/bin/clang++
 ENV CCACHE_DISABLE=1
+ENV USERVER_FEATURE_CRYPTOPP_BLAKE2=0
+ENV BUILD_TON_PLAYGROUND=1
 
 COPY examples/ /app/examples/
 COPY py/ /app/py/
 COPY external/ /app/external/
 COPY tonlib-multiclient/ /app/tonlib-multiclient/
 COPY ton-http-api/ /app/ton-http-api/
+COPY playground/ /app/playground/
 COPY CMakeLists.txt /app/CMakeLists.txt
 
 WORKDIR /app/build
@@ -32,11 +35,14 @@ RUN apt update && apt install -y gdb && mkdir -p /root/.config/gdb
 RUN echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
 ENTRYPOINT [ "ton-http-api-cpp" ]
 
-# FROM ubuntu:24.04
-# RUN DEBIAN_FRONTEND=noninteractive apt update -y \
-#     && apt install -y wget curl dnsutils libsecp256k1-dev libsodium-dev libfmt-dev \
-#     && rm -rf /var/lib/apt/lists/*
-# COPY --from=builder /app/build/ton-http-api/ton-http-api-cpp /usr/bin/
-# COPY --from=builder /app/build/tonlib-multiclient/libtonlib_multiclient_lib.so /usr/lib
-# COPY config/static_config_compose.yaml /app/static_config.yaml
-# ENTRYPOINT [ "ton-http-api-cpp" ]
+# libcurl4 libfmt9 libsodium23 libcctz2 libatomic1
+
+FROM ubuntu:24.04
+RUN DEBIAN_FRONTEND=noninteractive apt update -y \
+    && apt install -y wget curl dnsutils libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /app/build/ton-http-api/ton-http-api-cpp /usr/bin/
+COPY --from=builder /app/build/tonlib-multiclient/libtonlib_multiclient_lib.so /usr/lib
+COPY ton-http-api/static/ /app/static/
+COPY config/static_config.yaml /app/static_config.yaml
+ENTRYPOINT [ "ton-http-api-cpp" ]

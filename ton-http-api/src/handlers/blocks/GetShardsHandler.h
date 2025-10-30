@@ -1,12 +1,22 @@
-//
-// Created by Ruslan Gabdullin on 25.10.2025.
-//
-
-#ifndef TONLIB_MULTICLIENT_GETSHARDSHANDLER_H
-#define TONLIB_MULTICLIENT_GETSHARDSHANDLER_H
+#pragma once
+#include "handlers/TonlibRequestHandler.h"
+#include "schemas/v2.hpp"
 
 
-class GetShardsHandler {};
+namespace ton_http::handlers {
 
+class GetShardsHandler : public TonlibRequestHandler<schemas::v2::ShardsRequest, schemas::v2::Shards> {
+public:
+  static constexpr std::string_view kName = "handler-GetShards";
 
-#endif  // TONLIB_MULTICLIENT_GETSHARDSHANDLER_H
+  GetShardsHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
+
+  td::Status ValidateRequest(const schemas::v2::ShardsRequest& request) const override;
+  schemas::v2::ShardsRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+
+  td::Result<schemas::v2::Shards> HandleRequestTonlibThrow(
+      schemas::v2::ShardsRequest& request, multiclient::SessionPtr& session
+  ) const override;
+};
+
+} // namespace ton_http::handlers

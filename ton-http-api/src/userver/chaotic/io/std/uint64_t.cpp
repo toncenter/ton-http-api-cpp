@@ -1,7 +1,7 @@
 #include "uint64_t.hpp"
-
+#include <boost/lexical_cast.hpp>
 std::uint64_t userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<std::uint64_t>) {
-  return std::uint64_t{std::stoull(value)};
+  return boost::lexical_cast<std::uint64_t>(value);
 }
 std::uint64_t userver::chaotic::convert::Convert(const std::string_view& value, chaotic::convert::To<std::uint64_t>) {
   return Convert(std::string{value}, chaotic::convert::To<std::uint64_t>{});

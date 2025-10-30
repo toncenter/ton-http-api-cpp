@@ -1,5 +1,4 @@
 #include "tonlib_worker.h"
-#include "userver/formats/json.hpp"
 #include "utils/common.hpp"
 
 namespace ton_http::core {
@@ -8,11 +7,9 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigParam(
 ) const {
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> with_block;
   if (seqno.has_value()) {
-    auto res = lookupBlock(ton::masterchainId, ton::shardIdAll, seqno.value());
-    if (!res.is_ok()) {
-      return res.move_as_error();
-    }
-    with_block = res.move_as_ok();
+    TRY_RESULT_ASSIGN(
+      with_block, lookupBlock(ton::masterchainId, ton::shardIdAll, seqno.value(), std::nullopt, std::nullopt, session)
+    );
   }
   if (!with_block) {
     auto request = multiclient::RequestFunction<tonlib_api::getConfigParam>{
@@ -21,40 +18,34 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigParam(
       .session = session
     };
     return send_request_function(std::move(request), true);
-  } else {
-    auto request = multiclient::RequestFunction<tonlib_api::withBlock>{
-      .parameters = {.mode = multiclient::RequestMode::Single},
-      .request_creator =
-        [param_ = param,
-         workchain_ = with_block->workchain_,
-         shard_ = with_block->shard_,
-         seqno_ = with_block->seqno_,
-         root_hash_ = with_block->root_hash_,
-         file_hash_ = with_block->file_hash_] {
-          return tonlib_api::make_object<tonlib_api::withBlock>(
-            tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain_, shard_, seqno_, root_hash_, file_hash_),
-            tonlib_api::make_object<tonlib_api::getConfigParam>(param_, 0)
-          );
-        },
-      .session = session
-    };
-    auto result = send_request_function(std::move(request), true);
-    if (result.is_error()) {
-      return result.move_as_error();
-    }
-    return ton::move_tl_object_as<tonlib_api::configInfo>(result.move_as_ok());
   }
+  auto request = multiclient::RequestFunction<tonlib_api::withBlock>{
+    .parameters = {.mode = multiclient::RequestMode::Single},
+    .request_creator =
+      [param_ = param,
+       workchain_ = with_block->workchain_,
+       shard_ = with_block->shard_,
+       seqno_ = with_block->seqno_,
+       root_hash_ = with_block->root_hash_,
+       file_hash_ = with_block->file_hash_] {
+        return tonlib_api::make_object<tonlib_api::withBlock>(
+          tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain_, shard_, seqno_, root_hash_, file_hash_),
+          tonlib_api::make_object<tonlib_api::getConfigParam>(param_, 0)
+        );
+      },
+    .session = session
+  };
+  TRY_RESULT(result, send_request_function(std::move(request), true));
+  return ton::move_tl_object_as<tonlib_api::configInfo>(result);
 }
 td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigAll(
   std::optional<std::int32_t> seqno, multiclient::SessionPtr session
 ) const {
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> with_block;
   if (seqno.has_value()) {
-    auto res = lookupBlock(ton::masterchainId, ton::shardIdAll, seqno.value(), std::nullopt, std::nullopt, session);
-    if (!res.is_ok()) {
-      return res.move_as_error();
-    }
-    with_block = res.move_as_ok();
+    TRY_RESULT_ASSIGN(
+      with_block, lookupBlock(ton::masterchainId, ton::shardIdAll, seqno.value(), std::nullopt, std::nullopt, session)
+    );
   }
   if (!with_block) {
     auto request = multiclient::RequestFunction<tonlib_api::getConfigAll>{
@@ -63,28 +54,27 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigAll(
       .session = session
     };
     return send_request_function(std::move(request), true);
-  } else {
-    auto request = multiclient::RequestFunction<tonlib_api::withBlock>{
-      .parameters = {.mode = multiclient::RequestMode::Single},
-      .request_creator =
-        [workchain_ = with_block->workchain_,
-         shard_ = with_block->shard_,
-         seqno_ = with_block->seqno_,
-         root_hash_ = with_block->root_hash_,
-         file_hash_ = with_block->file_hash_] {
-          return tonlib_api::make_object<tonlib_api::withBlock>(
-            tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain_, shard_, seqno_, root_hash_, file_hash_),
-            tonlib_api::make_object<tonlib_api::getConfigAll>(0)
-          );
-        },
-      .session = session
-    };
-    auto result = send_request_function(std::move(request), true);
-    if (result.is_error()) {
-      return result.move_as_error();
-    }
-    return ton::move_tl_object_as<tonlib_api::configInfo>(result.move_as_ok());
   }
+  auto request = multiclient::RequestFunction<tonlib_api::withBlock>{
+    .parameters = {.mode = multiclient::RequestMode::Single},
+    .request_creator =
+      [workchain_ = with_block->workchain_,
+       shard_ = with_block->shard_,
+       seqno_ = with_block->seqno_,
+       root_hash_ = with_block->root_hash_,
+       file_hash_ = with_block->file_hash_] {
+        return tonlib_api::make_object<tonlib_api::withBlock>(
+          tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain_, shard_, seqno_, root_hash_, file_hash_),
+          tonlib_api::make_object<tonlib_api::getConfigAll>(0)
+        );
+      },
+    .session = session
+  };
+  auto result = send_request_function(std::move(request), true);
+  if (result.is_error()) {
+    return result.move_as_error();
+  }
+  return ton::move_tl_object_as<tonlib_api::configInfo>(result.move_as_ok());
 }
 td::Result<std::unique_ptr<tonlib_api::smc_libraryResult>> TonlibWorker::getLibraries(
   std::vector<std::string> libs, multiclient::SessionPtr session

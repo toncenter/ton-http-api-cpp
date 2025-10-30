@@ -1,5 +1,4 @@
 #include "tonlib_worker.h"
-#include "userver/formats/json.hpp"
 #include "utils/common.hpp"
 
 namespace ton_http::core {

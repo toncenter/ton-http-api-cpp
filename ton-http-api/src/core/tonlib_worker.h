@@ -258,6 +258,10 @@ private:
   td::Result<typename T::ReturnType> send_request_function(
     multiclient::RequestFunction<T>&& request, bool retry_archival = false
   ) const {
+    if (!request.session->is_valid()) {
+      TRY_RESULT_ASSIGN(request.session, tonlib_.get_session(request.parameters, std::move(request.session)));
+    }
+
     auto result = tonlib_.send_request_function<T, userver::engine::Promise>(request);
     if (result.is_ok() || !retry_archival) {
       return std::move(result);

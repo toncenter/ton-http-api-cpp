@@ -21,9 +21,9 @@ namespace tokens {
 namespace gen {
 using namespace ::tlb;
 using td::Ref;
-using td::RefInt256;
-using vm::Cell;
 using vm::CellSlice;
+using vm::Cell;
+using td::RefInt256;
 
 //
 // headers for type `Maybe`
@@ -32,18 +32,16 @@ using vm::CellSlice;
 struct Maybe final : TLB_Complex {
   enum { nothing, just };
   static constexpr int cons_len_exact = 1;
-  const TLB& X_;
-  Maybe(const TLB& X) : X_(X) {
-  }
+  const TLB &X_;
+  Maybe(const TLB& X) : X_(X) {}
   struct Record_nothing {
     typedef Maybe type_class;
   };
   struct Record_just {
     typedef Maybe type_class;
-    Ref<CellSlice> value;  // value : X
+    Ref<CellSlice> value;  	// value : X
     Record_just() = default;
-    Record_just(Ref<CellSlice> _value) : value(std::move(_value)) {
-    }
+    Record_just(Ref<CellSlice> _value) : value(std::move(_value)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -81,21 +79,18 @@ struct Either final : TLB_Complex {
   enum { left, right };
   static constexpr int cons_len_exact = 1;
   const TLB &X_, &Y_;
-  Either(const TLB& X, const TLB& Y) : X_(X), Y_(Y) {
-  }
+  Either(const TLB& X, const TLB& Y) : X_(X), Y_(Y) {}
   struct Record_left {
     typedef Either type_class;
-    Ref<CellSlice> value;  // value : X
+    Ref<CellSlice> value;  	// value : X
     Record_left() = default;
-    Record_left(Ref<CellSlice> _value) : value(std::move(_value)) {
-    }
+    Record_left(Ref<CellSlice> _value) : value(std::move(_value)) {}
   };
   struct Record_right {
     typedef Either type_class;
-    Ref<CellSlice> value;  // value : Y
+    Ref<CellSlice> value;  	// value : Y
     Record_right() = default;
-    Record_right(Ref<CellSlice> _value) : value(std::move(_value)) {
-    }
+    Record_right(Ref<CellSlice> _value) : value(std::move(_value)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -133,8 +128,7 @@ struct VarUInteger final : TLB_Complex {
   enum { var_uint };
   static constexpr int cons_len_exact = 0;
   int m_;
-  VarUInteger(int m) : m_(m) {
-  }
+  VarUInteger(int m) : m_(m) {}
   struct Record;
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -158,12 +152,11 @@ struct VarUInteger final : TLB_Complex {
 
 struct VarUInteger::Record {
   typedef VarUInteger type_class;
-  int n;  // n : #
-  int len;  // len : #< n
-  RefInt256 value;  // value : uint (8 * len)
+  int n;  	// n : #
+  int len;  	// len : #< n
+  RefInt256 value;  	// value : uint (8 * len)
   Record() = default;
-  Record(int _len, RefInt256 _value) : n(-1), len(_len), value(std::move(_value)) {
-  }
+  Record(int _len, RefInt256 _value) : n(-1), len(_len), value(std::move(_value)) {}
 };
 
 //
@@ -178,12 +171,10 @@ struct MsgAddressExt final : TLB_Complex {
   };
   struct Record_addr_extern {
     typedef MsgAddressExt type_class;
-    int len;  // len : ## 9
-    Ref<td::BitString> external_address;  // external_address : bits len
+    int len;  	// len : ## 9
+    Ref<td::BitString> external_address;  	// external_address : bits len
     Record_addr_extern() = default;
-    Record_addr_extern(int _len, Ref<td::BitString> _external_address) :
-        len(_len), external_address(std::move(_external_address)) {
-    }
+    Record_addr_extern(int _len, Ref<td::BitString> _external_address) : len(_len), external_address(std::move(_external_address)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -224,11 +215,10 @@ struct Anycast final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record {
     typedef Anycast type_class;
-    int depth;  // depth : #<= 30
-    Ref<td::BitString> rewrite_pfx;  // rewrite_pfx : bits depth
+    int depth;  	// depth : #<= 30
+    Ref<td::BitString> rewrite_pfx;  	// rewrite_pfx : bits depth
     Record() = default;
-    Record(int _depth, Ref<td::BitString> _rewrite_pfx) : depth(_depth), rewrite_pfx(std::move(_rewrite_pfx)) {
-    }
+    Record(int _depth, Ref<td::BitString> _rewrite_pfx) : depth(_depth), rewrite_pfx(std::move(_rewrite_pfx)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -259,7 +249,7 @@ extern const Anycast t_Anycast;
 struct MsgAddressInt final : TLB_Complex {
   enum { addr_std, addr_var };
   static constexpr int cons_len_exact = 2;
-  static constexpr unsigned char cons_tag[2] = {2, 3};
+  static constexpr unsigned char cons_tag[2] = { 2, 3 };
   struct Record_addr_std;
   struct Record_addr_var;
   bool skip(vm::CellSlice& cs) const override;
@@ -267,15 +257,11 @@ struct MsgAddressInt final : TLB_Complex {
   bool unpack(vm::CellSlice& cs, Record_addr_std& data) const;
   bool unpack_addr_std(vm::CellSlice& cs, Ref<CellSlice>& anycast, int& workchain_id, td::BitArray<256>& address) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_addr_std& data) const;
-  bool cell_unpack_addr_std(
-    Ref<vm::Cell> cell_ref, Ref<CellSlice>& anycast, int& workchain_id, td::BitArray<256>& address
-  ) const;
+  bool cell_unpack_addr_std(Ref<vm::Cell> cell_ref, Ref<CellSlice>& anycast, int& workchain_id, td::BitArray<256>& address) const;
   bool pack(vm::CellBuilder& cb, const Record_addr_std& data) const;
   bool pack_addr_std(vm::CellBuilder& cb, Ref<CellSlice> anycast, int workchain_id, td::BitArray<256> address) const;
   bool cell_pack(Ref<vm::Cell>& cell_ref, const Record_addr_std& data) const;
-  bool cell_pack_addr_std(
-    Ref<vm::Cell>& cell_ref, Ref<CellSlice> anycast, int workchain_id, td::BitArray<256> address
-  ) const;
+  bool cell_pack_addr_std(Ref<vm::Cell>& cell_ref, Ref<CellSlice> anycast, int workchain_id, td::BitArray<256> address) const;
   bool unpack(vm::CellSlice& cs, Record_addr_var& data) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_addr_var& data) const;
   bool pack(vm::CellBuilder& cb, const Record_addr_var& data) const;
@@ -292,25 +278,21 @@ struct MsgAddressInt final : TLB_Complex {
 
 struct MsgAddressInt::Record_addr_std {
   typedef MsgAddressInt type_class;
-  Ref<CellSlice> anycast;  // anycast : Maybe Anycast
-  int workchain_id;  // workchain_id : int8
-  td::BitArray<256> address;  // address : bits256
+  Ref<CellSlice> anycast;  	// anycast : Maybe Anycast
+  int workchain_id;  	// workchain_id : int8
+  td::BitArray<256> address;  	// address : bits256
   Record_addr_std() = default;
-  Record_addr_std(Ref<CellSlice> _anycast, int _workchain_id, const td::BitArray<256>& _address) :
-      anycast(std::move(_anycast)), workchain_id(_workchain_id), address(_address) {
-  }
+  Record_addr_std(Ref<CellSlice> _anycast, int _workchain_id, const td::BitArray<256>& _address) : anycast(std::move(_anycast)), workchain_id(_workchain_id), address(_address) {}
 };
 
 struct MsgAddressInt::Record_addr_var {
   typedef MsgAddressInt type_class;
-  Ref<CellSlice> anycast;  // anycast : Maybe Anycast
-  int addr_len;  // addr_len : ## 9
-  int workchain_id;  // workchain_id : int32
-  Ref<td::BitString> address;  // address : bits addr_len
+  Ref<CellSlice> anycast;  	// anycast : Maybe Anycast
+  int addr_len;  	// addr_len : ## 9
+  int workchain_id;  	// workchain_id : int32
+  Ref<td::BitString> address;  	// address : bits addr_len
   Record_addr_var() = default;
-  Record_addr_var(Ref<CellSlice> _anycast, int _addr_len, int _workchain_id, Ref<td::BitString> _address) :
-      anycast(std::move(_anycast)), addr_len(_addr_len), workchain_id(_workchain_id), address(std::move(_address)) {
-  }
+  Record_addr_var(Ref<CellSlice> _anycast, int _addr_len, int _workchain_id, Ref<td::BitString> _address) : anycast(std::move(_anycast)), addr_len(_addr_len), workchain_id(_workchain_id), address(std::move(_address)) {}
 };
 
 extern const MsgAddressInt t_MsgAddressInt;
@@ -324,17 +306,15 @@ struct MsgAddress final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record_cons1 {
     typedef MsgAddress type_class;
-    Ref<CellSlice> x;  // MsgAddressInt
+    Ref<CellSlice> x;  	// MsgAddressInt
     Record_cons1() = default;
-    Record_cons1(Ref<CellSlice> _x) : x(std::move(_x)) {
-    }
+    Record_cons1(Ref<CellSlice> _x) : x(std::move(_x)) {}
   };
   struct Record_cons2 {
     typedef MsgAddress type_class;
-    Ref<CellSlice> x;  // MsgAddressExt
+    Ref<CellSlice> x;  	// MsgAddressExt
     Record_cons2() = default;
-    Record_cons2(Ref<CellSlice> _x) : x(std::move(_x)) {
-    }
+    Record_cons2(Ref<CellSlice> _x) : x(std::move(_x)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -373,17 +353,14 @@ extern const MsgAddress t_MsgAddress;
 struct InternalMsgBody final : TLB_Complex {
   enum { transfer_jetton, burn, transfer_nft, transfer_notification, burn_notification, internal_transfer, excesses };
   static constexpr int cons_len_exact = 32;
-  static constexpr unsigned cons_tag[7] = {
-    0xf8a7ea5, 0x595f07bc, 0x5fcc3d14, 0x7362d09c, 0x7bdd97de, 0x978d4519U, 0xd53276dbU
-  };
+  static constexpr unsigned cons_tag[7] = { 0xf8a7ea5, 0x595f07bc, 0x5fcc3d14, 0x7362d09c, 0x7bdd97de, 0x978d4519U, 0xd53276dbU };
   struct Record_transfer_jetton;
   struct Record_transfer_notification;
   struct Record_excesses {
     typedef InternalMsgBody type_class;
-    unsigned long long query_id;  // query_id : uint64
+    unsigned long long query_id;  	// query_id : uint64
     Record_excesses() = default;
-    Record_excesses(unsigned long long _query_id) : query_id(_query_id) {
-    }
+    Record_excesses(unsigned long long _query_id) : query_id(_query_id) {}
   };
   struct Record_burn;
   struct Record_transfer_nft;
@@ -435,137 +412,69 @@ struct InternalMsgBody final : TLB_Complex {
 
 struct InternalMsgBody::Record_transfer_jetton {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> amount;  // amount : VarUInteger 16
-  Ref<CellSlice> destination;  // destination : MsgAddress
-  Ref<CellSlice> response_destination;  // response_destination : MsgAddress
-  Ref<CellSlice> custom_payload;  // custom_payload : Maybe ^Cell
-  Ref<CellSlice> forward_ton_amount;  // forward_ton_amount : VarUInteger 16
-  Ref<CellSlice> forward_payload;  // forward_payload : Either Cell ^Cell
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> amount;  	// amount : VarUInteger 16
+  Ref<CellSlice> destination;  	// destination : MsgAddress
+  Ref<CellSlice> response_destination;  	// response_destination : MsgAddress
+  Ref<CellSlice> custom_payload;  	// custom_payload : Maybe ^Cell
+  Ref<CellSlice> forward_ton_amount;  	// forward_ton_amount : VarUInteger 16
+  Ref<CellSlice> forward_payload;  	// forward_payload : Either Cell ^Cell
   Record_transfer_jetton() = default;
-  Record_transfer_jetton(
-    unsigned long long _query_id,
-    Ref<CellSlice> _amount,
-    Ref<CellSlice> _destination,
-    Ref<CellSlice> _response_destination,
-    Ref<CellSlice> _custom_payload,
-    Ref<CellSlice> _forward_ton_amount,
-    Ref<CellSlice> _forward_payload
-  ) :
-      query_id(_query_id),
-      amount(std::move(_amount)),
-      destination(std::move(_destination)),
-      response_destination(std::move(_response_destination)),
-      custom_payload(std::move(_custom_payload)),
-      forward_ton_amount(std::move(_forward_ton_amount)),
-      forward_payload(std::move(_forward_payload)) {
-  }
+  Record_transfer_jetton(unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _destination, Ref<CellSlice> _response_destination, Ref<CellSlice> _custom_payload, Ref<CellSlice> _forward_ton_amount, Ref<CellSlice> _forward_payload) : query_id(_query_id), amount(std::move(_amount)), destination(std::move(_destination)), response_destination(std::move(_response_destination)), custom_payload(std::move(_custom_payload)), forward_ton_amount(std::move(_forward_ton_amount)), forward_payload(std::move(_forward_payload)) {}
 };
 
 struct InternalMsgBody::Record_transfer_notification {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> amount;  // amount : VarUInteger 16
-  Ref<CellSlice> sender;  // sender : MsgAddress
-  Ref<CellSlice> forward_payload;  // forward_payload : Either Cell ^Cell
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> amount;  	// amount : VarUInteger 16
+  Ref<CellSlice> sender;  	// sender : MsgAddress
+  Ref<CellSlice> forward_payload;  	// forward_payload : Either Cell ^Cell
   Record_transfer_notification() = default;
-  Record_transfer_notification(
-    unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _sender, Ref<CellSlice> _forward_payload
-  ) :
-      query_id(_query_id),
-      amount(std::move(_amount)),
-      sender(std::move(_sender)),
-      forward_payload(std::move(_forward_payload)) {
-  }
+  Record_transfer_notification(unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _sender, Ref<CellSlice> _forward_payload) : query_id(_query_id), amount(std::move(_amount)), sender(std::move(_sender)), forward_payload(std::move(_forward_payload)) {}
 };
 
 struct InternalMsgBody::Record_burn {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> amount;  // amount : VarUInteger 16
-  Ref<CellSlice> response_destination;  // response_destination : MsgAddress
-  Ref<CellSlice> custom_payload;  // custom_payload : Maybe ^Cell
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> amount;  	// amount : VarUInteger 16
+  Ref<CellSlice> response_destination;  	// response_destination : MsgAddress
+  Ref<CellSlice> custom_payload;  	// custom_payload : Maybe ^Cell
   Record_burn() = default;
-  Record_burn(
-    unsigned long long _query_id,
-    Ref<CellSlice> _amount,
-    Ref<CellSlice> _response_destination,
-    Ref<CellSlice> _custom_payload
-  ) :
-      query_id(_query_id),
-      amount(std::move(_amount)),
-      response_destination(std::move(_response_destination)),
-      custom_payload(std::move(_custom_payload)) {
-  }
+  Record_burn(unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _response_destination, Ref<CellSlice> _custom_payload) : query_id(_query_id), amount(std::move(_amount)), response_destination(std::move(_response_destination)), custom_payload(std::move(_custom_payload)) {}
 };
 
 struct InternalMsgBody::Record_transfer_nft {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> new_owner;  // new_owner : MsgAddress
-  Ref<CellSlice> response_destination;  // response_destination : MsgAddress
-  Ref<CellSlice> custom_payload;  // custom_payload : Maybe ^Cell
-  Ref<CellSlice> forward_amount;  // forward_amount : VarUInteger 16
-  Ref<CellSlice> forward_payload;  // forward_payload : Either Cell ^Cell
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> new_owner;  	// new_owner : MsgAddress
+  Ref<CellSlice> response_destination;  	// response_destination : MsgAddress
+  Ref<CellSlice> custom_payload;  	// custom_payload : Maybe ^Cell
+  Ref<CellSlice> forward_amount;  	// forward_amount : VarUInteger 16
+  Ref<CellSlice> forward_payload;  	// forward_payload : Either Cell ^Cell
   Record_transfer_nft() = default;
-  Record_transfer_nft(
-    unsigned long long _query_id,
-    Ref<CellSlice> _new_owner,
-    Ref<CellSlice> _response_destination,
-    Ref<CellSlice> _custom_payload,
-    Ref<CellSlice> _forward_amount,
-    Ref<CellSlice> _forward_payload
-  ) :
-      query_id(_query_id),
-      new_owner(std::move(_new_owner)),
-      response_destination(std::move(_response_destination)),
-      custom_payload(std::move(_custom_payload)),
-      forward_amount(std::move(_forward_amount)),
-      forward_payload(std::move(_forward_payload)) {
-  }
+  Record_transfer_nft(unsigned long long _query_id, Ref<CellSlice> _new_owner, Ref<CellSlice> _response_destination, Ref<CellSlice> _custom_payload, Ref<CellSlice> _forward_amount, Ref<CellSlice> _forward_payload) : query_id(_query_id), new_owner(std::move(_new_owner)), response_destination(std::move(_response_destination)), custom_payload(std::move(_custom_payload)), forward_amount(std::move(_forward_amount)), forward_payload(std::move(_forward_payload)) {}
 };
 
 struct InternalMsgBody::Record_internal_transfer {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> amount;  // amount : VarUInteger 16
-  Ref<CellSlice> from;  // from : MsgAddress
-  Ref<CellSlice> response_address;  // response_address : MsgAddress
-  Ref<CellSlice> forward_ton_amount;  // forward_ton_amount : VarUInteger 16
-  Ref<CellSlice> forward_payload;  // forward_payload : Either Cell ^Cell
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> amount;  	// amount : VarUInteger 16
+  Ref<CellSlice> from;  	// from : MsgAddress
+  Ref<CellSlice> response_address;  	// response_address : MsgAddress
+  Ref<CellSlice> forward_ton_amount;  	// forward_ton_amount : VarUInteger 16
+  Ref<CellSlice> forward_payload;  	// forward_payload : Either Cell ^Cell
   Record_internal_transfer() = default;
-  Record_internal_transfer(
-    unsigned long long _query_id,
-    Ref<CellSlice> _amount,
-    Ref<CellSlice> _from,
-    Ref<CellSlice> _response_address,
-    Ref<CellSlice> _forward_ton_amount,
-    Ref<CellSlice> _forward_payload
-  ) :
-      query_id(_query_id),
-      amount(std::move(_amount)),
-      from(std::move(_from)),
-      response_address(std::move(_response_address)),
-      forward_ton_amount(std::move(_forward_ton_amount)),
-      forward_payload(std::move(_forward_payload)) {
-  }
+  Record_internal_transfer(unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _from, Ref<CellSlice> _response_address, Ref<CellSlice> _forward_ton_amount, Ref<CellSlice> _forward_payload) : query_id(_query_id), amount(std::move(_amount)), from(std::move(_from)), response_address(std::move(_response_address)), forward_ton_amount(std::move(_forward_ton_amount)), forward_payload(std::move(_forward_payload)) {}
 };
 
 struct InternalMsgBody::Record_burn_notification {
   typedef InternalMsgBody type_class;
-  unsigned long long query_id;  // query_id : uint64
-  Ref<CellSlice> amount;  // amount : VarUInteger 16
-  Ref<CellSlice> sender;  // sender : MsgAddress
-  Ref<CellSlice> response_destination;  // response_destination : MsgAddress
+  unsigned long long query_id;  	// query_id : uint64
+  Ref<CellSlice> amount;  	// amount : VarUInteger 16
+  Ref<CellSlice> sender;  	// sender : MsgAddress
+  Ref<CellSlice> response_destination;  	// response_destination : MsgAddress
   Record_burn_notification() = default;
-  Record_burn_notification(
-    unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _sender, Ref<CellSlice> _response_destination
-  ) :
-      query_id(_query_id),
-      amount(std::move(_amount)),
-      sender(std::move(_sender)),
-      response_destination(std::move(_response_destination)) {
-  }
+  Record_burn_notification(unsigned long long _query_id, Ref<CellSlice> _amount, Ref<CellSlice> _sender, Ref<CellSlice> _response_destination) : query_id(_query_id), amount(std::move(_amount)), sender(std::move(_sender)), response_destination(std::move(_response_destination)) {}
 };
 
 extern const InternalMsgBody t_InternalMsgBody;
@@ -579,10 +488,9 @@ struct Bit final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record {
     typedef Bit type_class;
-    bool x;  // ## 1
+    bool x;  	// ## 1
     Record() = default;
-    Record(bool _x) : x(_x) {
-    }
+    Record(bool _x) : x(_x) {}
   };
   int get_size(const vm::CellSlice& cs) const override {
     return 1;
@@ -621,9 +529,8 @@ struct Hashmap final : TLB_Complex {
   enum { hm_edge };
   static constexpr int cons_len_exact = 0;
   int m_;
-  const TLB& X_;
-  Hashmap(int m, const TLB& X) : m_(m), X_(X) {
-  }
+  const TLB &X_;
+  Hashmap(int m, const TLB& X) : m_(m), X_(X) {}
   struct Record;
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -643,15 +550,13 @@ struct Hashmap final : TLB_Complex {
 
 struct Hashmap::Record {
   typedef Hashmap type_class;
-  int n;  // n : #
-  int l;  // l : #
-  int m;  // m : #
-  Ref<CellSlice> label;  // label : HmLabel ~l n
-  Ref<CellSlice> node;  // node : HashmapNode m X
+  int n;  	// n : #
+  int l;  	// l : #
+  int m;  	// m : #
+  Ref<CellSlice> label;  	// label : HmLabel ~l n
+  Ref<CellSlice> node;  	// node : HashmapNode m X
   Record() = default;
-  Record(Ref<CellSlice> _label, Ref<CellSlice> _node) :
-      n(-1), l(-1), m(-1), label(std::move(_label)), node(std::move(_node)) {
-  }
+  Record(Ref<CellSlice> _label, Ref<CellSlice> _node) : n(-1), l(-1), m(-1), label(std::move(_label)), node(std::move(_node)) {}
 };
 
 //
@@ -662,15 +567,13 @@ struct HashmapNode final : TLB_Complex {
   enum { hmn_leaf, hmn_fork };
   static constexpr int cons_len_exact = 0;
   int m_;
-  const TLB& X_;
-  HashmapNode(int m, const TLB& X) : m_(m), X_(X) {
-  }
+  const TLB &X_;
+  HashmapNode(int m, const TLB& X) : m_(m), X_(X) {}
   struct Record_hmn_leaf {
     typedef HashmapNode type_class;
-    Ref<CellSlice> value;  // value : X
+    Ref<CellSlice> value;  	// value : X
     Record_hmn_leaf() = default;
-    Record_hmn_leaf(Ref<CellSlice> _value) : value(std::move(_value)) {
-    }
+    Record_hmn_leaf(Ref<CellSlice> _value) : value(std::move(_value)) {}
   };
   struct Record_hmn_fork;
   bool skip(vm::CellSlice& cs) const override;
@@ -701,12 +604,11 @@ struct HashmapNode final : TLB_Complex {
 
 struct HashmapNode::Record_hmn_fork {
   typedef HashmapNode type_class;
-  int n;  // n : #
-  Ref<Cell> left;  // left : ^(Hashmap n X)
-  Ref<Cell> right;  // right : ^(Hashmap n X)
+  int n;  	// n : #
+  Ref<Cell> left;  	// left : ^(Hashmap n X)
+  Ref<Cell> right;  	// right : ^(Hashmap n X)
   Record_hmn_fork() = default;
-  Record_hmn_fork(Ref<Cell> _left, Ref<Cell> _right) : n(-1), left(std::move(_left)), right(std::move(_right)) {
-  }
+  Record_hmn_fork(Ref<Cell> _left, Ref<Cell> _right) : n(-1), left(std::move(_left)), right(std::move(_right)) {}
 };
 
 //
@@ -715,18 +617,17 @@ struct HashmapNode::Record_hmn_fork {
 
 struct HmLabel final : TLB_Complex {
   enum { hml_short, hml_long, hml_same };
-  static constexpr char cons_len[3] = {1, 2, 2};
-  static constexpr unsigned char cons_tag[3] = {0, 2, 3};
+  static constexpr char cons_len[3] = { 1, 2, 2 };
+  static constexpr unsigned char cons_tag[3] = { 0, 2, 3 };
   int n_;
-  HmLabel(int n) : n_(n) {
-  }
+  HmLabel(int n) : n_(n) {}
   struct Record_hml_short;
   struct Record_hml_long;
   struct Record_hml_same;
   bool skip(vm::CellSlice& cs) const override;
   bool skip(vm::CellSlice& cs, int& m_) const;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
-  bool validate_skip(int* ops, vm::CellSlice& cs, bool weak, int& m_) const;
+  bool validate_skip(int *ops, vm::CellSlice& cs, bool weak, int& m_) const;
   bool fetch_to(vm::CellSlice& cs, Ref<vm::CellSlice>& res, int& m_) const;
   bool unpack(vm::CellSlice& cs, Record_hml_short& data, int& m_) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_hml_short& data, int& m_) const;
@@ -761,33 +662,30 @@ struct HmLabel final : TLB_Complex {
 
 struct HmLabel::Record_hml_short {
   typedef HmLabel type_class;
-  int m;  // m : #
-  int n;  // n : #
-  Ref<CellSlice> len;  // len : Unary ~n
-  Ref<td::BitString> s;  // s : n * Bit
+  int m;  	// m : #
+  int n;  	// n : #
+  Ref<CellSlice> len;  	// len : Unary ~n
+  Ref<td::BitString> s;  	// s : n * Bit
   Record_hml_short() = default;
-  Record_hml_short(Ref<CellSlice> _len, Ref<td::BitString> _s) : m(-1), n(-1), len(std::move(_len)), s(std::move(_s)) {
-  }
+  Record_hml_short(Ref<CellSlice> _len, Ref<td::BitString> _s) : m(-1), n(-1), len(std::move(_len)), s(std::move(_s)) {}
 };
 
 struct HmLabel::Record_hml_long {
   typedef HmLabel type_class;
-  int m;  // m : #
-  int n;  // n : #<= m
-  Ref<td::BitString> s;  // s : n * Bit
+  int m;  	// m : #
+  int n;  	// n : #<= m
+  Ref<td::BitString> s;  	// s : n * Bit
   Record_hml_long() = default;
-  Record_hml_long(int _n, Ref<td::BitString> _s) : m(-1), n(_n), s(std::move(_s)) {
-  }
+  Record_hml_long(int _n, Ref<td::BitString> _s) : m(-1), n(_n), s(std::move(_s)) {}
 };
 
 struct HmLabel::Record_hml_same {
   typedef HmLabel type_class;
-  int m;  // m : #
-  bool v;  // v : Bit
-  int n;  // n : #<= m
+  int m;  	// m : #
+  bool v;  	// v : Bit
+  int n;  	// n : #<= m
   Record_hml_same() = default;
-  Record_hml_same(bool _v, int _n) : m(-1), v(_v), n(_n) {
-  }
+  Record_hml_same(bool _v, int _n) : m(-1), v(_v), n(_n) {}
 };
 
 //
@@ -802,16 +700,15 @@ struct Unary final : TLB_Complex {
   };
   struct Record_unary_succ {
     typedef Unary type_class;
-    int n;  // n : #
-    Ref<CellSlice> x;  // x : Unary ~n
+    int n;  	// n : #
+    Ref<CellSlice> x;  	// x : Unary ~n
     Record_unary_succ() = default;
-    Record_unary_succ(Ref<CellSlice> _x) : n(-1), x(std::move(_x)) {
-    }
+    Record_unary_succ(Ref<CellSlice> _x) : n(-1), x(std::move(_x)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool skip(vm::CellSlice& cs, int& m_) const;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
-  bool validate_skip(int* ops, vm::CellSlice& cs, bool weak, int& m_) const;
+  bool validate_skip(int *ops, vm::CellSlice& cs, bool weak, int& m_) const;
   bool fetch_to(vm::CellSlice& cs, Ref<vm::CellSlice>& res, int& m_) const;
   bool unpack(vm::CellSlice& cs, Record_unary_zero& data, int& m_) const;
   bool unpack_unary_zero(vm::CellSlice& cs, int& m_) const;
@@ -850,19 +747,17 @@ struct HashmapE final : TLB_Complex {
   enum { hme_empty, hme_root };
   static constexpr int cons_len_exact = 1;
   int m_;
-  const TLB& X_;
-  HashmapE(int m, const TLB& X) : m_(m), X_(X) {
-  }
+  const TLB &X_;
+  HashmapE(int m, const TLB& X) : m_(m), X_(X) {}
   struct Record_hme_empty {
     typedef HashmapE type_class;
   };
   struct Record_hme_root {
     typedef HashmapE type_class;
-    int n;  // n : #
-    Ref<Cell> root;  // root : ^(Hashmap n X)
+    int n;  	// n : #
+    Ref<Cell> root;  	// root : ^(Hashmap n X)
     Record_hme_root() = default;
-    Record_hme_root(Ref<Cell> _root) : n(-1), root(std::move(_root)) {
-    }
+    Record_hme_root(Ref<Cell> _root) : n(-1), root(std::move(_root)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -901,10 +796,9 @@ struct ChunkedData final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record {
     typedef ChunkedData type_class;
-    Ref<CellSlice> data;  // data : HashmapE 32 ^Cell
+    Ref<CellSlice> data;  	// data : HashmapE 32 ^Cell
     Record() = default;
-    Record(Ref<CellSlice> _data) : data(std::move(_data)) {
-    }
+    Record(Ref<CellSlice> _data) : data(std::move(_data)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -937,10 +831,9 @@ struct Text final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record {
     typedef Text type_class;
-    Ref<CellSlice> data;  // data : Cell
+    Ref<CellSlice> data;  	// data : Cell
     Record() = default;
-    Record(Ref<CellSlice> _data) : data(std::move(_data)) {
-    }
+    Record(Ref<CellSlice> _data) : data(std::move(_data)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -973,17 +866,15 @@ struct ContentData final : TLB_Complex {
   static constexpr int cons_len_exact = 8;
   struct Record_snake {
     typedef ContentData type_class;
-    Ref<CellSlice> data;  // data : Cell
+    Ref<CellSlice> data;  	// data : Cell
     Record_snake() = default;
-    Record_snake(Ref<CellSlice> _data) : data(std::move(_data)) {
-    }
+    Record_snake(Ref<CellSlice> _data) : data(std::move(_data)) {}
   };
   struct Record_chunks {
     typedef ContentData type_class;
-    Ref<CellSlice> data;  // data : ChunkedData
+    Ref<CellSlice> data;  	// data : ChunkedData
     Record_chunks() = default;
-    Record_chunks(Ref<CellSlice> _data) : data(std::move(_data)) {
-    }
+    Record_chunks(Ref<CellSlice> _data) : data(std::move(_data)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -1022,17 +913,15 @@ struct FullContent final : TLB_Complex {
   static constexpr int cons_len_exact = 8;
   struct Record_onchain {
     typedef FullContent type_class;
-    Ref<CellSlice> data;  // data : HashmapE 256 ^ContentData
+    Ref<CellSlice> data;  	// data : HashmapE 256 ^ContentData
     Record_onchain() = default;
-    Record_onchain(Ref<CellSlice> _data) : data(std::move(_data)) {
-    }
+    Record_onchain(Ref<CellSlice> _data) : data(std::move(_data)) {}
   };
   struct Record_offchain {
     typedef FullContent type_class;
-    Ref<CellSlice> uri;  // uri : Text
+    Ref<CellSlice> uri;  	// uri : Text
     Record_offchain() = default;
-    Record_offchain(Ref<CellSlice> _uri) : uri(std::move(_uri)) {
-    }
+    Record_offchain(Ref<CellSlice> _uri) : uri(std::move(_uri)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -1069,7 +958,7 @@ extern const FullContent t_FullContent;
 struct Protocol final : TLB_Complex {
   enum { proto_http };
   static constexpr int cons_len_exact = 16;
-  static constexpr unsigned short cons_tag[1] = {0x4854};
+  static constexpr unsigned short cons_tag[1] = { 0x4854 };
   struct Record {
     typedef Protocol type_class;
   };
@@ -1114,11 +1003,10 @@ struct ProtoList final : TLB_Complex {
   };
   struct Record_proto_list_next {
     typedef ProtoList type_class;
-    char head;  // head : Protocol
-    Ref<CellSlice> tail;  // tail : ProtoList
+    char head;  	// head : Protocol
+    Ref<CellSlice> tail;  	// tail : ProtoList
     Record_proto_list_next() = default;
-    Record_proto_list_next(char _head, Ref<CellSlice> _tail) : head(_head), tail(std::move(_tail)) {
-    }
+    Record_proto_list_next(char _head, Ref<CellSlice> _tail) : head(_head), tail(std::move(_tail)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -1157,7 +1045,7 @@ extern const ProtoList t_ProtoList;
 struct SmcCapability final : TLB_Complex {
   enum { cap_is_wallet };
   static constexpr int cons_len_exact = 16;
-  static constexpr unsigned short cons_tag[1] = {0x2177};
+  static constexpr unsigned short cons_tag[1] = { 0x2177 };
   struct Record {
     typedef SmcCapability type_class;
   };
@@ -1202,11 +1090,10 @@ struct SmcCapList final : TLB_Complex {
   };
   struct Record_cap_list_next {
     typedef SmcCapList type_class;
-    char head;  // head : SmcCapability
-    Ref<CellSlice> tail;  // tail : SmcCapList
+    char head;  	// head : SmcCapability
+    Ref<CellSlice> tail;  	// tail : SmcCapList
     Record_cap_list_next() = default;
-    Record_cap_list_next(char _head, Ref<CellSlice> _tail) : head(_head), tail(std::move(_tail)) {
-    }
+    Record_cap_list_next(char _head, Ref<CellSlice> _tail) : head(_head), tail(std::move(_tail)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -1245,37 +1132,31 @@ extern const SmcCapList t_SmcCapList;
 struct DNSRecord final : TLB_Complex {
   enum { dns_storage_address, dns_smc_address, dns_adnl_address, dns_next_resolver };
   static constexpr int cons_len_exact = 16;
-  static constexpr unsigned short cons_tag[4] = {0x7473, 0x9fd3, 0xad01, 0xba93};
+  static constexpr unsigned short cons_tag[4] = { 0x7473, 0x9fd3, 0xad01, 0xba93 };
   struct Record_dns_smc_address;
   struct Record_dns_next_resolver {
     typedef DNSRecord type_class;
-    Ref<CellSlice> resolver;  // resolver : MsgAddressInt
+    Ref<CellSlice> resolver;  	// resolver : MsgAddressInt
     Record_dns_next_resolver() = default;
-    Record_dns_next_resolver(Ref<CellSlice> _resolver) : resolver(std::move(_resolver)) {
-    }
+    Record_dns_next_resolver(Ref<CellSlice> _resolver) : resolver(std::move(_resolver)) {}
   };
   struct Record_dns_adnl_address;
   struct Record_dns_storage_address {
     typedef DNSRecord type_class;
-    td::BitArray<256> bag_id;  // bag_id : bits256
+    td::BitArray<256> bag_id;  	// bag_id : bits256
     Record_dns_storage_address() = default;
-    Record_dns_storage_address(const td::BitArray<256>& _bag_id) : bag_id(_bag_id) {
-    }
+    Record_dns_storage_address(const td::BitArray<256>& _bag_id) : bag_id(_bag_id) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
   bool unpack(vm::CellSlice& cs, Record_dns_smc_address& data) const;
   bool unpack_dns_smc_address(vm::CellSlice& cs, Ref<CellSlice>& smc_addr, int& flags, Ref<CellSlice>& cap_list) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_dns_smc_address& data) const;
-  bool cell_unpack_dns_smc_address(
-    Ref<vm::Cell> cell_ref, Ref<CellSlice>& smc_addr, int& flags, Ref<CellSlice>& cap_list
-  ) const;
+  bool cell_unpack_dns_smc_address(Ref<vm::Cell> cell_ref, Ref<CellSlice>& smc_addr, int& flags, Ref<CellSlice>& cap_list) const;
   bool pack(vm::CellBuilder& cb, const Record_dns_smc_address& data) const;
   bool pack_dns_smc_address(vm::CellBuilder& cb, Ref<CellSlice> smc_addr, int flags, Ref<CellSlice> cap_list) const;
   bool cell_pack(Ref<vm::Cell>& cell_ref, const Record_dns_smc_address& data) const;
-  bool cell_pack_dns_smc_address(
-    Ref<vm::Cell>& cell_ref, Ref<CellSlice> smc_addr, int flags, Ref<CellSlice> cap_list
-  ) const;
+  bool cell_pack_dns_smc_address(Ref<vm::Cell>& cell_ref, Ref<CellSlice> smc_addr, int flags, Ref<CellSlice> cap_list) const;
   bool unpack(vm::CellSlice& cs, Record_dns_next_resolver& data) const;
   bool unpack_dns_next_resolver(vm::CellSlice& cs, Ref<CellSlice>& resolver) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_dns_next_resolver& data) const;
@@ -1285,21 +1166,13 @@ struct DNSRecord final : TLB_Complex {
   bool cell_pack(Ref<vm::Cell>& cell_ref, const Record_dns_next_resolver& data) const;
   bool cell_pack_dns_next_resolver(Ref<vm::Cell>& cell_ref, Ref<CellSlice> resolver) const;
   bool unpack(vm::CellSlice& cs, Record_dns_adnl_address& data) const;
-  bool unpack_dns_adnl_address(
-    vm::CellSlice& cs, td::BitArray<256>& adnl_addr, int& flags, Ref<CellSlice>& proto_list
-  ) const;
+  bool unpack_dns_adnl_address(vm::CellSlice& cs, td::BitArray<256>& adnl_addr, int& flags, Ref<CellSlice>& proto_list) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_dns_adnl_address& data) const;
-  bool cell_unpack_dns_adnl_address(
-    Ref<vm::Cell> cell_ref, td::BitArray<256>& adnl_addr, int& flags, Ref<CellSlice>& proto_list
-  ) const;
+  bool cell_unpack_dns_adnl_address(Ref<vm::Cell> cell_ref, td::BitArray<256>& adnl_addr, int& flags, Ref<CellSlice>& proto_list) const;
   bool pack(vm::CellBuilder& cb, const Record_dns_adnl_address& data) const;
-  bool pack_dns_adnl_address(
-    vm::CellBuilder& cb, td::BitArray<256> adnl_addr, int flags, Ref<CellSlice> proto_list
-  ) const;
+  bool pack_dns_adnl_address(vm::CellBuilder& cb, td::BitArray<256> adnl_addr, int flags, Ref<CellSlice> proto_list) const;
   bool cell_pack(Ref<vm::Cell>& cell_ref, const Record_dns_adnl_address& data) const;
-  bool cell_pack_dns_adnl_address(
-    Ref<vm::Cell>& cell_ref, td::BitArray<256> adnl_addr, int flags, Ref<CellSlice> proto_list
-  ) const;
+  bool cell_pack_dns_adnl_address(Ref<vm::Cell>& cell_ref, td::BitArray<256> adnl_addr, int flags, Ref<CellSlice> proto_list) const;
   bool unpack(vm::CellSlice& cs, Record_dns_storage_address& data) const;
   bool unpack_dns_storage_address(vm::CellSlice& cs, td::BitArray<256>& bag_id) const;
   bool cell_unpack(Ref<vm::Cell> cell_ref, Record_dns_storage_address& data) const;
@@ -1320,24 +1193,20 @@ struct DNSRecord final : TLB_Complex {
 
 struct DNSRecord::Record_dns_smc_address {
   typedef DNSRecord type_class;
-  Ref<CellSlice> smc_addr;  // smc_addr : MsgAddressInt
-  int flags;  // flags : ## 8
-  Ref<CellSlice> cap_list;  // cap_list : flags.0?SmcCapList
+  Ref<CellSlice> smc_addr;  	// smc_addr : MsgAddressInt
+  int flags;  	// flags : ## 8
+  Ref<CellSlice> cap_list;  	// cap_list : flags.0?SmcCapList
   Record_dns_smc_address() = default;
-  Record_dns_smc_address(Ref<CellSlice> _smc_addr, int _flags, Ref<CellSlice> _cap_list) :
-      smc_addr(std::move(_smc_addr)), flags(_flags), cap_list(std::move(_cap_list)) {
-  }
+  Record_dns_smc_address(Ref<CellSlice> _smc_addr, int _flags, Ref<CellSlice> _cap_list) : smc_addr(std::move(_smc_addr)), flags(_flags), cap_list(std::move(_cap_list)) {}
 };
 
 struct DNSRecord::Record_dns_adnl_address {
   typedef DNSRecord type_class;
-  td::BitArray<256> adnl_addr;  // adnl_addr : bits256
-  int flags;  // flags : ## 8
-  Ref<CellSlice> proto_list;  // proto_list : flags.0?ProtoList
+  td::BitArray<256> adnl_addr;  	// adnl_addr : bits256
+  int flags;  	// flags : ## 8
+  Ref<CellSlice> proto_list;  	// proto_list : flags.0?ProtoList
   Record_dns_adnl_address() = default;
-  Record_dns_adnl_address(const td::BitArray<256>& _adnl_addr, int _flags, Ref<CellSlice> _proto_list) :
-      adnl_addr(_adnl_addr), flags(_flags), proto_list(std::move(_proto_list)) {
-  }
+  Record_dns_adnl_address(const td::BitArray<256>& _adnl_addr, int _flags, Ref<CellSlice> _proto_list) : adnl_addr(_adnl_addr), flags(_flags), proto_list(std::move(_proto_list)) {}
 };
 
 extern const DNSRecord t_DNSRecord;
@@ -1351,10 +1220,9 @@ struct DNS_RecordSet final : TLB_Complex {
   static constexpr int cons_len_exact = 0;
   struct Record {
     typedef DNS_RecordSet type_class;
-    Ref<CellSlice> x;  // HashmapE 256 ^DNSRecord
+    Ref<CellSlice> x;  	// HashmapE 256 ^DNSRecord
     Record() = default;
-    Record(Ref<CellSlice> _x) : x(std::move(_x)) {
-    }
+    Record(Ref<CellSlice> _x) : x(std::move(_x)) {}
   };
   bool skip(vm::CellSlice& cs) const override;
   bool validate_skip(int* ops, vm::CellSlice& cs, bool weak = false) const override;
@@ -1418,6 +1286,6 @@ extern const HashmapE t_HashmapE_256_Ref_DNSRecord;
 // declaration of type name registration function
 extern bool register_simple_types(std::function<bool(const char*, const TLB*)> func);
 
-}  // namespace gen
+} // namespace gen
 
-}  // namespace tokens
+} // namespace tokens

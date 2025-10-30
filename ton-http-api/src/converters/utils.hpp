@@ -1,3 +1,4 @@
+#pragma once
 #include "auto/tl/tonlib_api.h"
 #include "core/types.hpp"
 #include "schemas/v2.hpp"
@@ -7,7 +8,7 @@ namespace ton_http::converters {
 
 using namespace ton;
 
-inline schemas::v2::DetectAddress Convert(core::DetectAddressResult& value) {
+inline schemas::v2::DetectAddress Convert(const core::DetectAddressResult& value) {
   schemas::v2::DetectAddress result;
   result.raw_form = value.to_raw_form(true);
 
@@ -32,7 +33,7 @@ inline schemas::v2::DetectAddress Convert(core::DetectAddressResult& value) {
   return result;
 }
 
-inline schemas::v2::DetectHash Convert(core::DetectHashResult& value) {
+inline schemas::v2::DetectHash Convert(const core::DetectHashResult& value) {
   schemas::v2::DetectHash result;
   result.b64 = td::base64_encode(value.hash);
   result.b64url = td::base64url_encode(value.hash);

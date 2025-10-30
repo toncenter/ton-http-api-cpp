@@ -1,7 +1,8 @@
 #include "uint32_t.hpp"
+#include <boost/lexical_cast.hpp>
 
 std::uint32_t userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<std::uint32_t>) {
-  return std::uint32_t{std::stoull(value)};
+  return boost::lexical_cast<std::uint32_t>(value);
 }
 std::uint32_t userver::chaotic::convert::Convert(const std::string_view& value, chaotic::convert::To<std::uint32_t>) {
   return Convert(std::string{value}, chaotic::convert::To<std::uint32_t>{});
