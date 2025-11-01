@@ -377,7 +377,7 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
           tx_count,
           block->root_hash_,
           block->file_hash_,
-          40,
+          std::nullopt,
           "",
           std::nullopt,
           session

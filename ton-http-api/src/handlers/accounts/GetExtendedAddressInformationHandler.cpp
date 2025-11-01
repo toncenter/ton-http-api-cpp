@@ -12,7 +12,7 @@ ton_http::handlers::GetExtendedAddressInformationHandler::GetExtendedAddressInfo
 
 ton_http::schemas::v2::ExtendedAddressInformationRequest
 ton_http::handlers::GetExtendedAddressInformationHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::ExtendedAddressInformationRequest req;
 

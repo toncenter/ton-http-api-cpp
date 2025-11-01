@@ -12,7 +12,7 @@ ton_http::handlers::GetTransactionsStdHandler::GetTransactionsStdHandler(
 }
 
 ton_http::schemas::v2::TransactionsRequest ton_http::handlers::GetTransactionsStdHandler::
-  ParseTonlibGetRequest(const HttpRequest& request, const Value&, RequestContext&) const {
+  ParseTonlibGetRequest(const HttpRequest& request, RequestContext&) const {
   schemas::v2::TransactionsRequest req;
   try {
     req.address = userver::chaotic::convert::Convert(

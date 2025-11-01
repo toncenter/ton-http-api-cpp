@@ -10,7 +10,7 @@ ton_http::handlers::GetConsensusBlockHandler::GetConsensusBlockHandler(
 }
 
 ton_http::schemas::v2::ConsensusBlockRequest ton_http::handlers::GetConsensusBlockHandler::ParseTonlibGetRequest(
-    const HttpRequest&, const Value&, RequestContext&
+    const HttpRequest&, RequestContext&
 ) const {
   return {};
 }

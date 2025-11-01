@@ -8,7 +8,7 @@ BURN_ADDRESS = '0:00000000000000000000000000000000000000000000000000000000000000
 @pytest.mark.parametrize("address", [ADDRESS, FROZEN_ADDRESS, ZERO_ADDRESS])
 def test_address_state(api_method_call, address):
     response = api_method_call('getAddressState', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert isinstance(data['result'], str)
@@ -18,7 +18,7 @@ def test_address_state(api_method_call, address):
 
 def test_active_address(api_method_call):
     response = api_method_call('getAddressState', address=ADDRESS)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result'] == 'active'
@@ -27,7 +27,7 @@ def test_active_address(api_method_call):
 
 def test_frozen_address(api_method_call):
     response = api_method_call('getAddressState', address=FROZEN_ADDRESS)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result'] == 'frozen'
@@ -36,7 +36,7 @@ def test_frozen_address(api_method_call):
 
 def test_uninitialized_address(api_method_call):
     response = api_method_call('getAddressState', address=BURN_ADDRESS)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result'] == 'uninitialized'
@@ -45,7 +45,7 @@ def test_uninitialized_address(api_method_call):
 
 def test_invalid_address(api_method_call):
     response = api_method_call('getAddressState', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -53,7 +53,7 @@ def test_invalid_address(api_method_call):
 
 def test_empty_address(api_method_call):
     response = api_method_call('getAddressState')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -61,7 +61,7 @@ def test_empty_address(api_method_call):
 
 def test_wrong_seqno(api_method_call):
     response = api_method_call('getAddressState', address=ADDRESS, seqno='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -69,7 +69,7 @@ def test_wrong_seqno(api_method_call):
 
 def test_future_seqno(api_method_call, last_mc_seqno):
     response = api_method_call('getAddressState', address=ADDRESS, seqno=last_mc_seqno + 10000)
-    assert response.status_code == 500
+    assert response.status_code == 500, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return

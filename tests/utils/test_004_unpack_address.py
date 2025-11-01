@@ -13,7 +13,7 @@ EXPECTED_RESPONSE = '0:83DFD552E63729B472FCBCC8C45EBCC6691702558B68EC7527E1BA403
 @pytest.mark.parametrize("address", ADDRESSES)
 def test_different_address_forms(api_method_call, address):
     response = api_method_call('unpackAddress', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result'] == EXPECTED_RESPONSE
@@ -21,12 +21,12 @@ def test_different_address_forms(api_method_call, address):
 
 def test_pack_address_no_address(api_method_call):
     response = api_method_call('unpackAddress')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
 
 def test_pack_address_invalid_address(api_method_call):
     response = api_method_call('unpackAddress', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False

@@ -11,7 +11,7 @@ ton_http::handlers::GetWalletInformationHandler::GetWalletInformationHandler(
 }
 
 ton_http::schemas::v2::WalletInformationRequest ton_http::handlers::GetWalletInformationHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::WalletInformationRequest req;
 

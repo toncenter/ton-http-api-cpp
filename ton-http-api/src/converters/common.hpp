@@ -187,5 +187,10 @@ inline schemas::v2::AccountState Convert(const tonlib_api::object_ptr<tonlib_api
   return result;
 }
 
+inline schemas::v2::TvmCell Convert(const tonlib_api::object_ptr<tonlib_api::tvm_cell>& value) {
+  schemas::v2::TvmCell result;
+  result.bytes = types::bytes{value->bytes_};
+  return result;
+}
 
 }  // namespace ton_http::converters

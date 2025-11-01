@@ -8,9 +8,11 @@
 
 namespace ton_http::handlers {
 
-class JsonRpcHandler : public userver::server::handlers::HttpHandlerJsonBase {
+class JsonRpcHandler : public userver::server::handlers::HttpHandlerBase {
 public:
-  using HttpHandlerJsonBase::HttpHandlerJsonBase;
+  using HttpHandlerBase::HttpHandlerBase;
+  using HttpRequest = userver::server::http::HttpRequest;
+  using RequestContext = userver::server::request::RequestContext;
 
   static constexpr std::string_view kName = "handler-JsonRpc";
 
@@ -19,8 +21,8 @@ public:
   );
   ~JsonRpcHandler() override = default;
 
-  Value HandleRequestJsonThrow(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
+  std::string HandleRequestThrow(
+    const HttpRequest& request, RequestContext& context
   ) const override;
 
   static userver::yaml_config::Schema GetStaticConfigSchema();

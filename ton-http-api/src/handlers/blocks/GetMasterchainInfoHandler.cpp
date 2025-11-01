@@ -8,12 +8,7 @@ ton_http::handlers::GetMasterchainInfoHandler::GetMasterchainInfoHandler(
 }
 
 ton_http::schemas::v2::MasterchainInfoRequest ton_http::handlers::GetMasterchainInfoHandler::
-  ParseTonlibGetRequest(const HttpRequest&, const Value&, RequestContext&) const {
-  return schemas::v2::MasterchainInfoRequest{};
-}
-
-ton_http::schemas::v2::MasterchainInfoRequest ton_http::handlers::GetMasterchainInfoHandler::
-  ParseTonlibPostRequest(const HttpRequest&, const Value&, RequestContext&) const {
+  ParseTonlibGetRequest(const HttpRequest&, RequestContext&) const {
   return schemas::v2::MasterchainInfoRequest{};
 }
 

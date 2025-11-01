@@ -11,7 +11,7 @@ ton_http::handlers::GetTokenDataHandler::GetTokenDataHandler(
 }
 
 ton_http::schemas::v2::TokenDataRequest ton_http::handlers::GetTokenDataHandler::
-  ParseTonlibGetRequest(const HttpRequest& request, const Value&, RequestContext&) const {
+  ParseTonlibGetRequest(const HttpRequest& request, RequestContext&) const {
   schemas::v2::TokenDataRequest req;
 
   req.address = userver::chaotic::convert::Convert(

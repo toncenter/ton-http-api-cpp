@@ -216,8 +216,8 @@ paths:
       security:
         - APIKeyHeader: [ ]
         - APIKeyQuery: [ ]
-#  /api/v2/ip2dec:
-#  /api/v2/dec2ip:
+  #  /api/v2/ip2dec:
+  #  /api/v2/dec2ip:
   /api/v2/getAddressInformation:
     get:
       tags:
@@ -584,7 +584,7 @@ paths:
         - APIKeyQuery: [ ]
   /api/v2/getShardBlockProof:
     get:
-      tags: 
+      tags:
         - blocks
       summary: Get Shard Block Proof
       description: Get merkle proof of shard block
@@ -1240,6 +1240,14 @@ paths:
           required: true
           schema:
             type: integer
+            format: int32
+        - name: seqno
+          in: query
+          description: Block seqno
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         200:
           description: OK
@@ -1283,6 +1291,14 @@ paths:
       summary: Get All Config
       description: Get all blockchain configuration parameters
       operationId: getConfigAll_get
+      parameters:
+        - name: seqno
+          in: query
+          description: Block seqno
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         200:
           description: OK
@@ -1330,7 +1346,7 @@ paths:
         - name: libraries
           in: query
           description: Hashes of libraries
-          required: true
+          required: false
           schema:
             type: array
             items:
@@ -1371,7 +1387,7 @@ paths:
       security:
         - APIKeyHeader: [ ]
         - APIKeyQuery: [ ]
-#  /api/v2/getLibrariesAll:
+  #  /api/v2/getLibrariesAll:
   /api/v2/runGetMethod:
     post:
       tags:
@@ -1385,6 +1401,32 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RunGetMethodRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/runGetMethodStd:
+    post:
+      tags:
+        - run method
+        - rpc
+      summary: Run Get Method Std
+      description: Run get method of smart contract
+      operationId: runGetMethodStd_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunGetMethodStdRequest'
         required: true
       responses:
         200:
@@ -1711,12 +1753,12 @@ components:
       in: query
       name: api_key
   schemas:
-  # base request schemas
+    # base request schemas
     EmptyRequest:
       type: object
       additionalProperties: false
       required: [ ]
-      properties: {}
+      properties: { }
     AddressRequest:
       type: object
       additionalProperties: false
@@ -1963,13 +2005,19 @@ components:
         param:
           type: integer
           format: int32
+        seqno:
+          type: integer
+          format: int32
     ConfigAllRequest:
-      $ref: '#/components/schemas/EmptyRequest'
+      type: object
+      additionalProperties: false
+      properties:
+        seqno:
+          type: integer
+          format: int32
     LibrariesRequest:
       type: object
       additionalProperties: false
-      required:
-        - libraries
       properties:
         libraries:
           type: array
@@ -1990,8 +2038,28 @@ components:
         stack:
           type: array
           items:
-            type: string
-            # $ref: '#/components/schemas/TvmStackEntry'
+            oneOf:
+              - $ref: '#/components/schemas/TvmStackEntrySlice'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryCell'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryNumber'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryTuple'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryList'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryUnsupported'
+                x-usrv-cpp-indirect: true
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                'tvm.stackEntrySlice': '#/components/schemas/TvmStackEntrySlice'
+                'tvm.stackEntryCell': '#/components/schemas/TvmStackEntryCell'
+                'tvm.stackEntryNumber': '#/components/schemas/TvmStackEntryNumber'
+                'tvm.stackEntryTuple': '#/components/schemas/TvmStackEntryTuple'
+                'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
+                'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
     SendBocRequest:
       type: object
       additionalProperties: false
@@ -2012,9 +2080,9 @@ components:
         body:
           $ref: '#/components/schemas/Bytes'
         init_code:
-          $ref: '#/components/schemas/BytesWithDefault'
+          $ref: '#/components/schemas/Bytes'
         init_data:
-          $ref: '#/components/schemas/BytesWithDefault'
+          $ref: '#/components/schemas/Bytes'
     EstimateFeeRequest:
       type: object
       additionalProperties: false
@@ -2027,9 +2095,9 @@ components:
         body:
           $ref: '#/components/schemas/Bytes'
         init_code:
-          $ref: '#/components/schemas/BytesWithDefault'
+          $ref: '#/components/schemas/Bytes'
         init_data:
-          $ref: '#/components/schemas/BytesWithDefault'
+          $ref: '#/components/schemas/Bytes'
         ignore_chksig:
           type: boolean
           default: true
@@ -2071,11 +2139,7 @@ components:
     Bytes:
       type: string
       x-usrv-cpp-type: 'ton_http::types::bytes'
-    BytesWithDefault:
-      type: string
-      x-usrv-cpp-type: 'ton_http::types::bytes'
-      default: ''
-# tonlib types
+    # tonlib types
     AccountAddress:
       type: object
       additionalProperties: false
@@ -2509,7 +2573,7 @@ components:
       properties:
         '@type':
           type: string
-          enum: 
+          enum:
             - uninited.accountState
           default: uninited.accountState
         frozen_hash:
@@ -2902,20 +2966,6 @@ components:
         - '@type'
         - id
         - size
-    TvmCell:
-      type: object
-      additionalProperties: false
-      properties:
-        '@type':
-          type: string
-          enum:
-            - tvm.cell
-          default: tvm.cell
-        bytes:
-          $ref: '#/components/schemas/Bytes'
-      required:
-        - '@type'
-        - bytes
     LibraryEntry:
       type: object
       additionalProperties: false
@@ -3211,7 +3261,7 @@ components:
         - other_fee
         - out_msgs
 
-# method responses
+    # method responses
     TonlibObject:
       oneOf:
         - $ref: '#/components/schemas/DetectAddress'
@@ -3235,6 +3285,10 @@ components:
         - $ref: '#/components/schemas/BlockTransactionsExt'
         - $ref: '#/components/schemas/Transaction'
         - $ref: '#/components/schemas/TransactionsStd'
+        - $ref: '#/components/schemas/ConfigInfo'
+        - $ref: '#/components/schemas/LibraryResult'
+        - $ref: '#/components/schemas/ExtMessageInfo'
+        - $ref: '#/components/schemas/RunGetMethodStdResult'
       discriminator:
         propertyName: '@type'
         mapping:
@@ -3259,6 +3313,10 @@ components:
           'blocks.transactionsExt': '#/components/schemas/BlockTransactionsExt'
           'ext.transaction': '#/components/schemas/Transaction'
           'raw.transactions': '#/components/schemas/TransactionsStd'
+          'configInfo': '#/components/schemas/ConfigInfo'
+          'smc.libraryResult': '#/components/schemas/LibraryResult'
+          'raw.extMessageInfo': '#/components/schemas/ExtMessageInfo'
+          'smc.runResult': '#/components/schemas/RunGetMethodStdResult'
     TonlibResponse:
       type: object
       title: TonlibResponse
@@ -3856,3 +3914,306 @@ components:
             $ref: '#/components/schemas/TransactionStd'
         previous_transaction_id:
           $ref: '#/components/schemas/InternalTransactionId'
+    ExtMessageInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - hash
+        - hash_norm
+      properties:
+        '@type':
+          type: string
+          enum:
+            - raw.extMessageInfo
+          default: raw.extMessageInfo
+        hash:
+          $ref: '#/components/schemas/TonHash'
+        hash_norm:
+          $ref: '#/components/schemas/TonHash'
+
+    ## run get method
+    TvmStackEntrySlice:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - slice
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntrySlice
+          default: tvm.stackEntrySlice
+        slice:
+          $ref: '#/components/schemas/TvmSlice'
+    TvmStackEntryCell:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - cell
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntryCell
+          default: tvm.stackEntryCell
+        cell:
+          $ref: '#/components/schemas/TvmCell'
+    TvmStackEntryNumber:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - number
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntryNumber
+          default: tvm.stackEntryNumber
+        number:
+          $ref: '#/components/schemas/TvmNumberDecimal'
+    TvmStackEntryTuple:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - tuple
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntryTuple
+          default: tvm.stackEntryTuple
+        tuple:
+          $ref: '#/components/schemas/TvmTuple'
+    TvmStackEntryList:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - list
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntryNumber
+          default: tvm.stackEntryNumber
+        list:
+          $ref: '#/components/schemas/TvmList'
+    TvmStackEntryUnsupported:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.stackEntryUnsupported
+          default: tvm.stackEntryUnsupported
+    TvmSlice:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - bytes
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.slice
+          default: tvm.slice
+        bytes:
+          $ref: '#/components/schemas/Bytes'
+    TvmCell:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - bytes
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.cell
+          default: tvm.cell
+        bytes:
+          $ref: '#/components/schemas/Bytes'
+    TvmNumberDecimal:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - number
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.numberDecimal
+          default: tvm.numberDecimal
+        number:
+          $ref: '#/components/schemas/Int256'
+    TvmTuple:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - elements
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.tuple
+          default: tvm.tuple
+        elements:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/TvmStackEntrySlice'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryCell'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryNumber'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryTuple'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryList'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryUnsupported'
+                x-usrv-cpp-indirect: true
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                'tvm.stackEntrySlice': '#/components/schemas/TvmStackEntrySlice'
+                'tvm.stackEntryCell': '#/components/schemas/TvmStackEntryCell'
+                'tvm.stackEntryNumber': '#/components/schemas/TvmStackEntryNumber'
+                'tvm.stackEntryTuple': '#/components/schemas/TvmStackEntryTuple'
+                'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
+                'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
+    TvmList:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - elements
+      properties:
+        '@type':
+          type: string
+          enum:
+            - tvm.list
+          default: tvm.list
+        elements:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/TvmStackEntrySlice'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryCell'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryNumber'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryTuple'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryList'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryUnsupported'
+                x-usrv-cpp-indirect: true
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                'tvm.stackEntrySlice': '#/components/schemas/TvmStackEntrySlice'
+                'tvm.stackEntryCell': '#/components/schemas/TvmStackEntryCell'
+                'tvm.stackEntryNumber': '#/components/schemas/TvmStackEntryNumber'
+                'tvm.stackEntryTuple': '#/components/schemas/TvmStackEntryTuple'
+                'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
+                'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
+    RunGetMethodStdRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - method
+        - stack
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        method:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+        stack:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/TvmStackEntrySlice'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryCell'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryNumber'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryTuple'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryList'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryUnsupported'
+                x-usrv-cpp-indirect: true
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                'tvm.stackEntrySlice': '#/components/schemas/TvmStackEntrySlice'
+                'tvm.stackEntryCell': '#/components/schemas/TvmStackEntryCell'
+                'tvm.stackEntryNumber': '#/components/schemas/TvmStackEntryNumber'
+                'tvm.stackEntryTuple': '#/components/schemas/TvmStackEntryTuple'
+                'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
+                'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
+        seqno:
+          type: integer
+    RunGetMethodStdResult:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - gas_used
+        - stack
+        - exit_code
+      properties:
+        '@type':
+          type: string
+          enum:
+            - smc.runResult
+          default: smc.runResult
+        gas_used:
+          type: integer
+          format: int64
+        stack:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/TvmStackEntrySlice'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryCell'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryNumber'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryTuple'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryList'
+                x-usrv-cpp-indirect: true
+              - $ref: '#/components/schemas/TvmStackEntryUnsupported'
+                x-usrv-cpp-indirect: true
+            discriminator:
+              propertyName: '@type'
+              mapping:
+                'tvm.stackEntrySlice': '#/components/schemas/TvmStackEntrySlice'
+                'tvm.stackEntryCell': '#/components/schemas/TvmStackEntryCell'
+                'tvm.stackEntryNumber': '#/components/schemas/TvmStackEntryNumber'
+                'tvm.stackEntryTuple': '#/components/schemas/TvmStackEntryTuple'
+                'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
+                'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
+        exit_code:
+          type: integer
+          format: int32

@@ -13,10 +13,7 @@ public:
   );
 
   schemas::v2::EmptyRequest ParseTonlibGetRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
-  ) const override;
-  schemas::v2::EmptyRequest ParseTonlibPostRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
+    const HttpRequest& request, RequestContext& context
   ) const override;
 
   td::Result<schemas::v2::MasterchainInfo> HandleRequestTonlibThrow(

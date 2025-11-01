@@ -104,16 +104,15 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
   if (value->msg_data_) {
     result.msg_data = Convert(value->msg_data_);
   }
-  auto success = tonlib_api::downcast_call(
+  tonlib_api::downcast_call(
     *value->msg_data_,
     td::overloaded(
-      [&](tonlib_api::msg_dataRaw& data) {
-        auto r_body = vm::std_boc_deserialize(data.body_);
-        if (r_body.is_ok()) {
-          auto body = r_body.move_as_ok();
-          vm::CellSlice cs = vm::load_cell_slice(body);
-          auto r_body = td::hex_decode(cs.as_bitslice().to_hex());
-          if (r_body.is_ok()) {
+      [&](const tonlib_api::msg_dataRaw& data) {
+        auto r_body_cell = vm::std_boc_deserialize(data.body_);
+        if (r_body_cell.is_ok()) {
+          auto body_cell = r_body_cell.move_as_ok();
+          vm::CellSlice cs = vm::load_cell_slice(body_cell);
+          if (auto r_body = td::hex_decode(cs.as_bitslice().to_hex()); r_body.is_ok()) {
             result.message = td::base64_encode(r_body.move_as_ok());
           } else {
             result.message_decode_error = r_body.move_as_error_suffix("failed to decode msg body hex: ").to_string();
@@ -123,10 +122,10 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
           LOG_ERROR() << "Failed to load cell or get body slice. But why? msg_hash: " << value->hash_;
         }
       },
-      [&](tonlib_api::msg_dataText& data) { result.message = data.text_; },
-      [&](tonlib_api::msg_dataDecryptedText& data) { result.message = data.text_; },
-      [&](tonlib_api::msg_dataEncryptedText& data) { result.message = data.text_; },
-      [&](auto& x) { LOG_DEBUG() << "failed to decode type " << x.get_id(); }
+      [&](const tonlib_api::msg_dataText& data) { result.message = data.text_; },
+      [&](const tonlib_api::msg_dataDecryptedText& data) { result.message = data.text_; },
+      [&](const tonlib_api::msg_dataEncryptedText& data) { result.message = data.text_; },
+      [&](const auto& x) { LOG_DEBUG() << "failed to decode type " << x.get_id(); }
     )
   );
   return result;
@@ -143,8 +142,6 @@ inline schemas::v2::TransactionStd Convert<schemas::v2::TransactionStd>(
 ) {
   schemas::v2::TransactionStd result;
   result.address = Convert(value->address_);
-  // auto account = block::StdAddress::parse(value->address_->account_address_).move_as_ok();
-  // result.account = types::ton_addr{std::to_string(account.workchain) + ":" + account.addr.to_hex()};
   result.utime = value->utime_;
   result.data = types::bytes{value->data_};
   result.transaction_id = Convert(value->transaction_id_);

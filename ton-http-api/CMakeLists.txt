@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(ton-http-api-cpp CXX)
 
-
 userver_setup_environment()
 set(USERVER_TYPES_SOURCE
         src/userver/chaotic/io/ton_http/types/ton_hash_hex.cpp
@@ -26,7 +25,6 @@ set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
         src/components/tonlib_component.cpp
         src/schemas/v2.cpp
-        src/converters/convert.hpp
         src/utils/common.cpp
         src/handlers/JsonRpcHandler.cpp
         src/handlers/blocks/GetMasterchainInfoHandler.cpp
@@ -34,20 +32,12 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/utils/DetectHashHandler.cpp
         src/handlers/utils/PackAddressHandler.cpp
         src/handlers/utils/UnpackAddressHandler.cpp
-        src/handlers/accounts/GetAddressInformationHandler.h
         src/handlers/accounts/GetAddressInformationHandler.cpp
-        src/handlers/accounts/GetExtendedAddressInformationHandler.h
         src/handlers/accounts/GetExtendedAddressInformationHandler.cpp
-        src/handlers/accounts/GetWalletInformationHandler.h
         src/handlers/accounts/GetWalletInformationHandler.cpp
-        src/utils/wallets.hpp
-        src/handlers/accounts/GetAddressBalanceHandler.h
         src/handlers/accounts/GetAddressBalanceHandler.cpp
-        src/handlers/accounts/GetAddressStateHandler.h
         src/handlers/accounts/GetAddressStateHandler.cpp
-        src/handlers/blocks/GetMasterchainBlockSignaturesHandler.h
         src/handlers/blocks/GetMasterchainBlockSignaturesHandler.cpp
-        src/handlers/accounts/GetTokenDataHandler.h
         src/handlers/accounts/GetTokenDataHandler.cpp
         src/core/tonlib_worker.cpp
         src/core/tlb/tokens-tlb.cpp
@@ -58,31 +48,30 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_transactions.cpp
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
-        src/handlers/blocks/GetShardBlockProofHandler.h
         src/handlers/blocks/GetShardBlockProofHandler.cpp
-        src/handlers/blocks/GetConsensusBlockHandler.h
         src/handlers/blocks/GetConsensusBlockHandler.cpp
-        src/handlers/blocks/LookupBlockHandler.h
         src/handlers/blocks/LookupBlockHandler.cpp
         src/handlers/blocks/GetShardsHandler.cpp
-        src/handlers/blocks/GetShardsHandler.h
         src/handlers/blocks/GetBlockHeaderHandler.cpp
-        src/handlers/blocks/GetBlockHeaderHandler.h
         src/handlers/blocks/GetOutMsgQueueSizeHandler.cpp
-        src/handlers/blocks/GetOutMsgQueueSizeHandler.h
         src/handlers/transactions/GetBlockTransactionsHandler.cpp
-        src/handlers/transactions/GetBlockTransactionsHandler.h
-        src/converters/transactions.hpp
         src/handlers/transactions/GetBlockTransactionsExtHandler.cpp
-        src/handlers/transactions/GetBlockTransactionsExtHandler.h
         src/handlers/transactions/GetTransactionsStdHandler.cpp
-        src/handlers/transactions/GetTransactionsStdHandler.h
         src/handlers/transactions/GetTransactionsHandler.cpp
-        src/handlers/transactions/GetTransactionsHandler.h
+        src/handlers/transactions/TryLocateResultTxHandler.cpp
+        src/handlers/transactions/TryLocateSourceTxHandler.cpp
+        src/handlers/config/GetConfigParamHandler.cpp
+        src/handlers/config/GetConfigAllHandler.cpp
+        src/handlers/config/GetLibrariesHandler.cpp
+        src/handlers/send/SendBocReturnHashHandler.cpp
+        src/handlers/runmethod/RunGetMethodStdHandler.cpp
+        src/converters/runmethod.hpp
+        ../playground/header.h
+        ../playground/templates_1.cpp
+        ../playground/wallets_1.cpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.h
 )
 
 add_custom_command(

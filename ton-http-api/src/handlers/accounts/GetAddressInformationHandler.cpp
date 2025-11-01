@@ -11,7 +11,7 @@ ton_http::handlers::GetAddressInformationHandler::GetAddressInformationHandler(
 }
 
 ton_http::schemas::v2::AddressInformationRequest ton_http::handlers::GetAddressInformationHandler::
-  ParseTonlibGetRequest(const HttpRequest& request, const Value&, RequestContext&) const {
+  ParseTonlibGetRequest(const HttpRequest& request, RequestContext&) const {
   schemas::v2::AddressInformationRequest req;
 
   req.address = userver::chaotic::convert::Convert(

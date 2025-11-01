@@ -6,7 +6,7 @@ FROZEN_ADDRESS = '-1:1562A2794314E178AC1D32C9F23A611F67C413E87B02C3115C5C3EA7D61
 @pytest.mark.parametrize("address", [ADDRESS, FROZEN_ADDRESS])
 def test_extended_address_information(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -14,7 +14,7 @@ def test_extended_address_information(api_method_call, address):
 
 def test_invalid_address(api_method_call):
     response = api_method_call('getExtendedAddressInformation', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -22,7 +22,7 @@ def test_invalid_address(api_method_call):
 
 def test_empty_address(api_method_call):
     response = api_method_call('getExtendedAddressInformation')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -32,7 +32,7 @@ ZERO_ADDRESS = '-1:0000000000000000000000000000000000000000000000000000000000000
 @pytest.mark.parametrize("address", [ZERO_ADDRESS])
 def test_account_state_raw(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -47,7 +47,7 @@ WALLET_V3_ADDRESSES = [
 @pytest.mark.parametrize("address", WALLET_V3_ADDRESSES)
 def test_account_state_wallet_v3(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -63,7 +63,7 @@ WALLET_V4_ADDRESSES = [
 @pytest.mark.parametrize("address", WALLET_V4_ADDRESSES)
 def test_account_state_wallet_v4(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -79,7 +79,7 @@ HIGHLOAD_V1_ADDRESSES = [
 @pytest.mark.parametrize("address", HIGHLOAD_V1_ADDRESSES)
 def test_account_state_wallet_highload_v1(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -97,7 +97,7 @@ HIGHLOAD_V2_ADDRESSES = [
 @pytest.mark.parametrize("address", HIGHLOAD_V2_ADDRESSES)
 def test_account_state_wallet_highload_v2(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -114,7 +114,7 @@ MANUAL_DNS_ADDRESSES = [
 @pytest.mark.parametrize("address", MANUAL_DNS_ADDRESSES)
 def test_account_state_dns(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -130,7 +130,7 @@ RWALLET_ADDRESSES = [
 @pytest.mark.parametrize("address", RWALLET_ADDRESSES)
 def test_account_state_rwallet(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -150,7 +150,7 @@ PCHAN_ADDRESSES = [
 @pytest.mark.parametrize("address", PCHAN_ADDRESSES)
 def test_account_state_pchan(api_method_call, address):
     response = api_method_call('getExtendedAddressInformation', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -166,7 +166,7 @@ def test_account_state_pchan(api_method_call, address):
 
 def test_address_information_for_given_block(api_method_call, last_mc_seqno):
     response = api_method_call('getExtendedAddressInformation', address=ADDRESS, seqno=last_mc_seqno - 10)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'fullAccountState'
@@ -176,13 +176,13 @@ def test_address_information_for_given_block(api_method_call, last_mc_seqno):
 
 def test_wrong_seqno(api_method_call):
     response = api_method_call('getExtendedAddressInformation', address=ADDRESS, seqno='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
 
 
 def test_future_seqno(api_method_call, last_mc_seqno):
     response = api_method_call('getExtendedAddressInformation', address=ADDRESS, seqno=last_mc_seqno + 10000)
-    assert response.status_code == 500
+    assert response.status_code == 500, response.json()['error']
     data = response.json()
     assert data['ok'] == False

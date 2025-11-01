@@ -10,7 +10,7 @@ SUSPENDED_ADDRESS = '0:B81B6A61E804BF983FFE708BF8688626D73E63020096FD34C312BEF6C
 @pytest.mark.parametrize("address", [ADDRESS, SUSPENDED_ADDRESS])
 def test_address_information(api_method_call, address):
     response = api_method_call(METHOD_NAME, address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'raw.fullAccountState'
@@ -18,18 +18,18 @@ def test_address_information(api_method_call, address):
 
 def test_address_information_no_address(api_method_call):
     response = api_method_call(METHOD_NAME)
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
 
 def test_address_information_invalid_address(api_method_call):
     response = api_method_call(METHOD_NAME, address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
 
 
 def test_suspended_address_information(api_method_call):
     response = api_method_call(METHOD_NAME, address=SUSPENDED_ADDRESS)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'raw.fullAccountState'
@@ -40,7 +40,7 @@ def test_suspended_address_information(api_method_call):
 
 def test_frozen_address_information(api_method_call):
     response = api_method_call(METHOD_NAME, address='-1:1562A2794314E178AC1D32C9F23A611F67C413E87B02C3115C5C3EA7D6112F3F')
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'raw.fullAccountState'
@@ -51,7 +51,7 @@ def test_frozen_address_information(api_method_call):
 
 def test_address_with_extra_currency(api_method_call):
     response = api_method_call(METHOD_NAME, address='-1:0000000000000000000000000000000000000000000000000000000000000000')
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'raw.fullAccountState'
@@ -68,7 +68,7 @@ def test_address_with_extra_currency(api_method_call):
 
 def test_address_information_for_given_block(api_method_call, last_mc_seqno):
     response = api_method_call(METHOD_NAME, address=ADDRESS, seqno=last_mc_seqno - 10)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] == 'raw.fullAccountState'
@@ -78,13 +78,13 @@ def test_address_information_for_given_block(api_method_call, last_mc_seqno):
 
 def test_wrong_seqno(api_method_call):
     response = api_method_call(METHOD_NAME, address=ADDRESS, seqno='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
 
 
 def test_future_seqno(api_method_call, last_mc_seqno):
     response = api_method_call(METHOD_NAME, address=ADDRESS, seqno=last_mc_seqno + 10000)
-    assert response.status_code == 500
+    assert response.status_code == 500, response.json()['error']
     data = response.json()
     assert data['ok'] == False

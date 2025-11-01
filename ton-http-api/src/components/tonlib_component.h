@@ -17,7 +17,7 @@ public:
   );
   ~TonlibComponent() override = default;
 
-  multiclient::SessionPtr GetNewSession() const;
+  [[nodiscard]] multiclient::SessionPtr GetNewSession() const;
 
   template <typename Func, typename... Args>
   auto DoRequest(Func&& func, Args&&... args) -> decltype(auto) {

@@ -34,3 +34,4 @@ log_format: json            # logs format, one of `tskv`, `ltsv`, `json`
 http_worker_user_agent: empty  # http user agent to set in request to boc endpoint
 
 static_content_dir: "/static/"  # directory for static content
+max_stack_entry_depth: 100      # max stack entry depth for runGetMethod

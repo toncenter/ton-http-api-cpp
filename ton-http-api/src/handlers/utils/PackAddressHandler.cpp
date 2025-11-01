@@ -9,7 +9,7 @@ ton_http::handlers::PackAddressHandler::PackAddressHandler(
 }
 
 ton_http::schemas::v2::PackAddressRequest ton_http::handlers::PackAddressHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::PackAddressRequest req;
 

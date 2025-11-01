@@ -8,7 +8,7 @@ ton_http::handlers::DetectAddressHandler::DetectAddressHandler(
     TonlibRequestHandler(config, context) {
 }
 ton_http::schemas::v2::DetectAddressRequest ton_http::handlers::DetectAddressHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::DetectAddressRequest req;
 

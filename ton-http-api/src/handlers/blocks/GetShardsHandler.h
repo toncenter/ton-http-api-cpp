@@ -12,7 +12,7 @@ public:
   GetShardsHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
 
   td::Status ValidateRequest(const schemas::v2::ShardsRequest& request) const override;
-  schemas::v2::ShardsRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+  schemas::v2::ShardsRequest ParseTonlibGetRequest(const HttpRequest& request, RequestContext& context) const override;
 
   td::Result<schemas::v2::Shards> HandleRequestTonlibThrow(
       schemas::v2::ShardsRequest& request, multiclient::SessionPtr& session

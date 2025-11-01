@@ -11,7 +11,7 @@ ton_http::handlers::GetBlockTransactionsHandler::GetBlockTransactionsHandler(
 }
 
 ton_http::schemas::v2::BlockTransactionsRequest ton_http::handlers::GetBlockTransactionsHandler::
-  ParseTonlibGetRequest(const HttpRequest& request, const Value&, RequestContext&) const {
+  ParseTonlibGetRequest(const HttpRequest& request, RequestContext&) const {
   schemas::v2::BlockTransactionsRequest req;
   try {
     req.workchain = boost::lexical_cast<std::int32_t>(request.GetArg("workchain"));

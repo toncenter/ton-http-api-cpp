@@ -16,7 +16,7 @@ public:
   );
 
   schemas::v2::ExtendedAddressInformationRequest ParseTonlibGetRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
+    const HttpRequest& request, RequestContext& context
   ) const override;
 
   td::Result<schemas::v2::ExtendedAddressInformation> HandleRequestTonlibThrow(

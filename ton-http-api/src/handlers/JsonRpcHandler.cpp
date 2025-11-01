@@ -1,37 +1,56 @@
 #include "JsonRpcHandler.h"
+
+#include "schemas/v2.hpp"
 #include "userver/clients/http/component.hpp"
+#include "utils/exceptions.hpp"
 
 namespace ton_http::handlers {
 
 JsonRpcHandler::JsonRpcHandler(
   const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
 ) :
-    HttpHandlerJsonBase(config, context),
+    HttpHandlerBase(config, context),
     logger_(context.FindComponent<userver::components::Logging>().GetLogger(
       config["logger"].As<std::string>("api-v2-jsonrpc")
     )),
     http_client_(context.FindComponent<userver::components::HttpClient>("http-client").GetHttpClient()),
     base_url_("http://localhost:" + std::to_string(config["port"].As<std::int32_t>()) + "/api/v2/") {
 }
-userver::server::handlers::HttpHandlerJsonBase::Value JsonRpcHandler::HandleRequestJsonThrow(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+std::string JsonRpcHandler::HandleRequestThrow(
+  const HttpRequest& request, RequestContext&
 ) const {
-  auto method = request_json["method"].As<std::string>();
-  auto params = request_json["params"];
+  try {
+    auto request_json = userver::formats::json::FromString(request.RequestBody());
+    auto method = request_json["method"].As<std::string>();
+    auto params = request_json["params"];
 
-  auto url = base_url_ + method;
-  auto req = http_client_.CreateRequest();
-  auto resp = req.post(url, ToString(params))
-                .headers({{"Content-Type", "application/json"}})
-                .timeout(std::chrono::seconds(10))
-                .perform();
-  auto code = resp->status_code();
-  request.GetHttpResponse().SetStatus(code);
-  return userver::formats::json::FromString(resp->body());
-  ;
+    auto url = base_url_ + method;
+    auto req = http_client_.CreateRequest();
+    auto resp = req.post(url, ToString(params))
+                  .headers({{"Content-Type", "application/json"}})
+                  .timeout(std::chrono::seconds(10))
+                  .perform();
+    auto code = resp->status_code();
+
+    auto& http_response = request.GetHttpResponse();
+    http_response.SetStatus(code);
+    http_response.SetContentType(userver::http::content_type::kApplicationJson);
+    return resp->body();
+  } catch (const utils::TonlibException& exc) {
+    schemas::v2::TonlibErrorResponse response;
+    response.ok = false;
+    response.error = "JsonRpc error: " + exc.message();
+    response.code = 500;
+    response._extra = "";
+
+    auto& http_response = request.GetHttpResponse();
+    http_response.SetStatus(userver::server::http::HttpStatus::kInternalServerError);
+    http_response.SetContentType(userver::http::content_type::kApplicationJson);
+    return ToString(userver::formats::json::ValueBuilder{response}.ExtractValue());
+  }
 }
 userver::yaml_config::Schema JsonRpcHandler::GetStaticConfigSchema() {
-  return userver::yaml_config::MergeSchemas<HttpHandlerJsonBase>(R"(
+  return userver::yaml_config::MergeSchemas<HttpHandlerBase>(R"(
 type: object
 description: jsonRPC handler config
 additionalProperties: false

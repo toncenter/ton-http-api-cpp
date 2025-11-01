@@ -46,6 +46,9 @@ def pytest_generate_tests(metafunc):
     if "api_mode" in metafunc.fixturenames:
         modes = _selected_modes(metafunc.config)
         metafunc.parametrize("api_mode", modes, ids=modes, scope='module')
+    if "api_mode_no_get" in metafunc.fixturenames:
+        modes = [x for x in _selected_modes(metafunc.config) if x != 'get']
+        metafunc.parametrize("api_mode_no_get", modes, ids=modes, scope='module')
 
 @pytest.fixture(scope='module')
 def headers(api_key):
@@ -61,25 +64,46 @@ def api_method_call(endpoint, headers, api_mode):
     Call the REST or JSON-RPC endpoint according to the selected api_mode.
     Usage: resp = api_method_call("getMasterchainInfo", foo=1)
     """
-    def _call(method: str, **kwargs):
+    def _call(__method: str, **kwargs):
         url = endpoint  # already has trailing slash
         with requests.Session() as session:
             if api_mode == "get":
-                return session.get(url + method, params=kwargs, headers=headers)
+                return session.get(url + __method, params=kwargs, headers=headers)
             if api_mode == "post":
-                return session.post(url + method, json=kwargs, headers=headers)
+                return session.post(url + __method, json=kwargs, headers=headers)
             # jsonrpc
             return session.post(url + "jsonRPC",
-                                json={"jsonrpc": "2.0", "method": method, "params": kwargs, "id": 1},
+                                json={"jsonrpc": "2.0", "method": __method, "params": kwargs, "id": 1},
+                                headers=headers)
+    return _call
+
+
+@pytest.fixture(scope='module')
+def api_method_call_no_get(endpoint, headers, api_mode_no_get):
+    """
+    Call the REST or JSON-RPC endpoint according to the selected api_mode.
+    Use this fixture for POST-methods.
+    Usage: resp = api_method_call_no_get("getMasterchainInfo", foo=1)
+    """
+    def _call(__method: str, **kwargs):
+        url = endpoint  # already has trailing slash
+        with requests.Session() as session:
+            if api_mode_no_get == "get":
+                raise Exception("Unreachable")
+            if api_mode_no_get == "post":
+                return session.post(url + __method, json=kwargs, headers=headers)
+            # jsonrpc
+            return session.post(url + "jsonRPC",
+                                json={"jsonrpc": "2.0", "method": __method, "params": kwargs, "id": 1},
                                 headers=headers)
     return _call
 
 
 @pytest.fixture(scope='module')
 def api_method_call_get(endpoint, headers):
-    def _call(method, **kwargs):
+    def _call(__method, **kwargs):
         with requests.Session() as session:
-            return session.get(os.path.join(endpoint, method),
+            return session.get(os.path.join(endpoint, __method),
                                params=kwargs,
                                headers=headers)
     return _call

@@ -160,10 +160,12 @@ public:
     std::int64_t id, std::optional<bool> archival = std::nullopt, multiclient::SessionPtr session = nullptr
   ) const;
 
+  using StackBuilder = std::function<std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>>()>;
+
   [[nodiscard]] td::Result<RunGetMethodResult> runGetMethod(
     const std::string& address,
     const std::string& method_name,
-    const std::vector<std::string>& stack,
+    StackBuilder stack_builder,
     std::optional<std::int32_t> seqno = std::nullopt,
     std::optional<bool> archival = std::nullopt,
     multiclient::SessionPtr session = nullptr
@@ -216,7 +218,7 @@ private:
   [[nodiscard]] td::Result<RunGetMethodResult> runGetMethod_impl(
     std::int64_t smc_id,
     const std::string& method_name,
-    const std::vector<std::string>& stack,
+    StackBuilder stack_builder,
     std::optional<bool> archival = std::nullopt,
     multiclient::SessionPtr session = nullptr
   ) const;
@@ -267,24 +269,27 @@ private:
       return std::move(result);
     }
     auto error = result.move_as_error();
-
     if (request.parameters.archival.has_value() && request.parameters.archival.value()) {
       return std::move(error);
     }
 
     // retry request with archival
     request.parameters.archival = true;
-    TRY_RESULT_ASSIGN(request.session, tonlib_.get_session(request.parameters, std::move(request.session)));
-    result = tonlib_.send_request_function<T, userver::engine::Promise>(request);
-    if (result.is_error()) {
-      auto error_archival = result.move_as_error();
-      LOG(WARNING) << error_archival.code() << " " << error_archival.message();
-      if (error_archival.code() == -3) {
+    auto r_new_session = tonlib_.get_session(request.parameters, std::move(request.session));
+    if (r_new_session.is_error()) {
+      return std::move(error);
+    }
+    request.session = r_new_session.move_as_ok();
+    auto result_archival = tonlib_.send_request_function<T, userver::engine::Promise>(request);
+    if (result_archival.is_error()) {
+      auto error_archival = result_archival.move_as_error();
+      LOG(WARNING) << "Failed archival retry of tonlib request: " << error_archival.code() << " " << error_archival.message();
+      if (error_archival.code() == 542) {
         return std::move(error);
       }
       return std::move(error_archival);
     }
-    return std::move(result);
+    return result_archival.move_as_ok();
   }
 };
 }  // namespace ton_http::core

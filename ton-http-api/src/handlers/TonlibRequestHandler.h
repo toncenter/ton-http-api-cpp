@@ -5,7 +5,7 @@
 #include "userver/components/component_config.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/logging/component.hpp"
-#include "userver/server/handlers/http_handler_json_base.hpp"
+#include "userver/server/handlers/http_handler_base.hpp"
 #include "userver/yaml_config/merge_schemas.hpp"
 #include "utils/exceptions.hpp"
 
@@ -35,115 +35,146 @@ concept VectorLike = is_vector_v<T>;
 namespace ton_http::handlers {
 
 template <typename Request, typename Response>
-class TonlibRequestHandler : public userver::server::handlers::HttpHandlerJsonBase {
+class TonlibRequestHandler : public userver::server::handlers::HttpHandlerBase {
 public:
-  using HttpHandlerJsonBase::HttpHandlerJsonBase;
+  using HttpHandlerBase::HttpHandlerBase;
+  using HttpRequest = userver::server::http::HttpRequest;
+  using RequestContext = userver::server::request::RequestContext;
 
-  virtual Request ParseTonlibGetRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
-  ) const = 0;
-  virtual Request ParseTonlibPostRequest(const HttpRequest&, const Value& request_json, RequestContext&) const {
-    try {
-      return request_json.As<Request>();
-    } catch (std::exception& exc) {
-      throw utils::TonlibException(exc.what(), 422);
-    }
+  virtual Request ParseTonlibGetRequest(const HttpRequest& request, RequestContext& context) const = 0;
+  virtual Request ParseTonlibPostRequest(const HttpRequest& request, RequestContext&) const {
+    const auto request_json = userver::formats::json::FromString(request.RequestBody());
+    return request_json.As<Request>();
   }
   virtual td::Status ValidateRequest(const Request&) const {
     return td::Status::OK();
   }
   virtual td::Result<Response> HandleRequestTonlibThrow(Request& request, multiclient::SessionPtr& session) const = 0;
 
-  userver::formats::json::Value HandleRequestJsonThrow(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
-  ) const override {
+  Request ParseTonlibRequestThrow(const HttpRequest& request, RequestContext& context) const {
+    Request tonlib_request;
+    if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
+      try {
+        tonlib_request = ParseTonlibGetRequest(request, context);
+      } catch (std::exception& exc) {
+        throw utils::TonlibException(std::string("failed to parse get request: ") + exc.what(), 422);
+      }
+    } else if (request.GetMethod() == userver::server::http::HttpMethod::kPost) {
+      try {
+        tonlib_request = ParseTonlibPostRequest(request, context);
+      } catch (std::exception& exc) {
+        throw utils::TonlibException(std::string("failed to parse post request: ") + exc.what(), 422);
+      }
+    } else {
+      throw utils::TonlibException(std::string("unsupported http method: ") + request.GetMethodStr(), 405);
+    }
+    if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
+      auto error = validate_result.move_as_error();
+      throw utils::TonlibException(std::string("failed to validate request: ") + error.message().str(), error.code());
+    }
+    return tonlib_request;
+  }
+
+  schemas::v2::TonlibResponse PrepareResponse(const Response& tonlib_result) const {
+    schemas::v2::TonlibResponse response;
+    response.ok = true;
+    if constexpr (VariantLike<Response>) {
+      std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, tonlib_result);
+    } else if constexpr (VectorLike<Response>) {
+      std::vector<schemas::v2::TonlibObject> result_vector;
+      for (auto& item : tonlib_result) {
+        result_vector.emplace_back(item);
+      }
+      response.result = result_vector;
+    } else {
+      response.result = std::move(tonlib_result);
+    }
+    return response;
+  }
+
+  static schemas::v2::TonlibErrorResponse PrepareErrorResponse(const utils::TonlibException& exc) {
+    auto code = exc.code();
+    if (code == 0) {
+      code = 500;
+    } else if (code == -3) {
+      code = 542;
+    } else if (code < 0) {
+      code = 500;
+    }
+
+    schemas::v2::TonlibErrorResponse response;
+    response.ok = false;
+    response.error = exc.message();
+    response.code = code;
+    return response;
+  }
+
+  std::string HandleRequestThrow(const HttpRequest& request, RequestContext& context) const override {
     auto session = tonlib_component_.GetNewSession();
+    schemas::v2::TonlibErrorResponse error_response;
     try {
-      Request tonlib_request;
-      if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
-        tonlib_request = ParseTonlibGetRequest(request, request_json, context);
-      } else if (request.GetMethod() == userver::server::http::HttpMethod::kPost) {
-        tonlib_request = ParseTonlibPostRequest(request, request_json, context);
-      }
-      if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
-        auto error = validate_result.move_as_error();
-        throw utils::TonlibException(error.message().str(), error.code());
-      }
-
-      auto result = HandleRequestTonlibThrow(tonlib_request, session);
-
-      if (result.is_error()) {
-        auto tonlib_error = result.move_as_error();
+      auto tonlib_request = ParseTonlibRequestThrow(request, context);
+      auto tonlib_response = HandleRequestTonlibThrow(tonlib_request, session);
+      if (tonlib_response.is_error()) {
+        auto tonlib_error = tonlib_response.move_as_error();
         throw utils::TonlibException(tonlib_error.message().str(), tonlib_error.code());
       }
-      schemas::v2::TonlibResponse response;
-      response.ok = true;
-      if constexpr (VariantLike<Response>) {
-        auto result_ok = result.move_as_ok();
-        std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, result_ok);
-      } else if constexpr (VectorLike<Response>) {
-        std::vector<schemas::v2::TonlibObject> result_vector;
-        auto result_ok = result.move_as_ok();
-        for (auto& item : result_ok) {
-          result_vector.emplace_back(item);
-        }
-        response.result = result_vector;
-      } else {
-        response.result = result.move_as_ok();
+      auto tonlib_result = tonlib_response.move_as_ok();
+      auto response = PrepareResponse(tonlib_result);
+
+      auto& http_response = request.GetHttpResponse();
+      http_response.SetContentType(userver::http::content_type::kApplicationJson);
+      http_response.SetStatus(userver::server::http::HttpStatus::kOk);
+      if (use_custom_serializer_) {
+        throw std::runtime_error("not implemented");
       }
-      response._extra = session->to_string();
-      return userver::formats::json::ValueBuilder{response}.ExtractValue();
-
-    } catch (const utils::TonlibException& exc) {
-      auto code = exc.code();
-      if (code == 0) {
-        code = 500;
-      } else if (code == -3) {
-        code = 542;
-      } else if (code < 0) {
-        code = 500;
-      }
-
-      schemas::v2::TonlibErrorResponse response;
-      response.ok = false;
-      response.error = exc.message();
-      response.code = code;
-      response._extra = session->to_string();
-
-      request.GetHttpResponse().SetStatus(static_cast<userver::server::http::HttpStatus>(code));
-      return userver::formats::json::ValueBuilder{response}.ExtractValue();
+      return ToString(userver::formats::json::ValueBuilder{response}.ExtractValue());
+    } catch (const utils::TonlibException& error) {
+      error_response = PrepareErrorResponse(error);
     } catch (const std::exception& exc) {
       LOG_ERROR_TO(*logger_) << "Unknown exception: " << exc.what();
-      std::stringstream ss;
-      ss << "unknown exception: " << exc.what();
-      throw utils::TonlibException(ss.str(), 500);
+      error_response =
+        PrepareErrorResponse(utils::TonlibException(std::string("unknown exception: ") + exc.what(), 500));
     }
+    error_response._extra = session->to_string();
+
+    auto& http_response = request.GetHttpResponse();
+    http_response.SetContentType(userver::http::content_type::kApplicationJson);
+    http_response.SetStatus(static_cast<userver::server::http::HttpStatus>(error_response.code));
+    return ToString(userver::formats::json::ValueBuilder{error_response}.ExtractValue());
   }
   TonlibRequestHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
   ) :
-      HttpHandlerJsonBase(config, context),
+      HttpHandlerBase(config, context),
       tonlib_component_(context.FindComponent<core::TonlibComponent>()),
       logger_(
         context.FindComponent<userver::components::Logging>().GetLogger(config["logger"].As<std::string>("api-v2"))
-      ) {
+      ),
+      use_custom_serializer_(config["use_custom_serializer"].As<bool>(false)) {
   }
 
   static userver::yaml_config::Schema GetStaticConfigSchema() {
-    return userver::yaml_config::MergeSchemas<HttpHandlerJsonBase>(R"(
+    return userver::yaml_config::MergeSchemas<HttpHandlerBase>(R"(
 type: object
 description: TonlibRequest base config
 additionalProperties: false
 properties:
   logger:
     type: string
-    description: logger name
+    description: 'logger name (default: api-v2)'
+  use_custom_serializer:
+    type: boolean
+    description: use custom JSON serializer
 )");
   }
 
 protected:
   core::TonlibComponent& tonlib_component_;
   userver::logging::LoggerPtr logger_;
+
+private:
+  bool use_custom_serializer_;
 };
 
 }  // namespace ton_http::handlers

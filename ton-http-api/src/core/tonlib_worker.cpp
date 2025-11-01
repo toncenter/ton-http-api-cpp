@@ -65,16 +65,16 @@ td::Result<std::unique_ptr<tonlib_api::ok>> TonlibWorker::forgetContract(
 td::Result<RunGetMethodResult> TonlibWorker::runGetMethod_impl(
   std::int64_t smc_id,
   const std::string& method_name,
-  const std::vector<std::string>& stack,
+  StackBuilder stack_builder,
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_runGetMethod>{
     .parameters = {.mode = multiclient::RequestMode::Single, .archival = archival},
     .request_creator =
-      [id_ = smc_id, method_name_ = method_name, stack_str = stack] {
+      [id_ = smc_id, method_name_ = method_name, stack_builder] {
         auto method_int = td::string_to_int256(method_name_);
-        auto stack = utils::parse_stack(stack_str).move_as_ok();
+        auto stack = stack_builder();
         if (method_int.is_null()) {
           return tonlib_api::make_object<tonlib_api::smc_runGetMethod>(
             id_, tonlib_api::make_object<tonlib_api::smc_methodIdName>(method_name_), std::move(stack)
@@ -98,15 +98,13 @@ td::Result<RunGetMethodResult> TonlibWorker::runGetMethod_impl(
 td::Result<RunGetMethodResult> TonlibWorker::runGetMethod(
   const std::string& address,
   const std::string& method_name,
-  const std::vector<std::string>& stack,
+  StackBuilder stack_builder,
   std::optional<std::int32_t> seqno,
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
-  TRY_STATUS(utils::parse_stack(stack));
   TRY_RESULT(smc_info, loadContract(address, seqno, archival, session));
-
-  auto&& run_method_result = runGetMethod_impl(smc_info->id_, method_name, stack, archival, session);
+  auto&& run_method_result = runGetMethod_impl(smc_info->id_, method_name, stack_builder, archival, session);
 
   TRY_STATUS(forgetContract(smc_info->id_, archival, session));
   return std::move(run_method_result);

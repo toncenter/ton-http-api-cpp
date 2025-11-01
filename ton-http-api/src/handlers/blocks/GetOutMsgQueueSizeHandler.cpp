@@ -10,7 +10,7 @@ ton_http::handlers::GetOutMsgQueueSizeHandler::GetOutMsgQueueSizeHandler(
 }
 
 ton_http::schemas::v2::OutMsgQueueSizeRequest ton_http::handlers::GetOutMsgQueueSizeHandler::ParseTonlibGetRequest(
-    const HttpRequest&, const Value&, RequestContext&
+    const HttpRequest&, RequestContext&
 ) const {
   return {};
 }

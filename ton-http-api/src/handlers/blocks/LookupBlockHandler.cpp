@@ -11,7 +11,7 @@ ton_http::handlers::LookupBlockHandler::LookupBlockHandler(
 }
 
 ton_http::schemas::v2::LookupBlockRequest ton_http::handlers::LookupBlockHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::LookupBlockRequest req;
   try {

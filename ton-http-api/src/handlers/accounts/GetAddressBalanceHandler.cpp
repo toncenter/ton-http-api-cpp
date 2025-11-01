@@ -11,7 +11,7 @@ ton_http::handlers::GetAddressBalanceHandler::GetAddressBalanceHandler(
 }
 
 ton_http::schemas::v2::AddressBalanceRequest ton_http::handlers::GetAddressBalanceHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::AddressBalanceRequest req;
 

@@ -25,11 +25,6 @@ if (PY_TONLIB_MULTICLIENT)
 endif()
 
 
-if (BUILD_TON_PLAYGROUND)
-  message("-- Building TON Playground binary")
-  add_subdirectory(playground)
-endif()
-
 if (TON_HTTP_API_CPP)
   # userver config
   set(USERVER_FEATURE_REDIS TRUE)
@@ -41,4 +36,10 @@ if (TON_HTTP_API_CPP)
   set(USERVER_USE_STATIC_LIBS TRUE)
   add_subdirectory(external/userver EXCLUDE_FROM_ALL)
   add_subdirectory(ton-http-api)
+endif()
+
+
+if (BUILD_TON_PLAYGROUND)
+  message("-- Building TON Playground binary")
+  add_subdirectory(playground)
 endif()

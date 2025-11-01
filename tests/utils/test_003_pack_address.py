@@ -13,7 +13,7 @@ EXPECTED_RESPONSE_NONBOUNCEABLE = 'UQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xq
 @pytest.mark.parametrize("address", ADDRESSES)
 def test_different_address_forms(api_method_call, address):
     response = api_method_call('packAddress', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result'] == EXPECTED_RESPONSE_NONBOUNCEABLE or data['result'] == EXPECTED_RESPONSE_BOUNCEABLE
@@ -21,12 +21,12 @@ def test_different_address_forms(api_method_call, address):
 
 def test_pack_address_no_address(api_method_call):
     response = api_method_call('packAddress')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
 
 def test_pack_address_invalid_address(api_method_call):
     response = api_method_call('packAddress', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False

@@ -9,7 +9,7 @@ ton_http::handlers::GetShardBlockProofHandler::GetShardBlockProofHandler(
 }
 
 ton_http::schemas::v2::ShardBlockProofRequest ton_http::handlers::GetShardBlockProofHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::ShardBlockProofRequest req;
   if (!request.HasArg("workchain")) {

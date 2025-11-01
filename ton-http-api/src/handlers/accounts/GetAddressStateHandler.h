@@ -16,7 +16,7 @@ public:
 
   td::Status ValidateRequest(const schemas::v2::AddressStateRequest& request) const override;
   schemas::v2::AddressStateRequest ParseTonlibGetRequest(
-    const HttpRequest& request, const Value& request_json, RequestContext& context
+    const HttpRequest& request, RequestContext& context
   ) const override;
 
   td::Result<schemas::v2::AddressState> HandleRequestTonlibThrow(

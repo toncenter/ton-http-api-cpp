@@ -12,7 +12,7 @@ ton_http::handlers::GetMasterchainBlockSignaturesHandler::GetMasterchainBlockSig
 
 ton_http::schemas::v2::MasterchainBlockSignaturesRequest
 ton_http::handlers::GetMasterchainBlockSignaturesHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::MasterchainBlockSignaturesRequest req;
 

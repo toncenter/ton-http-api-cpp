@@ -91,99 +91,108 @@ components_manager:
     handler-DetectAddress:
       path: /api/v2/detectAddress
       method: GET,POST
-      logger: api-v2
     handler-DetectHash:
       path: /api/v2/detectHash
       method: GET,POST
-      logger: api-v2
     handler-PackAddress:
       path: /api/v2/packAddress
       method: GET,POST
-      logger: api-v2
     handler-UnpackAddress:
       path: /api/v2/unpackAddress
       method: GET,POST
-      logger: api-v2
     handler-GetAddressInformation:
       path: /api/v2/getAddressInformation
       method: GET,POST
-      logger: api-v2
     handler-GetExtendedAddressInformation:
       path: /api/v2/getExtendedAddressInformation
       method: GET,POST
-      logger: api-v2
     handler-GetWalletInformation:
       path: /api/v2/getWalletInformation
       method: GET,POST
-      logger: api-v2
     handler-GetAddressBalance:
       path: /api/v2/getAddressBalance
       method: GET,POST
-      logger: api-v2
     handler-GetAddressState:
       path: /api/v2/getAddressState
       method: GET,POST
-      logger: api-v2
     handler-GetTokenData:
       path: /api/v2/getTokenData
       method: GET,POST
-      logger: api-v2
 
     ## blocks
     handler-GetMasterchainInfo:
       path: /api/v2/getMasterchainInfo
       method: GET,POST
-      logger: api-v2
     handler-GetMasterchainBlockSignatures:
       path: /api/v2/getMasterchainBlockSignatures
       method: GET,POST
-      logger: api-v2
     handler-GetShardBlockProof:
       path: /api/v2/getShardBlockProof
       method: GET,POST
-      logger: api-v2
     handler-GetConsensusBlock:
       path: /api/v2/getConsensusBlock
       method: GET,POST
-      logger: api-v2
     handler-LookupBlock:
       path: /api/v2/lookupBlock
       method: GET,POST
-      logger: api-v2
     handler-GetShards:
       path: /api/v2/getShards
       method: GET,POST
-      logger: api-v2
     handler-Shards:
       path: /api/v2/shards
       method: GET,POST
-      logger: api-v2
     handler-GetBlockHeader:
       path: /api/v2/getBlockHeader
       method: GET,POST
-      logger: api-v2
     handler-GetOutMsgQueueSize:
       path: /api/v2/getOutMsgQueueSize
       method: GET,POST
-      logger: api-v2
 
     ## transactions
     handler-GetBlockTransactions:
       path: /api/v2/getBlockTransactions
       method: GET,POST
-      logger: api-v2
     handler-GetBlockTransactionsExt:
       path: /api/v2/getBlockTransactionsExt
       method: GET,POST
-      logger: api-v2
     handler-GetTransactions:
       path: /api/v2/getTransactions
       method: GET,POST
-      logger: api-v2
     handler-GetTransactionsStd:
       path: /api/v2/getTransactionsStd
       method: GET,POST
-      logger: api-v2
+    handler-TryLocateResultTx:
+      path: /api/v2/tryLocateResultTx
+      method: GET,POST
+    handler-TryLocateTx:
+      path: /api/v2/tryLocateTx
+      method: GET,POST
+    handler-TryLocateSourceTx:
+      path: /api/v2/tryLocateSourceTx
+      method: GET,POST
+
+    ## config
+    handler-GetConfigParam:
+      path: /api/v2/getConfigParam
+      method: GET,POST
+    handler-GetConfigAll:
+      path: /api/v2/getConfigAll
+      method: GET,POST
+    handler-GetLibraries:
+      path: /api/v2/getLibraries
+      method: GET,POST
+
+    ## get-methods
+    handler-RunGetMethodStd:
+      path: /api/v2/runGetMethodStd
+      method: POST
+      max_stack_entry_depth: $max_stack_entry_depth
+      max_stack_entry_depth#fallback: 100
+
+    ## send boc
+    handler-SendBocReturnHash:
+      path: /api/v2/sendBocReturnHash
+      method: POST
 
     #
     # jsonrpc handler

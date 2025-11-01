@@ -44,7 +44,7 @@ NOT_TOKEN = '0:399DC3CE613B3B4E701167BC8ADEAE2442DCD1C34CC21BE625C0E4C5936338AB'
 ])
 def test_get_token_data(api_method_call, address):
     response = api_method_call('getTokenData', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert data['result']['@type'] in {
@@ -58,7 +58,7 @@ def test_get_token_data(api_method_call, address):
 
 def test_invalid_address(api_method_call):
     response = api_method_call('getTokenData', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -66,7 +66,7 @@ def test_invalid_address(api_method_call):
 
 def test_empty_address(api_method_call):
     response = api_method_call('getTokenData')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -74,7 +74,7 @@ def test_empty_address(api_method_call):
 
 def test_master_with_admin(api_method_call):
     response = api_method_call('getTokenData', address=MASTER_WITH_ADMIN)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'jetton_master'
     assert data['result']['@type'] == 'ext.tokens.jettonMasterData'
@@ -84,7 +84,7 @@ def test_master_with_admin(api_method_call):
 
 def test_master_without_admin(api_method_call):
     response = api_method_call('getTokenData', address=MASTER_NO_ADMIN)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'jetton_master'
     assert data['result']['@type'] == 'ext.tokens.jettonMasterData'
@@ -94,7 +94,7 @@ def test_master_without_admin(api_method_call):
 
 def test_jetton_wallet_usdt(api_method_call):
     response = api_method_call('getTokenData', address=JETTON_WALLET_USDT)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'jetton_wallet'
     assert data['result']['@type'] == 'ext.tokens.jettonWalletData'
@@ -102,7 +102,7 @@ def test_jetton_wallet_usdt(api_method_call):
 
 def test_jetton_wallet_mintless_claimed(api_method_call):
     response = api_method_call('getTokenData', address=JETTON_WALLET_MINTLESS_CLAIMED)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'jetton_wallet'
     assert data['result']['@type'] == 'ext.tokens.jettonWalletData'
@@ -113,7 +113,7 @@ def test_jetton_wallet_mintless_claimed(api_method_call):
 
 def test_jetton_wallet_mintless_unclaimed(api_method_call):
     response = api_method_call('getTokenData', address=JETTON_WALLET_MINTLESS_UNCLAIMED)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'jetton_wallet'
     assert data['result']['@type'] == 'ext.tokens.jettonWalletData'
@@ -124,7 +124,7 @@ def test_jetton_wallet_mintless_unclaimed(api_method_call):
 
 def test_collection_with_owner(api_method_call):
     response = api_method_call('getTokenData', address=NFT_COLLECTION_WITH_OWNER)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_collection'
     assert data['result']['@type'] == 'ext.tokens.nftCollectionData'
@@ -134,7 +134,7 @@ def test_collection_with_owner(api_method_call):
 
 def test_collection_without_owner(api_method_call):
     response = api_method_call('getTokenData', address=NFT_COLLECTION_WITHOUT_OWNER)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_collection'
     assert data['result']['@type'] == 'ext.tokens.nftCollectionData'
@@ -144,7 +144,7 @@ def test_collection_without_owner(api_method_call):
 
 def test_item_with_owner(api_method_call):
     response = api_method_call('getTokenData', address=NFT_ITEM)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -154,7 +154,7 @@ def test_item_with_owner(api_method_call):
 
 def test_item_without_owner(api_method_call):
     response = api_method_call('getTokenData', address=NFT_ITEM_WITHOUT_OWNER)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -164,7 +164,7 @@ def test_item_without_owner(api_method_call):
 
 def test_item_without_collection(api_method_call):
     response = api_method_call('getTokenData', address=NFT_ITEM_WITHOUT_COLLECTION)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -174,7 +174,7 @@ def test_item_without_collection(api_method_call):
 
 def test_content_onchain(api_method_call):
     response = api_method_call('getTokenData', address=JETTON_CONTENT_ONCHAIN)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['jetton_content']['type'] == 'onchain'
     assert isinstance(data['result']['jetton_content']['data'], dict)
@@ -183,7 +183,7 @@ def test_content_onchain(api_method_call):
 
 def test_content_offchain(api_method_call):
     response = api_method_call('getTokenData', address=NFT_CONTENT_OFFCHAIN)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['content']['type'] == 'offchain'
     assert isinstance(data['result']['content']['data'], str)
@@ -197,7 +197,7 @@ def test_not_token(api_method_call):
 
 def test_dns_with_resolver(api_method_call):
     response = api_method_call('getTokenData', address=DNS_WITH_RESOLVER)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -211,7 +211,7 @@ def test_dns_with_resolver(api_method_call):
 
 def test_dns_with_site(api_method_call):
     response = api_method_call('getTokenData', address=DNS_WITH_SITE)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -225,7 +225,7 @@ def test_dns_with_site(api_method_call):
 
 def test_dns_with_storage(api_method_call):
     response = api_method_call('getTokenData', address=DNS_WITH_ADNL)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'
@@ -239,7 +239,7 @@ def test_dns_with_storage(api_method_call):
 
 def test_dns_with_wallet(api_method_call):
     response = api_method_call('getTokenData', address=DNS_WITH_WALLET)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['result']['contract_type'] == 'nft_item'
     assert data['result']['@type'] == 'ext.tokens.nftItemData'

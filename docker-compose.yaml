@@ -8,12 +8,13 @@ services:
     ports:
       - ${THACPP_PORT:-8081}:8081
       - ${THACPP_MONITOR_PORT:-8082}:8082
-    # restart: unless-stopped
+    restart: unless-stopped
     secrets:
       - ton-global-config
       - config-vars
     ulimits:
       memlock: -1
+      stack: -1
 secrets:
   ton-global-config:
     file: ${THACPP_GLOBAL_CONFIG_PATH:-private/mainnet.json}

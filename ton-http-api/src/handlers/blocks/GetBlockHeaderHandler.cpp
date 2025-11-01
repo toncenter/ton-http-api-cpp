@@ -11,7 +11,7 @@ ton_http::handlers::GetBlockHeaderHandler::GetBlockHeaderHandler(
 }
 
 ton_http::schemas::v2::BlockHeaderRequest ton_http::handlers::GetBlockHeaderHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value&, RequestContext&
+  const HttpRequest& request, RequestContext&
 ) const {
   schemas::v2::BlockHeaderRequest req;
   try {

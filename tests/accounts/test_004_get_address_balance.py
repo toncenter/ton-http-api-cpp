@@ -7,7 +7,7 @@ ZERO_ADDRESS = '-1:0000000000000000000000000000000000000000000000000000000000000
 @pytest.mark.parametrize("address", [ADDRESS, FROZEN_ADDRESS, ZERO_ADDRESS])
 def test_address_balance(api_method_call, address):
     response = api_method_call('getAddressBalance', address=address)
-    assert response.status_code == 200
+    assert response.status_code == 200, response.json()['error']
     data = response.json()
     assert data['ok'] == True
     assert isinstance(data['result'], str)
@@ -16,7 +16,7 @@ def test_address_balance(api_method_call, address):
 
 def test_invalid_address(api_method_call):
     response = api_method_call('getAddressBalance', address='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -24,7 +24,7 @@ def test_invalid_address(api_method_call):
 
 def test_empty_address(api_method_call):
     response = api_method_call('getAddressBalance')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -44,7 +44,7 @@ def test_address_information_for_given_block(api_method_call, last_mc_seqno):
 
 def test_wrong_seqno(api_method_call):
     response = api_method_call('getAddressBalance', address=ADDRESS, seqno='invalid')
-    assert response.status_code == 422
+    assert response.status_code == 422, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return
@@ -52,7 +52,7 @@ def test_wrong_seqno(api_method_call):
 
 def test_future_seqno(api_method_call, last_mc_seqno):
     response = api_method_call('getAddressBalance', address=ADDRESS, seqno=last_mc_seqno + 10000)
-    assert response.status_code == 500
+    assert response.status_code == 500, response.json()['error']
     data = response.json()
     assert data['ok'] == False
     return

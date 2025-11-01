@@ -12,7 +12,7 @@ public:
   GetOutMsgQueueSizeHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
 
   td::Status ValidateRequest(const schemas::v2::OutMsgQueueSizeRequest& request) const override;
-  schemas::v2::OutMsgQueueSizeRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+  schemas::v2::OutMsgQueueSizeRequest ParseTonlibGetRequest(const HttpRequest& request, RequestContext& context) const override;
 
   td::Result<schemas::v2::OutMsgQueueSizes> HandleRequestTonlibThrow(
       schemas::v2::OutMsgQueueSizeRequest& request, multiclient::SessionPtr& session

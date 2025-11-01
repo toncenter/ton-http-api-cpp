@@ -12,7 +12,7 @@ public:
   LookupBlockHandler(const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context);
 
   td::Status ValidateRequest(const schemas::v2::LookupBlockRequest& request) const override;
-  schemas::v2::LookupBlockRequest ParseTonlibGetRequest(const HttpRequest& request, const Value& request_json, RequestContext& context) const override;
+  schemas::v2::LookupBlockRequest ParseTonlibGetRequest(const HttpRequest& request, RequestContext& context) const override;
 
   td::Result<schemas::v2::LookupBlock> HandleRequestTonlibThrow(
       schemas::v2::LookupBlockRequest& request, multiclient::SessionPtr& session

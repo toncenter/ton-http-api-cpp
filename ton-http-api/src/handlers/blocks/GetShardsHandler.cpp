@@ -11,7 +11,7 @@ ton_http::handlers::GetShardsHandler::GetShardsHandler(
 }
 
 ton_http::schemas::v2::ShardsRequest ton_http::handlers::GetShardsHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value&, RequestContext&
+  const HttpRequest& request, RequestContext&
 ) const {
   schemas::v2::ShardsRequest req;
 

@@ -9,7 +9,7 @@ ton_http::handlers::DetectHashHandler::DetectHashHandler(
 }
 
 ton_http::schemas::v2::DetectHashRequest ton_http::handlers::DetectHashHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::DetectHashRequest req;
 

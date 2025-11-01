@@ -11,7 +11,7 @@ ton_http::handlers::GetAddressStateHandler::GetAddressStateHandler(
 }
 
 ton_http::schemas::v2::AddressStateRequest ton_http::handlers::GetAddressStateHandler::ParseTonlibGetRequest(
-  const HttpRequest& request, const Value& request_json, RequestContext& context
+  const HttpRequest& request, RequestContext& context
 ) const {
   schemas::v2::AddressStateRequest req;
 
