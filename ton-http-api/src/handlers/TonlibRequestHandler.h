@@ -206,7 +206,11 @@ public:
     if (response.has_value()) {
       log_extra.Extend("response", response.value());
     }
-    LOG_TO(*logger_, log_level) << log_extra;
+    if (log_level <= userver::logging::Level::kInfo) {
+      LOG_INFO_TO(*logger_) << log_extra;
+    } else {
+      LOG_WARNING_TO(*logger_) << log_extra;
+    }
   }
 
   static userver::yaml_config::Schema GetStaticConfigSchema() {
