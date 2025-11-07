@@ -65,14 +65,9 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/config/GetLibrariesHandler.cpp
         src/handlers/send/SendBocHandler.cpp
         src/handlers/runmethod/RunGetMethodStdHandler.cpp
-        src/converters/runmethod.hpp
-        ../playground/header.h
-        ../playground/templates_1.cpp
-        ../playground/wallets_1.cpp
         src/handlers/send/EstimateFeeHandler.cpp
-        src/handlers/send/EstimateFeeHandler.h
         src/handlers/runmethod/RunGetMethodHandler.cpp
-        src/handlers/runmethod/RunGetMethodHandler.h
+        src/userver/chaotic/io/bool.cpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp

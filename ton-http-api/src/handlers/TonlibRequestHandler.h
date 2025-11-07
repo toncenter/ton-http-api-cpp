@@ -135,7 +135,9 @@ public:
       }
 
       auto response_body = userver::formats::json::ValueBuilder{response}.ExtractValue();
-      LogTonlibRequest(request, context, tonlib_request, response_body, std::nullopt, userver::logging::Level::kInfo);
+      LogTonlibRequest(
+        request, context, tonlib_request, std::nullopt, response_body, std::nullopt, userver::logging::Level::kInfo
+      );
       return ToString(response_body);
     } catch (const utils::TonlibException& error) {
       error_response = PrepareErrorResponse(error);
@@ -152,10 +154,20 @@ public:
 
     auto response_body = userver::formats::json::ValueBuilder{error_response}.ExtractValue();
     if (!was_parsed) {
-      auto request_body = userver::formats::json::FromString(request.RequestBody());
-      LogTonlibRequest(request, context, tonlib_request, request_body, response_body, userver::logging::Level::kWarning);
+      std::optional<userver::formats::json::Value> raw_request = std::nullopt;
+      if (!request.RequestBody().empty()) {
+        try {
+          raw_request = userver::formats::json::FromString(request.RequestBody());
+        } catch (std::exception& e) {
+        }
+      }
+      LogTonlibRequest(
+        request, context, tonlib_request, raw_request, std::nullopt, response_body, userver::logging::Level::kWarning
+      );
     } else {
-      LogTonlibRequest(request, context, tonlib_request, std::nullopt, response_body, userver::logging::Level::kWarning);
+      LogTonlibRequest(
+        request, context, tonlib_request, std::nullopt, std::nullopt, response_body, userver::logging::Level::kWarning
+      );
     }
     return ToString(response_body);
   }
@@ -173,7 +185,8 @@ public:
   void LogTonlibRequest(
     const HttpRequest& request,
     RequestContext&,
-    const Request& req,
+    const Request& parsed_request,
+    std::optional<userver::formats::json::Value> raw_request = std::nullopt,
     std::optional<userver::formats::json::Value> response = std::nullopt,
     std::optional<userver::formats::json::Value> error = std::nullopt,
     const userver::logging::Level log_level = userver::logging::Level::kInfo
@@ -181,14 +194,16 @@ public:
     userver::logging::LogExtra log_extra;
     log_extra.Extend("http_method", request.GetMethodStr());
     log_extra.Extend("api_method", request.GetRequestPath());
-    auto request_body = userver::formats::json::ValueBuilder{req}.ExtractValue();
-    log_extra.Extend("request", request_body);
+    if (raw_request.has_value()) {
+      log_extra.Extend("request", raw_request.value());
+    } else {
+      auto request_body = userver::formats::json::ValueBuilder{parsed_request}.ExtractValue();
+      log_extra.Extend("request", request_body);
+    }
     if (error.has_value()) {
-      if (response.has_value()) {
-        log_extra.Extend("request_body", response.value());
-      }
       log_extra.Extend("response", error.value());
-    } else if (response.has_value()) {
+    }
+    if (response.has_value()) {
       log_extra.Extend("response", response.value());
     }
     LOG_TO(*logger_, log_level) << log_extra;

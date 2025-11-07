@@ -1984,7 +1984,12 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         archival:
-          type: boolean
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+            - type: boolean
+          x-usrv-cpp-type: 'bool'
         limit:
           oneOf:
             - type: string
