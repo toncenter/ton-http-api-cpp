@@ -112,8 +112,9 @@ public:
   std::string HandleRequestThrow(const HttpRequest& request, RequestContext& context) const override {
     auto session = tonlib_component_.GetNewSession();
     schemas::v2::TonlibErrorResponse error_response;
+    Request tonlib_request;
     try {
-      auto tonlib_request = ParseTonlibRequestThrow(request, context);
+      tonlib_request = ParseTonlibRequestThrow(request, context);
       auto tonlib_response = HandleRequestTonlibThrow(tonlib_request, session);
       if (tonlib_response.is_error()) {
         auto tonlib_error = tonlib_response.move_as_error();
@@ -129,7 +130,10 @@ public:
       if (use_custom_serializer_) {
         throw std::runtime_error("not implemented");
       }
-      return ToString(userver::formats::json::ValueBuilder{response}.ExtractValue());
+
+      auto response_body = userver::formats::json::ValueBuilder{response}.ExtractValue();
+      LogTonlibRequest(request, context, tonlib_request, response_body, std::nullopt, userver::logging::Level::kInfo);
+      return ToString(response_body);
     } catch (const utils::TonlibException& error) {
       error_response = PrepareErrorResponse(error);
     } catch (const std::exception& exc) {
@@ -142,7 +146,10 @@ public:
     auto& http_response = request.GetHttpResponse();
     http_response.SetContentType(userver::http::content_type::kApplicationJson);
     http_response.SetStatus(static_cast<userver::server::http::HttpStatus>(error_response.code));
-    return ToString(userver::formats::json::ValueBuilder{error_response}.ExtractValue());
+
+    auto response_body = userver::formats::json::ValueBuilder{error_response}.ExtractValue();
+    LogTonlibRequest(request, context, tonlib_request, std::nullopt, response_body, userver::logging::Level::kWarning);
+    return ToString(response_body);
   }
   TonlibRequestHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
@@ -153,6 +160,28 @@ public:
         context.FindComponent<userver::components::Logging>().GetLogger(config["logger"].As<std::string>("api-v2"))
       ),
       use_custom_serializer_(config["use_custom_serializer"].As<bool>(false)) {
+  }
+
+  void LogTonlibRequest(
+    const HttpRequest& request,
+    RequestContext&,
+    const Request& req,
+    std::optional<userver::formats::json::Value> response = std::nullopt,
+    std::optional<userver::formats::json::Value> error = std::nullopt,
+    const userver::logging::Level log_level = userver::logging::Level::kInfo
+  ) const {
+    userver::logging::LogExtra log_extra;
+    log_extra.Extend("http_method", request.GetMethodStr());
+    log_extra.Extend("api_method", request.GetRequestPath());
+    auto request_body = userver::formats::json::ValueBuilder{req}.ExtractValue();
+    log_extra.Extend("request", request_body);
+    if (response.has_value()) {
+      log_extra.Extend("response", response.value());
+    }
+    if (error.has_value()) {
+      log_extra.Extend("response", error.value());
+    }
+    LOG_TO(*logger_, log_level) << log_extra;
   }
 
   static userver::yaml_config::Schema GetStaticConfigSchema() {

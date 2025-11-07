@@ -78,7 +78,7 @@ td::Status ton_http::handlers::GetBlockTransactionsExtHandler::ValidateRequest(
     return td::Status::Error(422, "count should be positive");
   }
   if (request.count > 2000) {
-    return td::Status::Error(422, "count should be less or equal 100");
+    return td::Status::Error(422, "count should be less or equal 2000");
   }
   if (request.seqno <= 0) {
     return td::Status::Error(422, "seqno should be positive");
