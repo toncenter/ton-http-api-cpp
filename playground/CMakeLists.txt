@@ -8,6 +8,8 @@ set(PLAYGROUND_SOURCE
         wallets_1.cpp
         schemas_1.cpp
         schemas/test_schemas_1.cpp
+        schemas/test_schema_with_tuple.cpp
+        schema_with_tuple.cpp
 )
 add_executable(ton-playground ${PLAYGROUND_SOURCE})
 target_include_directories(ton-playground
@@ -21,6 +23,15 @@ userver_target_generate_chaotic(
         LAYOUT "/([^/]*)/=schema::{0}"
         OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/schemas/
         SCHEMAS ${CMAKE_CURRENT_SOURCE_DIR}/test_schemas_1.yaml
+        RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
+)
+
+userver_target_generate_chaotic(
+        ton-playground-schema-with-tuple
+        GENERATE_SERIALIZERS
+        LAYOUT "/([^/]*)/=schema::{0}"
+        OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/schemas/
+        SCHEMAS ${CMAKE_CURRENT_SOURCE_DIR}/test_schema_with_tuple.yaml
         RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
 )
 

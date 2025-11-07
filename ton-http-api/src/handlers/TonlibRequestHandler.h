@@ -121,6 +121,7 @@ public:
       }
       auto tonlib_result = tonlib_response.move_as_ok();
       auto response = PrepareResponse(tonlib_result);
+      response._extra = session->to_string();
 
       auto& http_response = request.GetHttpResponse();
       http_response.SetContentType(userver::http::content_type::kApplicationJson);

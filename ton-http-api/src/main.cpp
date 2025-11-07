@@ -29,8 +29,10 @@
 #include "handlers/config/GetConfigAllHandler.h"
 #include "handlers/config/GetConfigParamHandler.h"
 #include "handlers/config/GetLibrariesHandler.h"
+#include "handlers/runmethod/RunGetMethodHandler.h"
 #include "handlers/runmethod/RunGetMethodStdHandler.h"
-#include "handlers/send/SendBocReturnHashHandler.h"
+#include "handlers/send/EstimateFeeHandler.h"
+#include "handlers/send/SendBocHandler.h"
 #include "handlers/transactions/GetBlockTransactionsExtHandler.h"
 #include "handlers/transactions/GetBlockTransactionsHandler.h"
 #include "handlers/transactions/GetTransactionsHandler.h"
@@ -103,7 +105,11 @@ int main(int argc, char* argv[]) {
   component_list.Append<ton_http::handlers::RunGetMethodStdHandler>();
 
   // send
-  component_list.Append<ton_http::handlers::SendBocReturnHashHandler>();
+  component_list.Append<ton_http::handlers::RunGetMethodHandler>();
+  component_list.Append<ton_http::handlers::SendBocHandler>();
+  component_list.Append<ton_http::handlers::SendBocHandler>("handler-SendBocReturnHashNoError");
+  component_list.Append<ton_http::handlers::SendBocHandler>("handler-SendBoc");
+  component_list.Append<ton_http::handlers::EstimateFeeHandler>();
 
   // jsonRpc handler
   component_list.Append<ton_http::handlers::JsonRpcHandler>();

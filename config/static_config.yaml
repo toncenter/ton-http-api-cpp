@@ -183,15 +183,38 @@ components_manager:
       method: GET,POST
 
     ## get-methods
+    handler-RunGetMethod:
+      path: /api/v2/runGetMethod
+      method: POST
     handler-RunGetMethodStd:
       path: /api/v2/runGetMethodStd
       method: POST
       max_stack_entry_depth: $max_stack_entry_depth
       max_stack_entry_depth#fallback: 100
-
     ## send boc
+    handler-SendBoc:
+      path: /api/v2/sendBoc
+      method: POST
+      external_message_endpoints: $tonlib_boc_endpoints
+      external_message_endpoints#fallback: []
+      return_hash: false
+      ignore_errors: false
     handler-SendBocReturnHash:
       path: /api/v2/sendBocReturnHash
+      method: POST
+      external_message_endpoints: $tonlib_boc_endpoints
+      external_message_endpoints#fallback: []
+      return_hash: true
+      ignore_errors: false
+    handler-SendBocReturnHashNoError:
+      path: /api/v2/sendBocReturnHashNoError
+      method: POST
+      external_message_endpoints: $tonlib_boc_endpoints
+      external_message_endpoints#fallback: []
+      return_hash: true
+      ignore_errors: true
+    handler-EstimateFee:
+      path: /api/v2/estimateFee
       method: POST
 
     #

@@ -25,6 +25,13 @@ ton_http::handlers::RunGetMethodStdHandler::HandleRequestTonlibThrow(
   auto method = std::holds_alternative<std::string>(request.method) ?
     std::get<std::string>(request.method) :
     std::to_string(std::get<std::int32_t>(request.method));
+  try {
+    converters::TvmStackParse(request.stack);
+  } catch (const utils::TonlibException& e) {
+    return td::Status::Error(e.code(), e.message());
+  } catch (const std::exception& e) {
+    return td::Status::Error(400, std::string{e.what()});
+  }
   core::TonlibWorker::StackBuilder stack_builder = [&] {
     return converters::TvmStackParse(request.stack);
   };
@@ -42,7 +49,7 @@ ton_http::handlers::RunGetMethodStdHandler::HandleRequestTonlibThrow(
   );
   auto result_object = converters::Convert<schemas::v2::RunGetMethodStdResult>(result.result);
   if (!checkStackDepth(result_object.stack)) {
-    throw utils::TonlibException{"No no no, mr. Fish! Result stack depth >= " + std::to_string(max_stack_entry_depth_), 533};
+    throw utils::TonlibException{"Result stack depth >= " + std::to_string(max_stack_entry_depth_), 533};
   }
   return result_object;
 }

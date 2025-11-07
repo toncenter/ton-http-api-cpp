@@ -283,7 +283,8 @@ private:
     auto result_archival = tonlib_.send_request_function<T, userver::engine::Promise>(request);
     if (result_archival.is_error()) {
       auto error_archival = result_archival.move_as_error();
-      LOG(WARNING) << "Failed archival retry of tonlib request: " << error_archival.code() << " " << error_archival.message();
+      LOG(WARNING)
+        << "Failed archival retry of tonlib request: " << error_archival.code() << " " << error_archival.message();
       if (error_archival.code() == 542) {
         return std::move(error);
       }

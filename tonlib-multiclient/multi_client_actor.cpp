@@ -173,6 +173,29 @@ void MultiClientActor::alarm() {
     next_archival_check_ = td::Timestamp::in(kCheckArchivalInterval);
   }
 
+  std::stringstream state;
+  std::int32_t consensus_block = 0;
+  for (const auto& worker : workers_) {
+    if (worker.is_alive && worker.last_mc_seqno > consensus_block) {
+      consensus_block = worker.last_mc_seqno;
+    }
+  }
+  for (auto& worker : workers_) {
+    state << "[";
+    if (worker.is_alive) {
+      if (worker.is_archival) {
+        state << "A";
+      } else {
+        state << "a";
+      }
+      auto delay = consensus_block - worker.last_mc_seqno;
+      state << delay;
+    } else {
+      state << ".";
+    }
+    state << "]";
+  }
+  LOG(ERROR) << state.str();
   alarm_timestamp() = td::Timestamp::in(kDefaultAlarmInterval);
 }
 

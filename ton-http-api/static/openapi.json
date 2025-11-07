@@ -2534,7 +2534,8 @@
     "/api/v2/sendBoc": {
       "post": {
         "tags": [
-          "send"
+          "send",
+          "rpc"
         ],
         "summary": "Send BOC",
         "description": "Send bag of cells to blockchain",
@@ -2577,7 +2578,8 @@
     "/api/v2/sendBocReturnHash": {
       "post": {
         "tags": [
-          "send"
+          "send",
+          "rpc"
         ],
         "summary": "Send BOC Return Hash",
         "description": "Send bag of cells to blockchain and return hash",
@@ -2617,53 +2619,11 @@
         ]
       }
     },
-    "/api/v2/sendQuery": {
-      "post": {
-        "tags": [
-          "send"
-        ],
-        "summary": "Send Query",
-        "description": "Send query to blockchain",
-        "operationId": "sendQuery_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendQueryRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TonlibResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/default"
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          },
-          {
-            "APIKeyQuery": []
-          }
-        ]
-      }
-    },
     "/api/v2/estimateFee": {
       "post": {
         "tags": [
-          "send"
+          "send",
+          "rpc"
         ],
         "summary": "Estimate Fee",
         "description": "Estimate fee for query",
@@ -3400,65 +3360,6 @@
           }
         }
       },
-      "RunGetMethodRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "address",
-          "method",
-          "stack"
-        ],
-        "properties": {
-          "address": {
-            "$ref": "#/components/schemas/TonAddr"
-          },
-          "method": {
-            "type": "string"
-          },
-          "stack": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/TvmStackEntrySlice",
-                  "x-usrv-cpp-indirect": true
-                },
-                {
-                  "$ref": "#/components/schemas/TvmStackEntryCell",
-                  "x-usrv-cpp-indirect": true
-                },
-                {
-                  "$ref": "#/components/schemas/TvmStackEntryNumber",
-                  "x-usrv-cpp-indirect": true
-                },
-                {
-                  "$ref": "#/components/schemas/TvmStackEntryTuple",
-                  "x-usrv-cpp-indirect": true
-                },
-                {
-                  "$ref": "#/components/schemas/TvmStackEntryList",
-                  "x-usrv-cpp-indirect": true
-                },
-                {
-                  "$ref": "#/components/schemas/TvmStackEntryUnsupported",
-                  "x-usrv-cpp-indirect": true
-                }
-              ],
-              "discriminator": {
-                "propertyName": "@type",
-                "mapping": {
-                  "tvm.stackEntrySlice": "#/components/schemas/TvmStackEntrySlice",
-                  "tvm.stackEntryCell": "#/components/schemas/TvmStackEntryCell",
-                  "tvm.stackEntryNumber": "#/components/schemas/TvmStackEntryNumber",
-                  "tvm.stackEntryTuple": "#/components/schemas/TvmStackEntryTuple",
-                  "tvm.stackEntryList": "#/components/schemas/TvmStackEntryList",
-                  "tvm.stackEntryUnsupported": "#/components/schemas/TvmStackEntryUnsupported"
-                }
-              }
-            }
-          }
-        }
-      },
       "SendBocRequest": {
         "type": "object",
         "additionalProperties": false,
@@ -3471,34 +3372,15 @@
           }
         }
       },
-      "SendQueryRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "address",
-          "body"
-        ],
-        "properties": {
-          "address": {
-            "$ref": "#/components/schemas/TonAddr"
-          },
-          "body": {
-            "$ref": "#/components/schemas/Bytes"
-          },
-          "init_code": {
-            "$ref": "#/components/schemas/Bytes"
-          },
-          "init_data": {
-            "$ref": "#/components/schemas/Bytes"
-          }
-        }
-      },
       "EstimateFeeRequest": {
         "type": "object",
         "additionalProperties": false,
         "required": [
           "address",
-          "body"
+          "body",
+          "init_code",
+          "init_data",
+          "ignore_chksig"
         ],
         "properties": {
           "address": {
@@ -5242,10 +5124,19 @@
             "$ref": "#/components/schemas/LibraryResult"
           },
           {
+            "$ref": "#/components/schemas/QueryFees"
+          },
+          {
             "$ref": "#/components/schemas/ExtMessageInfo"
           },
           {
+            "$ref": "#/components/schemas/ResultOk"
+          },
+          {
             "$ref": "#/components/schemas/RunGetMethodStdResult"
+          },
+          {
+            "$ref": "#/components/schemas/RunGetMethodResult"
           }
         ],
         "discriminator": {
@@ -5273,9 +5164,12 @@
             "ext.transaction": "#/components/schemas/Transaction",
             "raw.transactions": "#/components/schemas/TransactionsStd",
             "configInfo": "#/components/schemas/ConfigInfo",
+            "query.fees": "#/components/schemas/QueryFees",
             "smc.libraryResult": "#/components/schemas/LibraryResult",
             "raw.extMessageInfo": "#/components/schemas/ExtMessageInfo",
-            "smc.runResult": "#/components/schemas/RunGetMethodStdResult"
+            "ok": "#/components/schemas/ResultOk",
+            "smc.runResult": "#/components/schemas/RunGetMethodStdResult",
+            "ext.runResult": "#/components/schemas/RunGetMethodResult"
           }
         }
       },
@@ -6130,6 +6024,102 @@
           }
         }
       },
+      "ResultOk": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ],
+            "default": "ok"
+          }
+        }
+      },
+      "SendBocResult": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ResultOk"
+          },
+          {
+            "$ref": "#/components/schemas/ExtMessageInfo"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "ok": "#/components/schemas/ResultOk",
+            "ext.messageInfo": "#/components/schemas/ExtMessageInfo"
+          }
+        }
+      },
+      "Fees": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "in_fwd_fee",
+          "storage_fee",
+          "gas_fee",
+          "fwd_fee"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "fees"
+            ],
+            "default": "fees"
+          },
+          "in_fwd_fee": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "storage_fee": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "gas_fee": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fwd_fee": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "QueryFees": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "source_fees",
+          "destination_fees"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "query.fees"
+            ],
+            "default": "query.fees"
+          },
+          "source_fees": {
+            "$ref": "#/components/schemas/Fees"
+          },
+          "destination_fees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Fees"
+            }
+          }
+        }
+      },
       "TvmStackEntrySlice": {
         "type": "object",
         "additionalProperties": false,
@@ -6221,9 +6211,9 @@
           "@type": {
             "type": "string",
             "enum": [
-              "tvm.stackEntryNumber"
+              "tvm.stackEntryList"
             ],
-            "default": "tvm.stackEntryNumber"
+            "default": "tvm.stackEntryList"
           },
           "list": {
             "$ref": "#/components/schemas/TvmList"
@@ -6560,6 +6550,160 @@
           "exit_code": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "LegacyTvmCell": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "refs",
+          "special"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "b64",
+              "len"
+            ],
+            "properties": {
+              "b64": {
+                "$ref": "#/components/schemas/Bytes"
+              },
+              "len": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LegacyTvmCell"
+            }
+          },
+          "special": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LegacyStackEntryCell": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "bytes"
+        ],
+        "properties": {
+          "bytes": {
+            "$ref": "#/components/schemas/Bytes"
+          },
+          "object": {
+            "$ref": "#/components/schemas/LegacyTvmCell"
+          }
+        }
+      },
+      "LegacyStackEntry": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/components/schemas/LegacyStackEntryCell"
+            },
+            {
+              "$ref": "#/components/schemas/TvmTuple",
+              "x-usrv-cpp-indirect": true
+            },
+            {
+              "$ref": "#/components/schemas/TvmList",
+              "x-usrv-cpp-indirect": true
+            }
+          ]
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "RunGetMethodRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "address",
+          "method",
+          "stack"
+        ],
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/TonAddr"
+          },
+          "method": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ]
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LegacyStackEntry"
+            }
+          },
+          "seqno": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RunGetMethodResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@type",
+          "gas_used",
+          "stack",
+          "exit_code",
+          "block_id",
+          "last_transaction_id"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "smc.runResult"
+            ],
+            "default": "smc.runResult"
+          },
+          "gas_used": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LegacyStackEntry"
+            }
+          },
+          "exit_code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "block_id": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "last_transaction_id": {
+            "$ref": "#/components/schemas/InternalTransactionId"
           }
         }
       }

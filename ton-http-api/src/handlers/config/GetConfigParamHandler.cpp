@@ -32,8 +32,8 @@ ton_http::schemas::v2::ConfigParamRequest ton_http::handlers::GetConfigParamHand
 td::Status ton_http::handlers::GetConfigParamHandler::ValidateRequest(
     const schemas::v2::ConfigParamRequest& request
 ) const {
-  if (request.param <= 0) {
-    return td::Status::Error(422, "param should be positive");
+  if (request.param < 0) {
+    return td::Status::Error(422, "param should be non-negative");
   }
   if (request.seqno.has_value() && request.seqno.value() <= 0) {
     return td::Status::Error(422, "seqno should be positive");

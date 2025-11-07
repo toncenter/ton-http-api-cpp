@@ -14,7 +14,7 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigParam(
   if (!with_block) {
     auto request = multiclient::RequestFunction<tonlib_api::getConfigParam>{
       .parameters = {.mode = multiclient::RequestMode::Single},
-      .request_creator = [param_ = param] { return tonlib_api::make_object<tonlib_api::getConfigParam>(param_, 0); },
+      .request_creator = [param_ = param] { return tonlib_api::make_object<tonlib_api::getConfigParam>(0, param_); },
       .session = session
     };
     return send_request_function(std::move(request), true);
@@ -30,7 +30,7 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigParam(
        file_hash_ = with_block->file_hash_] {
         return tonlib_api::make_object<tonlib_api::withBlock>(
           tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain_, shard_, seqno_, root_hash_, file_hash_),
-          tonlib_api::make_object<tonlib_api::getConfigParam>(param_, 0)
+          tonlib_api::make_object<tonlib_api::getConfigParam>(0, param_)
         );
       },
     .session = session
