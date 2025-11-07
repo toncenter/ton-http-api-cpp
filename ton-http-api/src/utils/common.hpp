@@ -13,18 +13,14 @@ namespace ton_http::utils {
 using namespace ton;
 
 inline std::optional<bool> stringToBool(std::string str) {
-  std::cout << "Archival: " << str << std::endl;
   if (str.empty()) {
     return std::nullopt;
   }
   std::ranges::transform(str, str.begin(), ::tolower);
-  std::cout << "Archival: " << str << std::endl;
   if (str == "y" || str == "yes" || str == "t" || str == "true" || str == "on" || str == "1") {
-    std::cout << "ARCHIVAL" << std::endl;
     return true;
   }
   if (str == "n" || str == "no" || str == "f" || str == "false" || str == "off" || str == "0") {
-    std::cout << "NOT ARCHIVAL" << std::endl;
     return false;
   }
   throw std::invalid_argument("failed to parse bool");
