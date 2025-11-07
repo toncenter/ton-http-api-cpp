@@ -107,10 +107,12 @@ public:
 
   std::string HandleRequestThrow(const HttpRequest& request, RequestContext& context) const override {
     auto session = tonlib_component_.GetNewSession();
+    bool was_parsed = false;
     schemas::v2::TonlibErrorResponse error_response;
     Request tonlib_request;
     try {
       tonlib_request = ParseTonlibRequestThrow(request, context);
+      was_parsed = true;
       if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
         auto error = validate_result.move_as_error();
         throw utils::TonlibException(std::string("failed to validate request: ") + error.message().str(), error.code());
@@ -149,7 +151,12 @@ public:
     http_response.SetStatus(static_cast<userver::server::http::HttpStatus>(error_response.code));
 
     auto response_body = userver::formats::json::ValueBuilder{error_response}.ExtractValue();
-    LogTonlibRequest(request, context, tonlib_request, std::nullopt, response_body, userver::logging::Level::kWarning);
+    if (!was_parsed) {
+      auto request_body = userver::formats::json::FromString(request.RequestBody());
+      LogTonlibRequest(request, context, tonlib_request, request_body, response_body, userver::logging::Level::kWarning);
+    } else {
+      LogTonlibRequest(request, context, tonlib_request, std::nullopt, response_body, userver::logging::Level::kWarning);
+    }
     return ToString(response_body);
   }
   TonlibRequestHandler(
@@ -176,11 +183,13 @@ public:
     log_extra.Extend("api_method", request.GetRequestPath());
     auto request_body = userver::formats::json::ValueBuilder{req}.ExtractValue();
     log_extra.Extend("request", request_body);
-    if (response.has_value()) {
-      log_extra.Extend("response", response.value());
-    }
     if (error.has_value()) {
+      if (response.has_value()) {
+        log_extra.Extend("request_body", response.value());
+      }
       log_extra.Extend("response", error.value());
+    } else if (response.has_value()) {
+      log_extra.Extend("response", response.value());
     }
     LOG_TO(*logger_, log_level) << log_extra;
   }

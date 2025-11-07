@@ -74,10 +74,10 @@ ton_http::schemas::v2::BlockTransactionsExtRequest ton_http::handlers::GetBlockT
 td::Status ton_http::handlers::GetBlockTransactionsExtHandler::ValidateRequest(
   const schemas::v2::BlockTransactionsExtRequest& request
 ) const {
-  if (request.count <= 0) {
+  if (request.count.value_or(40) <= 0) {
     return td::Status::Error(422, "count should be positive");
   }
-  if (request.count > 10000) {
+  if (request.count.value_or(40) > 10000) {
     return td::Status::Error(422, "count should be less or equal 10000");
   }
   if (request.seqno <= 0) {
