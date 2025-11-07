@@ -68,10 +68,6 @@ public:
     } else {
       throw utils::TonlibException(std::string("unsupported http method: ") + request.GetMethodStr(), 405);
     }
-    if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
-      auto error = validate_result.move_as_error();
-      throw utils::TonlibException(std::string("failed to validate request: ") + error.message().str(), error.code());
-    }
     return tonlib_request;
   }
 
@@ -115,6 +111,11 @@ public:
     Request tonlib_request;
     try {
       tonlib_request = ParseTonlibRequestThrow(request, context);
+      if (auto validate_result = ValidateRequest(tonlib_request); validate_result.is_error()) {
+        auto error = validate_result.move_as_error();
+        throw utils::TonlibException(std::string("failed to validate request: ") + error.message().str(), error.code());
+      }
+
       auto tonlib_response = HandleRequestTonlibThrow(tonlib_request, session);
       if (tonlib_response.is_error()) {
         auto tonlib_error = tonlib_response.move_as_error();

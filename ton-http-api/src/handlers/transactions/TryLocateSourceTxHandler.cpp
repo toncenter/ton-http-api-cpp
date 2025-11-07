@@ -37,8 +37,8 @@ td::Status ton_http::handlers::TryLocateSourceTxHandler::ValidateRequest(
   if (request.destination.empty()) {
     return td::Status::Error(422, "empty destination address");
   }
-  if (request.created_lt <= 0) {
-    return td::Status::Error(422, "created_lt should be positive");
+  if (request.created_lt < 0) {
+    return td::Status::Error(422, "created_lt should be non-negative");
   }
   return td::Status::OK();
 }

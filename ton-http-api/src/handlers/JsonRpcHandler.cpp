@@ -22,7 +22,10 @@ std::string JsonRpcHandler::HandleRequestThrow(
   try {
     auto request_json = userver::formats::json::FromString(request.RequestBody());
     auto method = request_json["method"].As<std::string>();
-    auto params = request_json["params"];
+    userver::formats::json::Value params = userver::formats::json::MakeObject();
+    if (request_json.HasMember("params")) {
+      params = request_json["params"];
+    }
 
     auto url = base_url_ + method;
     auto req = http_client_.CreateRequest();

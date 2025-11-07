@@ -73,8 +73,8 @@ td::Status ton_http::handlers::GetTransactionsStdHandler::ValidateRequest(
   bool has_lt = false;
   if (request.lt) {
     has_lt = true;
-    if (*request.lt <= 0) {
-      return td::Status::Error(422, "lt should be positive");
+    if (*request.lt < 0) {
+      return td::Status::Error(422, "lt should be non-negative");
     }
   }
   bool has_hash = false;
@@ -102,7 +102,7 @@ ton_http::handlers::GetTransactionsStdHandler::HandleRequestTonlibThrow(
       request.lt,
       hash,
       to_lt,
-      request.limit,
+      request.limit.value_or(10),
       CHUNK_SIZE,
       TRY_DECODE_MESSAGES,
       request.archival,

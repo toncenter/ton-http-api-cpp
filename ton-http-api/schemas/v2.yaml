@@ -1754,8 +1754,11 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     SeqnoRequest:
       type: object
       additionalProperties: false
@@ -1763,8 +1766,11 @@ components:
         - seqno
       properties:
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     # request schemas
     DetectAddressRequest:
       $ref: '#/components/schemas/AddressRequest'
@@ -1805,8 +1811,11 @@ components:
         - seqno
       properties:
         workchain:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         shard:
           oneOf:
             - type: string
@@ -1815,11 +1824,17 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         from_seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     ConsensusBlockRequest:
       $ref: '#/components/schemas/EmptyRequest'
     LookupBlockRequest:
@@ -1830,8 +1845,11 @@ components:
         - shard
       properties:
         workchain:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         shard:
           oneOf:
             - type: string
@@ -1840,8 +1858,11 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         lt:
           oneOf:
             - type: string
@@ -1850,8 +1871,11 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         unixtime:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     ShardsRequest:
       $ref: '#/components/schemas/SeqnoRequest'
     BlockHeaderRequest:
@@ -1863,8 +1887,11 @@ components:
         - seqno
       properties:
         workchain:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         shard:
           oneOf:
             - type: string
@@ -1873,8 +1900,11 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         root_hash:
           $ref: '#/components/schemas/TonHash'
         file_hash:
@@ -1890,8 +1920,11 @@ components:
         - seqno
       properties:
         workchain:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         shard:
           oneOf:
             - type: string
@@ -1900,8 +1933,11 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         root_hash:
           $ref: '#/components/schemas/TonHash'
         file_hash:
@@ -1916,8 +1952,11 @@ components:
         after_hash:
           $ref: '#/components/schemas/TonAddrWithoutWorkchain'
         count:
-          type: integer
-          default: 40
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     BlockTransactionsExtRequest:
       $ref: '#/components/schemas/BlockTransactionsRequest'
     TransactionsRequest:
@@ -1947,8 +1986,11 @@ components:
         archival:
           type: boolean
         limit:
-          type: integer
-          default: 10
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     TransactionsV2Request:
       $ref: '#/components/schemas/TransactionsRequest'
     TryLocateTxRequest:
@@ -1981,18 +2023,27 @@ components:
         - param
       properties:
         param:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     ConfigAllRequest:
       type: object
       additionalProperties: false
       properties:
         seqno:
-          type: integer
-          format: int32
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
     LibrariesRequest:
       type: object
       additionalProperties: false
@@ -2015,9 +2066,6 @@ components:
       required:
         - address
         - body
-        - init_code
-        - init_data
-        - ignore_chksig
       properties:
         address:
           $ref: '#/components/schemas/TonAddr'

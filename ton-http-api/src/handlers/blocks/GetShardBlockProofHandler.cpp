@@ -52,8 +52,8 @@ td::Status ton_http::handlers::GetShardBlockProofHandler::ValidateRequest(
   if (request.seqno <= 0) {
     return td::Status::Error(422, "seqno should be positive");
   }
-  if (request.from_seqno.has_value() && request.from_seqno.value() <= 0) {
-    return td::Status::Error(422, "from_seqno should be positive");
+  if (request.from_seqno.has_value() && request.from_seqno.value() < 0) {
+    return td::Status::Error(422, "from_seqno should be non-negative");
   }
   return td::Status::OK();
 }

@@ -59,14 +59,14 @@ td::Status ton_http::handlers::LookupBlockHandler::ValidateRequest(
   }
   if (request.lt.has_value()) {
     ++has_arg;
-    if (request.lt.value() <= 0) {
-      return td::Status::Error(422, "lt should be positive");
+    if (request.lt.value() < 0) {
+      return td::Status::Error(422, "lt should be non-negative");
     }
   }
   if (request.unixtime.has_value()) {
     ++has_arg;
-    if (request.unixtime.value() <= 0) {
-      return td::Status::Error(422, "unixtime should be positive");
+    if (request.unixtime.value() < 0) {
+      return td::Status::Error(422, "unixtime should be non-negative");
     }
   }
   if (has_arg != 1) {

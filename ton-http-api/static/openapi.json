@@ -2979,8 +2979,16 @@
             "$ref": "#/components/schemas/TonAddr"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -2992,8 +3000,16 @@
         ],
         "properties": {
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3052,8 +3068,16 @@
         ],
         "properties": {
           "workchain": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "shard": {
             "oneOf": [
@@ -3069,12 +3093,28 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "from_seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3090,8 +3130,16 @@
         ],
         "properties": {
           "workchain": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "shard": {
             "oneOf": [
@@ -3107,8 +3155,16 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "lt": {
             "oneOf": [
@@ -3124,8 +3180,16 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "unixtime": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3142,8 +3206,16 @@
         ],
         "properties": {
           "workchain": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "shard": {
             "oneOf": [
@@ -3159,8 +3231,16 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "root_hash": {
             "$ref": "#/components/schemas/TonHash"
@@ -3183,8 +3263,16 @@
         ],
         "properties": {
           "workchain": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "shard": {
             "oneOf": [
@@ -3200,8 +3288,16 @@
             "x-usrv-cpp-type": "std::int64_t"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "root_hash": {
             "$ref": "#/components/schemas/TonHash"
@@ -3226,8 +3322,16 @@
             "$ref": "#/components/schemas/TonAddrWithoutWorkchain"
           },
           "count": {
-            "type": "integer",
-            "default": 40
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3277,8 +3381,16 @@
             "type": "boolean"
           },
           "limit": {
-            "type": "integer",
-            "default": 10
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3329,12 +3441,28 @@
         ],
         "properties": {
           "param": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           },
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3343,8 +3471,16 @@
         "additionalProperties": false,
         "properties": {
           "seqno": {
-            "type": "integer",
-            "format": "int32"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
           }
         }
       },
@@ -3377,10 +3513,7 @@
         "additionalProperties": false,
         "required": [
           "address",
-          "body",
-          "init_code",
-          "init_data",
-          "ignore_chksig"
+          "body"
         ],
         "properties": {
           "address": {

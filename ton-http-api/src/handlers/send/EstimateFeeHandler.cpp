@@ -21,14 +21,16 @@ td::Result<ton_http::schemas::v2::QueryFees>
 ton_http::handlers::EstimateFeeHandler::HandleRequestTonlibThrow(
   schemas::v2::EstimateFeeRequest& request, multiclient::SessionPtr& session
 ) const {
+  auto init_code = request.init_code.has_value() ? request.init_code.value().GetUnderlying() : "";
+  auto init_data = request.init_data.has_value() ? request.init_data.value().GetUnderlying() : "";
   TRY_RESULT(
     result,
     tonlib_component_.DoRequest(
       &core::TonlibWorker::queryEstimateFees,
       request.address.GetUnderlying(),
       request.body.GetUnderlying(),
-      request.init_code.GetUnderlying(),
-      request.init_data.GetUnderlying(),
+      init_code,
+      init_data,
       request.ignore_chksig,
       session
     )

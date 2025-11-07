@@ -77,8 +77,8 @@ td::Status ton_http::handlers::GetBlockTransactionsExtHandler::ValidateRequest(
   if (request.count <= 0) {
     return td::Status::Error(422, "count should be positive");
   }
-  if (request.count > 2000) {
-    return td::Status::Error(422, "count should be less or equal 2000");
+  if (request.count > 10000) {
+    return td::Status::Error(422, "count should be less or equal 10000");
   }
   if (request.seqno <= 0) {
     return td::Status::Error(422, "seqno should be positive");
@@ -86,8 +86,8 @@ td::Status ton_http::handlers::GetBlockTransactionsExtHandler::ValidateRequest(
   bool has_after_lt = false;
   if (request.after_lt) {
     has_after_lt = true;
-    if (*request.after_lt <= 0) {
-      return td::Status::Error(422, "after_lt should be positive");
+    if (*request.after_lt < 0) {
+      return td::Status::Error(422, "after_lt should be non-negative");
     }
   }
   bool has_after_hash = false;
@@ -114,7 +114,7 @@ ton_http::handlers::GetBlockTransactionsExtHandler::HandleRequestTonlibThrow(
       request.workchain,
       request.shard,
       request.seqno,
-      request.count,
+      request.count.value_or(40),
       root_hash,
       file_hash,
       request.after_lt,
