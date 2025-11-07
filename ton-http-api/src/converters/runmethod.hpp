@@ -271,38 +271,27 @@ inline std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> LegacyTvm
   return result;
 }
 
-inline schemas::v2::LegacyTvmCell SerializeCell(const std::string& data) {
+inline schemas::v2::LegacyTvmCell SerializeCell(td::Ref<vm::Cell> cell) {
   schemas::v2::LegacyTvmCell result;
-  auto r_root_cell = vm::std_boc_deserialize(data);
-  if (r_root_cell.is_error()) {
-    throw utils::TonlibException{r_root_cell.move_as_error().message().str(), 500};
+  bool is_special = false;
+  auto cs = vm::load_cell_slice_special(cell, is_special);
+  auto r_ls = cell->load_cell();
+  if (r_ls.is_error()) {
+    throw utils::TonlibException{r_ls.move_as_error().message().str(), 500};
   }
-  auto root_cell = r_root_cell.move_as_ok();
-  std::queue<std::pair<schemas::v2::LegacyTvmCell&, const td::Ref<vm::Cell>&>> queue;
-  queue.push({result, root_cell});
-  while (!queue.empty()) {
-    auto& [result_cell, cell] = queue.front();
-    queue.pop();
+  auto ls = r_ls.move_as_ok();
+  auto size = (ls.data_cell->get_bits() + 7) / 8;
+  std::string cell_data;
+  cell_data.resize(size);
+  std::memcpy(cell_data.data(), ls.data_cell->get_data(), size);
 
-    bool is_special = false;
-    auto cs = vm::load_cell_slice_special(cell, is_special);
-    auto r_ls = cell->load_cell();
-    if (r_ls.is_error()) {
-      throw utils::TonlibException{r_ls.move_as_error().message().str(), 500};
-    }
-    auto ls = r_ls.move_as_ok();
-    auto size = (ls.data_cell->get_bits() + 7) / 8;
-    std::string cell_data;
-    cell_data.resize(size);
-    std::memcpy(cell_data.data(), ls.data_cell->get_data(), size);
-
-    result_cell.data.b64 = types::bytes{cell_data};
-    result_cell.data.len = ls.data_cell->get_bits();
-    result_cell.special = ls.data_cell->is_special();
-    while (cs.have_refs(1)) {
-      cs.advance(1);
-      result_cell.refs.emplace_back();
-      queue.push({result_cell.refs.back(), cs.fetch_ref()});
+  result.data.b64 = types::bytes{cell_data};
+  result.data.len = ls.data_cell->get_bits();
+  result.special = ls.data_cell->is_special();
+  while (cs.have_refs(1)) {
+    cs.advance(1);
+    if (auto child_ref = cs.fetch_ref(); child_ref.not_null()) {
+      result.refs.emplace_back(SerializeCell(child_ref));
     }
   }
   return result;
@@ -327,14 +316,22 @@ inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(cons
       [&](const tonlib_api::tvm_stackEntrySlice& val) {
         schemas::v2::LegacyStackEntryCell res;
         res.bytes = types::bytes{val.slice_->bytes_};
-        res.object = SerializeCell(val.slice_->bytes_);
+        auto r_cell = vm::std_boc_deserialize(val.slice_->bytes_);
+        if (r_cell.is_error()) {
+          throw utils::TonlibException{r_cell.move_as_error().message().str(), 500};
+        }
+        res.object = SerializeCell(r_cell.move_as_ok());
         result.push_back("cell");
         result.push_back(res);
       },
       [&](const tonlib_api::tvm_stackEntryCell& val) {
         schemas::v2::LegacyStackEntryCell res;
         res.bytes = types::bytes{val.cell_->bytes_};
-        res.object = SerializeCell(val.cell_->bytes_);
+        auto r_cell = vm::std_boc_deserialize(val.cell_->bytes_);
+        if (r_cell.is_error()) {
+          throw utils::TonlibException{r_cell.move_as_error().message().str(), 500};
+        }
+        res.object = SerializeCell(r_cell.move_as_ok());
         result.push_back("cell");
         result.push_back(res);
       },
