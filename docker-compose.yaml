@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: http-api-cpp
     command: --config /app/static_config.yaml --config_vars /run/secrets/config-vars
     ports:
       - ${THACPP_PORT:-8081}:8081

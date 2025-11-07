@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 as builder
+FROM ubuntu:24.04 AS builder
 RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     && apt install -y wget curl build-essential cmake clang openssl  \
     libssl-dev zlib1g-dev gperf wget git ninja-build libsodium-dev libmicrohttpd-dev liblz4-dev  \
@@ -32,7 +32,7 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make 
 # end builder
 
 
-FROM ubuntu:24.04
+FROM ubuntu:24.04 AS http-api-cpp
 RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     && apt install -y wget curl dnsutils libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
     && rm -rf /var/lib/apt/lists/*
