@@ -3,6 +3,7 @@
 #include "schemas/v2.hpp"
 #include "userver/utils/box.hpp"
 #include <string>
+#include <queue>
 
 namespace ton_http::converters {
 
