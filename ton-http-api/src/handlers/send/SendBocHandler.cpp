@@ -38,7 +38,7 @@ td::Result<ton_http::schemas::v2::SendBocResult> ton_http::handlers::SendBocHand
     }
     return result.move_as_error();
   }
-  if (auto external_send_success = SendBocToExternalEndpoints(request)) {
+  if (auto external_send_success = SendBocToExternalEndpoints(request); !external_send_success) {
     LOG_WARNING_TO(*logger_) << "Failed to send BOC to some of external endpoints";
   }
   if (!return_hash_) {
