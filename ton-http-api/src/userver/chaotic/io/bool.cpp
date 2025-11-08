@@ -1,4 +1,7 @@
 #include "bool.hpp"
+#include <algorithm>   // for std::ranges::transform (C++20) or std::transform
+#include <cctype>      // for std::tolower
+#include <stdexcept>   // for std::runtime_error
 
 bool userver::chaotic::convert::
   Convert(const std::variant<std::string, std::int32_t, bool>& value, userver::chaotic::convert::To<bool>) {

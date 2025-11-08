@@ -12,7 +12,8 @@ set(USERVER_TYPES_SOURCE
         src/userver/chaotic/io/std/int64_t.cpp
         src/userver/chaotic/io/std/uint64_t.cpp
         src/userver/chaotic/io/std/int32_t.cpp
-        src/userver/chaotic/io/std/uint32_t.cpp)
+        src/userver/chaotic/io/std/uint32_t.cpp
+        src/userver/chaotic/io/bool.cpp)
 add_library(${PROJECT_NAME}-userver-types STATIC ${USERVER_TYPES_SOURCE})
 target_link_libraries(${PROJECT_NAME}-userver-types
         tdutils ton_crypto ton_block userver::core userver::chaotic)
@@ -67,7 +68,6 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/runmethod/RunGetMethodStdHandler.cpp
         src/handlers/send/EstimateFeeHandler.cpp
         src/handlers/runmethod/RunGetMethodHandler.cpp
-        src/userver/chaotic/io/bool.cpp
 )
 set(TLB_TOKENS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/core/tlb/tokens-tlb.cpp
