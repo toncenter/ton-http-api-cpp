@@ -67,8 +67,9 @@ td::Status ton_http::handlers::GetTransactionsStdHandler::ValidateRequest(
   if (request.limit.value_or(10) <= 0) {
     return td::Status::Error(422, "limit should be positive");
   }
-  if (request.limit.value_or(10) > 100) {
-    return td::Status::Error(422, "limit should be less or equal 100");
+  // TODO: introduce config variable
+  if (request.limit.value_or(10) > 1000) {
+    return td::Status::Error(422, "limit should be less or equal 1000");
   }
   bool has_lt = false;
   if (request.lt) {

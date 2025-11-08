@@ -77,6 +77,7 @@ td::Status ton_http::handlers::GetBlockTransactionsHandler::ValidateRequest(
   if (request.count.value_or(40) <= 0) {
     return td::Status::Error(422, "count should be positive");
   }
+  // TODO: introduce config variable
   if (request.count.value_or(40) > 10000) {
     return td::Status::Error(422, "count should be less or equal 10000");
   }
