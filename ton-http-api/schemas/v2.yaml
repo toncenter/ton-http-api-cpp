@@ -3018,7 +3018,7 @@ components:
             - msg.dataText
           default: msg.dataText
         text:
-          type: string
+          $ref: '#/components/schemas/Bytes'
     MsgDataDecryptedText:
       type: object
       additionalProperties: false
@@ -3029,7 +3029,7 @@ components:
             - msg.dataDecryptedText
           default: msg.dataDecryptedText
         text:
-          type: string
+          $ref: '#/components/schemas/Bytes'
     MsgDataEncryptedText:
       type: object
       additionalProperties: false
@@ -3040,7 +3040,7 @@ components:
             - msg.dataEncryptedText
           default: msg.dataEncryptedText
         text:
-          type: string
+          $ref: '#/components/schemas/Bytes'
     MsgData:
       oneOf:
         - $ref: '#/components/schemas/MsgDataRaw'

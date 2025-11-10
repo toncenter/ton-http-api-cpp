@@ -47,17 +47,17 @@ inline schemas::v2::MsgData Convert(const tonlib_api::object_ptr<tonlib_api::msg
       },
       [&](const tonlib_api::msg_dataText& val) {
         schemas::v2::MsgDataText res;
-        res.text = val.text_;
+        res.text = types::bytes{val.text_};
         result = res;
       },
       [&](const tonlib_api::msg_dataDecryptedText& val) {
         schemas::v2::MsgDataDecryptedText res;
-        res.text = val.text_;
+        res.text = types::bytes{val.text_};
         result = res;
       },
       [&](const tonlib_api::msg_dataEncryptedText& val) {
         schemas::v2::MsgDataEncryptedText res;
-        res.text = val.text_;
+        res.text = types::bytes{val.text_};
         result = res;
       },
       [&](const auto&) { LOG_ERROR() << "Unsupported msg data type: " << value->get_id(); }

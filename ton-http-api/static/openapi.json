@@ -4873,7 +4873,7 @@
             "default": "msg.dataText"
           },
           "text": {
-            "type": "string"
+            "$ref": "#/components/schemas/Bytes"
           }
         }
       },
@@ -4889,7 +4889,7 @@
             "default": "msg.dataDecryptedText"
           },
           "text": {
-            "type": "string"
+            "$ref": "#/components/schemas/Bytes"
           }
         }
       },
@@ -4905,7 +4905,7 @@
             "default": "msg.dataEncryptedText"
           },
           "text": {
-            "type": "string"
+            "$ref": "#/components/schemas/Bytes"
           }
         }
       },
