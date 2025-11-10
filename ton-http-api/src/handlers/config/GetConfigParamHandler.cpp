@@ -15,9 +15,9 @@ ton_http::schemas::v2::ConfigParamRequest ton_http::handlers::GetConfigParamHand
   schemas::v2::ConfigParamRequest req;
 
   try {
-    req.param = boost::lexical_cast<std::int32_t>(request.GetArg("param"));
-  } catch (std::exception& exc) {
-    throw utils::TonlibException("failed to parse param", 422);
+    req.config_id = boost::lexical_cast<std::int32_t>(request.GetArg("config_id"));
+  } catch (std::exception& exc) {g
+    throw utils::TonlibException("failed to parse config_id", 422);
   }
   if (request.HasArg("seqno")) {
     try {
@@ -32,7 +32,7 @@ ton_http::schemas::v2::ConfigParamRequest ton_http::handlers::GetConfigParamHand
 td::Status ton_http::handlers::GetConfigParamHandler::ValidateRequest(
     const schemas::v2::ConfigParamRequest& request
 ) const {
-  if (request.param < 0) {
+  if (request.config_id < 0) {
     return td::Status::Error(422, "param should be non-negative");
   }
   if (request.seqno.has_value() && request.seqno.value() <= 0) {
@@ -43,6 +43,6 @@ td::Status ton_http::handlers::GetConfigParamHandler::ValidateRequest(
 td::Result<ton_http::schemas::v2::ConfigInfo> ton_http::handlers::GetConfigParamHandler::HandleRequestTonlibThrow(
     schemas::v2::ConfigParamRequest& request, multiclient::SessionPtr& session
 ) const {
-  TRY_RESULT(result, tonlib_component_.DoRequest(&core::TonlibWorker::getConfigParam, request.param, request.seqno, session));
+  TRY_RESULT(result, tonlib_component_.DoRequest(&core::TonlibWorker::getConfigParam, request.config_id, request.seqno, session));
   return converters::Convert(result);
 }

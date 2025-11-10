@@ -2183,7 +2183,7 @@
         "operationId": "getConfigParam_get",
         "parameters": [
           {
-            "name": "param",
+            "name": "config_id",
             "in": "query",
             "description": "Parameter number",
             "required": true,
@@ -3449,10 +3449,10 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "param"
+          "config_id"
         ],
         "properties": {
-          "param": {
+          "config_id": {
             "oneOf": [
               {
                 "type": "string"
