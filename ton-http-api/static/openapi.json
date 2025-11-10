@@ -2814,6 +2814,7 @@
         "required": false,
         "schema": {
           "type": "integer",
+          "format": "int64",
           "default": 40
         }
       },
@@ -2824,6 +2825,7 @@
         "required": false,
         "schema": {
           "type": "integer",
+          "format": "int64",
           "default": 10
         }
       },
@@ -3328,10 +3330,10 @@
               },
               {
                 "type": "integer",
-                "format": "int32"
+                "format": "int64"
               }
             ],
-            "x-usrv-cpp-type": "std::int32_t"
+            "x-usrv-cpp-type": "std::int64_t"
           }
         }
       },
@@ -3399,10 +3401,10 @@
               },
               {
                 "type": "integer",
-                "format": "int32"
+                "format": "int64"
               }
             ],
-            "x-usrv-cpp-type": "std::int32_t"
+            "x-usrv-cpp-type": "std::int64_t"
           }
         }
       },

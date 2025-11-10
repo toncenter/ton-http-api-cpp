@@ -24,7 +24,12 @@ std::string JsonRpcHandler::HandleRequestThrow(
     auto method = request_json["method"].As<std::string>();
     userver::formats::json::Value params = userver::formats::json::MakeObject();
     if (request_json.HasMember("params")) {
-      params = request_json["params"];
+      if (request_json["params"].IsArray() && !request_json["params"].IsEmpty()) {
+        throw utils::TonlibException("params must contain an object", 422);
+      }
+      if (request_json["params"].IsObject()) {
+        params = request_json["params"];
+      }
     }
 
     auto url = base_url_ + method;
@@ -42,12 +47,12 @@ std::string JsonRpcHandler::HandleRequestThrow(
   } catch (const utils::TonlibException& exc) {
     schemas::v2::TonlibErrorResponse response;
     response.ok = false;
-    response.error = "JsonRpc error: " + exc.message();
-    response.code = 500;
-    response._extra = "";
+    response.error = exc.message();
+    response.code = exc.code();
+    response._extra = "_";
 
     auto& http_response = request.GetHttpResponse();
-    http_response.SetStatus(userver::server::http::HttpStatus::kInternalServerError);
+    http_response.SetStatus(static_cast<userver::server::http::HttpStatus>(exc.code()));
     http_response.SetContentType(userver::http::content_type::kApplicationJson);
     return ToString(userver::formats::json::ValueBuilder{response}.ExtractValue());
   }

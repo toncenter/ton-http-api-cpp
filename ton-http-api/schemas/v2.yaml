@@ -1629,6 +1629,7 @@ components:
       required: false
       schema:
         type: integer
+        format: int64
         default: 40
     limitOptional:
       name: limit
@@ -1637,6 +1638,7 @@ components:
       required: false
       schema:
         type: integer
+        format: int64
         default: 10
     ltOptional:
       name: lt
@@ -1955,8 +1957,8 @@ components:
           oneOf:
             - type: string
             - type: integer
-              format: int32
-          x-usrv-cpp-type: 'std::int32_t'
+              format: int64
+          x-usrv-cpp-type: 'std::int64_t'
     BlockTransactionsExtRequest:
       $ref: '#/components/schemas/BlockTransactionsRequest'
     TransactionsRequest:
@@ -1994,8 +1996,8 @@ components:
           oneOf:
             - type: string
             - type: integer
-              format: int32
-          x-usrv-cpp-type: 'std::int32_t'
+              format: int64
+          x-usrv-cpp-type: 'std::int64_t'
     TransactionsV2Request:
       $ref: '#/components/schemas/TransactionsRequest'
     TryLocateTxRequest:

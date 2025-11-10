@@ -47,7 +47,7 @@ ton_http::schemas::v2::TransactionsRequest ton_http::handlers::GetTransactionsSt
 
   if (request.HasArg("limit")) {
     try {
-      req.limit = boost::lexical_cast<std::int32_t>(request.GetArg("limit"));
+      req.limit = boost::lexical_cast<std::int64_t>(request.GetArg("limit"));
     } catch (std::exception& exc) {
       throw utils::TonlibException("failed to parse limit", 422);
     }
