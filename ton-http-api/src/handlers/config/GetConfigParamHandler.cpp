@@ -16,7 +16,7 @@ ton_http::schemas::v2::ConfigParamRequest ton_http::handlers::GetConfigParamHand
 
   try {
     req.config_id = boost::lexical_cast<std::int32_t>(request.GetArg("config_id"));
-  } catch (std::exception& exc) {g
+  } catch (std::exception& exc) {
     throw utils::TonlibException("failed to parse config_id", 422);
   }
   if (request.HasArg("seqno")) {
