@@ -15,7 +15,7 @@ ton_http::handlers::SendBocHandler::SendBocHandler(
       config["external_message_endpoints"].As<std::vector<std::string>>(std::vector<std::string>{})
     ),
     return_hash_(config["return_hash"].As<bool>(true)),
-    ignore_errors_(config["ignore_error"].As<bool>(false)) {
+    ignore_errors_(config["ignore_errors"].As<bool>(false)) {
 }
 ton_http::schemas::v2::SendBocRequest
 ton_http::handlers::SendBocHandler::ParseTonlibGetRequest(const HttpRequest&, RequestContext&) const {
