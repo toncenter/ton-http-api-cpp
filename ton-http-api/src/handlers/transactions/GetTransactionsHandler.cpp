@@ -73,10 +73,10 @@ td::Status ton_http::handlers::GetTransactionsHandler::ValidateRequest(
   }
   bool has_lt = false;
   if (request.lt) {
-    has_lt = true;
     if (*request.lt < 0) {
       return td::Status::Error(422, "lt should be non-negative");
     }
+    has_lt = request.lt.value() != 0;  // if request.lt == 0 consider this as absence
   }
   bool has_hash = false;
   if (request.hash.has_value() && !request.hash.value().empty()) {
@@ -91,6 +91,7 @@ td::Result<ton_http::schemas::v2::Transactions>
 ton_http::handlers::GetTransactionsHandler::HandleRequestTonlibThrow(
   schemas::v2::TransactionsRequest& request, multiclient::SessionPtr& session
 ) const {
+  auto lt = request.lt.has_value() && request.lt.value() == 0 ? std::nullopt : request.lt;
   auto hash = request.hash.has_value() ? request.hash.value().GetUnderlying() : "";
   auto to_lt = request.to_lt.has_value() ? request.to_lt.value() : 0;
   constexpr size_t CHUNK_SIZE = 10;
@@ -100,7 +101,7 @@ ton_http::handlers::GetTransactionsHandler::HandleRequestTonlibThrow(
     tonlib_component_.DoRequest(
       &core::TonlibWorker::getTransactions,
       request.address.GetUnderlying(),
-      request.lt,
+      lt,
       hash,
       to_lt,
       request.limit.value_or(10),
