@@ -4313,6 +4313,7 @@ components:
         oneOf:
           - type: string
           - type: integer
+            format: int64
           - $ref: '#/components/schemas/LegacyStackEntryCell'
           - $ref: '#/components/schemas/TvmTuple'
             x-usrv-cpp-indirect: true

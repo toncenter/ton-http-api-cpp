@@ -6758,7 +6758,8 @@
               "type": "string"
             },
             {
-              "type": "integer"
+              "type": "integer",
+              "format": "int64"
             },
             {
               "$ref": "#/components/schemas/LegacyStackEntryCell"

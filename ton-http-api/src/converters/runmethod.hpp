@@ -166,8 +166,8 @@ inline tonlib_api::object_ptr<tonlib_api::tvm_StackEntry> LegacyTvmStackEntryPar
   const auto& type = std::get<std::string>(value[0]);
   const auto& entry_variant = value[1];
   if (type == "num" || type == "int" || type == "number" || type == "integer") {
-    if (std::holds_alternative<std::int32_t>(entry_variant)) {
-      auto entry = std::get<std::int32_t>(entry_variant);
+    if (std::holds_alternative<std::int64_t>(entry_variant)) {
+      auto entry = std::get<std::int64_t>(entry_variant);
       return tonlib_api::make_object<tonlib_api::tvm_stackEntryNumber>(
         tonlib_api::make_object<tonlib_api::tvm_numberDecimal>(std::to_string(entry))
       );
