@@ -22,7 +22,7 @@ inline schemas::v2::AddressInformation Convert<schemas::v2::AddressInformation>(
   const tonlib_api::raw_getAccountState::ReturnType& value
 ) {
   schemas::v2::AddressInformation result;
-  result.balance = types::int256{std::to_string(value->balance_)};
+  result.balance = types::int256{std::to_string(value->balance_ < 0 ? 0 : value->balance_)};
   result.extra_currencies = Convert(value->extra_currencies_);
   result.last_transaction_id = Convert(value->last_transaction_id_);
   result.block_id = Convert(value->block_id_);
@@ -46,7 +46,7 @@ inline schemas::v2::AddressInformation Convert<schemas::v2::AddressInformation>(
 inline schemas::v2::ExtendedAddressInformation Convert(const tonlib_api::getAccountState::ReturnType& value) {
   schemas::v2::ExtendedAddressInformation result;
   result.address = Convert(value->address_);
-  result.balance = types::int256{std::to_string(value->balance_)};
+  result.balance = types::int256{std::to_string(value->balance_ < 0 ? 0 : value->balance_)};
   result.extra_currencies = Convert(value->extra_currencies_);
   result.last_transaction_id = Convert(value->last_transaction_id_);
   result.block_id = Convert(value->block_id_);

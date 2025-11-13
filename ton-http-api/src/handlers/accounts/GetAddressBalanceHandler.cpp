@@ -49,5 +49,5 @@ ton_http::handlers::GetAddressBalanceHandler::HandleRequestTonlibThrow(
     return result.move_as_error();
   }
   auto result_ok = result.move_as_ok();
-  return std::to_string(result_ok->balance_);
+  return std::to_string(result_ok->balance_ < 0 ? 0 : result_ok->balance_);
 }
