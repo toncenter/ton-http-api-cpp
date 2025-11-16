@@ -1,4 +1,4 @@
-#include "tonlib_component.h"
+#include "TonlibComponent.h"
 
 #include "core/src/curl-ev/form.hpp"
 #include "userver/clients/http/component.hpp"

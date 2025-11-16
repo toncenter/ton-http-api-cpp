@@ -10,7 +10,7 @@
 #include "td/utils/port/signals.h"
 #include "tonlib/Logging.h"
 
-#include "components/tonlib_component.h"
+#include "components/TonlibComponent.h"
 #include "handlers/JsonRpcHandler.h"
 #include "handlers/accounts/GetAddressBalanceHandler.h"
 #include "handlers/accounts/GetAddressInformationHandler.h"

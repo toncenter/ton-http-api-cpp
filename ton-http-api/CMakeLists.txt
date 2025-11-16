@@ -24,7 +24,7 @@ target_include_directories(${PROJECT_NAME}-userver-types PRIVATE
 
 set(TON_HTTP_API_CPP_SOURCE
         src/main.cpp
-        src/components/tonlib_component.cpp
+        src/components/TonlibComponent.cpp
         src/schemas/v2.cpp
         src/utils/common.cpp
         src/handlers/JsonRpcHandler.cpp
