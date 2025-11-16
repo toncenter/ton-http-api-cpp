@@ -91,71 +91,59 @@ components_manager:
     handler-DetectAddress:
       path: /api/v2/detectAddress
       method: GET,POST
-      cache_enabled: true
-      cache_size: 32768
-      cache_ways: 16
-      cache_ttl: 0
+      cache_enabled: false
     handler-DetectHash:
       path: /api/v2/detectHash
       method: GET,POST
-      cache_enabled: true
-      cache_size: 32768
-      cache_ways: 16
-      cache_ttl: 0
+      cache_enabled: false
     handler-PackAddress:
       path: /api/v2/packAddress
       method: GET,POST
-      cache_enabled: true
-      cache_size: 32768
-      cache_ways: 16
-      cache_ttl: 0
+      cache_enabled: false
     handler-UnpackAddress:
       path: /api/v2/unpackAddress
       method: GET,POST
-      cache_enabled: true
-      cache_size: 32768
-      cache_ways: 16
-      cache_ttl: 0
+      cache_enabled: false
     handler-GetAddressInformation:
       path: /api/v2/getAddressInformation
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
     handler-GetExtendedAddressInformation:
       path: /api/v2/getExtendedAddressInformation
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
     handler-GetWalletInformation:
       path: /api/v2/getWalletInformation
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
     handler-GetAddressBalance:
       path: /api/v2/getAddressBalance
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
     handler-GetAddressState:
       path: /api/v2/getAddressState
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
     handler-GetTokenData:
       path: /api/v2/getTokenData
       method: GET,POST
       cache_enabled: true
-      cache_size: 32768
+      cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
 
@@ -171,14 +159,14 @@ components_manager:
       path: /api/v2/getMasterchainBlockSignatures
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-GetShardBlockProof:
       path: /api/v2/getShardBlockProof
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-GetConsensusBlock:
@@ -192,28 +180,28 @@ components_manager:
       path: /api/v2/lookupBlock
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-GetShards:
       path: /api/v2/getShards
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-Shards:
       path: /api/v2/shards
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-GetBlockHeader:
       path: /api/v2/getBlockHeader
       method: GET,POST
       cache_enabled: true
-      cache_size: 8192
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
     handler-GetOutMsgQueueSize:
@@ -302,20 +290,25 @@ components_manager:
     handler-RunGetMethod:
       path: /api/v2/runGetMethod
       method: POST
-      cache_enabled: false
+      cache_enabled: true
+      cache_size: 1024
+      cache_ways: 16
+      cache_ttl: 1s
     handler-RunGetMethodStd:
       path: /api/v2/runGetMethodStd
       method: POST
-      cache_enabled: false
       max_stack_entry_depth: $max_stack_entry_depth
       max_stack_entry_depth#fallback: 100
+      cache_enabled: true
+      cache_size: 1024
+      cache_ways: 16
+      cache_ttl: 1s
     ## send boc
     handler-SendBoc:
       path: /api/v2/sendBoc
       method: POST
       external_message_endpoints: $tonlib_boc_endpoints
       external_message_endpoints#fallback: []
-      cache_enabled: false
       return_hash: false
       ignore_errors: false
     handler-SendBocReturnHash:
@@ -323,7 +316,6 @@ components_manager:
       method: POST
       external_message_endpoints: $tonlib_boc_endpoints
       external_message_endpoints#fallback: []
-      cache_enabled: false
       return_hash: true
       ignore_errors: false
     handler-SendBocReturnHashNoError:
@@ -331,7 +323,6 @@ components_manager:
       method: POST
       external_message_endpoints: $tonlib_boc_endpoints
       external_message_endpoints#fallback: []
-      cache_enabled: false
       return_hash: true
       ignore_errors: true
     handler-EstimateFee:

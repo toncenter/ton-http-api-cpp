@@ -111,7 +111,7 @@ public:
     auto response_body = userver::formats::json::ValueBuilder{response}.ExtractValue();
 
     if (!is_malformed) {
-      LogResponse(request, context, response_body);
+      LogResponse<userver::logging::Level::kWarning>(request, context, response_body);
     }
     return ToString(response_body);
   }
