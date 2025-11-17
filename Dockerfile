@@ -34,13 +34,12 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make 
 
 FROM ubuntu:24.04 AS http-api-cpp
 RUN DEBIAN_FRONTEND=noninteractive apt update -y \
-    && apt install -y wget curl dnsutils libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
+    && apt install -y gdb wget curl dnsutils libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /app/build/ton-http-api/ton-http-api-cpp /usr/bin/
 COPY --from=builder /app/build/tonlib-multiclient/libtonlib_multiclient_lib.so /usr/lib
 COPY ton-http-api/static/ /app/static/
 COPY config/static_config.yaml /app/static_config.yaml
 
-RUN apt update && apt install -y gdb && mkdir -p /root/.config/gdb
-RUN echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
+RUN mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
 ENTRYPOINT [ "ton-http-api-cpp" ]

@@ -1,6 +1,5 @@
 #pragma once
 #include "components/TonlibComponent.h"
-#include "http/http.h"
 #include "schemas/v2.hpp"
 #include "userver/cache/expirable_lru_cache.hpp"
 #include "userver/components/component_config.hpp"
