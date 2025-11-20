@@ -348,7 +348,7 @@ components_manager:
     #
     handler-ping:
       path: $ping_path
-      path#fallback: /health
+      path#fallback: /api/v2/healthcheck
       method: GET
       task_processor: main-task-processor
       log-level: warning
