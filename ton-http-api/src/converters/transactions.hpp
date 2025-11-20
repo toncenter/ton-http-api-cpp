@@ -111,11 +111,16 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
         auto r_body_cell = vm::std_boc_deserialize(data.body_);
         if (r_body_cell.is_ok()) {
           auto body_cell = r_body_cell.move_as_ok();
-          vm::CellSlice cs = vm::load_cell_slice(body_cell);
-          if (auto r_body = td::hex_decode(cs.as_bitslice().to_hex()); r_body.is_ok()) {
-            result.message = td::base64_encode(r_body.move_as_ok());
-          } else {
-            result.message_decode_error = r_body.move_as_error_suffix("failed to decode msg body hex: ").to_string();
+          auto r_loaded_cell = body_cell->load_cell();
+          if (r_loaded_cell.is_ok()) {
+            auto loaded_cell = r_loaded_cell.move_as_ok();
+            const size_t n_bytes = (loaded_cell.data_cell->get_bits() + 7) / 8;
+            const size_t n_trailing_bits = 8 - loaded_cell.data_cell->get_bits() % 8;
+            std::string buffer(n_bytes, 0);
+            std::memcpy(buffer.data(), loaded_cell.data_cell->get_data(), n_bytes);
+            // this zeroes last 1 bit which is 1 in C++ and 0 in python implementation
+            buffer[buffer.length() - 1] = static_cast<char>(buffer.back() & ~static_cast<char>((1 << n_trailing_bits) - 1));
+            result.message = td::base64_encode(buffer) + "\n"; // this is back compatibility
           }
         } else {
           result.message_decode_error = "Failed to load cell or get body slice. But why?";
