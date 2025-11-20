@@ -1,0 +1,38 @@
+Leaf:
+  type: object
+  additionalProperties: false
+  properties:
+    t:
+      type: string
+      enum:
+        - leaf
+      default: leaf
+    field:
+      type: string
+Node:
+  type: object
+  additionalProperties: false
+  properties:
+    t:
+      type: string
+      enum:
+        - node
+      default: node
+    ref:
+      $ref: '#/Base'
+      x-usrv-cpp-indirect: true
+Base:
+  oneOf:
+    - $ref: '#/Leaf'
+      x-usrv-cpp-indirect: true
+    - $ref: '#/Node'
+      x-usrv-cpp-indirect: true
+  discriminator:
+    propertyName: t
+    mapping:
+      'leaf': '#/Leaf'
+      'node': '#/Node'
+Array:
+  type: array
+  items:
+    $ref: '#/Base'

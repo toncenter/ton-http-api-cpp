@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TON Center API v2" />
+    <title>TON Center API v2</title>
+    <link rel="icon" type="image/x-icon" href="/api/v2/favicon.ico">
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.29.0/swagger-ui.css" />
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://unpkg.com/swagger-ui-dist@5.29.0/swagger-ui-bundle.js" crossorigin></script>
+<script src="https://unpkg.com/swagger-ui-dist@5.29.0/swagger-ui-standalone-preset.js" crossorigin></script>
+<script>
+    window.onload = () => {
+        window.ui = SwaggerUIBundle({
+            url: '/api/v2/openapi.json',
+            layout: "BaseLayout",
+            deepLinking: true,
+            dom_id: '#swagger-ui',
+            plugins: [SwaggerUIBundle.plugins.DownloadURL],
+            defaultModelRendering: "example",
+            docExpansion:"list",
+            tryItOutEnabled:true,
+            showMutatedRequest:false,
+            showExtensions: true,
+            showCommonExtensions: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIBundle.SwaggerUIStandalonePreset
+            ],
+            syntaxHighlight: {"activate":true,"theme":"agate"}
+        });
+    };
+</script>
+</body>
+</html>

@@ -17,6 +17,8 @@ BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: AfterColon
 ColumnLimit:     120
 DeriveLineEnding: false
+IndentWidth: 2
+ContinuationIndentWidth: 2
 IndentCaseBlocks: false
 IndentExternBlock: AfterExternBlock
 InsertNewlineAtEOF: true

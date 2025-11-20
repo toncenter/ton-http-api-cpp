@@ -22,8 +22,16 @@ log_path: "@stdout"         # log destination, available options:
                             # /path/to/file - log to file
                             # Note: if you log into file,
                             # logs will be deleted after deploying new container
-log_format: json            # logs format, one of `tskv`, `ltsv`, `json`
 system_log_level: warning   # userver system logs
-system_log_path: "@null"
+system_log_path: "@stdout"
+
+jsonrpc_log_level: warning  # jsonrpc endpoint logs
+                            # note that requests to jsonRPC endpoint will appear in both of api-v2 and jsonrpc loggers
+jsonrpc_log_path: "@stdout"
+
+log_format: json            # logs format, one of `tskv`, `ltsv`, `json`
 
 http_worker_user_agent: empty  # http user agent to set in request to boc endpoint
+
+static_content_dir: "/static/"  # directory for static content
+max_stack_entry_depth: 100      # max stack entry depth for runGetMethod

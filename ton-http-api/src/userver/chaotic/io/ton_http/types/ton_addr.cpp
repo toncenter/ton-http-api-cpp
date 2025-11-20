@@ -1,0 +1,23 @@
+#include "ton_addr.hpp"
+
+#include "block.h"
+
+
+ton_http::types::ton_addr
+userver::chaotic::convert::Convert(const std::string& value, chaotic::convert::To<ton_http::types::ton_addr>) {
+  auto r_addr = block::StdAddress::parse(value);
+  if (r_addr.is_error()) {
+    throw std::invalid_argument("Failed to parse ton_addr: '" + value + "'");
+  }
+  auto addr = r_addr.move_as_ok();
+  if (value.find(':') != std::string::npos) {
+    auto raw_addr = fmt::format("{}:{}", addr.workchain, addr.addr.to_hex());
+    return ton_http::types::ton_addr{raw_addr};
+  }
+
+  return ton_http::types::ton_addr{addr.rserialize(true)};
+}
+std::string
+userver::chaotic::convert::Convert(const ton_http::types::ton_addr& addr, chaotic::convert::To<std::string>) {
+  return addr.GetUnderlying();
+}

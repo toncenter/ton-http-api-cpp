@@ -4,10 +4,17 @@
 namespace multiclient {
 class Session {
 public:
-  Session() = default;
-  explicit Session(std::vector<size_t>&& active_workers) :
-    active_workers_(std::move(active_workers)), start_time_(0) {
-    start_time_ = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+  explicit Session() : active_workers_(0), start_time_(0) {
+    start_time_ =
+      std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()
+      )
+        .count();
+  }
+  explicit Session(std::vector<size_t>&& active_workers) : active_workers_(std::move(active_workers)), start_time_(0) {
+    start_time_ =
+      std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()
+      )
+        .count();
   }
 
   bool is_valid() const {
@@ -20,8 +27,14 @@ public:
     active_workers_ = std::move(active_workers);
   }
   double elapsed() const {
-    auto now = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+    auto now =
+      std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()
+      )
+        .count();
     return double(now - start_time_) / 1000;
+  }
+  std::uint64_t start_time() const {
+    return start_time_;
   }
 
   std::string to_string() const {
@@ -37,12 +50,16 @@ public:
       }
       res << worker;
     }
+    if (active_workers_.empty()) {
+      res << "_";
+    }
     res << ":" << elapsed();
     return res.str();
   }
+
 private:
   std::vector<size_t> active_workers_;
   std::uint64_t start_time_;
 };
 using SessionPtr = std::shared_ptr<Session>;
-}
+}  // namespace multiclient

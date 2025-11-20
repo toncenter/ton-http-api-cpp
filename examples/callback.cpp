@@ -6,12 +6,12 @@
 #include "auto/tl/tonlib_api.h"
 #include "auto/tl/tonlib_api.hpp"
 #include "auto/tl/tonlib_api_json.h"
-#include "tonlib-multiclient/multi_client.h"
-#include "tonlib-multiclient/request.h"
-#include "tonlib-multiclient/response_callback.h"
 #include "td/utils/JsonBuilder.h"
 #include "td/utils/logging.h"
 #include "tl/tl_json.h"
+#include "tonlib-multiclient/multi_client.h"
+#include "tonlib-multiclient/request.h"
+#include "tonlib-multiclient/response_callback.h"
 #include "tonlib/Logging.h"
 
 struct Cb : public multiclient::ResponseCallback {
@@ -45,12 +45,12 @@ int main(int argc, char* argv[]) {
   std::unordered_set<uint64_t> requests{};
 
   multiclient::MultiClient client(
-  multiclient::MultiClientConfig{
-  .global_config_path = std::filesystem::path("/tmp/global-config.json"),
-  .key_store_root = std::filesystem::path("/tmp/keystore"),
-          .scheduler_threads = 6,
-      },
-      std::make_unique<Cb>(requests)
+    multiclient::MultiClientConfig{
+      .global_config_path = std::filesystem::path("/tmp/global-config.json"),
+      .key_store_root = std::filesystem::path("/tmp/keystore"),
+      .scheduler_threads = 6,
+    },
+    std::make_unique<Cb>(requests)
   );
 
   sleep(5);
@@ -62,18 +62,20 @@ int main(int argc, char* argv[]) {
     requests.insert(req_id);
 
     LOG(INFO) << "send request, id: " << req_id;
-    client.send_callback_request(multiclient::RequestCallback{
+    client.send_callback_request(
+      multiclient::RequestCallback{
         .parameters = {.mode = multiclient::RequestMode::Broadcast},
         .request_creator =
-            []() {
-              return ton::tonlib_api::make_object<ton::tonlib_api::getAccountState>(
-                  ton::tonlib_api::make_object<ton::tonlib_api::accountAddress>(
-                      "UQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqEBI"
-                  )
-              );
-            },
+          []() {
+            return ton::tonlib_api::make_object<ton::tonlib_api::getAccountState>(
+              ton::tonlib_api::make_object<ton::tonlib_api::accountAddress>(
+                "UQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqEBI"
+              )
+            );
+          },
         .request_id = req_id,
-    });
+      }
+    );
   }
 
   return 0;

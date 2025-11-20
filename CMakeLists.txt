@@ -9,6 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 set(PY_TONLIB_MULTICLIENT TRUE CACHE BOOL "Build python bindings")
 set(TONLIB_MULTICLIENT_EXAMPLES TRUE CACHE BOOL "Build examples")
 set(TON_HTTP_API_CPP TRUE CACHE BOOL "Build TON HTTP API")
+set(BUILD_TON_PLAYGROUND FALSE CACHE BOOL "Build TON playground")
 
 add_subdirectory(external/ton EXCLUDE_FROM_ALL)
 
@@ -23,6 +24,7 @@ if (PY_TONLIB_MULTICLIENT)
   add_subdirectory(py)
 endif()
 
+
 if (TON_HTTP_API_CPP)
   # userver config
   set(USERVER_FEATURE_REDIS TRUE)
@@ -34,4 +36,10 @@ if (TON_HTTP_API_CPP)
   set(USERVER_USE_STATIC_LIBS TRUE)
   add_subdirectory(external/userver EXCLUDE_FROM_ALL)
   add_subdirectory(ton-http-api)
+endif()
+
+
+if (BUILD_TON_PLAYGROUND)
+  message("-- Building TON Playground binary")
+  add_subdirectory(playground)
 endif()

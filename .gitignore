@@ -166,6 +166,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env*
 .venv
 env/
 venv/
@@ -221,3 +222,7 @@ sandbox/
 .vscode/
 .idea/
 .DS_Store
+
+# codegen schemas
+playground/schemas/
+ton-http-api/src/schemas/

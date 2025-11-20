@@ -11,18 +11,18 @@ namespace multiclient {
 MultiClient::MultiClient(MultiClientConfig config, std::unique_ptr<ResponseCallback> callback) :
     config_(std::move(config)),
     scheduler_(
-        std::make_shared<td::actor::Scheduler>(std::vector<td::actor::Scheduler::NodeInfo>{config.scheduler_threads})
+      std::make_shared<td::actor::Scheduler>(std::vector<td::actor::Scheduler::NodeInfo>{config.scheduler_threads})
     ) {
   scheduler_->run_in_context_external([this, cb = std::move(callback)]() mutable {
     client_ = td::actor::create_actor<MultiClientActor>(
-        "multiclient",
-        MultiClientActorConfig{
-            .global_config_path = config_.global_config_path,
-            .key_store_root = config_.key_store_root,
-            .blockchain_name = config_.blockchain_name,
-            .reset_key_store = config_.reset_key_store,
-        },
-        std::move(cb)
+      "multiclient",
+      MultiClientActorConfig{
+        .global_config_path = config_.global_config_path,
+        .key_store_root = config_.key_store_root,
+        .blockchain_name = config_.blockchain_name,
+        .reset_key_store = config_.reset_key_store,
+      },
+      std::move(cb)
     );
   });
   scheduler_thread_ = std::thread([scheduler = scheduler_] { scheduler->run(); });
@@ -36,9 +36,8 @@ td::Result<std::string> MultiClient::send_request_json(RequestJson req) const {
   std::promise<td::Result<std::string>> request_promise;
   auto request_future = request_promise.get_future();
 
-  auto promise = td::Promise<std::string>([p = std::move(request_promise)](auto result) mutable {
-    p.set_value(std::move(result));
-  });
+  auto promise =
+    td::Promise<std::string>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
 
   scheduler_->run_in_context_external([this, p = std::move(promise), req = std::move(req)]() mutable {
     td::actor::send_closure(client_.get(), &MultiClientActor::send_request_json, std::move(req), std::move(p));
@@ -71,7 +70,7 @@ td::Result<SessionPtr> MultiClient::get_session(const RequestParameters& params,
   auto request_future = request_promise.get_future();
 
   auto promise =
-      td::Promise<SessionPtr>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
+    td::Promise<SessionPtr>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
 
   scheduler_->run_in_context_external([this, params, session, p = std::move(promise)]() mutable {
     td::actor::send_closure(client_.get(), &MultiClientActor::get_session, params, std::move(session), std::move(p));
