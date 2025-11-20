@@ -116,7 +116,7 @@ public:
   }
 
   std::string ReturnTonlibResponse(
-    const HttpRequest& request, RequestContext& context, const Response& tonlib_response, bool is_cached
+    const HttpRequest& request, RequestContext& context, Response& tonlib_response, bool is_cached
   ) const {
     schemas::v2::TonlibResponse response;
     response.ok = true;
@@ -124,12 +124,12 @@ public:
       std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, tonlib_response);
     } else if constexpr (VectorLike<Response>) {
       std::vector<schemas::v2::TonlibObject> result_vector;
-      for (auto& item : tonlib_response) {
+      for (const auto& item : tonlib_response) {
         result_vector.emplace_back(item);
       }
       response.result = result_vector;
     } else {
-      response.result = std::move(tonlib_response);
+      response.result = tonlib_response;
     }
 
     const auto& session = context.GetData<multiclient::SessionPtr>(kSession);
@@ -205,7 +205,7 @@ public:
     CacheResponse(tonlib_request, tonlib_result);
     return ReturnTonlibResponse(request, context, tonlib_result, false);
   }
-  TonlibRequestHandler(
+  explicit TonlibRequestHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
   ) :
       HttpHandlerBase(config, context),
