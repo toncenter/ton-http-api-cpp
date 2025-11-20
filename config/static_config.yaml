@@ -1,4 +1,11 @@
 components_manager:
+  coro_pool:
+    initial_size: 1000
+    max_size: 10000
+    stack_size: 4194304
+    stack_usage_monitor_enabled: true
+  event_thread_pool:
+    threads: 2
   task_processors:
     main-task-processor:
       worker_threads: $main_worker_threads
