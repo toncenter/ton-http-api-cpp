@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: http-api-cpp
     command: --config /app/static_config.yaml --config_vars /run/secrets/config-vars
     ports:
       - ${THACPP_PORT:-8081}:8081
@@ -14,6 +15,8 @@ services:
       - config-vars
     ulimits:
       memlock: -1
+      stack: -1
+      core: -1
 secrets:
   ton-global-config:
     file: ${THACPP_GLOBAL_CONFIG_PATH:-private/mainnet.json}

@@ -1,0 +1,16 @@
+Item:
+  type: object
+  additionalProperties: false
+  properties:
+    string_field:
+      type: string
+    int_field:
+      type: integer
+Tuple:
+  type: array
+  prefixItems:
+    - $ref: '#/Item'
+    - type: integer
+    - type: string
+  minItems: 3
+  maxItems: 3

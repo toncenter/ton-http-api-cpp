@@ -45,7 +45,7 @@ void ClientWrapper::start_up() {
   };
 
   tonlib_client_ = td::actor::create_actor<tonlib::TonlibClient>(
-      "TonlibClient", td::make_unique<ClientWrapperCallback>(actor_id(this))
+    "TonlibClient", td::make_unique<ClientWrapperCallback>(actor_id(this))
   );
   alarm();
 }
@@ -63,7 +63,7 @@ void ClientWrapper::try_init() {
   LOG(INFO) << "try init client";
 
   ton::tonlib_api::object_ptr<ton::tonlib_api::KeyStoreType> key_store =
-      ton::tonlib_api::make_object<ton::tonlib_api::keyStoreTypeInMemory>();
+    ton::tonlib_api::make_object<ton::tonlib_api::keyStoreTypeInMemory>();
 
   if (config_.key_store.has_value()) {
     std::filesystem::create_directories(*config_.key_store);
@@ -71,19 +71,21 @@ void ClientWrapper::try_init() {
   }
 
   send_request<ton::tonlib_api::init>(
-      ton::tonlib_api::init(ton::tonlib_api::make_object<ton::tonlib_api::options>(
-          ton::tonlib_api::make_object<ton::tonlib_api::config>(
-              config_.global_config, config_.blockchain_name, config_.use_callbacks_for_network, config_.ignore_cache
-          ),
-          std::move(key_store)
-      )),
-      [self_id = actor_id(this)](auto res) {
-        if (res.is_ok()) {
-          td::actor::send_closure(self_id, &ClientWrapper::on_inited);
-        } else {
-          LOG(ERROR) << res.move_as_error_prefix("failed to init client: ");
-        }
+    ton::tonlib_api::init(
+      ton::tonlib_api::make_object<ton::tonlib_api::options>(
+        ton::tonlib_api::make_object<ton::tonlib_api::config>(
+          config_.global_config, config_.blockchain_name, config_.use_callbacks_for_network, config_.ignore_cache
+        ),
+        std::move(key_store)
+      )
+    ),
+    [self_id = actor_id(this)](auto res) {
+      if (res.is_ok()) {
+        td::actor::send_closure(self_id, &ClientWrapper::on_inited);
+      } else {
+        LOG(ERROR) << res.move_as_error_prefix("failed to init client: ");
       }
+    }
   );
 }
 
@@ -103,7 +105,8 @@ void ClientWrapper::try_sync() {
       if (res.is_ok()) {
         td::actor::send_closure(self_id, &ClientWrapper::on_synced);
       }
-  });
+    }
+  );
 }
 void ClientWrapper::on_synced() {
   synced_ = true;
@@ -160,7 +163,7 @@ void ClientWrapper::send_request_json(std::string request, td::Promise<std::stri
 }
 
 void ClientWrapper::send_callback_request(
-    uint64_t request_id, ton::tonlib_api::object_ptr<ton::tonlib_api::Function>&& request
+  uint64_t request_id, ton::tonlib_api::object_ptr<ton::tonlib_api::Function>&& request
 ) {
   td::actor::send_closure(tonlib_client_, &tonlib::TonlibClient::request, request_id, std::move(request));
 }

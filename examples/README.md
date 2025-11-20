@@ -1,13 +1,18 @@
 # TONlib Multiclient
 
-The TONlib Multi Client is crafted with modern C++ to serve as a robust and flexible tool for seamless communication with multiple TON blockchain lite servers. It's engineered for efficiency, allowing for streamlined request handling across a diverse array of server endpoints.
+The TONlib Multi Client is crafted with modern C++ to serve as a robust and flexible tool for seamless communication
+with multiple TON blockchain lite servers. It's engineered for efficiency, allowing for streamlined request handling
+across a diverse array of server endpoints.
 
 ## Features
 
 - Multi-threaded Design: Enhances the ability to handle concurrent connections and requests efficiently.
-- Flexible Request Handling: Supports a variety of request types, ensuring robust interaction with blockchain lite servers.
-- Dynamic Request Creation: Allows for the creation of customizable requests, enabling tailored blockchain queries and operations.
-- Advanced Configuration Options: Offers detailed settings for requests, including server selection and archival data queries, providing users with control over their blockchain interactions.
+- Flexible Request Handling: Supports a variety of request types, ensuring robust interaction with blockchain lite
+  servers.
+- Dynamic Request Creation: Allows for the creation of customizable requests, enabling tailored blockchain queries and
+  operations.
+- Advanced Configuration Options: Offers detailed settings for requests, including server selection and archival data
+  queries, providing users with control over their blockchain interactions.
 
 ## Requirements
 
@@ -35,7 +40,9 @@ cmake -DPY_TONLIB_MULTICLIENT:BOOL=TRUE ..
 cmake --build .
 ```
 
-To use built python binding you need to copy `tonlib_multiclient` dynamic lib (.so) from `build/py` directory to your python project.
+To use built python binding you need to copy `tonlib_multiclient` dynamic lib (.so) from `build/py` directory to your
+python project.
+
 ```bash
 cp build/py/tonlib_multiclient.so /path/to/your/python/project
 ```
@@ -43,13 +50,20 @@ cp build/py/tonlib_multiclient.so /path/to/your/python/project
 ## Requests
 
 ### Request<T>
+
 This structure is suitable for general request operations where the response type is known and directly utilized.
 
 ### RequestFunction<T>
-A specialized version of Request for cases where `TonlibClient::make_request` cannot process the request (`raw_getAccountState` etc).
+
+A specialized version of Request for cases where `TonlibClient::make_request` cannot process the request (
+`raw_getAccountState` etc).
 
 ### RequestCallback
-Designed for advanced use cases where the user must initialize and manage the response through your own global callback. Requires explicit setup for callback handling.
+
+Designed for advanced use cases where the user must initialize and manage the response through your own global callback.
+Requires explicit setup for callback handling.
 
 ### RequestJson
-Enables sending requests in raw JSON format, requiring minimal configuration besides the JSON string itself and the standard request parameters.
+
+Enables sending requests in raw JSON format, requiring minimal configuration besides the JSON string itself and the
+standard request parameters.

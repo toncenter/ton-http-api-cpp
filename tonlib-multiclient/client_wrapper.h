@@ -68,16 +68,16 @@ private:
 template <typename T>
 void ClientWrapper::send_request(T&& req, td::Promise<typename T::ReturnType> promise) {
   td::actor::send_closure(
-      tonlib_client_,
-      &tonlib::TonlibClient::make_request<T, td::Promise<typename T::ReturnType>>,
-      std::move(req),
-      std::move(promise)
+    tonlib_client_,
+    &tonlib::TonlibClient::make_request<T, td::Promise<typename T::ReturnType>>,
+    std::move(req),
+    std::move(promise)
   );
 }
 
 template <typename T>
 void ClientWrapper::send_request_function(
-    ton::tonlib_api::object_ptr<T>&& req, td::Promise<typename T::ReturnType> promise
+  ton::tonlib_api::object_ptr<T>&& req, td::Promise<typename T::ReturnType> promise
 ) {
   auto request_id = request_id_++;
   tracking_requests_.emplace(request_id, [p = std::move(promise)](auto res) mutable {
