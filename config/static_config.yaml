@@ -19,7 +19,7 @@ components_manager:
         port#fallback: 8081
         connection:
           in_buffer_size: 1048576
-          requests_queue_size_threshold: 1024
+          requests_queue_size_threshold: 16384
         task_processor: main-task-processor
         handler-defaults:
           max_url_size: 8192
@@ -66,18 +66,25 @@ components_manager:
       keystore#fallback: /tmp/keystore/
       threads: $tonlib_threads
       threads#fallback: 4
-      # external_message_endpoints: $tonlib_boc_endpoints
-      # external_message_endpoints#fallback: []
       task_processor: main-task-processor
     dns-client:
       fs-task-processor: fs-task-processor
     http-client:
-      pool-statistics-disable: false
+      pool-statistics-disable: true
       thread-name-prefix: http-client
       threads: $http_worker_threads
       threads#fallback: 2
       fs-task-processor: fs-task-processor
       destination-metrics-auto-max-size: 100
+      user-agent: $http_worker_user_agent
+      user-agent#fallback: empty
+    jsonrpc-http-client:
+      pool-statistics-disable: true
+      thread-name-prefix: jsonrpc-http-client
+      threads: $http_worker_threads
+      threads#fallback: 2
+      fs-task-processor: fs-task-processor
+      destination-metrics-auto-max-size: 0
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
     fs-cache-main:
@@ -342,6 +349,7 @@ components_manager:
       logger: api-v2-jsonrpc
       port: $server_port
       port#fallback: 8081
+      log-level: error
 
     #
     # service handlers

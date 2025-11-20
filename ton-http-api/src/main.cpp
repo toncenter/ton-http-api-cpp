@@ -53,6 +53,7 @@ int main(int argc, char* argv[]) {
   // components
   component_list.Append<userver::clients::dns::Component>();
   component_list.Append<userver::components::HttpClient>();
+  component_list.Append<userver::components::HttpClient>("jsonrpc-http-client");
   component_list.Append<userver::components::FsCache>("fs-cache-main");
   component_list.Append<ton_http::core::TonlibComponent>();
   // common handlers
