@@ -311,6 +311,7 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: false
       ignore_errors: false
+      log-level: error
     handler-SendBocReturnHash:
       path: /api/v2/sendBocReturnHash
       method: POST
@@ -318,6 +319,7 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: false
+      log-level: error
     handler-SendBocReturnHashNoError:
       path: /api/v2/sendBocReturnHashNoError
       method: POST
@@ -325,6 +327,7 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: true
+      log-level: error
     handler-EstimateFee:
       path: /api/v2/estimateFee
       method: POST

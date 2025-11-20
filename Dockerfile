@@ -29,7 +29,7 @@ COPY CMakeLists.txt /app/CMakeLists.txt
 
 WORKDIR /app/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make install
-RUN mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
+RUN apt update -y && apt install -y gdb && mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
 COPY ton-http-api/static/ /app/static/
 COPY config/static_config.yaml /app/static_config.yaml
 ENTRYPOINT [ "ton-http-api-cpp" ]

@@ -16,6 +16,7 @@ services:
     ulimits:
       memlock: -1
       stack: -1
+      core: -1
 secrets:
   ton-global-config:
     file: ${THACPP_GLOBAL_CONFIG_PATH:-private/mainnet.json}
