@@ -49,7 +49,7 @@ ton_http::handlers::RunGetMethodStdHandler::HandleRequestTonlibThrow(
   );
   auto result_object = converters::Convert<schemas::v2::RunGetMethodStdResult>(result.result);
   if (!checkStackDepth(result_object.stack)) {
-    throw utils::TonlibException{"Result stack depth >= " + std::to_string(max_stack_entry_depth_), 533};
+    return td::Status::Error(533, "Result stack depth >= " + std::to_string(max_stack_entry_depth_));
   }
   return result_object;
 }
