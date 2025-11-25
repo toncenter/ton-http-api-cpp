@@ -21,11 +21,21 @@ ENV USERVER_FEATURE_STACK_USAGE_MONITOR=1
 
 COPY examples/ /app/examples/
 COPY py/ /app/py/
-COPY external/ /app/external/
 COPY tonlib-multiclient/ /app/tonlib-multiclient/
 COPY ton-http-api/ /app/ton-http-api/
 COPY playground/ /app/playground/
 COPY CMakeLists.txt /app/CMakeLists.txt
+COPY external/ /app/external/
+
+ARG TON_REPO
+ARG TON_BRANCH
+RUN if [ -n "$TON_REPO" ]; then \
+        echo "Using ton from ${TON_REPO}:${TON_BRANCH:-master}"; \
+        rm -rf /app/external/ton/ && \
+        git clone --recursive --branch ${TON_BRANCH:-master} ${TON_REPO} /app/external/ton; \
+    else \
+        echo "Using ton submodule"; \
+    fi
 
 WORKDIR /app/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make install

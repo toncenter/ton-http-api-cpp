@@ -5,6 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: http-api-cpp
+      args:
+        - TON_REPO
+        - TON_BRANCH
     command: --config /app/static_config.yaml --config_vars /run/secrets/config-vars
     ports:
       - ${THACPP_PORT:-8081}:8081
