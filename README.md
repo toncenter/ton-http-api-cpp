@@ -59,6 +59,15 @@ There are two main ways to run TON HTTP API:
     export THACPP_GLOBAL_CONFIG_PATH=private/testnet.json
     # or
     echo "THACPP_GLOBAL_CONFIG_PATH=private/testnet.json" > .env
+    ```
+    - To build an image using custom TON monorepo:
+    ```
+    export TON_REPO=https://github.com/ton-blockchain/ton
+    export TON_BRANCH=testnet
+    # or 
+    echo "TON_REPO=https://github.com/ton-blockchain/ton" >> .env
+    export TON_BRANCH=testnet
+    ```
 - Pull or build docker image:
     ```bash
     docker compose pull

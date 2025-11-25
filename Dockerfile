@@ -10,26 +10,36 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     libhiredis-dev libidn11-dev libjemalloc2 libjemalloc-dev libkrb5-dev libldap2-dev liblz4-dev \
      libnghttp2-dev libpugixml-dev libsnappy-dev libsasl2-dev libssl-dev libxxhash-dev libyaml-cpp0.8  libyaml-cpp-dev \
     libzstd-dev libssh2-1-dev netbase python3-dev python3-jinja2 python3-venv python3-yaml \
-    ragel yasm zlib1g-dev liblzma-dev libre2-dev clang-format gcc g++ yq \
+    ragel yasm zlib1g-dev liblzma-dev libre2-dev clang-format gcc g++ yq gdb \
     && rm -rf /var/lib/apt/lists/*
 
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
 ENV CCACHE_DISABLE=1
-ENV USERVER_FEATURE_CRYPTOPP_BLAKE2=0
 ENV BUILD_TON_PLAYGROUND=1
+ENV USERVER_FEATURE_STACK_USAGE_MONITOR=1
 
 COPY examples/ /app/examples/
 COPY py/ /app/py/
-COPY external/ /app/external/
 COPY tonlib-multiclient/ /app/tonlib-multiclient/
 COPY ton-http-api/ /app/ton-http-api/
 COPY playground/ /app/playground/
 COPY CMakeLists.txt /app/CMakeLists.txt
+COPY external/ /app/external/
+
+ARG TON_REPO
+ARG TON_BRANCH
+RUN if [ -n "$TON_REPO" ]; then \
+        echo "Using ton from ${TON_REPO}:${TON_BRANCH:-master}"; \
+        rm -rf /app/external/ton/ && \
+        git clone --recursive --branch ${TON_BRANCH:-master} ${TON_REPO} /app/external/ton; \
+    else \
+        echo "Using ton submodule"; \
+    fi
 
 WORKDIR /app/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make install
-RUN apt update -y && apt install -y gdb && mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
+RUN mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
 COPY ton-http-api/static/ /app/static/
 COPY config/static_config.yaml /app/static_config.yaml
 ENTRYPOINT [ "ton-http-api-cpp" ]

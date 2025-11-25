@@ -2,6 +2,7 @@
 
 #include "schemas/v2.hpp"
 #include "userver/clients/http/component.hpp"
+#include <userver/server/component.hpp>
 #include "utils/exceptions.hpp"
 
 namespace ton_http::handlers {
@@ -13,7 +14,7 @@ JsonRpcHandler::JsonRpcHandler(
     logger_(context.FindComponent<userver::components::Logging>().GetLogger(
       config["logger"].As<std::string>("api-v2-jsonrpc")
     )),
-    http_client_(context.FindComponent<userver::components::HttpClient>("http-client").GetHttpClient()),
+    http_client_(context.FindComponent<userver::components::HttpClient>("jsonrpc-http-client").GetHttpClient()),
     base_url_("http://localhost:" + std::to_string(config["port"].As<std::int32_t>()) + "/api/v2/") {
 }
 std::string JsonRpcHandler::HandleRequestThrow(
