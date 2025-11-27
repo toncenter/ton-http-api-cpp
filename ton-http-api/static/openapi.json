@@ -2183,7 +2183,7 @@
         "operationId": "getConfigParam_get",
         "parameters": [
           {
-            "name": "config_id",
+            "name": "param",
             "in": "query",
             "description": "Parameter number",
             "required": true,
@@ -3450,11 +3450,20 @@
       "ConfigParamRequest": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "config_id"
-        ],
         "properties": {
           "config_id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer",
+                "format": "int32"
+              }
+            ],
+            "x-usrv-cpp-type": "std::int32_t"
+          },
+          "param": {
             "oneOf": [
               {
                 "type": "string"
