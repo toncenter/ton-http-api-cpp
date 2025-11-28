@@ -31,8 +31,8 @@ tonlib_keystore_path: ${THACPP_TONLIB_KEYSTORE_PATH:-/tmp/keystore/}
 tonlib_boc_endpoints: ${THACPP_TONLIB_BOC_ENDPOINTS:-[]}
 tonlib_threads: ${THACPP_TONLIB_THREADS:-4}
 
-server_port: ${THACPP_PORT:-8081}
-monitor_port: ${THACPP_MONITOR_PORT:-8082}
+server_port: 8081
+monitor_port: 8082
 
 main_worker_threads: ${THACPP_MAIN_WORKER_THREADS:-4}
 fs_worker_threads: ${THACPP_FS_WORKER_THREADS:-1}
