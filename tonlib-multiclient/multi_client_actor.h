@@ -112,6 +112,7 @@ private:
   std::vector<WorkerInfo> workers_;
   bool first_archival_check_done_ = false;
   td::Timestamp next_archival_check_ = td::Timestamp::now();
+  int32_t consensus_block_ = 0;
   uint64_t json_request_id_ = 11;
 };
 

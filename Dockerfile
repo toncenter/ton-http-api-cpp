@@ -27,12 +27,12 @@ COPY playground/ /app/playground/
 COPY CMakeLists.txt /app/CMakeLists.txt
 COPY external/ /app/external/
 
-ARG TON_REPO
-ARG TON_BRANCH
-RUN if [ -n "$TON_REPO" ]; then \
-        echo "Using ton from ${TON_REPO}:${TON_BRANCH:-master}"; \
+ARG BUILD_WITH_TON_REPO
+ARG BUILD_WITH_TON_REPO
+RUN if [ -n "${BUILD_WITH_TON_REPO}" ]; then \
+        echo "Using ton from ${BUILD_WITH_TON_REPO}:${BUILD_WITH_TON_REPO:-master}"; \
         rm -rf /app/external/ton/ && \
-        git clone --recursive --branch ${TON_BRANCH:-master} ${TON_REPO} /app/external/ton; \
+        git clone --recursive --branch ${BUILD_WITH_TON_REPO:-master} ${BUILD_WITH_TON_REPO} /app/external/ton; \
     else \
         echo "Using ton submodule"; \
     fi
@@ -40,7 +40,7 @@ RUN if [ -n "$TON_REPO" ]; then \
 WORKDIR /app/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 .. && make -j$(nproc) && make install
 RUN mkdir -p /root/.config/gdb && echo "set auto-load safe-path /" > /root/.config/gdb/gdbinit
-COPY ton-http-api/static/ /app/static/
+COPY ton-http-api/static/ /static/
 COPY config/static_config.yaml /app/static_config.yaml
 ENTRYPOINT [ "ton-http-api-cpp" ]
 # end builder
@@ -51,7 +51,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     && apt install -y curl dnsutils libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /app/build/ton-http-api/ton-http-api-cpp /usr/bin/
-COPY --from=builder /app/build/tonlib-multiclient/libtonlib_multiclient_lib.so /usr/lib
-COPY ton-http-api/static/ /app/static/
+COPY ton-http-api/static/ /static/
 COPY config/static_config.yaml /app/static_config.yaml
-ENTRYPOINT [ "ton-http-api-cpp" ]
+COPY scripts/entrypoint.sh /app/entrypoint.sh
+ENTRYPOINT [ "/app/entrypoint.sh" ]
