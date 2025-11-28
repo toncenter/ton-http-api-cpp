@@ -75,7 +75,7 @@ http_worker_user_agent: empty
 # directory for static content
 # static content will be served from this directory
 # THACPP_STATIC_CONTENT_DIR
-static_content_dir: "/static/"
+static_content_dir: /static/
 
 # max stack entry depth for runGetMethod
 # increasing this value may increase memory consumption in runGetMethods
