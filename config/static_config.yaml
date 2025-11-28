@@ -3,7 +3,7 @@ components_manager:
     initial_size: 1000
     max_size: 10000
     stack_size: 4194304
-    stack_usage_monitor_enabled: true
+    stack_usage_monitor_enabled: false
   event_thread_pool:
     threads: 2
   task_processors:
