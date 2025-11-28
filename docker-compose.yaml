@@ -8,11 +8,12 @@ services:
       args:
         - BUILD_WITH_TON_REPO
         - BUILD_WITH_TON_BRANCH
-        - THACPP_CONFIG_VARS=/run/secrets/config-vars
-        - THACPP_TONLIB_CONFIG_PATH=/run/secrets/ton-global-config
     ports:
       - ${THACPP_PORT:-8081}:8081
       - ${THACPP_MONITOR_PORT:-8082}:8082
+    environment:
+      - THACPP_CONFIG_VARS=/run/secrets/config-vars
+      - THACPP_TONLIB_CONFIG_PATH=/run/secrets/ton-global-config
     restart: unless-stopped
     secrets:
       - ton-global-config
