@@ -56,17 +56,17 @@ There are two main ways to run TON HTTP API:
     ```
     - To run testnet version or connect to your private TON node, please specify:
     ```
-    export THACPP_GLOBAL_CONFIG_PATH=private/testnet.json
+    export THACPP_TONLIB_CONFIG_PATH=private/testnet.json
     # or
-    echo "THACPP_GLOBAL_CONFIG_PATH=private/testnet.json" > .env
+    echo "THACPP_TONLIB_CONFIG_PATH=private/testnet.json" > .env
     ```
     - To build an image using custom TON monorepo:
     ```
-    export TON_REPO=https://github.com/ton-blockchain/ton
-    export TON_BRANCH=testnet
+    export BUILD_WITH_TON_REPO=https://github.com/ton-blockchain/ton
+    export BUILD_WITH_TON_BRANCH=testnet
     # or 
-    echo "TON_REPO=https://github.com/ton-blockchain/ton" >> .env
-    export TON_BRANCH=testnet
+    echo "BUILD_WITH_TON_REPO=https://github.com/ton-blockchain/ton" >> .env
+    echo "BUILD_WITH_TON_BRANCH=testnet" >> .env
     ```
 - Pull or build docker image:
     ```bash
@@ -88,6 +88,34 @@ There are two main ways to run TON HTTP API:
     # or 
     docker compose logs -f -n 100 http-api-cpp
     ```
+
+### Configure via environment variables
+Instead of using `config_vars.yaml` file, you can also configure service via environment variables.
+To do this you need to set environment variables before starting the service and use the following command:
+  ```bash
+  docker compose -f docker-compose.env-vars.yaml up -d
+  ```
+
+List of available environment variables:
+- `THACPP_TONLIB_CONFIG_PATH` - TON global config path (default: `/run/secrets/ton-global-config`)
+- `THACPP_TONLIB_KEYSTORE_PATH` - TONlib keystore path (default: `/tmp/keystore/`)
+- `THACPP_TONLIB_BOC_ENDPOINTS` - Endpoints to duplicate incoming BOCs; should be a list of comma-separated quoted strings like `["http://127.0.0.1:8080", "https://endpoint.com/postBoc"]` (default: `[]`)
+- `THACPP_TONLIB_THREADS` - number of threads for TONlib multiclient (default: `4`)
+- `THACPP_PORT` - API port in container (default: `8081`)
+- `THACPP_MONITOR_PORT` - Monitoring port in container (default: `8082`)
+- `THACPP_MAIN_WORKER_THREADS` - number of threads to serve HTTP requests (default: `4`)
+- `THACPP_FS_WORKER_THREADS` - number of threads for I/O operations (default: `1`)
+- `THACPP_HTTP_WORKER_THREADS` - number of threads for HTTP client (used to duplicate BOCs on external service) (default: `2`)
+- `THACPP_LOG_LEVEL` - api v2 log level (default: `warning`)
+- `THACPP_LOG_PATH` - log output destination (`@stdout`, `@stderr`, `@null`, or `/path/to/file`) (default: `"@stdout"`)
+- `THACPP_SYSTEM_LOG_LEVEL` - userver system logs level (default: `warning`)
+- `THACPP_SYSTEM_LOG_PATH` - userver system log path (default: `"@stdout"`)
+- `THACPP_JSONRPC_LOG_LEVEL` - jsonrpc endpoint log level (default: `warning`)
+- `THACPP_JSONRPC_LOG_PATH` - jsonrpc endpoint log path (default: `"@stdout"`)
+- `THACPP_LOG_FORMAT` - logs format (`tskv`, `ltsv`, `json`) (default: `json`)
+- `THACPP_HTTP_WORKER_USER_AGENT` - HTTP user agent sent to BOC endpoint (default: `empty`)
+- `THACPP_STATIC_CONTENT_DIR` - directory for static content served by API (default: `"/static/"`)
+- `THACPP_MAX_STACK_ENTRY_DEPTH` - max stack entry depth for runGetMethod (higher values increase memory usage) (default: `256`)
 
 ### Local run
 

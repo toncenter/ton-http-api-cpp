@@ -174,10 +174,9 @@ void MultiClientActor::alarm() {
   }
 
   std::stringstream state;
-  std::int32_t consensus_block = 0;
   for (const auto& worker : workers_) {
-    if (worker.is_alive && worker.last_mc_seqno > consensus_block) {
-      consensus_block = worker.last_mc_seqno;
+    if (worker.is_alive && worker.last_mc_seqno > consensus_block_) {
+      consensus_block_ = worker.last_mc_seqno;
     }
   }
   for (auto& worker : workers_) {
@@ -188,7 +187,7 @@ void MultiClientActor::alarm() {
       } else {
         state << "a";
       }
-      auto delay = consensus_block - worker.last_mc_seqno;
+      auto delay = consensus_block_ - worker.last_mc_seqno;
       state << delay;
     } else {
       state << ".";
@@ -246,7 +245,7 @@ void MultiClientActor::on_alive_checked(
   static constexpr double kRetryInterval = 10.0;
   static constexpr int32_t kUndefinedLastMcSeqno = -1;
 
-  bool is_alive = last_mc_seqno.has_value();
+  bool is_alive = last_mc_seqno.has_value() && last_mc_seqno.value() >= consensus_block_ - 3;
   int32_t last_mc_seqno_value = last_mc_seqno.value_or(kUndefinedLastMcSeqno);
 
   LOG(DEBUG) << "LS #" << worker_index << " is_alive: " << is_alive << " last_mc_seqno: " << last_mc_seqno_value;
@@ -254,9 +253,8 @@ void MultiClientActor::on_alive_checked(
   auto& worker = workers_[worker_index];
   worker.is_alive = is_alive;
   worker.is_waiting_for_update = false;
-
+  worker.last_mc_seqno = last_mc_seqno_value;
   if (is_alive) {
-    worker.last_mc_seqno = last_mc_seqno_value;
     worker.check_retry_count = 0;
   } else {
     worker.check_retry_after = td::Timestamp::in(kRetryInterval);

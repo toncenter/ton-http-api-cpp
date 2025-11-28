@@ -1,37 +1,83 @@
-# TONlib parameters
-tonlib_config_path: /run/secrets/ton-global-config  # TON global config path 
-tonlib_keystore_path: /tmp/keystore/  # TONlib keystore path
-tonlib_boc_endpoints: []  # Endpoints to duplicate incoming BOCs
-tonlib_threads: 4  # number of threads for TONlib multiclient
+##### TONlib parameters #####
+# TON global config path
+# THACPP_TONLIB_CONFIG_PATH
+tonlib_config_path: /run/secrets/ton-global-config
+# TONlib keystore path
+# THACPP_TONLIB_KEYSTORE_PATH
+tonlib_keystore_path: /tmp/keystore/
+# Endpoints to duplicate incoming BOCs
+# should be a list of comma-separated, quoted strings in format `http://host:port`
+# example: ["http://127.0.0.1:8080", "https://endpoint.com/postBoc"]
+# service is expected to accept POST requests with BOC in body and return 200 in case of success
+# request body will have the following format: `{"boc":"base64 encoded boc"}`
+# THACPP_TONLIB_BOC_ENDPOINTS
+tonlib_boc_endpoints: []
+# number of threads for TONlib multiclient
+# THACPP_TONLIB_THREADS
+tonlib_threads: 4
 
-server_port: 8081   # API port in container,
-                    # to change exposed port set THACPP_PORT env variable
-monitor_port: 8082  # Monitoring port in container, 
-                    # to change exposed port set THACPP_MONITOR_PORT env variable
+##### Userver parameters #####
+# API port in container
+# THACPP_PORT
+server_port: 8081
+# Monitoring port in container
+# THACPP_MONITOR_PORT
+monitor_port: 8082
 
-main_worker_threads: 4  # number of threads to serve HTTP requests
-fs_worker_threads: 1    # number of threads for I/O operations, f.e. logging
-http_worker_threads: 2  # number of threads for http client 
-                        # to duplicate BOCs on external service
+# number of threads to serve HTTP requests
+# THACPP_MAIN_WORKER_THREADS
+main_worker_threads: 4
+# number of threads for I/O operations, f.e. logging
+# THACPP_FS_WORKER_THREADS
+fs_worker_threads: 1
+# number of threads for http client
+# to duplicate BOCs on external service
+# THACPP_HTTP_WORKER_THREADS
+http_worker_threads: 2
 
-log_level: warning          # api v2 log level
-log_path: "@stdout"         # log destination, available options:
-                            # @stdout
-                            # @stderr
-                            # @null - don't log
-                            # /path/to/file - log to file
-                            # Note: if you log into file,
-                            # logs will be deleted after deploying new container
-system_log_level: warning   # userver system logs
+##### Logging parameters #####
+# for log_path destination use one available options:
+# @stdout
+# @stderr
+# @null - don't log
+# /path/to/file - log to file
+# Note: if you log into file,
+# logs will be deleted after deploying new container
+
+# api v2 log level
+# THACPP_LOG_LEVEL
+log_level: warning
+# THACPP_LOG_PATH
+log_path: "@stdout"
+
+# userver system logs
+# THACPP_SYSTEM_LOG_LEVEL
+system_log_level: warning
+# THACPP_SYSTEM_LOG_PATH
 system_log_path: "@stdout"
 
-jsonrpc_log_level: warning  # jsonrpc endpoint logs
-                            # note that requests to jsonRPC endpoint will appear in both of api-v2 and jsonrpc loggers
+# jsonrpc endpoint logs
+# note that requests to jsonRPC endpoint will appear in both of api-v2 and jsonrpc loggers
+# THACPP_JSONRPC_LOG_LEVEL
+jsonrpc_log_level: warning
+# THACPP_JSONRPC_LOG_PATH
 jsonrpc_log_path: "@stdout"
 
-log_format: json            # logs format, one of `tskv`, `ltsv`, `json`
+# logs format, one of `tskv`, `ltsv`, `json`
+# THACPP_LOG_FORMAT
+log_format: json
 
-http_worker_user_agent: empty  # http user agent to set in request to boc endpoint
+# http user agent to set in request to boc endpoint
+# this may be required for external services with anti-ddos and anti-bot protection
+# THACPP_HTTP_WORKER_USER_AGENT
+http_worker_user_agent: empty
 
-static_content_dir: "/static/"  # directory for static content
-max_stack_entry_depth: 100      # max stack entry depth for runGetMethod
+# directory for static content
+# static content will be served from this directory
+# THACPP_STATIC_CONTENT_DIR
+static_content_dir: "/static/"
+
+# max stack entry depth for runGetMethod
+# increasing this value may increase memory consumption in runGetMethods
+# THACPP_MAX_STACK_ENTRY_DEPTH
+max_stack_entry_depth: 256
