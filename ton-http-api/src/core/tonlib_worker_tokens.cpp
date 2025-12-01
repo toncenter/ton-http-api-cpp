@@ -219,6 +219,10 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
   TRY_RESULT(address_from_master_std, block::StdAddress::parse(wallet_address_from_master));
 
   LOG(DEBUG) << "address: " << address_std << " expected: " << address_from_master_std;
+  address_std.bounceable = true;
+  address_from_master_std.bounceable = true;
+  address_std.testnet = false;
+  address_from_master_std.testnet = false;
   if (address_from_master_std != address_std) {
     return td::Status::Error(409, "Verification on master failed");
   }
