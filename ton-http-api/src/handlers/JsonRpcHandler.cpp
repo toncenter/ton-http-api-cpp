@@ -21,6 +21,9 @@ std::string JsonRpcHandler::HandleRequestThrow(
   const HttpRequest& request, RequestContext&
 ) const {
   try {
+    if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
+      throw utils::TonlibException("method GET is not supported", 405);
+    }
     auto request_json = userver::formats::json::FromString(request.RequestBody());
     auto method = request_json["method"].As<std::string>();
     userver::formats::json::Value params = userver::formats::json::MakeObject();

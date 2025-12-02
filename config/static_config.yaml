@@ -352,7 +352,7 @@ components_manager:
     #
     handler-JsonRpc:
       path: /api/v2/jsonRPC
-      method: POST
+      method: GET,POST
       logger: api-v2-jsonrpc
       port: $server_port
       port#fallback: 8081
@@ -372,6 +372,7 @@ components_manager:
     handler-static:
       fs-cache-component: fs-cache-main
       path: /api/v2/*
+      not-found-file: /404.json
       method: GET
 
     #
