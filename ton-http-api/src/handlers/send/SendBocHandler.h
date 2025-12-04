@@ -23,6 +23,7 @@ private:
   std::vector<std::string> external_message_endpoints_;
   bool return_hash_{true};
   bool ignore_errors_{false};
+  bool debug_log_measurements_{false};
 
   bool SendBocToExternalEndpoints(const schemas::v2::SendBocRequest& request) const;
 };

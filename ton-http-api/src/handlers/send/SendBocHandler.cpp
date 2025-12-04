@@ -15,7 +15,8 @@ ton_http::handlers::SendBocHandler::SendBocHandler(
       config["external_message_endpoints"].As<std::vector<std::string>>(std::vector<std::string>{})
     ),
     return_hash_(config["return_hash"].As<bool>(true)),
-    ignore_errors_(config["ignore_errors"].As<bool>(false)) {
+    ignore_errors_(config["ignore_errors"].As<bool>(false)),
+    debug_log_measurements_(config["debug_log_measurements"].As<bool>(false)) {
 }
 ton_http::schemas::v2::SendBocRequest
 ton_http::handlers::SendBocHandler::ParseTonlibGetRequest(const HttpRequest&, RequestContext&) const {
@@ -38,13 +39,22 @@ td::Result<ton_http::schemas::v2::SendBocResult> ton_http::handlers::SendBocHand
     }
     return result.move_as_error();
   }
+  auto result_ok = result.move_as_ok();
+  if (debug_log_measurements_) {
+    double ts = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+    LOG_CRITICAL_TO(*logger_) << "MEASURE[" << td::base64_encode(result_ok->hash_norm_) << "](unixtime=" << ts << " module=sendboc_handler step=boc_sent_to_liteservers)";
+  }
   if (auto external_send_success = SendBocToExternalEndpoints(request); !external_send_success) {
     LOG_WARNING_TO(*logger_) << "Failed to send BOC to some of external endpoints";
+  }
+  if (debug_log_measurements_) {
+    double ts = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+    LOG_CRITICAL_TO(*logger_) << "MEASURE[" << td::base64_encode(result_ok->hash_norm_) << "](unixtime=" << ts << " module=sendboc_handler step=boc_sent_to_smart_broadcast)";
   }
   if (!return_hash_) {
     return schemas::v2::ResultOk{};
   }
-  return converters::Convert(result.move_as_ok());
+  return converters::Convert(result_ok);
 }
 userver::yaml_config::Schema ton_http::handlers::SendBocHandler::GetStaticConfigSchema() {
   return userver::yaml_config::MergeSchemas<TonlibRequestHandler>(R"(
@@ -65,6 +75,9 @@ properties:
   ignore_errors:
     type: boolean
     description: 'Ignore errors (default: false)'
+  debug_log_measurements:
+    type: boolean
+    description: 'Log timings to debug (default: false)'
 )");
 }
 bool ton_http::handlers::SendBocHandler::SendBocToExternalEndpoints(const schemas::v2::SendBocRequest& request) const {

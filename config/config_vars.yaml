@@ -81,3 +81,6 @@ static_content_dir: /static/
 # increasing this value may increase memory consumption in runGetMethods
 # THACPP_MAX_STACK_ENTRY_DEPTH
 max_stack_entry_depth: 256
+
+# Debug
+debug_log_measurements: false
