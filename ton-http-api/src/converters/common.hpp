@@ -181,6 +181,11 @@ inline schemas::v2::AccountState Convert(const tonlib_api::object_ptr<tonlib_api
         res.description = val.description_;
         result.emplace<schemas::v2::AccountStatePChan>(res);
       },
+      [&](const tonlib_api::uninited_accountState& val) {
+        schemas::v2::AccountStateUninited res;
+        res.frozen_hash = types::ton_hash{val.frozen_hash_};
+        result.emplace<schemas::v2::AccountStateUninited>(res);
+      },
       [&](const auto&) { LOG_ERROR() << "Unsupported account state type: " << value->get_id(); }
     )
   );
