@@ -326,6 +326,8 @@ components_manager:
       return_hash: false
       ignore_errors: false
       log-level: error
+      debug_log_measurements: $debug_log_measurements
+      debug_log_measurements#fallback: false
     handler-SendBocReturnHash:
       path: /api/v2/sendBocReturnHash
       method: POST
@@ -334,6 +336,8 @@ components_manager:
       return_hash: true
       ignore_errors: false
       log-level: error
+      debug_log_measurements: $debug_log_measurements
+      debug_log_measurements#fallback: false
     handler-SendBocReturnHashNoError:
       path: /api/v2/sendBocReturnHashNoError
       method: POST
@@ -342,6 +346,8 @@ components_manager:
       return_hash: true
       ignore_errors: true
       log-level: error
+      debug_log_measurements: $debug_log_measurements
+      debug_log_measurements#fallback: false
     handler-EstimateFee:
       path: /api/v2/estimateFee
       method: POST
