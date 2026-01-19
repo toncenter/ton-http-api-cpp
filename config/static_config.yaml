@@ -76,7 +76,13 @@ components_manager:
       task_processor: main-task-processor
     dns-client:
       fs-task-processor: fs-task-processor
-    http-client:
+    http-client-middleware-pipeline:
+      middlewares:
+        http-client-middleware-disabled:
+          enabled: false
+        http-client-middleware-override:
+          enabled: false
+    http-client-core:
       pool-statistics-disable: true
       thread-name-prefix: http-client
       threads: $http_worker_threads
@@ -85,7 +91,9 @@ components_manager:
       destination-metrics-auto-max-size: 100
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
-    jsonrpc-http-client:
+    http-client:
+      core-component: http-client-core
+    jsonrpc-http-client-core:
       pool-statistics-disable: true
       thread-name-prefix: jsonrpc-http-client
       threads: $http_worker_threads
@@ -94,6 +102,8 @@ components_manager:
       destination-metrics-auto-max-size: 0
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
+    jsonrpc-http-client:
+      core-component: jsonrpc-http-client-core
     fs-cache-main:
       dir: $static_content_dir
       dir#fallback: /app/static/

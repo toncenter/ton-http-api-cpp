@@ -43,6 +43,7 @@
 #include "handlers/utils/DetectHashHandler.h"
 #include "handlers/utils/PackAddressHandler.h"
 #include "handlers/utils/UnpackAddressHandler.h"
+#include "userver/clients/http/middlewares/pipeline_component.hpp"
 
 
 int main(int argc, char* argv[]) {
@@ -52,7 +53,10 @@ int main(int argc, char* argv[]) {
   auto component_list = userver::components::MinimalServerComponentList();
   // components
   component_list.Append<userver::clients::dns::Component>();
+  component_list.Append<userver::clients::http::MiddlewarePipelineComponent>();
+  component_list.Append<userver::components::HttpClientCore>();
   component_list.Append<userver::components::HttpClient>();
+  component_list.Append<userver::components::HttpClientCore>("jsonrpc-http-client-core");
   component_list.Append<userver::components::HttpClient>("jsonrpc-http-client");
   component_list.Append<userver::components::FsCache>("fs-cache-main");
   component_list.Append<ton_http::core::TonlibComponent>();

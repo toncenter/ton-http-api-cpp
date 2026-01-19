@@ -20,6 +20,13 @@ RUN DEBIAN_FRONTEND=noninteractive wget https://apt.llvm.org/llvm.sh && \
 ENTRYPOINT [ "/bin/bash" ]
 
 FROM builder-base AS builder
+# build openssl 3.5
+RUN git clone --recursive --branch openssl-3.5 https://github.com/openssl/openssl /openssl && cd /openssl \
+    && ./Configure && make -j$(nproc)
+
+ENV OPENSSL_ROOT_DIR=/openssl/
+ENV OPENSSL_INCLUDE_DIR=/openssl/include
+ENV OPENSSL_CRYPTO_LIBRARY=/openssl/libcrypto.so
 
 ENV CC=/usr/bin/clang-21
 ENV CXX=/usr/bin/clang++-21
@@ -46,7 +53,7 @@ RUN if [ -n "${BUILD_WITH_TON_REPO}" ]; then \
     fi
 
 WORKDIR /app/build
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 -GNinja .. && ninja -j$(nproc)
+RUN touch /app/suppression_mappings.txt && cmake -DCMAKE_BUILD_TYPE=Release -DPORTABLE=1 -GNinja .. && ninja -j$(nproc)
 # end builder
 
 
@@ -54,6 +61,9 @@ FROM ubuntu:24.04 AS http-api-cpp
 RUN DEBIAN_FRONTEND=noninteractive apt update -y \
     && apt install -y curl libcurl4 libfmt9 libsodium23 libcctz2 libatomic1 libicu74 \
     && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /openssl/libcrypto.so.3 /usr/local/lib/libcrypto.so.3
+COPY --from=builder /openssl/libssl.so.3 /usr/local/lib/libssl.so.3
+RUN ln -s /usr/local/lib/libcrypto.so.3 /usr/local/lib/libcrypto.so && ln -s /usr/local/lib/libssl.so.3 /usr/local/lib/libssl.so && ldconfig
 COPY --from=builder /app/build/ton-http-api/ton-http-api-cpp /usr/bin/
 COPY ton-http-api/static/ /static/
 COPY config/static_config.yaml /app/static_config.yaml

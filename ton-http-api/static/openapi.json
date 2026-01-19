@@ -5241,7 +5241,10 @@
             "$ref": "#/components/schemas/MasterchainInfo"
           },
           {
-            "$ref": "#/components/schemas/MasterchainBlockSignatures"
+            "$ref": "#/components/schemas/BlockSignatures"
+          },
+          {
+            "$ref": "#/components/schemas/BlockSignaturesSimplex"
           },
           {
             "$ref": "#/components/schemas/ShardBlockProof"
@@ -5308,7 +5311,8 @@
             "ext.tokens.nftCollectionData": "#/components/schemas/NftCollectionData",
             "ext.tokens.nftItemData": "#/components/schemas/NftItemData",
             "blocks.masterchainInfo": "#/components/schemas/MasterchainInfo",
-            "blocks.blockSignatures": "#/components/schemas/MasterchainBlockSignatures",
+            "blocks.blockSignatures": "#/components/schemas/BlockSignatures",
+            "blocks.blockSignatures.simplex": "#/components/schemas/BlockSignaturesSimplex",
             "blocks.shardBlockProof": "#/components/schemas/ShardBlockProof",
             "ext.blocks.consensusBlock": "#/components/schemas/ConsensusBlock",
             "ton.blockIdExt": "#/components/schemas/TonBlockIdExt",
@@ -5747,7 +5751,7 @@
           "init"
         ]
       },
-      "MasterchainBlockSignatures": {
+      "BlockSignatures": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -5773,6 +5777,63 @@
           "id",
           "signatures"
         ]
+      },
+      "BlockSignaturesSimplex": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@type": {
+            "type": "string",
+            "enum": [
+              "blocks.blockSignatures.simplex"
+            ],
+            "default": "blocks.blockSignatures.simplex"
+          },
+          "id": {
+            "$ref": "#/components/schemas/TonBlockIdExt"
+          },
+          "signatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BlockSignature"
+            }
+          },
+          "session_id": {
+            "$ref": "#/components/schemas/TonHash"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "candidate": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        },
+        "required": [
+          "@type",
+          "id",
+          "signatures",
+          "session_id",
+          "slot",
+          "candidate"
+        ]
+      },
+      "MasterchainBlockSignatures": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/BlockSignatures"
+          },
+          {
+            "$ref": "#/components/schemas/BlockSignaturesSimplex"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "@type",
+          "mapping": {
+            "blocks.blockSignatures": "#/components/schemas/BlockSignatures",
+            "blocks.blockSignatures.simplex": "#/components/schemas/BlockSignaturesSimplex"
+          }
+        }
       },
       "ShardBlockProof": {
         "type": "object",
