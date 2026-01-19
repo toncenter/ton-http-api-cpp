@@ -15,7 +15,7 @@ target_link_libraries(
         ${PROJECT_NAME}
         tonlib tdactor
         tl_api tl_tonlib_api_json tl_tonlib_api tl_lite_api tl-lite-utils
-        tdutils ton_crypto ton_block tonlibjson_private
+        tdutils ton_crypto ton_block tonlibjson_private_interface
 )
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 add_dependencies(${PROJECT_NAME} tl_generate_common)
@@ -28,7 +28,7 @@ target_link_libraries(
         ${PROJECT_NAME}-static
         tonlib tdactor
         tl_api tl_tonlib_api_json tl_tonlib_api tl_lite_api tl-lite-utils
-        tdutils ton_crypto ton_block tonlibjson_private
+        tdutils ton_crypto ton_block tonlibjson_private_interface
 )
 target_include_directories(${PROJECT_NAME}-static PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 add_dependencies(${PROJECT_NAME}-static tl_generate_common)

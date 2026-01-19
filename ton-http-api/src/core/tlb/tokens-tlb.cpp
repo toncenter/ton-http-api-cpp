@@ -1,7 +1,7 @@
 #include "tokens-tlb.h"
 /*
  *
- *  AUTO-GENERATED FROM `/Users/ruslixag/Developer/ton-workspace/ton-http-api-cpp/ton-http-api/tlb/tokens.tlb`
+ *  AUTO-GENERATED FROM `/data/ton-http-api/tlb/tokens.tlb`
  *
  */
 // uses built-in type `##`

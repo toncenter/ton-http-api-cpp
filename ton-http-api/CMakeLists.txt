@@ -44,12 +44,14 @@ set(OPENAPI_YAML
 set(OPENAPI_JSON
         ${CMAKE_CURRENT_SOURCE_DIR}/static/openapi.json
 )
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
 add_custom_command(
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND yq -Poj ${OPENAPI_YAML} > ${OPENAPI_JSON}
-        COMMENT "Generate OpenAPI json file"
-        OUTPUT ${OPENAPI_JSON}
-        DEPENDS ${OPENAPI_YAML}
+        OUTPUT "${OPENAPI_JSON}"
+        COMMAND "${Python3_EXECUTABLE}" -c
+        "import sys, json; import yaml; json.dump(yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')), open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
+        "${OPENAPI_YAML}" "${OPENAPI_JSON}"
+        DEPENDS "${OPENAPI_YAML}"
+        VERBATIM
 )
 add_custom_target(${PROJECT_NAME}-openapi-gen DEPENDS ${OPENAPI_JSON})
 
