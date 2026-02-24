@@ -269,7 +269,7 @@ private:
       return std::move(result);
     }
     auto error = result.move_as_error();
-    LOG(ERROR) << "RESULT ERROR: " << error;
+    // LOG(ERROR) << "RESULT ERROR: " << error;
     if (request.parameters.archival.has_value() && request.parameters.archival.value()) {
       return std::move(error);
     }
@@ -284,9 +284,9 @@ private:
     auto result_archival = tonlib_.send_request_function<T, userver::engine::Promise>(request);
     if (result_archival.is_error()) {
       auto error_archival = result_archival.move_as_error();
-      LOG(ERROR) << "RESULT ERROR ARCHIVAL: " << error_archival;
-      LOG(WARNING)
-        << "Failed archival retry of tonlib request: " << error_archival.code() << " " << error_archival.message();
+      // LOG(ERROR) << "RESULT ERROR ARCHIVAL: " << error_archival;
+      // LOG(WARNING)
+      //   << "Failed archival retry of tonlib request: " << error_archival.code() << " " << error_archival.message();
       if (error_archival.code() == 542) {
         return std::move(error);
       }

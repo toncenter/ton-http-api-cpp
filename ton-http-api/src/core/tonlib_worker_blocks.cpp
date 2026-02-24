@@ -46,9 +46,6 @@ td::Result<tonlib_api::blocks_lookupBlock::ReturnType> TonlibWorker::lookupBlock
     lookupMode += 4;
   }
 
-  LOG(ERROR)
-    << "lookupBlock with mode: " << lookupMode << ", workchain: " << workchain << ", shard: " << shard
-    << ", seqno: " << seqno.value_or(0) << ", lt: " << lt.value_or(0) << ", unixtime: " << unixtime.value_or(0);
   // try non-archival
   auto request = multiclient::RequestFunction<tonlib_api::blocks_lookupBlock>{
     .parameters = {.mode = multiclient::RequestMode::Single},
