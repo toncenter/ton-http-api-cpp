@@ -20,9 +20,9 @@ ton_http::schemas::v2::LookupBlockRequest ton_http::handlers::LookupBlockHandler
     throw utils::TonlibException("failed to parse workchain", 422);
   }
   try {
-    req.workchain = boost::lexical_cast<std::int32_t>(request.GetArg("workchain"));
+    req.shard = boost::lexical_cast<std::int64_t>(request.GetArg("shard"));
   } catch (std::exception& exc) {
-    throw utils::TonlibException("failed to parse workchain", 422);
+    throw utils::TonlibException("failed to parse shard", 422);
   }
   if (request.HasArg("seqno")) {
     try {
