@@ -529,6 +529,88 @@
         ]
       }
     },
+    "/api/v2/getShardAccountCell": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Get Shard Address Cell",
+        "description": "Get raw TVM cell with shard account",
+        "operationId": "getShardAccountCell_get",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/address"
+          },
+          {
+            "$ref": "#/components/parameters/seqnoOptional"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TonlibResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "APIKeyQuery": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "rpc"
+        ],
+        "summary": "Get Shard Address Cell",
+        "description": "Get raw TVM cell with shard account",
+        "operationId": "getShardAccountCell_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShardAccountCellRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TonlibResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          },
+          {
+            "APIKeyQuery": []
+          }
+        ]
+      }
+    },
     "/api/v2/getWalletInformation": {
       "get": {
         "tags": [
@@ -3039,6 +3121,9 @@
       "AddressInformationRequest": {
         "$ref": "#/components/schemas/AddressWithSeqnoRequest"
       },
+      "ShardAccountCellRequest": {
+        "$ref": "#/components/schemas/AddressWithSeqnoRequest"
+      },
       "ExtendedAddressInformationRequest": {
         "$ref": "#/components/schemas/AddressWithSeqnoRequest"
       },
@@ -5296,6 +5381,9 @@
           },
           {
             "$ref": "#/components/schemas/RunGetMethodResult"
+          },
+          {
+            "$ref": "#/components/schemas/TvmCell"
           }
         ],
         "discriminator": {
@@ -5329,7 +5417,8 @@
             "raw.extMessageInfo": "#/components/schemas/ExtMessageInfo",
             "ok": "#/components/schemas/ResultOk",
             "smc.runResult": "#/components/schemas/RunGetMethodStdResult",
-            "ext.runResult": "#/components/schemas/RunGetMethodResult"
+            "ext.runResult": "#/components/schemas/RunGetMethodResult",
+            "tvm.cell": "#/components/schemas/TvmCell"
           }
         }
       },

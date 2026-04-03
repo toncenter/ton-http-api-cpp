@@ -119,6 +119,8 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/runmethod/RunGetMethodStdHandler.cpp
         src/handlers/send/EstimateFeeHandler.cpp
         src/handlers/runmethod/RunGetMethodHandler.cpp
+        src/handlers/accounts/GetShardAccountCellHandler.cpp
+        src/handlers/accounts/GetShardAccountCellHandler.h
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
 target_include_directories(${PROJECT_NAME}

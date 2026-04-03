@@ -46,6 +46,11 @@ public:
     std::optional<std::int32_t> seqno = std::nullopt,
     multiclient::SessionPtr session = nullptr
   ) const;
+  [[nodiscard]] td::Result<tonlib_api::getShardAccountCell::ReturnType> getShardAccountCell(
+    const std::string& address,
+    std::optional<std::int32_t> seqno = std::nullopt,
+    multiclient::SessionPtr session = nullptr
+  ) const;
   [[nodiscard]] td::Result<tonlib_api::blocks_lookupBlock::ReturnType> lookupBlock(
     const std::int32_t& workchain,
     const std::int64_t& shard,

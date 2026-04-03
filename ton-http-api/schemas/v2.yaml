@@ -9,7 +9,7 @@ info:
     The response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.
     
     API Key should be sent either as `api_key` query parameter or `X-API-Key` header
-  version: '2.1.1'
+  version: '2.1.11'
 paths:
   /api/v2/jsonRPC:
     post:
@@ -297,6 +297,52 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ExtendedAddressInformationRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/getShardAccountCell:
+    get:
+      tags:
+        - accounts
+      summary: Get Shard Address Cell
+      description: Get raw TVM cell with shard account
+      operationId: getShardAccountCell_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Shard Address Cell
+      description: Get raw TVM cell with shard account
+      operationId: getShardAccountCell_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShardAccountCellRequest'
         required: true
       responses:
         200:
@@ -1790,6 +1836,8 @@ components:
       $ref: '#/components/schemas/AddressRequest'
     AddressInformationRequest:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    ShardAccountCellRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
     ExtendedAddressInformationRequest:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
     WalletInformationRequest:
@@ -3281,6 +3329,7 @@ components:
         - $ref: '#/components/schemas/ResultOk'
         - $ref: '#/components/schemas/RunGetMethodStdResult'
         - $ref: '#/components/schemas/RunGetMethodResult'
+        - $ref: '#/components/schemas/TvmCell'
       discriminator:
         propertyName: '@type'
         mapping:
@@ -3313,6 +3362,7 @@ components:
           'ok': '#/components/schemas/ResultOk'
           'smc.runResult': '#/components/schemas/RunGetMethodStdResult'
           'ext.runResult': '#/components/schemas/RunGetMethodResult'
+          'tvm.cell': '#/components/schemas/TvmCell'
     TonlibResponse:
       type: object
       title: TonlibResponse

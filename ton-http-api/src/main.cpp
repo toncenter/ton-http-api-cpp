@@ -16,6 +16,7 @@
 #include "handlers/accounts/GetAddressInformationHandler.h"
 #include "handlers/accounts/GetAddressStateHandler.h"
 #include "handlers/accounts/GetExtendedAddressInformationHandler.h"
+#include "handlers/accounts/GetShardAccountCellHandler.h"
 #include "handlers/accounts/GetTokenDataHandler.h"
 #include "handlers/accounts/GetWalletInformationHandler.h"
 #include "handlers/blocks/GetBlockHeaderHandler.h"
@@ -76,6 +77,7 @@ int main(int argc, char* argv[]) {
   // accounts
   component_list.Append<ton_http::handlers::GetAddressInformationHandler>();
   component_list.Append<ton_http::handlers::GetExtendedAddressInformationHandler>();
+  component_list.Append<ton_http::handlers::GetShardAccountCellHandler>();
   component_list.Append<ton_http::handlers::GetWalletInformationHandler>();
   component_list.Append<ton_http::handlers::GetAddressBalanceHandler>();
   component_list.Append<ton_http::handlers::GetAddressStateHandler>();

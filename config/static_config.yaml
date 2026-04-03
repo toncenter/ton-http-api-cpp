@@ -142,6 +142,13 @@ components_manager:
       cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
+    handler-GetShardAccountCellHandler:
+      path: /api/v2/getShardAccountCell
+      method: GET,POST
+      cache_enabled: true
+      cache_size: 4096
+      cache_ways: 16
+      cache_ttl: 1s
     handler-GetWalletInformation:
       path: /api/v2/getWalletInformation
       method: GET,POST
