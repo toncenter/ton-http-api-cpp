@@ -115,7 +115,7 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
           if (r_loaded_cell.is_ok()) {
             auto loaded_cell = r_loaded_cell.move_as_ok();
             const size_t n_bytes = (loaded_cell.data_cell->get_bits() + 7) / 8;
-            const size_t n_trailing_bits = 8 - loaded_cell.data_cell->get_bits() % 8;
+            const size_t n_trailing_bits = (8 - loaded_cell.data_cell->get_bits() % 8) % 8;
             std::string buffer(n_bytes, 0);
             std::memcpy(buffer.data(), loaded_cell.data_cell->get_data(), n_bytes);
             // this zeroes last 1 bit which is 1 in C++ and 0 in python implementation
