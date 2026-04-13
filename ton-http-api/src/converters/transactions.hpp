@@ -120,7 +120,7 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
             std::memcpy(buffer.data(), loaded_cell.data_cell->get_data(), n_bytes);
             // this zeroes last 1 bit which is 1 in C++ and 0 in python implementation
             buffer[buffer.length() - 1] = static_cast<char>(buffer.back() & ~static_cast<char>((1 << n_trailing_bits) - 1));
-            result.message = td::base64_encode(buffer) + "\n"; // this is back compatibility
+            result.message = td::base64_encode(buffer) + (!buffer.empty() ? "\n" : ""); // this is back compatibility
           }
         } else {
           result.message_decode_error = "Failed to load cell or get body slice. But why?";
