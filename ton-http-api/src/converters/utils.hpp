@@ -13,11 +13,11 @@ inline schemas::v2::DetectAddress Convert(const core::DetectAddressResult& value
   result.raw_form = value.to_raw_form(true);
 
   block::StdAddress b_addr(value.address);
-  b_addr.bounceable = false;
+  b_addr.bounceable = true;
   result.bounceable.b64 = b_addr.rserialize(false);
   result.bounceable.b64url = b_addr.rserialize(true);
 
-  b_addr.bounceable = true;
+  b_addr.bounceable = false;
   result.non_bounceable.b64 = b_addr.rserialize(false);
   result.non_bounceable.b64url = b_addr.rserialize(true);
   if (value.given_type == "raw_form") {
