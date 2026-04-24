@@ -1,6 +1,9 @@
 import pytest
 
 
+EXPECTED_RESPONSE_BOUNCEABLE = 'EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N'
+EXPECTED_RESPONSE_NONBOUNCEABLE = 'UQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqEBI'
+
 TEST_ADDRESSES = [
     ("EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N",
      200),
@@ -24,4 +27,7 @@ def test_detect_address(api_method_call,
         return
     data = response.json()
     assert data['ok'] == True
+    result = data['result']
+    assert result['bounceable']['b64'] == EXPECTED_RESPONSE_BOUNCEABLE
+    assert result['non_bounceable']['b64'] == EXPECTED_RESPONSE_NONBOUNCEABLE
     return
