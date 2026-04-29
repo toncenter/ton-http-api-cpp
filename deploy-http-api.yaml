@@ -1,0 +1,54 @@
+#- name: Gather facts
+#  hosts: all
+#  gather_facts: true
+#  tasks:
+#    - name: Debug facts
+#      ansible.builtin.debug:
+#        var: ansible_facts
+
+- name: Build TON HTTP API docker image
+  hosts: builder
+  gather_facts: true
+  tasks:
+    - name: Ensure docker is installed
+      become: true
+      ansible.builtin.package:
+        name: docker
+        state: present
+        update_cache: true
+    - name: Create temp workspace
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: ton-http-api
+      register: build_dir
+    - block:
+      - name: Copy project to builder from . to "{{ build_dir.path }}" with rsync
+        ansible.builtin.synchronize:
+          src: "./"
+          dest: "{{ build_dir.path }}"
+          rsync_opts:
+            - "--exclude=.git"
+            - "--exclude=artifacts"
+            - "--exclude=private"
+            - "--exclude=build*"
+            - "--exclude=sandbox"
+          recursive: yes
+          delete: no
+
+      - name: Build docker image
+        community.docker.docker_image_build:
+          name: "{{ stack_name }}_http_api"
+          tag: "{{ tag_name or 'latest' }}"
+          path: "{{ build_dir.path }}"
+          dockerfile: Dockerfile
+          buildargs: "{{ docker_image_build_args }}"
+          target: http-api-cpp
+          outputs:
+            - type: docker
+              dest: "{{ build_dir.path }}/images/{{ stack_name }}_http_api:{{ tag_name or 'latest' }}"
+
+#      always:
+#        - name: Cleanup workspace
+#          ansible.builtin.file:
+#            path: "{{ build_dir.path }}"
+#            state: absent
