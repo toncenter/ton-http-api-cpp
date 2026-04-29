@@ -53,20 +53,12 @@
       ansible.builtin.package:
         name: docker
         state: present
-#    - name: Create temp workspace
-#      ansible.builtin.tempfile:
-#        state: directory
-#        prefix: ton_http_api_cpp
-#        suffix: "_{{ image_tag }}"
-#      register: build_dir
     - name: Create temp workspace
-      ansible.builtin.file:
+      ansible.builtin.tempfile:
         state: directory
-        path: "/tmp/{{ stack_name }}_httpapi"
-    - name: Set temp workdir
-      ansible.builtin.set_fact:
-        build_dir:
-          path: "/tmp/{{ stack_name }}-http-api"
+        prefix: ton_http_api_cpp
+        suffix: "_{{ image_tag }}"
+      register: build_dir
     - block:
       - name: Copy project to builder from . to {{ build_dir.path }} with rsync
         ansible.builtin.synchronize:
