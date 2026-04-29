@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(ton-http-api-cpp CXX)
 
+set(API_VERSION_TAG "2.1" CACHE STRING "API Version tag")
+message("-- API version tag ${API_VERSION_TAG}")
+
 userver_setup_environment()
 
 # userver custom types
@@ -48,8 +51,8 @@ find_package(Python3 COMPONENTS Interpreter REQUIRED)
 add_custom_command(
         OUTPUT "${OPENAPI_JSON}"
         COMMAND "${Python3_EXECUTABLE}" -c
-        "import sys, json; import yaml; json.dump(yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')), open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
-        "${OPENAPI_YAML}" "${OPENAPI_JSON}"
+        "import sys, json; import yaml; data = yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')); data['info']['version'] = sys.argv[3]; json.dump(data, open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
+        "${OPENAPI_YAML}" "${OPENAPI_JSON}" "${API_VERSION_TAG}"
         DEPENDS "${OPENAPI_YAML}"
         VERBATIM
 )

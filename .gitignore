@@ -215,8 +215,9 @@ sandbox.ipynb
 /ton-http-api/src/core/tlb/tokens-tlb.h
 
 # build
-[Bb][Uu][Ii][Ll][Dd]*/
-sandbox/
+/[Bb][Uu][Ii][Ll][Dd]*/
+/sandbox
+/artifacts
 
 # vs code
 .vscode/
