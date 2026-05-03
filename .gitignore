@@ -227,3 +227,4 @@ sandbox.ipynb
 # codegen schemas
 playground/schemas/
 ton-http-api/src/schemas/
+ton-http-api/static/openapi.json
