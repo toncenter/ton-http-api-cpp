@@ -48,7 +48,7 @@ RUN if [ -n "${BUILD_WITH_TON_REPO}" ]; then \
 
 WORKDIR /app/build
 RUN touch /app/suppression_mappings.txt \
-    && cmake -DCMAKE_BUILD_TYPE=Release -DAPI_VERSION_TAG=${API_VERSION_TAG:-2.1}-DTON_USE_STATIC_ZLIB=1 -DUSERVER_USE_STATIC_LIBS=1 -DPORTABLE=1 -GNinja .. \
+    && cmake -DCMAKE_BUILD_TYPE=Release -DAPI_VERSION_TAG=${API_VERSION_TAG:-2.1} -DTON_USE_STATIC_ZLIB=1 -DUSERVER_USE_STATIC_LIBS=1 -DPORTABLE=1 -GNinja .. \
     && ninja -j$(nproc)
 # end builder
 

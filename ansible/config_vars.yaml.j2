@@ -1,0 +1,5 @@
+tonlib_config_path: {{ deploy_path }}/ton_global_config.json
+tonlib_keystore_path: {{ deploy_path }}/keystore
+static_content_dir: {{ deploy_path }}/static
+
+{{ config_vars | to_nice_yaml(indent=0, sort_keys=false) }}

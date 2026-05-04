@@ -1,0 +1,37 @@
+[Unit]
+Description={{ stack_name }} API v2++
+After=network-online.target
+Wants=network-online.target
+
+StartLimitIntervalSec={{ service_config.start_limit_interval_sec }}
+StartLimitBurst={{ service_config.start_limit_burst }}
+
+[Service]
+Type=simple
+
+User={{ ansible_user }}
+Group={{ ansible_user }}
+WorkingDirectory={{ deploy_path }}
+
+ExecStart={{ deploy_path }}/ton-http-api-cpp --config {{ deploy_path }}/static_config.yaml --config_vars {{ deploy_path }}/config_vars.yaml
+
+Restart={{ service_config.restart_policy }}
+RestartSec={{ service_config.restart_sec }}
+
+# Graceful shutdown
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Hardening, optional but useful
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier={{ stack_name }}_api_v2pp
+
+[Install]
+WantedBy=multi-user.target

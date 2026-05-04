@@ -123,14 +123,16 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/send/EstimateFeeHandler.cpp
         src/handlers/runmethod/RunGetMethodHandler.cpp
         src/handlers/accounts/GetShardAccountCellHandler.cpp
-        src/handlers/accounts/GetShardAccountCellHandler.h
+        src/middleware/VersionHeaderMiddleware.cpp
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
+configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 target_include_directories(${PROJECT_NAME}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/userver
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
+        PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/
 )
 
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)

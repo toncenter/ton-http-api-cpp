@@ -1,4 +1,4 @@
-- name: Install Clang toolchain
+- name: Install dependencies on a builder
   hosts: builder
   tags: [prepare]
   become: true
@@ -8,6 +8,7 @@
     ubuntu_llvm_repo_releases:
       "22.04": jammy
       "24.04": noble
+      "26.04": resolute
     clang_packages_by_ubuntu_version:
       "22.04":
         - "clang-{{ llvm_version }}"
@@ -30,69 +31,16 @@
         - clang-tidy
         - lld
         - lldb
-  tasks:
-    - name: Fail on non-Ubuntu systems
-      ansible.builtin.fail:
-        msg: "This role supports Ubuntu only"
-      when: ansible_distribution != "Ubuntu"
-    - name: Fail on unsupported Ubuntu version
-      ansible.builtin.fail:
-        msg: "Unsupported Ubuntu version: {{ ansible_facts['distribution_version'] }}"
-      when: ansible_distribution_version not in clang_packages_by_ubuntu_version
-    - name: Install packages needed for external APT repos
-      ansible.builtin.apt:
-        name:
-          - ca-certificates
-          - gnupg
-        state: present
-        update_cache: true
-      when: ansible_distribution_version in ubuntu_llvm_repo_releases
-    - name: Create APT keyrings directory
-      ansible.builtin.file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: "0755"
-      when: ansible_distribution_version in ubuntu_llvm_repo_releases
-    - name: Add apt.llvm.org signing key
-      ansible.builtin.get_url:
-        url: https://apt.llvm.org/llvm-snapshot.gpg.key
-        dest: /etc/apt/keyrings/apt.llvm.org.asc
-        mode: "0644"
-      when: ansible_distribution_version in ubuntu_llvm_repo_releases
-    - name: Add apt.llvm.org repository for Clang 21
-      ansible.builtin.apt_repository:
-        repo: >-
-          deb [signed-by=/etc/apt/keyrings/apt.llvm.org.asc]
-          http://apt.llvm.org/{{ ubuntu_llvm_repo_releases[ansible_facts[distribution_version]] }}/
-          llvm-toolchain-{{ ubuntu_llvm_repo_releases[ansible_facts[distribution_version]] }}-{{ llvm_version }}
-          main
-        filename: "llvm-toolchain-{{ ubuntu_llvm_repo_releases[ansible_facts[distribution_version]] }}-{{ llvm_version }}"
-        state: present
-        update_cache: true
-      when: ansible_facts[distribution_version] in ubuntu_llvm_repo_releases
-    - name: Install Clang packages
-      ansible.builtin.apt:
-        name: "{{ clang_packages_by_ubuntu_version[ansible_facts[distribution_version]] }}"
-        state: present
-        update_cache: true
-- name: Install dependencies on a builder
-  hosts: builder
-  tags: [prepare]
-  become: true
-  gather_facts: true
-  vars:
     packages:
       "common":
         - libcctz-dev
         - libxxhash-dev
         - libsqlite3-dev
-        - libssh2-1-dev
         - python3-dev
         - pkg-config
         - lsb-release
         - libre2-dev
         - protobuf-compiler-grpc
-        - libboost-stacktrace1.83-dev
         - clang
         - libsodium-dev
         - libgmock-dev
@@ -101,14 +49,10 @@
         - libpq-dev
         - unixodbc-dev
         - libgslcblas0
-        - yq
         - libmongoc-dev
         - clang-format
-        - libboost-filesystem1.83-dev
-        - libboost-iostreams1.83-dev
         - python3-protobuf
         - libcrypto++-dev
-        - libboost-locale1.83-dev
         - openssl
         - libdouble-conversion-dev
         - ragel
@@ -120,16 +64,16 @@
         - libnghttp2-dev
         - libgflags-dev
         - zlib1g-dev
+        - libstdc++-12-dev
+        - libc6-dev
         - wget
         - libblas-dev
-        - libboost1.83-dev
         - gcc
         - libpugixml-dev
         - libsnappy-dev
         - gperf
         - netbase
         - libyaml-cpp-dev
-        - libyaml-cpp0.8
         - g++
         - ccache
         - git
@@ -154,7 +98,6 @@
         - libgrpc-dev
         - libcurl4-openssl-dev
         - cmake
-        - libboost-coroutine1.83-dev
         - software-properties-common
         - libmicrohttpd-dev
         - libldap2-dev
@@ -162,20 +105,15 @@
         - libgsl-dev
         - automake
         - libgrpc++-dev
-        - libboost-program-options1.83-dev
         - libbz2-dev
-        - libjemalloc2
         - python3-yaml
         - libc-ares-dev
-        - libboost-context1.83-dev
-        - libboost-regex1.83-dev
         - liblz4-dev
         - librdkafka-dev
         - curl
         - ninja-build
         - autoconf
-        - librocksdb-dev
-        - libjemalloc2
+        - ccache
       "22.04":
         - libboost-stacktrace1.74-dev
         - libgrpc++1
@@ -189,6 +127,7 @@
         - libboost-locale1.74-dev
         - libicu-dev
       "24.04":
+        - librocksdb-dev
         - libboost-program-options1.83-dev
         - libboost1.83-dev
         - libboost-context1.83-dev
@@ -198,19 +137,67 @@
         - libboost-stacktrace1.83-dev
         - postgresql-server-dev-16
         - libboost-coroutine1.83-dev
+        - libboost-regex1.83-dev
         - libyaml-cpp0.8
         - libboost-locale1.83-dev
+        - libjemalloc2
       "26.04": []
   tasks:
+    - name: Fail on non-Ubuntu systems
+      ansible.builtin.fail:
+        msg: "This role supports Ubuntu only"
+      when: ansible_facts.distribution != "Ubuntu"
+    - name: Fail on unsupported Ubuntu version
+      ansible.builtin.fail:
+        msg: "Unsupported Ubuntu version: {{ ansible_facts.distribution_version }}"
+      when: ansible_facts.distribution_version not in clang_packages_by_ubuntu_version
+#    - name: Install packages needed for external APT repos
+#      ansible.builtin.apt:
+#        name:
+#          - ca-certificates
+#          - gnupg
+#        state: present
+#        update_cache: true
+#      when: ansible_facts.distribution_version in ubuntu_llvm_repo_releases
+#    - name: Create APT keyrings directory
+#      ansible.builtin.file:
+#        path: /etc/apt/keyrings
+#        state: directory
+#        mode: "0755"
+#      when: ansible_facts.distribution_version in ubuntu_llvm_repo_releases
+#    - name: Add apt.llvm.org signing key
+#      ansible.builtin.get_url:
+#        url: https://apt.llvm.org/llvm-snapshot.gpg.key
+#        dest: /etc/apt/keyrings/apt.llvm.org.asc
+#        mode: "0644"
+#      when: ansible_facts.distribution_version in ubuntu_llvm_repo_releases
+#    - name: Add apt.llvm.org repository for Clang 21
+#      ansible.builtin.apt_repository:
+#        repo: >-
+#          deb [signed-by=/etc/apt/keyrings/apt.llvm.org.asc]
+#          http://apt.llvm.org/{{ ubuntu_llvm_repo_releases[ansible_facts.distribution_version] }}/
+#          llvm-toolchain-{{ ubuntu_llvm_repo_releases[ansible_facts.distribution_version] }}-{{ llvm_version }}
+#          main
+#        filename: "llvm-toolchain-{{ ubuntu_llvm_repo_releases[ansible_facts.distribution_version] }}-{{ llvm_version }}"
+#        state: present
+#        update_cache: true
+#      when: ansible_facts.distribution_version in ubuntu_llvm_repo_releases
+#    - name: Install Clang packages
+#      ansible.builtin.apt:
+#        name: "{{ clang_packages_by_ubuntu_version[ansible_facts.distribution_version] }}"
+#        state: present
+#        update_cache: true
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ packages['common'] + packages[ansible_facts['distribution_version']] }}"
     - name: Install Ubuntu 22.04 packages
       ansible.builtin.apt:
         name: "{{ packages['common'] + packages['22.04'] }}"
         state: present
         update_cache: true
       when:
-        - ansible_facts['distribution'] == "Ubuntu"
-        - ansible_facts['distribution_version'] == "22.04"
-
+        - ansible_facts.distribution == "Ubuntu"
+        - ansible_facts.distribution_version == "22.04"
     - name: Install Ubuntu 24.04 packages
       ansible.builtin.apt:
         name: "{{ packages['common'] + packages['24.04'] }}"
@@ -218,16 +205,15 @@
         update_cache: true
       when:
         - ansible_facts['distribution'] == "Ubuntu"
-        - ansible_facts['distribution_version'] == "24.04"
-
+        - ansible_facts.distribution_version == "24.04"
     - name: Install Ubuntu 26.04 packages
       ansible.builtin.apt:
         name: "{{ packages['common'] + packages['26.04'] }}"
         state: present
         update_cache: true
       when:
-        - ansible_facts['distribution'] == "Ubuntu"
-        - ansible_facts['distribution_version'] == "26.04"
+        - ansible_facts.distribution == "Ubuntu"
+        - ansible_facts.distribution_version == "26.04"
 
 - name: Compute version tag
   hosts: localhost
@@ -275,33 +261,47 @@
 
 - name: Build TON HTTP API binary
   hosts: builder
+  tags: [build]
   gather_facts: true
   vars:
     version_tag: "{{ hostvars['localhost']['version_tag'] }}"
   tasks:
-    - name: Ensure libraries is installed
-      become: true
-      ansible.builtin.package:
-        name: docker
-        state: present
-        update_cache: true
+    - name: Ensure shared caches exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0775"
+      loop:
+        - "{{ ansible_facts.env.HOME }}/.cache/ccache"
+        - "{{ ansible_facts.env.HOME }}/.cache/go-build"
+        - "{{ ansible_facts.env.HOME }}/.cache/gomod"
     - name: Create temp workspace
       ansible.builtin.tempfile:
         state: directory
         prefix: ton_http_api_cpp
-        suffix: "_{{ image_tag }}"
+        suffix: "_{{ version_tag }}"
       register: build_dir
+#    - name: Create temp workspace
+#      ansible.builtin.file:
+#        path: '/tmp/ton-http-api_build_debug'
+#        state: directory
+#    - name: Set build_dir
+#      ansible.builtin.set_fact:
+#        build_dir:
+#          path: '/tmp/ton-http-api_build_debug'
     - block:
       - name: Copy project to builder from . to {{ build_dir.path }} with rsync
         ansible.builtin.synchronize:
           src: "{{ playbook_dir }}/"
           dest: "{{ build_dir.path }}"
           rsync_opts:
-            - "--exclude=.git"
-            - "--exclude={{ playbook_dir }}/artifacts"
-            - "--exclude={{ playbook_dir }}/private"
-            - "--exclude={{ playbook_dir }}/build"
-            - "--exclude={{ playbook_dir }}/sandbox"
+            - "--exclude=.git/"
+            - "--exclude=/artifacts/"
+            - "--exclude=/private/"
+            - "--exclude=/build/"
+            - "--exclude=/sandbox/"
+            - "--exclude=/ton-http-api/src/schemas/"
+            - "--exclude=/ton-http-api/static/openapi.json"
           recursive: true
           delete: false
       - name: Ensure output directory
@@ -309,103 +309,184 @@
           path: "{{ build_dir.path }}/build"
           state: directory
           mode: '0755'
+      - name: Ensure artifacts directory
+        ansible.builtin.file:
+          path: "{{ build_dir.path }}/artifacts"
+          state: directory
+          mode: '0755'
       - name: Build project
-        ansible.builtin.fail:
-          msg: "Build failed"
+        ansible.builtin.shell: |
+          set -e
+          touch {{ build_dir.path }}/suppression_mappings.txt
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -S . -B "{{ build_dir.path }}/build" \
+                -G Ninja -DPORTABLE=1 -DTON_ARCH= \
+                -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+                -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+                -DAPI_VERSION_TAG={{ version_tag }} \
+                -DTON_USE_STATIC_ZLIB=1 \
+                -DUSERVER_DISABLE_PHDR_CACHE=1 \
+                -DUSERVER_USE_STATIC_LIBS=1 \
+                -DTONLIB_MULTICLIENT_EXAMPLES=0 \
+                -DUSERVER_FEATURE_STACK_USAGE_MONITOR=0 \
+                -DUSERVER_FEATURE_CRYPTOPP_BASE64_URL=1 \
+                -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 \
+                -DBUILD_TON_PLAYGROUND=0 \
+                -DPY_TONLIB_MULTICLIENT=0 \
+                -DTONLIB_MULTICLIENT_EXAMPLES=0 \
+                -DTON_USE_JEMALLOC=1 > {{ build_dir.path }}/artifacts/cmake.log 2>&1
+          cmake --build "{{ build_dir.path }}/build" \
+                --parallel {{ ansible_facts.processor_vcpus | default(2) }} \
+                --target ton-http-api-cpp > {{ build_dir.path }}/artifacts/build.log 2>&1
+        args:
+          chdir: "{{ build_dir.path }}"
+        environment:
+          CCACHE_DIR: "{{ ansible_facts.env.HOME }}/.cache/ccache"
+          CCACHE_BASEDIR: "{{ build_dir.path }}"
+          CCACHE_SLOPPINESS: "file_macro"
+          CC: clang-21
+          CXX: clang++-21
       - name: Collect artifacts
         ansible.builtin.fetch:
-          src: "{{ build_dir.path }}/images/{{ item }}"
+          src: "{{ build_dir.path }}/{{ item }}"
           dest: "artifacts/"
           flat: true
         loop:
-          - "{{ stack_name }}_{{ image_tag }}.tar"
+          - "build/ton-http-api/ton-http-api-cpp"
+          - "ton-http-api/static/openapi.json"
       always:
+        - name: Collect logs
+          ansible.builtin.fetch:
+            src: "{{ build_dir.path }}/artifacts/{{ item }}"
+            dest: "artifacts/"
+            flat: true
+          loop:
+            - build.log
+            - cmake.log
         - name: Cleanup workspace
           ansible.builtin.file:
             path: "{{ build_dir.path }}"
             state: absent
 
-#- name: Deploy TON HTTP API docker image
-#  hosts: "{{ stack_name }}__http_api_cpp"
-#  tags: [deploy]
-#  vars:
-#    image_tag: "{{ hostvars['localhost']['image_tag'] }}"
-#  tasks:
-#    - name: Ensure docker is installed
-#      become: true
-#      ansible.builtin.package:
-#        name: docker
-#        state: present
-#    - name: Ensure deploy directory
-#      become: true
-#      ansible.builtin.file:
-#        path: "{{ deploy_path }}"
-#        state: directory
-#        mode: '0755'
-#        owner: "{{ ansible_user }}"
-#        group: "{{ ansible_user }}"
-#    - name: Copy docker image
-#      ansible.builtin.copy:
-#        src: "artifacts/{{ stack_name }}_{{ image_tag }}.tar"
-#        dest: "{{ deploy_path }}/images/"
-#    - name: Load docker image
-#      community.docker.docker_image_load:
-#        path: "{{ deploy_path }}/images/{{ stack_name }}_{{ image_tag }}.tar"
-#      register: docker_image
-#    - name: Render config file
-#      ansible.builtin.copy:
-#        dest: "{{ deploy_path }}/ton_global_config.json"
-#        content: "{{ ton_global_config | to_nice_json }}"
-#        mode: "0644"
-#    - name: Run docker container
-#      community.docker.docker_container:
-#        name: "{{ stack_name }}_http_api_cpp"
-#        image: "{{ stack_name }}_http_api_cpp:{{ image_tag }}"
-#        env:
-#          "THACPP_TONLIB_CONFIG_PATH": "/ton_global_config.json"
-#          "THACPP_TONLIB_KEYSTORE_PATH": "/tmp"
-#          "THACPP_TONLIB_BOC_ENDPOINTS": "{{ config.get('tonlib_boc_endpoints', []) | to_json }}"
-#          "THACPP_TONLIB_THREADS": "{{ config.get('tonlib_threads', 4) | string }}"
-#          "THACPP_MAIN_WORKER_THREADS": "{{ config.get('main_worker_threads', 4) | string }}"
-#          "THACPP_FS_WORKER_THREADS": "{{ config.get('fs_worker_threads', 1) | string }}"
-#          "THACPP_HTTP_WORKER_THREADS": "{{ config.get('http_worker_threads', 2) | string }}"
-#          "THACPP_LOG_LEVEL": "{{ config.get('log_level', 'warning') | string }}"
-#          "THACPP_LOG_PATH": "{{ config.get('log_path', '@stdout') | string }}"
-#          "THACPP_SYSTEM_LOG_LEVEL": "{{ config.get('system_log_level', 'critical') | string }}"
-#          "THACPP_SYSTEM_LOG_PATH": "{{ config.get('system_log_path', '/logs/system.log') | string }}"
-#          "THACPP_JSONRPC_LOG_LEVEL": "{{ config.get('jsonrpc_log_level', 'info') | string }}"
-#          "THACPP_JSONRPC_LOG_PATH": "{{ config.get('jsonrpc_log_path', '/logs/jsonrpc.log') | string }}"
-#          "THACPP_LOG_FORMAT": "{{ config.get('log_format', 'json') | string }}"
-#          "THACPP_HTTP_WORKER_USER_AGENT": "{{ config.get('http_worker_user_agent', 'ton-http-api-cpp') | string }}"
-#          "THACPP_STATIC_CONTENT_DIR": "{{ config.get('static_content_dir', '/static') | string }}"
-#          "THACPP_MAX_STACK_ENTRY_DEPTH": "{{ config.get('max_stack_entry_depth', 1000) | string }} "
-#        volumes:
-#          - "{{ deploy_path }}/ton_global_config.json:/ton_global_config.json"
-#          - "{{ deploy_path }}/logs:/logs"
-#        healthy_wait_timeout: 20
-#        healthcheck:
-#          test: ["CMD-SHELL", "curl -f http://localhost:8081/api/v2/healthcheck || exit 1"]
-#          interval: 3s
-#          retries: 3
-#        state: healthy
-#        restart_policy: unless-stopped
-#        detach: true
-#        labels:
-#          autoheal: 1
-#        ulimits:
-#          - "memlock:-1"
-#          - "stack:-1"
-#          - "core:-1"
-#        published_ports:
-#          - "0.0.0.0:{{ api_port }}:8081"
-#          - "0.0.0.0:{{ monitoring_port }}:8082"
-#    - name: Ensure autoheal container
-#      community.docker.docker_container:
-#        name: "autoheal"
-#        image: "willfarrell/autoheal"
-#        env:
-#          AUTOHEAL_CONTAINER_LABEL: autoheal
-#        volumes:
-#          - "/var/run/docker.sock:/var/run/docker.sock"
-#        restart_policy: always
-#        detach: true
+- name: Deploy TON HTTP API
+  hosts: "{{ stack_name }}__http_api_cpp"
+  tags: [deploy]
+  vars:
+    version_tag: "{{ hostvars['localhost']['version_tag'] }}"
+    packages:
+      "22.04":
+        - curl
+        - libcurl4
+        - libfmt8
+        - libsodium23
+        - libcctz2
+        - libatomic1
+        - libicu70
+      "24.04":
+        - curl
+        - libcurl4
+        - libfmt9
+        - libsodium23
+        - libcctz2
+        - libatomic1
+        - libicu74
+      "26.04":
+        - curl
+        - libcurl4
+        - libfmt10
+        - libsodium23
+        - libcctz2.4
+        - libatomic1
+        - libicu78
+  tasks:
+    - name: Ensure libraries are installed
+      become: true
+      ansible.builtin.package:
+        name: "{{ packages[ansible_facts['distribution_version']] }}"
+        state: present
+        update_cache: true
+    - name: Ensure deploy directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ deploy_path }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+    - name: Copy static files
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/ton-http-api/static/"
+        dest: "{{ deploy_path }}/static/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        force: true
+      notify: Restart service
+    - name: Copy openapi.json
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/artifacts/openapi.json"
+        dest: "{{ deploy_path }}/static/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        force: true
+      notify: Restart service
+    - name: Copy binary
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/artifacts/ton-http-api-cpp"
+        dest: "{{ deploy_path }}/ton-http-api-cpp"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+        force: true
+      notify: Restart service
+    - name: Copy static config
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/config/static_config.yaml"
+        dest: "{{ deploy_path }}/static_config.yaml"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        force: true
+        mode: '0644'
+      notify: Restart service
+    - name: Render blockchain global config
+      ansible.builtin.copy:
+        dest: "{{ deploy_path }}/ton_global_config.json"
+        content: "{{ ton_global_config | b64decode }}"
+        mode: "0644"
+    - name: Render config vars
+      ansible.builtin.template:
+        dest: "{{ deploy_path }}/config_vars.yaml"
+        src: "{{ playbook_dir }}/ansible/config_vars.yaml.j2"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0644"
+      notify: Restart service
+    - name: Render systemd unit
+      ansible.builtin.template:
+        dest: "/etc/systemd/system/{{ stack_name }}_api_v2pp.service"
+        src: "{{ playbook_dir }}/ansible/api.service.j2"
+        owner: root
+        group: root
+        mode: "0644"
+      become: true
+      notify:
+        - Reload systemd
+        - Restart service
+    - name: Enable and start service
+      ansible.builtin.systemd:
+        name: "{{ stack_name }}_api_v2pp.service"
+        enabled: true
+        state: started
+        daemon_reload: true
+        force: true
+      become: true
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+      become: true
+    - name: Restart service
+      ansible.builtin.systemd:
+        name: "{{ stack_name }}_api_v2pp.service"
+        state: restarted
+        force: true
+      become: true
