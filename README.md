@@ -117,6 +117,19 @@ List of available environment variables:
 - `THACPP_STATIC_CONTENT_DIR` - directory for static content served by API (default: `"/static/"`)
 - `THACPP_MAX_STACK_ENTRY_DEPTH` - max stack entry depth for runGetMethod (higher values increase memory usage) (default: `256`)
 
+### Ansible
+To deploy a service using Ansible, please follow the instructions:
+- Adjust file `ansible/inventory.yaml` to match your environment.
+- Adjust file `ansible/vars.json` to match your environment.
+  - *Important*: encode your `global.config.json` into base64 string and put it into `ton_global_config` var. Possible way to do this: `cat global.config.json | base64 -w0`.
+  - Use `stack_name` to deploy several installations.
+  - Use `deploy_path` to specify the path to install the service, the deployment path should be different for each installation.
+- Run `ansible-playbook -i ansible/inventory.yaml -e @ansible/vars.json deploy-systemd.yaml`
+
+Requirements:
+- Ubuntu 22.04 or 24.04, builder and worker nodes should run the same version.
+- Ansible core 2.20 or higher.
+
 ### Local run
 
 - Install dependencies:

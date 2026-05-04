@@ -1,0 +1,22 @@
+all:
+  vars:
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa
+  hosts:
+    ubuntu-01:
+      ansible_host: ubuntu-01.local
+    ubuntu-02:
+      ansible_host: ubuntu-02.local
+    builder-01:
+      ansible_host: tc-node-02.toncenter.local
+  children:
+    builder:
+      hosts:
+        builder-01:
+    mainnet__http_api_cpp:
+      hosts:
+        ubuntu-01:
+        ubuntu-02:
+    testnet__http_api_cpp:
+      hosts:
+        ubuntu-01:
