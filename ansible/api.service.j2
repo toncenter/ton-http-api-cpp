@@ -13,7 +13,7 @@ User={{ ansible_user }}
 Group={{ ansible_user }}
 WorkingDirectory={{ deploy_path }}
 
-ExecStart={{ deploy_path }}/ton-http-api-cpp --config {{ deploy_path }}/static_config.yaml --config_vars {{ deploy_path }}/config_vars.yaml
+ExecStart={{ deploy_path }}/ton-http-api-cpp --config {{ deploy_path }}/static_config.yaml --config_vars {{ deploy_path }}/config_vars.yaml 2>&1
 
 Restart={{ service_config.restart_policy }}
 RestartSec={{ service_config.restart_sec }}
@@ -27,11 +27,6 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=full
 ProtectHome=true
-
-# Logging
-StandardOutput=journal
-StandardError=journal
-SyslogIdentifier={{ stack_name }}_api_v2pp
 
 [Install]
 WantedBy=multi-user.target
