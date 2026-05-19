@@ -28,5 +28,10 @@ PrivateTmp=true
 ProtectSystem=full
 ProtectHome=true
 
+# Raising limits
+LimitNOFILE = infinity
+LimitNPROC = infinity
+LimitMEMLOCK = infinity
+
 [Install]
 WantedBy=multi-user.target
