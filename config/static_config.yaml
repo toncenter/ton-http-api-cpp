@@ -108,6 +108,15 @@ components_manager:
       dir: $static_content_dir
       dir#fallback: /app/static/
       update-period: 10s
+
+    #
+    # middlewares
+    #
+    default-server-middleware-pipeline-builder:
+      append:
+        - version-header-middleware
+    version-header-middleware: {}
+
     #
     # api v2 handlers
     #

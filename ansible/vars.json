@@ -1,0 +1,28 @@
+{
+  "stack_name": "mainnet",
+  "deploy_path": "/opt/ton-http-api/mainnet",
+  "service_config": {
+    "start_limit_interval_sec": 60,
+    "restart_sec": 5,
+    "start_limit_burst": 10,
+    "restart_policy": "on-failure"
+  },
+  "config_vars": {
+    "server_port": 8877,
+    "monitor_port": 8878,
+    "tonlib_boc_endpoints": [],
+    "tonlib_threads": 2,
+    "main_worker_threads": 4,
+    "fs_worker_threads": 1,
+    "http_worker_threads": 2,
+    "log_level": "warning",
+    "log_format": "json",
+    "system_log_level": "critical",
+    "system_log_path": "@stderr",
+    "jsonrpc_log_level": "critical",
+    "jsonrpc_log_path": "@stderr",
+    "http_worker_user_agent": "empty",
+    "max_stack_entry_depth": 1024
+  },
+  "ton_global_config": "<replace it with base64 encoded global config json file>"
+}

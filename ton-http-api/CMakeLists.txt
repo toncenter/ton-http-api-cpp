@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(ton-http-api-cpp CXX)
 
+set(API_VERSION_TAG "2.1" CACHE STRING "API Version tag")
+message("-- API version tag ${API_VERSION_TAG}")
+
 userver_setup_environment()
 
 # userver custom types
@@ -48,8 +51,8 @@ find_package(Python3 COMPONENTS Interpreter REQUIRED)
 add_custom_command(
         OUTPUT "${OPENAPI_JSON}"
         COMMAND "${Python3_EXECUTABLE}" -c
-        "import sys, json; import yaml; json.dump(yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')), open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
-        "${OPENAPI_YAML}" "${OPENAPI_JSON}"
+        "import sys, json; import yaml; data = yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')); data['info']['version'] = sys.argv[3]; json.dump(data, open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
+        "${OPENAPI_YAML}" "${OPENAPI_JSON}" "${API_VERSION_TAG}"
         DEPENDS "${OPENAPI_YAML}"
         VERBATIM
 )
@@ -120,14 +123,16 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/send/EstimateFeeHandler.cpp
         src/handlers/runmethod/RunGetMethodHandler.cpp
         src/handlers/accounts/GetShardAccountCellHandler.cpp
-        src/handlers/accounts/GetShardAccountCellHandler.h
+        src/middleware/VersionHeaderMiddleware.cpp
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
+configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 target_include_directories(${PROJECT_NAME}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/userver
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
+        PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/
 )
 
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)

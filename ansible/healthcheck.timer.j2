@@ -1,0 +1,10 @@
+[Unit]
+Description=Run {{ stack_name }}_api_v2pp healthcheck periodically
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=2
+AccuracySec=5
+
+[Install]
+WantedBy=timers.target

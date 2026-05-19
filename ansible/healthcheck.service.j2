@@ -1,0 +1,7 @@
+[Unit]
+Description=Healthcheck for {{ stack_name }}_api_v2pp
+
+[Service]
+Type=oneshot
+
+ExecStart=/bin/sh -c 'curl -fsS --max-time 5 "http://localhost:{{ config_vars.server_port }}/api/v2/getMasterchainInfo" >/dev/null || systemctl restart {{ stack_name }}_api_v2pp.service'
