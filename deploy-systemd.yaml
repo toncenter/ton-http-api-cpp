@@ -314,6 +314,16 @@
           path: "{{ build_dir.path }}/artifacts"
           state: directory
           mode: '0755'
+      - name: Apply ton patch
+        ansible.builtin.shell: |
+          set -e
+          cd {{ build_dir.path }}/external/ton
+          patch -f -p1 < {{ build_dir.path }}/patches/ton_001.patch || echo "Failed to apply ton patch"
+      - name: Apply userver patch
+        ansible.builtin.shell: |
+          set -e
+          cd {{ build_dir.path }}/external/userver
+          patch -f -p1 < {{ build_dir.path }}/patches/userver_001.patch || echo "Failed to apply userver patch"
       - name: Build project
         ansible.builtin.shell: |
           set -e
