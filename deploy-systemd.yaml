@@ -342,7 +342,6 @@
                 -DUSERVER_FEATURE_CRYPTOPP_BASE64_URL=1 \
                 -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 \
                 -DBUILD_TON_PLAYGROUND=0 \
-                -DPY_TONLIB_MULTICLIENT=0 \
                 -DTONLIB_MULTICLIENT_EXAMPLES=0 \
                 -DTON_USE_JEMALLOC=1 > {{ build_dir.path }}/artifacts/cmake.log 2>&1
           cmake --build "{{ build_dir.path }}/build" \
