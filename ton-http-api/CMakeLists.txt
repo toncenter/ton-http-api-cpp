@@ -72,6 +72,7 @@ userver_target_generate_chaotic(
         LINK_TARGETS ${PROJECT_NAME}-userver-types
         INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
         RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
+        NO_SAX_PARSE YES
 )
 
 
@@ -135,6 +136,7 @@ target_include_directories(${PROJECT_NAME}
         PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/
 )
 
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-c++11-narrowing)
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT_NAME} userver::core userver::chaotic tonlib::multiclient-static ${PROJECT_NAME}-userver-types)

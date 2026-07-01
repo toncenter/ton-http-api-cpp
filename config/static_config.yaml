@@ -22,6 +22,8 @@ components_manager:
   components:
     server:
       listener:
+        address: $bind_address
+        address#fallback: "::"
         port: $server_port
         port#fallback: 8081
         connection:
@@ -34,6 +36,8 @@ components_manager:
           max_headers_size: 65536
           set_tracing_headers: false
       listener-monitor:
+        address: $monitor_bind_address
+        address#fallback: "::"
         port: $monitor_port
         port#fallback: 8082
         task_processor: monitor-task-processor

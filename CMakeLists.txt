@@ -24,8 +24,10 @@ if (PY_TONLIB_MULTICLIENT)
   add_subdirectory(py)
 endif()
 
-
 if (TON_HTTP_API_CPP)
+  # add custom fmt lib to avoid bug in version 10 from apt on ubuntu 26
+  add_subdirectory(external/fmt EXCLUDE_FROM_ALL)
+
   # userver config
   set(USERVER_FEATURE_REDIS TRUE)
   set(USERVER_FEATURE_CHAOTIC TRUE)
