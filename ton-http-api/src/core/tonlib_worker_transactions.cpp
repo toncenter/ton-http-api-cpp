@@ -202,6 +202,55 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
   txs->req_count_ = static_cast<std::int32_t>(count);
   return std::move(txs);
 }
+td::Result<std::uint64_t> TonlibWorker::getBlockTransactionCount(
+  const std::int32_t& workchain,
+  const std::int64_t& shard,
+  const std::int32_t& seqno,
+  const std::string& root_hash,
+  const std::string& file_hash,
+  std::optional<bool> archival,
+  multiclient::SessionPtr session
+) const {
+  if (session == nullptr) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+  } else if (!session->is_valid()) {
+    auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
+    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+  }
+
+  tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
+  if (!root_hash.empty() && !file_hash.empty()) {
+    blk_id = tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain, shard, seqno, root_hash, file_hash);
+  } else {
+    TRY_RESULT_ASSIGN(blk_id, lookupBlock(workchain, shard, seqno, std::nullopt, std::nullopt, session));
+  }
+
+  const std::string zero_hash = td::Bits256::zero().as_slice().str();
+  auto after = tonlib_api::make_object<tonlib_api::blocks_accountTransactionId>(zero_hash, 0);
+  std::uint64_t transaction_count = 0;
+
+  while (true) {
+    constexpr size_t CHUNK_SIZE = 256;
+    TRY_RESULT(local, raw_getBlockTransactions(blk_id, CHUNK_SIZE, std::move(after), archival, session));
+
+    const auto local_count = local->transactions_.size();
+    transaction_count += local_count;
+    if (!local->incomplete_) {
+      break;
+    }
+    if (local_count == 0) {
+      return td::Status::Error("received an incomplete empty transaction page");
+    }
+
+    const auto& last_transaction = local->transactions_.back();
+    after = tonlib_api::make_object<tonlib_api::blocks_accountTransactionId>(
+      last_transaction->account_, last_transaction->lt_
+    );
+  }
+
+  return transaction_count;
+}
 td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getBlockTransactionsExt(
   const std::int32_t& workchain,
   const std::int64_t& shard,

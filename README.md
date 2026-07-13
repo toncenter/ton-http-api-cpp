@@ -116,6 +116,12 @@ List of available environment variables:
 - `THACPP_HTTP_WORKER_USER_AGENT` - HTTP user agent sent to BOC endpoint (default: `empty`)
 - `THACPP_STATIC_CONTENT_DIR` - directory for static content served by API (default: `"/static/"`)
 - `THACPP_MAX_STACK_ENTRY_DEPTH` - max stack entry depth for runGetMethod (higher values increase memory usage) (default: `256`)
+- `THACPP_SENDBOC_DISABLED` - silently accept but do not broadcast external messages (default: `false`)
+- `THACPP_SENDBOC_TPS_GUARD_ENABLED` - enable automatic sendBoc blocking based on network TPS (default: `true`)
+- `THACPP_SENDBOC_TPS_LIMIT` - average TPS above which sendBoc is silently disabled (default: `300`)
+- `THACPP_SENDBOC_TPS_WINDOW` - rolling window used to calculate network TPS (default: `60s`)
+- `THACPP_SENDBOC_TPS_CHECK_INTERVAL` - interval between network TPS checks (default: `5s`)
+- `THACPP_SENDBOC_TPS_CHECK_TIMEOUT` - maximum duration of one network TPS check (default: `60s`)
 
 ### Ansible
 To deploy a service using Ansible, please follow the instructions:

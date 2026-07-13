@@ -54,6 +54,13 @@ http_worker_user_agent: ${THACPP_HTTP_WORKER_USER_AGENT:-empty}
 static_content_dir: ${THACPP_STATIC_CONTENT_DIR:-/static/}
 
 max_stack_entry_depth: ${THACPP_MAX_STACK_ENTRY_DEPTH:-256}
+
+sendboc_disabled: ${THACPP_SENDBOC_DISABLED:-false}
+sendboc_tps_guard_enabled: ${THACPP_SENDBOC_TPS_GUARD_ENABLED:-true}
+sendboc_tps_limit: ${THACPP_SENDBOC_TPS_LIMIT:-300}
+sendboc_tps_window: ${THACPP_SENDBOC_TPS_WINDOW:-60s}
+sendboc_tps_check_interval: ${THACPP_SENDBOC_TPS_CHECK_INTERVAL:-5s}
+sendboc_tps_check_timeout: ${THACPP_SENDBOC_TPS_CHECK_TIMEOUT:-60s}
 EOF
   echo "Config:"
   cat "$THACPP_CONFIG_VARS"

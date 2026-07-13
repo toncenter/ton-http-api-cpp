@@ -22,7 +22,13 @@
     "jsonrpc_log_level": "critical",
     "jsonrpc_log_path": "@stderr",
     "http_worker_user_agent": "empty",
-    "max_stack_entry_depth": 1024
+    "max_stack_entry_depth": 1024,
+    "sendboc_disabled": false,
+    "sendboc_tps_guard_enabled": true,
+    "sendboc_tps_limit": 300,
+    "sendboc_tps_window": "60s",
+    "sendboc_tps_check_interval": "5s",
+    "sendboc_tps_check_timeout": "60s"
   },
   "ton_global_config": "<replace it with base64 encoded global config json file>"
 }

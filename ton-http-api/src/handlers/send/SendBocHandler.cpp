@@ -1,7 +1,5 @@
 #include "SendBocHandler.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include "converters/convert.hpp"
 #include "userver/clients/http/component.hpp"
 
@@ -18,8 +16,9 @@ ton_http::handlers::SendBocHandler::SendBocHandler(
     ignore_errors_(config["ignore_errors"].As<bool>(false)),
     disabled_(config["disabled"].As<bool>(false)) {
 }
-ton_http::schemas::v2::SendBocRequest
-ton_http::handlers::SendBocHandler::ParseTonlibGetRequest(const HttpRequest&, RequestContext&) const {
+ton_http::schemas::v2::SendBocRequest ton_http::handlers::SendBocHandler::ParseTonlibGetRequest(
+  const HttpRequest&, RequestContext&
+) const {
   throw std::logic_error("unreachable");
 }
 td::Status ton_http::handlers::SendBocHandler::ValidateRequest(const schemas::v2::SendBocRequest& request) const {
@@ -31,7 +30,7 @@ td::Status ton_http::handlers::SendBocHandler::ValidateRequest(const schemas::v2
 td::Result<ton_http::schemas::v2::SendBocResult> ton_http::handlers::SendBocHandler::HandleRequestTonlibThrow(
   schemas::v2::SendBocRequest& request, multiclient::SessionPtr& session
 ) const {
-  if (disabled_) {
+  if (disabled_ || tonlib_component_.ShouldBlockExternalMessages()) {
     if (!return_hash_) {
       return schemas::v2::ResultOk{};
     }

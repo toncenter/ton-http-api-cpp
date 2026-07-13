@@ -78,6 +78,16 @@ components_manager:
       threads: $tonlib_threads
       threads#fallback: 4
       task_processor: main-task-processor
+      sendboc_tps_guard_enabled: $sendboc_tps_guard_enabled
+      sendboc_tps_guard_enabled#fallback: true
+      sendboc_tps_limit: $sendboc_tps_limit
+      sendboc_tps_limit#fallback: 300
+      sendboc_tps_window: $sendboc_tps_window
+      sendboc_tps_window#fallback: 60s
+      sendboc_tps_check_interval: $sendboc_tps_check_interval
+      sendboc_tps_check_interval#fallback: 5s
+      sendboc_tps_check_timeout: $sendboc_tps_check_timeout
+      sendboc_tps_check_timeout#fallback: 60s
     dns-client:
       fs-task-processor: fs-task-processor
     http-client-middleware-pipeline:

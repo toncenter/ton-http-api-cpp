@@ -87,3 +87,11 @@ max_stack_entry_depth: 256
 # sendboc disabled
 #
 sendboc_disabled: false
+
+# Automatically disable sendBoc when the average network TPS over the rolling
+# window is above the configured limit.
+sendboc_tps_guard_enabled: true
+sendboc_tps_limit: 300
+sendboc_tps_window: 60s
+sendboc_tps_check_interval: 5s
+sendboc_tps_check_timeout: 60s

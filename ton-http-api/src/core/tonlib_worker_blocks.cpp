@@ -122,14 +122,19 @@ td::Result<tonlib_api::blocks_getShards::ReturnType> TonlibWorker::getShards(
   multiclient::SessionPtr session
 ) const {
   TRY_RESULT(blk_id, lookupBlock(ton::masterchainId, ton::shardIdAll, mc_seqno, lt, unixtime, session));
+  return getShardsByBlockId(*blk_id, std::move(session));
+}
+td::Result<tonlib_api::blocks_getShards::ReturnType> TonlibWorker::getShardsByBlockId(
+  const tonlib_api::ton_blockIdExt& block_id, multiclient::SessionPtr session
+) const {
   auto request = multiclient::RequestFunction<tonlib_api::blocks_getShards>{
     .parameters = {.mode = multiclient::RequestMode::Single},
     .request_creator =
-      [w = blk_id->workchain_,
-       s = blk_id->shard_,
-       ss = blk_id->seqno_,
-       r = blk_id->root_hash_,
-       f = blk_id->file_hash_] {
+      [w = block_id.workchain_,
+       s = block_id.shard_,
+       ss = block_id.seqno_,
+       r = block_id.root_hash_,
+       f = block_id.file_hash_] {
         return tonlib_api::make_object<tonlib_api::blocks_getShards>(
           tonlib_api::make_object<tonlib_api::ton_blockIdExt>(w, s, ss, r, f)
         );

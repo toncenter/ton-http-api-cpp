@@ -157,6 +157,12 @@
           "THACPP_HTTP_WORKER_USER_AGENT": "{{ config.get('http_worker_user_agent', 'ton-http-api-cpp') | string }}"
           "THACPP_STATIC_CONTENT_DIR": "{{ config.get('static_content_dir', '/static') | string }}"
           "THACPP_MAX_STACK_ENTRY_DEPTH": "{{ config.get('max_stack_entry_depth', 1000) | string }} "
+          "THACPP_SENDBOC_DISABLED": "{{ config.get('sendboc_disabled', false) | string }}"
+          "THACPP_SENDBOC_TPS_GUARD_ENABLED": "{{ config.get('sendboc_tps_guard_enabled', true) | string }}"
+          "THACPP_SENDBOC_TPS_LIMIT": "{{ config.get('sendboc_tps_limit', 300) | string }}"
+          "THACPP_SENDBOC_TPS_WINDOW": "{{ config.get('sendboc_tps_window', '60s') | string }}"
+          "THACPP_SENDBOC_TPS_CHECK_INTERVAL": "{{ config.get('sendboc_tps_check_interval', '5s') | string }}"
+          "THACPP_SENDBOC_TPS_CHECK_TIMEOUT": "{{ config.get('sendboc_tps_check_timeout', '60s') | string }}"
         volumes:
           - "{{ deploy_path }}/ton_global_config.json:/ton_global_config.json"
           - "{{ deploy_path }}/logs:/logs"

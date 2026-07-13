@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+
 #include "tonlib-multiclient/multi_client.h"
 #include "tonlib-multiclient/request.h"
 #include "types.hpp"
@@ -81,6 +83,9 @@ public:
     std::optional<std::int32_t> unixtime = std::nullopt,
     multiclient::SessionPtr session = nullptr
   ) const;
+  [[nodiscard]] td::Result<tonlib_api::blocks_getShards::ReturnType> getShardsByBlockId(
+    const tonlib_api::ton_blockIdExt& block_id, multiclient::SessionPtr session = nullptr
+  ) const;
   [[nodiscard]] td::Result<tonlib_api::blocks_getBlockHeader::ReturnType> getBlockHeader(
     const std::int32_t& workchain,
     const std::int64_t& shard,
@@ -114,6 +119,16 @@ public:
     const std::string& file_hash = "",
     const std::optional<std::int64_t>& after_lt = std::nullopt,
     const std::string& after_hash = "",
+    std::optional<bool> archival = std::nullopt,
+    multiclient::SessionPtr session = nullptr
+  ) const;
+
+  [[nodiscard]] td::Result<std::uint64_t> getBlockTransactionCount(
+    const std::int32_t& workchain,
+    const std::int64_t& shard,
+    const std::int32_t& seqno,
+    const std::string& root_hash = "",
+    const std::string& file_hash = "",
     std::optional<bool> archival = std::nullopt,
     multiclient::SessionPtr session = nullptr
   ) const;
