@@ -51,6 +51,12 @@ inline schemas::v2::AccountAddress Convert(const tonlib_api::object_ptr<tonlib_a
   return result;
 }
 
+inline schemas::v2::AdnlAddress Convert(const tonlib_api::object_ptr<tonlib_api::adnlAddress>& value) {
+  schemas::v2::AdnlAddress result;
+  result.adnl_address = value->adnl_address_;
+  return result;
+}
+
 inline schemas::v2::RWalletLimit Convert(const tonlib_api::object_ptr<tonlib_api::rwallet_limit>& value) {
   schemas::v2::RWalletLimit result;
   result.seconds = value->seconds_;

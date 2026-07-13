@@ -15,7 +15,8 @@ ton_http::handlers::SendBocHandler::SendBocHandler(
       config["external_message_endpoints"].As<std::vector<std::string>>(std::vector<std::string>{})
     ),
     return_hash_(config["return_hash"].As<bool>(true)),
-    ignore_errors_(config["ignore_errors"].As<bool>(false)) {
+    ignore_errors_(config["ignore_errors"].As<bool>(false)),
+    disabled_(config["disabled"].As<bool>(false)) {
 }
 ton_http::schemas::v2::SendBocRequest
 ton_http::handlers::SendBocHandler::ParseTonlibGetRequest(const HttpRequest&, RequestContext&) const {
@@ -30,6 +31,15 @@ td::Status ton_http::handlers::SendBocHandler::ValidateRequest(const schemas::v2
 td::Result<ton_http::schemas::v2::SendBocResult> ton_http::handlers::SendBocHandler::HandleRequestTonlibThrow(
   schemas::v2::SendBocRequest& request, multiclient::SessionPtr& session
 ) const {
+  if (disabled_) {
+    if (!return_hash_) {
+      return schemas::v2::ResultOk{};
+    }
+    auto zero_bits = td::Bits256::zero();
+    return schemas::v2::ExtMessageInfo{
+      .hash = types::ton_hash{zero_bits.as_slice().str()}, .hash_norm = types::ton_hash{zero_bits.as_slice().str()}
+    };
+  }
   auto result =
     tonlib_component_.DoRequest(&core::TonlibWorker::raw_sendMessageReturnHash, request.boc.GetUnderlying(), session);
   if (result.is_error()) {
@@ -65,6 +75,9 @@ properties:
   ignore_errors:
     type: boolean
     description: 'Ignore errors (default: false)'
+  disabled:
+    type: boolean
+    description: 'Disable send bocs. If true, sendBoc method will return true but not send anything'
 )");
 }
 bool ton_http::handlers::SendBocHandler::SendBocToExternalEndpoints(const schemas::v2::SendBocRequest& request) const {

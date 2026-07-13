@@ -104,6 +104,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_transactions.cpp
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
+        src/core/tonlib_worker_dns.cpp
         src/handlers/blocks/GetShardBlockProofHandler.cpp
         src/handlers/blocks/GetConsensusBlockHandler.cpp
         src/handlers/blocks/LookupBlockHandler.cpp
@@ -125,6 +126,8 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/runmethod/RunGetMethodHandler.cpp
         src/handlers/accounts/GetShardAccountCellHandler.cpp
         src/middleware/VersionHeaderMiddleware.cpp
+        src/handlers/accounts/DnsResolveHandler.cpp
+        src/handlers/accounts/DnsResolveHandler.h
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
 configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)

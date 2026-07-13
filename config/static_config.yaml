@@ -190,6 +190,13 @@ components_manager:
       cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
+    handler-DnsResolve:
+      path: /api/v2/dnsResolve
+      method: GET,POST
+      cache_enabled: true
+      cache_size: 1024
+      cache_ways: 16
+      cache_ttl: 1s
 
     ## blocks
     handler-GetMasterchainInfo:
@@ -355,6 +362,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: false
       ignore_errors: false
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-SendBocReturnHash:
       path: /api/v2/sendBocReturnHash
@@ -363,6 +372,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: false
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-SendBocReturnHashNoError:
       path: /api/v2/sendBocReturnHashNoError
@@ -371,6 +382,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: true
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-EstimateFee:
       path: /api/v2/estimateFee

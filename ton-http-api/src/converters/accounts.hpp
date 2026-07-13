@@ -285,4 +285,56 @@ inline schemas::v2::TokenData Convert(core::TokenDataResultPtr& value) {
   }
   throw utils::TonlibException{"failed to serialize TokenData", 500};
 }
+
+inline schemas::v2::DnsEntryDataUnknown Convert(const tonlib_api::dns_entryDataUnknown& value) {
+  schemas::v2::DnsEntryDataUnknown result;
+  result.bytes = types::bytes{value.bytes_};
+  return result;
+}
+
+inline schemas::v2::DnsEntryDataText Convert(const tonlib_api::dns_entryDataText& value) {
+  schemas::v2::DnsEntryDataText result;
+  result.text = value.text_;
+  return result;
+}
+
+inline schemas::v2::DnsEntryDataNextResolver Convert(const tonlib_api::dns_entryDataNextResolver& value) {
+  schemas::v2::DnsEntryDataNextResolver result;
+  result.resolver = Convert(value.resolver_);
+  return result;
+}
+
+inline schemas::v2::DnsEntryDataSmcAddress Convert(const tonlib_api::dns_entryDataSmcAddress& value) {
+  schemas::v2::DnsEntryDataSmcAddress result;
+  result.smc_address = Convert(value.smc_address_);
+  return result;
+}
+
+inline schemas::v2::DnsEntryDataAdnlAddress Convert(const tonlib_api::dns_entryDataAdnlAddress& value) {
+  schemas::v2::DnsEntryDataAdnlAddress result;
+  result.adnl_address = Convert(value.adnl_address_);
+  return result;
+}
+
+inline schemas::v2::DnsEntryDataStorageAddress Convert(const tonlib_api::dns_entryDataStorageAddress& value) {
+  schemas::v2::DnsEntryDataStorageAddress result;
+  result.bag_id = types::ton_hash_hex{value.bag_id_.as_slice().str()};
+  return result;
+}
+
+inline schemas::v2::DnsEntry Convert(const tonlib_api::object_ptr<tonlib_api::dns_entry>& value) {
+  schemas::v2::DnsEntry result;
+  result.name = value->name_;
+  result.category = types::ton_hash{value->category_.as_slice().str()};
+  ton::tonlib_api::downcast_call(*value->entry_.get(), [&](const auto& v){ result.entry = Convert(v); });
+  return result;
+}
+
+inline schemas::v2::DnsResolved Convert(const tonlib_api::dns_resolve::ReturnType& value) {
+  schemas::v2::DnsResolved result;
+  for (auto& v : value->entries_) {
+    result.entries.emplace_back(Convert(v));
+  }
+  return result;
+}
 }  // namespace ton_http::converters

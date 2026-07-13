@@ -30,6 +30,15 @@ public:
     std::optional<bool> archival = std::nullopt,
     multiclient::SessionPtr session = nullptr
   ) const;
+  [[nodiscard]] td::Result<tonlib_api::dns_resolve::ReturnType> dnsResolve(
+    const std::string& address,
+    const std::string& name,
+    std::optional<std::string> category = std::nullopt,
+    std::optional<std::int32_t> ttl = std::nullopt,
+    std::optional<std::int32_t> seqno = std::nullopt,
+    std::optional<bool> archival = std::nullopt,
+    multiclient::SessionPtr session = nullptr
+  ) const;
   [[nodiscard]] td::Result<tonlib_api::blocks_getMasterchainInfo::ReturnType> getMasterchainInfo(
     multiclient::SessionPtr session = nullptr
   ) const;

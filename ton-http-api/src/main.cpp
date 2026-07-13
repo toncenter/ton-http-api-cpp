@@ -12,6 +12,7 @@
 
 #include "components/TonlibComponent.h"
 #include "handlers/JsonRpcHandler.h"
+#include "handlers/accounts/DnsResolveHandler.h"
 #include "handlers/accounts/GetAddressBalanceHandler.h"
 #include "handlers/accounts/GetAddressInformationHandler.h"
 #include "handlers/accounts/GetAddressStateHandler.h"
@@ -85,6 +86,7 @@ int main(int argc, char* argv[]) {
   component_list.Append<ton_http::handlers::GetAddressBalanceHandler>();
   component_list.Append<ton_http::handlers::GetAddressStateHandler>();
   component_list.Append<ton_http::handlers::GetTokenDataHandler>();
+  component_list.Append<ton_http::handlers::DnsResolveHandler>();
 
   // blocks
   component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();
