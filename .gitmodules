@@ -2,9 +2,10 @@
 	path = external/ton
 	url = https://github.com/ton-blockchain/ton
 	branch = testnet
-[submodule "external/pybind11"]
-	path = external/pybind11
-	url = https://github.com/pybind/pybind11.git
 [submodule "external/userver"]
 	path = external/userver
 	url = https://github.com/userver-framework/userver.git
+[submodule "external/fmt"]
+	path = external/fmt
+	url = https://github.com/fmtlib/fmt.git
+	branch = 11.2.0

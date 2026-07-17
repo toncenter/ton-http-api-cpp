@@ -1,4 +1,8 @@
 #pragma once
+#include <type_traits>
+#include <variant>
+#include <string_view>
+
 #include "components/TonlibComponent.h"
 #include "schemas/v2.hpp"
 #include "userver/cache/expirable_lru_cache.hpp"
@@ -9,9 +13,6 @@
 #include "userver/server/handlers/http_handler_base.hpp"
 #include "userver/yaml_config/merge_schemas.hpp"
 #include "utils/exceptions.hpp"
-
-#include <type_traits>
-#include <variant>
 
 // check std::variant
 template <class>
@@ -42,8 +43,8 @@ public:
   using HttpRequest = userver::server::http::HttpRequest;
   using RequestContext = userver::server::request::RequestContext;
 
-  static constexpr std::string kSession = "session";
-  static constexpr std::string kRequest = "request";
+  static constexpr std::string_view kSession{"session"};
+  static constexpr std::string_view kRequest{"request"};
 
   struct Hash {
     std::size_t operator()(const Request& request) const noexcept {
@@ -70,13 +71,13 @@ public:
   void ParseTonlibRequestThrow(const HttpRequest& request, RequestContext& context) const {
     if (request.GetMethod() == userver::server::http::HttpMethod::kGet) {
       try {
-        context.SetData(kRequest, ParseTonlibGetRequest(request, context));
+        context.SetData(std::string{kRequest}, ParseTonlibGetRequest(request, context));
       } catch (std::exception& exc) {
         throw utils::TonlibException(std::string("failed to parse get request: ") + exc.what(), 422);
       }
     } else if (request.GetMethod() == userver::server::http::HttpMethod::kPost) {
       try {
-        context.SetData(kRequest, ParseTonlibPostRequest(request, context));
+        context.SetData(std::string{kRequest}, ParseTonlibPostRequest(request, context));
       } catch (std::exception& exc) {
         throw utils::TonlibException(std::string("failed to parse post request: ") + exc.what(), 422);
       }
@@ -160,7 +161,7 @@ public:
 
   std::string HandleRequestThrow(const HttpRequest& request, RequestContext& context) const override {
     auto session = tonlib_component_.GetNewSession();
-    context.SetData(kSession, session);
+    context.SetData(std::string{kSession}, session);
 
     // parse request
     try {

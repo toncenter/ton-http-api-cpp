@@ -18,8 +18,7 @@ namespace {
 
 std::vector<std::string> split_global_config_by_liteservers(std::string global_config) {
   auto config_json = td::json_decode(global_config).move_as_ok();
-  auto liteservers =
-    get_json_object_field(config_json.get_object(), "liteservers", td::JsonValue::Type::Array, false).move_as_ok();
+  auto liteservers = config_json.get_object().extract_optional_field("liteservers", td::JsonValue::Type::Array).move_as_ok();
   const auto& ls_array = liteservers.get_array();
 
   std::vector<std::string> result;
@@ -41,9 +40,10 @@ std::vector<std::string> split_global_config_by_liteservers(std::string global_c
     {
       td::JsonBuilder builder;
       auto obj = builder.enter_object();
-      obj("dht", get_json_object_field(conf.get_object(), "dht", td::JsonValue::Type::Object).move_as_ok());
-      obj("@type", get_json_object_field(conf.get_object(), "@type", td::JsonValue::Type::String).move_as_ok());
-      obj("validator", get_json_object_field(conf.get_object(), "validator", td::JsonValue::Type::Object).move_as_ok());
+      auto& conf_obj = conf.get_object();
+      obj("dht", conf.get_object().extract_optional_field("dht", td::JsonValue::Type::Object).move_as_ok());
+      obj("@type", conf.get_object().extract_optional_field("@type", td::JsonValue::Type::String).move_as_ok());
+      obj("validator", conf.get_object().extract_optional_field("validator", td::JsonValue::Type::Object).move_as_ok());
       obj("liteservers", td::JsonRaw(result_ls_array));
       obj.leave();
       result_config_str = builder.string_builder().as_cslice().str();

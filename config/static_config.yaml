@@ -22,6 +22,8 @@ components_manager:
   components:
     server:
       listener:
+        address: $bind_address
+        address#fallback: "::"
         port: $server_port
         port#fallback: 8081
         connection:
@@ -34,6 +36,8 @@ components_manager:
           max_headers_size: 65536
           set_tracing_headers: false
       listener-monitor:
+        address: $monitor_bind_address
+        address#fallback: "::"
         port: $monitor_port
         port#fallback: 8082
         task_processor: monitor-task-processor
@@ -76,7 +80,13 @@ components_manager:
       task_processor: main-task-processor
     dns-client:
       fs-task-processor: fs-task-processor
-    http-client:
+    http-client-middleware-pipeline:
+      middlewares:
+        http-client-middleware-disabled:
+          enabled: false
+        http-client-middleware-override:
+          enabled: false
+    http-client-core:
       pool-statistics-disable: true
       thread-name-prefix: http-client
       threads: $http_worker_threads
@@ -85,7 +95,9 @@ components_manager:
       destination-metrics-auto-max-size: 100
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
-    jsonrpc-http-client:
+    http-client:
+      core-component: http-client-core
+    jsonrpc-http-client-core:
       pool-statistics-disable: true
       thread-name-prefix: jsonrpc-http-client
       threads: $http_worker_threads
@@ -94,10 +106,21 @@ components_manager:
       destination-metrics-auto-max-size: 0
       user-agent: $http_worker_user_agent
       user-agent#fallback: empty
+    jsonrpc-http-client:
+      core-component: jsonrpc-http-client-core
     fs-cache-main:
       dir: $static_content_dir
       dir#fallback: /app/static/
       update-period: 10s
+
+    #
+    # middlewares
+    #
+    default-server-middleware-pipeline-builder:
+      append:
+        - version-header-middleware
+    version-header-middleware: {}
+
     #
     # api v2 handlers
     #
@@ -132,6 +155,13 @@ components_manager:
       cache_size: 4096
       cache_ways: 16
       cache_ttl: 1s
+    handler-GetShardAccountCellHandler:
+      path: /api/v2/getShardAccountCell
+      method: GET,POST
+      cache_enabled: true
+      cache_size: 4096
+      cache_ways: 16
+      cache_ttl: 1s
     handler-GetWalletInformation:
       path: /api/v2/getWalletInformation
       method: GET,POST
@@ -158,6 +188,13 @@ components_manager:
       method: GET,POST
       cache_enabled: true
       cache_size: 4096
+      cache_ways: 16
+      cache_ttl: 1s
+    handler-DnsResolve:
+      path: /api/v2/dnsResolve
+      method: GET,POST
+      cache_enabled: true
+      cache_size: 1024
       cache_ways: 16
       cache_ttl: 1s
 
@@ -325,6 +362,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: false
       ignore_errors: false
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-SendBocReturnHash:
       path: /api/v2/sendBocReturnHash
@@ -333,6 +372,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: false
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-SendBocReturnHashNoError:
       path: /api/v2/sendBocReturnHashNoError
@@ -341,6 +382,8 @@ components_manager:
       external_message_endpoints#fallback: []
       return_hash: true
       ignore_errors: true
+      disabled: $sendboc_disabled
+      disabled#fallback: false
       log-level: error
     handler-EstimateFee:
       path: /api/v2/estimateFee

@@ -211,12 +211,13 @@ cython_debug/
 /sandbox
 sandbox.ipynb
 /trace*.txt
-/ton-http-api/tokens-tlb.cpp
-/ton-http-api/tokens-tlb.h
+/ton-http-api/src/core/tlb/tokens-tlb.cpp
+/ton-http-api/src/core/tlb/tokens-tlb.h
 
 # build
-[Bb][Uu][Ii][Ll][Dd]*/
-sandbox/
+/[Bb][Uu][Ii][Ll][Dd]*/
+/sandbox
+/artifacts
 
 # vs code
 .vscode/
@@ -226,3 +227,4 @@ sandbox/
 # codegen schemas
 playground/schemas/
 ton-http-api/src/schemas/
+ton-http-api/static/openapi.json

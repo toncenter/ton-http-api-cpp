@@ -24,13 +24,33 @@ inline schemas::v2::BlockSignature Convert(const tonlib_api::object_ptr<tonlib_a
 }
 
 inline schemas::v2::MasterchainBlockSignatures Convert(
-  const tonlib_api::blocks_getMasterchainBlockSignatures::ReturnType& value
+  const tonlib_api::object_ptr<tonlib_api::blocks_BlockSignatures>& value
 ) {
   schemas::v2::MasterchainBlockSignatures result;
-  result.id = Convert(value->id_);
-  for (auto& sig : value->signatures_) {
-    result.signatures.push_back(Convert(sig));
-  }
+  ton::tonlib_api::downcast_call(
+    *value.get(),
+    td::overloaded(
+      [&](const tonlib_api::blocks_blockSignatures& val) {
+        schemas::v2::BlockSignatures res;
+        res.id = Convert(val.id_);
+        for (auto& sig : val.signatures_) {
+          res.signatures.push_back(Convert(sig));
+        }
+        result = res;
+      },
+      [&](const tonlib_api::blocks_blockSignatures_simplex& val) {
+        schemas::v2::BlockSignaturesSimplex res;
+        res.id = Convert(val.id_);
+        for (auto& sig : val.signatures_) {
+          res.signatures.push_back(Convert(sig));
+        }
+        res.session_id = types::ton_hash{val.session_id_.as_slice().str()};
+        res.slot = val.slot_;
+        res.candidate = types::bytes{val.candidate_};
+        result = res;
+      }
+    )
+  );
   return result;
 }
 

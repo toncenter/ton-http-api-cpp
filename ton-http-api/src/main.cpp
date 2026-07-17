@@ -12,10 +12,12 @@
 
 #include "components/TonlibComponent.h"
 #include "handlers/JsonRpcHandler.h"
+#include "handlers/accounts/DnsResolveHandler.h"
 #include "handlers/accounts/GetAddressBalanceHandler.h"
 #include "handlers/accounts/GetAddressInformationHandler.h"
 #include "handlers/accounts/GetAddressStateHandler.h"
 #include "handlers/accounts/GetExtendedAddressInformationHandler.h"
+#include "handlers/accounts/GetShardAccountCellHandler.h"
 #include "handlers/accounts/GetTokenDataHandler.h"
 #include "handlers/accounts/GetWalletInformationHandler.h"
 #include "handlers/blocks/GetBlockHeaderHandler.h"
@@ -43,6 +45,8 @@
 #include "handlers/utils/DetectHashHandler.h"
 #include "handlers/utils/PackAddressHandler.h"
 #include "handlers/utils/UnpackAddressHandler.h"
+#include "middleware/VersionHeaderMiddleware.h"
+#include "userver/clients/http/middlewares/pipeline_component.hpp"
 
 
 int main(int argc, char* argv[]) {
@@ -52,7 +56,10 @@ int main(int argc, char* argv[]) {
   auto component_list = userver::components::MinimalServerComponentList();
   // components
   component_list.Append<userver::clients::dns::Component>();
+  component_list.Append<userver::clients::http::MiddlewarePipelineComponent>();
+  component_list.Append<userver::components::HttpClientCore>();
   component_list.Append<userver::components::HttpClient>();
+  component_list.Append<userver::components::HttpClientCore>("jsonrpc-http-client-core");
   component_list.Append<userver::components::HttpClient>("jsonrpc-http-client");
   component_list.Append<userver::components::FsCache>("fs-cache-main");
   component_list.Append<ton_http::core::TonlibComponent>();
@@ -60,6 +67,8 @@ int main(int argc, char* argv[]) {
   component_list.Append<userver::server::handlers::ServerMonitor>();
   component_list.Append<userver::server::handlers::Ping>();
   component_list.Append<userver::server::handlers::HttpHandlerStatic>();
+  // middlewares
+  component_list.Append<ton_http::middleware::VersionHeaderMiddlewareFactory>();
   //
   // api handlers
   //
@@ -72,10 +81,12 @@ int main(int argc, char* argv[]) {
   // accounts
   component_list.Append<ton_http::handlers::GetAddressInformationHandler>();
   component_list.Append<ton_http::handlers::GetExtendedAddressInformationHandler>();
+  component_list.Append<ton_http::handlers::GetShardAccountCellHandler>();
   component_list.Append<ton_http::handlers::GetWalletInformationHandler>();
   component_list.Append<ton_http::handlers::GetAddressBalanceHandler>();
   component_list.Append<ton_http::handlers::GetAddressStateHandler>();
   component_list.Append<ton_http::handlers::GetTokenDataHandler>();
+  component_list.Append<ton_http::handlers::DnsResolveHandler>();
 
   // blocks
   component_list.Append<ton_http::handlers::GetMasterchainInfoHandler>();

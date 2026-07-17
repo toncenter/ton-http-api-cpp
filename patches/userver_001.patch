@@ -1,5 +1,5 @@
 diff --git a/universal/include/userver/formats/json/serialize.hpp b/universal/include/userver/formats/json/serialize.hpp
-index 67108c72a..83f3cfcb1 100644
+index 33294ae2c..8690a6c3d 100644
 --- a/universal/include/userver/formats/json/serialize.hpp
 +++ b/universal/include/userver/formats/json/serialize.hpp
 @@ -22,7 +22,7 @@ class LogHelper;

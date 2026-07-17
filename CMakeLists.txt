@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS FALSE)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
-set(PY_TONLIB_MULTICLIENT TRUE CACHE BOOL "Build python bindings")
 set(TONLIB_MULTICLIENT_EXAMPLES TRUE CACHE BOOL "Build examples")
 set(TON_HTTP_API_CPP TRUE CACHE BOOL "Build TON HTTP API")
 set(BUILD_TON_PLAYGROUND FALSE CACHE BOOL "Build TON playground")
@@ -19,16 +18,12 @@ if (TONLIB_MULTICLIENT_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-if (PY_TONLIB_MULTICLIENT)
-  add_subdirectory(external/pybind11 EXCLUDE_FROM_ALL)
-  add_subdirectory(py)
-endif()
-
-
 if (TON_HTTP_API_CPP)
+  # add custom fmt lib to avoid bug in version 10 from apt on ubuntu 26
+  add_subdirectory(external/fmt EXCLUDE_FROM_ALL)
+
   # userver config
   set(USERVER_FEATURE_REDIS TRUE)
-  set(USERVER_FEATURE_UBOOST_CORO TRUE)
   set(USERVER_FEATURE_CHAOTIC TRUE)
   set(USERVER_FEATURE_CHAOTIC_EXPERIMENAL TRUE)
   set(USERVER_FEATURE_UTEST FALSE)

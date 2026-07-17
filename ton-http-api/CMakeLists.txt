@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(ton-http-api-cpp CXX)
 
+set(API_VERSION_TAG "2.1" CACHE STRING "API Version tag")
+message("-- API version tag ${API_VERSION_TAG}")
+
 userver_setup_environment()
 
 # userver custom types
@@ -44,12 +47,14 @@ set(OPENAPI_YAML
 set(OPENAPI_JSON
         ${CMAKE_CURRENT_SOURCE_DIR}/static/openapi.json
 )
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
 add_custom_command(
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND yq -Poj ${OPENAPI_YAML} > ${OPENAPI_JSON}
-        COMMENT "Generate OpenAPI json file"
-        OUTPUT ${OPENAPI_JSON}
-        DEPENDS ${OPENAPI_YAML}
+        OUTPUT "${OPENAPI_JSON}"
+        COMMAND "${Python3_EXECUTABLE}" -c
+        "import sys, json; import yaml; data = yaml.safe_load(open(sys.argv[1],'r',encoding='utf-8')); data['info']['version'] = sys.argv[3]; json.dump(data, open(sys.argv[2],'w',encoding='utf-8'), indent=2, ensure_ascii=False)"
+        "${OPENAPI_YAML}" "${OPENAPI_JSON}" "${API_VERSION_TAG}"
+        DEPENDS "${OPENAPI_YAML}"
+        VERBATIM
 )
 add_custom_target(${PROJECT_NAME}-openapi-gen DEPENDS ${OPENAPI_JSON})
 
@@ -67,6 +72,7 @@ userver_target_generate_chaotic(
         LINK_TARGETS ${PROJECT_NAME}-userver-types
         INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
         RELATIVE_TO ${CMAKE_CURRENT_SOURCE_DIR}/
+        NO_SAX_PARSE YES
 )
 
 
@@ -98,6 +104,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_transactions.cpp
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
+        src/core/tonlib_worker_dns.cpp
         src/handlers/blocks/GetShardBlockProofHandler.cpp
         src/handlers/blocks/GetConsensusBlockHandler.cpp
         src/handlers/blocks/LookupBlockHandler.cpp
@@ -117,15 +124,22 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/runmethod/RunGetMethodStdHandler.cpp
         src/handlers/send/EstimateFeeHandler.cpp
         src/handlers/runmethod/RunGetMethodHandler.cpp
+        src/handlers/accounts/GetShardAccountCellHandler.cpp
+        src/middleware/VersionHeaderMiddleware.cpp
+        src/handlers/accounts/DnsResolveHandler.cpp
+        src/handlers/accounts/DnsResolveHandler.h
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
+configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 target_include_directories(${PROJECT_NAME}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/userver
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton
+        PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/
 )
 
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-c++11-narrowing)
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}-tlbgen ${PROJECT_NAME}-chgen ${PROJECT_NAME}-openapi-gen)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT_NAME} userver::core userver::chaotic tonlib::multiclient-static ${PROJECT_NAME}-userver-types)

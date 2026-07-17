@@ -1,0 +1,189 @@
+- name: Compute image tag
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    repo_dir: "{{ playbook_dir }}"
+  tasks:
+    - name: Get short git commit
+      ansible.builtin.command: git rev-parse --short HEAD
+      args:
+        chdir: "{{ repo_dir }}"
+      register: git_commit_short
+      changed_when: false
+      no_log: true
+    - name: Get tags pointing at current commit
+      ansible.builtin.command: git tag --points-at HEAD --sort=-creatordate
+      args:
+        chdir: "{{ repo_dir }}"
+      register: git_tags
+      changed_when: false
+      no_log: true
+    - name: Get latest git tag in current history
+      ansible.builtin.command: git describe --tags --abbrev=0
+      args:
+        chdir: "{{ repo_dir }}"
+      register: git_latest_tag
+      changed_when: false
+      failed_when: false
+    - name: Set image_tag
+      ansible.builtin.set_fact:
+        image_tag: >-
+          {{
+            git_tags.stdout_lines[0]
+            if git_tags.stdout_lines | length > 0
+            else (
+              git_latest_tag.stdout + '-' + git_commit_short.stdout
+              if git_latest_tag.rc == 0 and git_latest_tag.stdout | length > 0
+              else git_commit_short.stdout
+            )
+          }}
+    - name: Show image tag
+      ansible.builtin.debug:
+        var: image_tag
+
+- name: Build TON HTTP API docker image
+  hosts: builder
+  gather_facts: true
+  vars:
+    image_tag: "{{ hostvars['localhost']['image_tag'] }}"
+  tasks:
+    - name: Ensure docker is installed
+      become: true
+      ansible.builtin.package:
+        name: docker
+        state: present
+    - name: Create temp workspace
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: ton_http_api_cpp
+        suffix: "_{{ image_tag }}"
+      register: build_dir
+    - block:
+      - name: Copy project to builder from . to {{ build_dir.path }} with rsync
+        ansible.builtin.synchronize:
+          src: "{{ playbook_dir }}/"
+          dest: "{{ build_dir.path }}"
+          rsync_opts:
+            - "--exclude=.git"
+            - "--exclude={{ playbook_dir }}/artifacts"
+            - "--exclude={{ playbook_dir }}/private"
+            - "--exclude={{ playbook_dir }}/build"
+            - "--exclude={{ playbook_dir }}/sandbox"
+          recursive: true
+          delete: false
+      - name: Ensure output directory
+        ansible.builtin.file:
+          path: "{{ build_dir.path }}/images"
+          state: directory
+          mode: '0755'
+      - name: Build docker image
+        community.docker.docker_image_build:
+          name: "{{ stack_name }}_http_api_cpp"
+          tag: "{{ image_tag }}"
+          path: "{{ build_dir.path }}"
+          dockerfile: Dockerfile
+          target: http-api-cpp
+          rebuild: always
+      - name: Export docker image
+        community.docker.docker_image_export:
+          names:
+            - "{{ stack_name }}_http_api_cpp:{{ image_tag }}"
+          path: "{{ build_dir.path }}/images/{{ stack_name }}_{{ image_tag }}.tar"
+      - name: Collect artifacts
+        ansible.builtin.fetch:
+          src: "{{ build_dir.path }}/images/{{ item }}"
+          dest: "artifacts/"
+          flat: true
+        loop:
+          - "{{ stack_name }}_{{ image_tag }}.tar"
+      always:
+        - name: Cleanup workspace
+          ansible.builtin.file:
+            path: "{{ build_dir.path }}"
+            state: absent
+
+- name: Deploy TON HTTP API docker image
+  hosts: "{{ stack_name }}__http_api_cpp"
+  tags: [deploy]
+  vars:
+    image_tag: "{{ hostvars['localhost']['image_tag'] }}"
+  tasks:
+    - name: Ensure docker is installed
+      become: true
+      ansible.builtin.package:
+        name: docker
+        state: present
+    - name: Ensure deploy directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ deploy_path }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+    - name: Copy docker image
+      ansible.builtin.copy:
+        src: "artifacts/{{ stack_name }}_{{ image_tag }}.tar"
+        dest: "{{ deploy_path }}/images/"
+    - name: Load docker image
+      community.docker.docker_image_load:
+        path: "{{ deploy_path }}/images/{{ stack_name }}_{{ image_tag }}.tar"
+      register: docker_image
+    - name: Render config file
+      ansible.builtin.copy:
+        dest: "{{ deploy_path }}/ton_global_config.json"
+        content: "{{ ton_global_config | to_nice_json }}"
+        mode: "0644"
+    - name: Run docker container
+      community.docker.docker_container:
+        name: "{{ stack_name }}_http_api_cpp"
+        image: "{{ stack_name }}_http_api_cpp:{{ image_tag }}"
+        env:
+          "THACPP_TONLIB_CONFIG_PATH": "/ton_global_config.json"
+          "THACPP_TONLIB_KEYSTORE_PATH": "/tmp"
+          "THACPP_TONLIB_BOC_ENDPOINTS": "{{ config.get('tonlib_boc_endpoints', []) | to_json }}"
+          "THACPP_TONLIB_THREADS": "{{ config.get('tonlib_threads', 4) | string }}"
+          "THACPP_MAIN_WORKER_THREADS": "{{ config.get('main_worker_threads', 4) | string }}"
+          "THACPP_FS_WORKER_THREADS": "{{ config.get('fs_worker_threads', 1) | string }}"
+          "THACPP_HTTP_WORKER_THREADS": "{{ config.get('http_worker_threads', 2) | string }}"
+          "THACPP_LOG_LEVEL": "{{ config.get('log_level', 'warning') | string }}"
+          "THACPP_LOG_PATH": "{{ config.get('log_path', '@stdout') | string }}"
+          "THACPP_SYSTEM_LOG_LEVEL": "{{ config.get('system_log_level', 'critical') | string }}"
+          "THACPP_SYSTEM_LOG_PATH": "{{ config.get('system_log_path', '/logs/system.log') | string }}"
+          "THACPP_JSONRPC_LOG_LEVEL": "{{ config.get('jsonrpc_log_level', 'info') | string }}"
+          "THACPP_JSONRPC_LOG_PATH": "{{ config.get('jsonrpc_log_path', '/logs/jsonrpc.log') | string }}"
+          "THACPP_LOG_FORMAT": "{{ config.get('log_format', 'json') | string }}"
+          "THACPP_HTTP_WORKER_USER_AGENT": "{{ config.get('http_worker_user_agent', 'ton-http-api-cpp') | string }}"
+          "THACPP_STATIC_CONTENT_DIR": "{{ config.get('static_content_dir', '/static') | string }}"
+          "THACPP_MAX_STACK_ENTRY_DEPTH": "{{ config.get('max_stack_entry_depth', 1000) | string }} "
+        volumes:
+          - "{{ deploy_path }}/ton_global_config.json:/ton_global_config.json"
+          - "{{ deploy_path }}/logs:/logs"
+        healthy_wait_timeout: 20
+        healthcheck:
+          test: ["CMD-SHELL", "curl -f http://localhost:8081/api/v2/healthcheck || exit 1"]
+          interval: 3s
+          retries: 3
+        state: healthy
+        restart_policy: unless-stopped
+        detach: true
+        labels:
+          autoheal: 1
+        ulimits:
+          - "memlock:-1"
+          - "stack:-1"
+          - "core:-1"
+        published_ports:
+          - "0.0.0.0:{{ api_port }}:8081"
+          - "0.0.0.0:{{ monitoring_port }}:8082"
+    - name: Ensure autoheal container
+      community.docker.docker_container:
+        name: "autoheal"
+        image: "willfarrell/autoheal"
+        env:
+          AUTOHEAL_CONTAINER_LABEL: autoheal
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+        restart_policy: always
+        detach: true

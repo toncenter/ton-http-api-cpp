@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir -p build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DPY_TONLIB_MULTICLIENT:BOOL=TRUE ..
+        cmake -DCMAKE_BUILD_TYPE=Release ..
         cmake --build . --target tonlib_multiclient_lib
 
     - name: Build Examples

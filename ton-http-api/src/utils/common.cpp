@@ -8,10 +8,10 @@
 #include "tl/tl_json.h"
 
 #include "common/refint.h"
-#include "overlay/overlay-broadcast.hpp"
 #include "td/utils/JsonBuilder.h"
 #include "td/utils/Status.h"
 #include "td/utils/logging.h"
+#include "td/utils/utf8.h"
 #include "td/utils/overloaded.h"
 #include "vm/boc.h"
 #include "vm/cells/CellSlice.h"

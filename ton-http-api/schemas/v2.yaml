@@ -9,7 +9,7 @@ info:
     The response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.
     
     API Key should be sent either as `api_key` query parameter or `X-API-Key` header
-  version: '2.1.1'
+  version: '2.1.11'
 paths:
   /api/v2/jsonRPC:
     post:
@@ -310,6 +310,52 @@ paths:
       security:
         - APIKeyHeader: [ ]
         - APIKeyQuery: [ ]
+  /api/v2/getShardAccountCell:
+    get:
+      tags:
+        - accounts
+      summary: Get Shard Address Cell
+      description: Get raw TVM cell with shard account
+      operationId: getShardAccountCell_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Shard Address Cell
+      description: Get raw TVM cell with shard account
+      operationId: getShardAccountCell_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShardAccountCellRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
   /api/v2/getWalletInformation:
     get:
       tags:
@@ -480,6 +526,71 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TokenDataRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+  /api/v2/dnsResolve:
+    get:
+      tags:
+        - accounts
+      summary: Resolve TON DNS name
+      description: Resolve TON DNS contract
+      operationId: dnsResolve_get
+      parameters:
+        - $ref: '#/components/parameters/address'
+        - name: name
+          in: query
+          description: Domain name to resolve
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Get a specific category of DNS record
+          required: false
+          schema:
+            type: string
+        - name: ttl
+          in: query
+          description: TTL of a resolved record
+          required: false
+          schema:
+            type: int
+            format: int32
+        - $ref: '#/components/parameters/seqnoOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Resolve TON DNS name
+      description: Resolve TON DNS contract
+      operationId: dnsResolve_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DnsResolveRequest'
         required: true
       responses:
         200:
@@ -1071,7 +1182,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TransactionsStdRequest'
+              $ref: '#/components/schemas/TransactionsRequest'
         required: true
       responses:
         200:
@@ -1790,6 +1901,8 @@ components:
       $ref: '#/components/schemas/AddressRequest'
     AddressInformationRequest:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    ShardAccountCellRequest:
+      $ref: '#/components/schemas/AddressWithSeqnoRequest'
     ExtendedAddressInformationRequest:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
     WalletInformationRequest:
@@ -1800,6 +1913,25 @@ components:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
     TokenDataRequest:
       $ref: '#/components/schemas/AddressWithSeqnoRequest'
+    DnsResolveRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+      properties:
+        address:
+          $ref: '#/components/schemas/TonAddr'
+        name:
+          type: string
+        category:
+          type: string
+        ttl:
+          type: integer
+          format: int32
+          x-usrv-cpp-type: 'std::int32_t'
+        seqno:
+          type: integer
+          format: int32
     MasterchainInfoRequest:
       $ref: '#/components/schemas/EmptyRequest'
     MasterchainBlockSignaturesRequest:
@@ -1998,8 +2130,6 @@ components:
             - type: integer
               format: int64
           x-usrv-cpp-type: 'std::int64_t'
-    TransactionsV2Request:
-      $ref: '#/components/schemas/TransactionsRequest'
     TryLocateTxRequest:
       type: object
       additionalProperties: false
@@ -2131,6 +2261,9 @@ components:
     AccountAddress:
       type: object
       additionalProperties: false
+      required:
+        - '@type'
+        - account_address
       properties:
         '@type':
           type: string
@@ -2140,6 +2273,20 @@ components:
         account_address:
           type: string
           x-usrv-cpp-type: 'ton_http::types::ton_addr'
+    AdnlAddress:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - adnl_address
+      properties:
+        '@type':
+          type: string
+          enum:
+            - adnlAddress
+          default: adnlAddress
+        adnl_address:
+          type: string
     TonBlockIdExt:
       type: object
       additionalProperties: false
@@ -2865,6 +3012,143 @@ components:
           'ext.tokens.jettonWalletData': '#/components/schemas/JettonWalletData'
           'ext.tokens.nftCollectionData': '#/components/schemas/NftCollectionData'
           'ext.tokens.nftItemData': '#/components/schemas/NftItemData'
+    DnsEntryDataUnknown:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - bytes
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataUnknown
+          default: dns.entryDataUnknown
+        bytes:
+          $ref: '#/components/schemas/Bytes'
+    DnsEntryDataText:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - text
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataText
+          default: dns.entryDataText
+        text:
+          type: string
+    DnsEntryDataNextResolver:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - resolver
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataNextResolver
+          default: dns.entryDataNextResolver
+        resolver:
+          $ref: '#/components/schemas/AccountAddress'
+    DnsEntryDataSmcAddress:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - smc_address
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataSmcAddress
+          default: dns.entryDataSmcAddress
+        smc_address:
+          $ref: '#/components/schemas/AccountAddress'
+    DnsEntryDataAdnlAddress:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - adnl_address
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataAdnlAddress
+          default: dns.entryDataAdnlAddress
+        adnl_address:
+          $ref: '#/components/schemas/AdnlAddress'
+    DnsEntryDataStorageAddress:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - bag_id
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entryDataStorageAddress
+          default: dns.entryDataStorageAddress
+        bag_id:
+          $ref: '#/components/schemas/TonHashHex'
+    DnsEntryData:
+      oneOf:
+        - $ref: '#/components/schemas/DnsEntryDataUnknown'
+        - $ref: '#/components/schemas/DnsEntryDataText'
+        - $ref: '#/components/schemas/DnsEntryDataNextResolver'
+        - $ref: '#/components/schemas/DnsEntryDataSmcAddress'
+        - $ref: '#/components/schemas/DnsEntryDataAdnlAddress'
+        - $ref: '#/components/schemas/DnsEntryDataStorageAddress'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          'dns.entryDataUnknown': '#/components/schemas/DnsEntryDataUnknown'
+          'dns.entryDataText': '#/components/schemas/DnsEntryDataText'
+          'dns.entryDataNextResolver': '#/components/schemas/DnsEntryDataNextResolver'
+          'dns.entryDataSmcAddress': '#/components/schemas/DnsEntryDataSmcAddress'
+          'dns.entryDataAdnlAddress': '#/components/schemas/DnsEntryDataAdnlAddress'
+          'dns.entryDataStorageAddress': '#/components/schemas/DnsEntryDataStorageAddress'
+    DnsEntry:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - name
+        - category
+        - entry
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.entry
+          default: dns.entry
+        name:
+          type: string
+        category:
+          $ref: '#/components/schemas/TonHash'
+        entry:
+          $ref: '#/components/schemas/DnsEntryData'
+    DnsResolved:
+      type: object
+      additionalProperties: false
+      required:
+        - '@type'
+        - entries
+      properties:
+        '@type':
+          type: string
+          enum:
+            - dns.resolved
+          default: dns.resolved
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DnsEntry'
     AccountStateEnum:
       type: string
       enum:
@@ -3261,8 +3545,10 @@ components:
         - $ref: '#/components/schemas/JettonWalletData'
         - $ref: '#/components/schemas/NftCollectionData'
         - $ref: '#/components/schemas/NftItemData'
+        - $ref: '#/components/schemas/DnsResolved'
         - $ref: '#/components/schemas/MasterchainInfo'
-        - $ref: '#/components/schemas/MasterchainBlockSignatures'
+        - $ref: '#/components/schemas/BlockSignatures'
+        - $ref: '#/components/schemas/BlockSignaturesSimplex'
         - $ref: '#/components/schemas/ShardBlockProof'
         - $ref: '#/components/schemas/ConsensusBlock'
         - $ref: '#/components/schemas/TonBlockIdExt'
@@ -3280,6 +3566,7 @@ components:
         - $ref: '#/components/schemas/ResultOk'
         - $ref: '#/components/schemas/RunGetMethodStdResult'
         - $ref: '#/components/schemas/RunGetMethodResult'
+        - $ref: '#/components/schemas/TvmCell'
       discriminator:
         propertyName: '@type'
         mapping:
@@ -3292,8 +3579,10 @@ components:
           'ext.tokens.jettonWalletData': '#/components/schemas/JettonWalletData'
           'ext.tokens.nftCollectionData': '#/components/schemas/NftCollectionData'
           'ext.tokens.nftItemData': '#/components/schemas/NftItemData'
+          'dns.resolved': '#/components/schemas/DnsResolved'
           'blocks.masterchainInfo': '#/components/schemas/MasterchainInfo'
-          'blocks.blockSignatures': '#/components/schemas/MasterchainBlockSignatures'
+          'blocks.blockSignatures': '#/components/schemas/BlockSignatures'
+          'blocks.blockSignatures.simplex': '#/components/schemas/BlockSignaturesSimplex'
           'blocks.shardBlockProof': '#/components/schemas/ShardBlockProof'
           'ext.blocks.consensusBlock': '#/components/schemas/ConsensusBlock'
           'ton.blockIdExt': '#/components/schemas/TonBlockIdExt'
@@ -3311,6 +3600,7 @@ components:
           'ok': '#/components/schemas/ResultOk'
           'smc.runResult': '#/components/schemas/RunGetMethodStdResult'
           'ext.runResult': '#/components/schemas/RunGetMethodResult'
+          'tvm.cell': '#/components/schemas/TvmCell'
     TonlibResponse:
       type: object
       title: TonlibResponse
@@ -3607,7 +3897,7 @@ components:
         - last
         - state_root_hash
         - init
-    MasterchainBlockSignatures:
+    BlockSignatures:
       type: object
       additionalProperties: false
       properties:
@@ -3626,6 +3916,44 @@ components:
         - '@type'
         - id
         - signatures
+    BlockSignaturesSimplex:
+      type: object
+      additionalProperties: false
+      properties:
+        '@type':
+          type: string
+          enum:
+            - blocks.blockSignatures.simplex
+          default: blocks.blockSignatures.simplex
+        id:
+          $ref: '#/components/schemas/TonBlockIdExt'
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockSignature'
+        session_id:
+          $ref: '#/components/schemas/TonHash'
+        slot:
+          type: integer
+          format: int32
+        candidate:
+          $ref: '#/components/schemas/Bytes'
+      required:
+        - '@type'
+        - id
+        - signatures
+        - session_id
+        - slot
+        - candidate
+    MasterchainBlockSignatures:
+      oneOf:
+        - $ref: '#/components/schemas/BlockSignatures'
+        - $ref: '#/components/schemas/BlockSignaturesSimplex'
+      discriminator:
+        propertyName: '@type'
+        mapping:
+          blocks.blockSignatures: '#/components/schemas/BlockSignatures'
+          blocks.blockSignatures.simplex: '#/components/schemas/BlockSignaturesSimplex'
     ShardBlockProof:
       type: object
       additionalProperties: false

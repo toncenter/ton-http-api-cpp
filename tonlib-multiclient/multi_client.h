@@ -61,7 +61,7 @@ td::Result<typename T::ReturnType> MultiClient::send_request(Request<T> req) con
   auto promise =
     td::Promise<ReturnType>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
 
-  scheduler_->run_in_context_external([this, p = std::move(promise), req = std::move(req)]() mutable {
+  scheduler_->run_in_context([this, p = std::move(promise), req = std::move(req)]() mutable {
     td::actor::send_closure(client_.get(), &MultiClientActor::send_request<T>, std::move(req), std::move(p));
   });
 
@@ -78,7 +78,7 @@ td::Result<typename T::ReturnType> MultiClient::send_request_function(RequestFun
   auto promise =
     td::Promise<ReturnType>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
 
-  scheduler_->run_in_context_external([this, p = std::move(promise), req = std::move(req)]() mutable {
+  scheduler_->run_in_context([this, p = std::move(promise), req = std::move(req)]() mutable {
     td::actor::send_closure(client_.get(), &MultiClientActor::send_request_function<T>, std::move(req), std::move(p));
   });
 
