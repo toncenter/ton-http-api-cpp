@@ -230,7 +230,7 @@ public:
         throw std::runtime_error("cache_ttl must be non-negative when cache is enabled");
       }
       auto way_size = std::max(cache_size / cache_ways, 1ul);
-      cache_ = std::make_shared<Cache>(cache_size, way_size);
+      cache_ = std::make_shared<Cache>(cache_ways, way_size);
       cache_->SetMaxLifetime(cache_ttl);
       cache_->SetBackgroundUpdate(userver::cache::BackgroundUpdateMode::kEnabled);
       cache_stats_holder_ = context.FindComponent<userver::components::StatisticsStorage>().GetStorage().RegisterWriter(
