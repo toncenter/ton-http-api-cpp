@@ -103,36 +103,44 @@ inline schemas::v2::Message Convert<schemas::v2::Message>(
   result.body_hash = types::ton_hash{value->body_hash_};
   if (value->msg_data_) {
     result.msg_data = Convert(value->msg_data_);
-  }
-  tonlib_api::downcast_call(
-    *value->msg_data_,
-    td::overloaded(
-      [&](const tonlib_api::msg_dataRaw& data) {
-        auto r_body_cell = vm::std_boc_deserialize(data.body_);
-        if (r_body_cell.is_ok()) {
-          auto body_cell = r_body_cell.move_as_ok();
-          auto r_loaded_cell = body_cell->load_cell();
-          if (r_loaded_cell.is_ok()) {
-            auto loaded_cell = r_loaded_cell.move_as_ok();
-            const size_t n_bytes = (loaded_cell.data_cell->get_bits() + 7) / 8;
-            const size_t n_trailing_bits = (8 - loaded_cell.data_cell->get_bits() % 8) % 8;
-            std::string buffer(n_bytes, 0);
-            std::memcpy(buffer.data(), loaded_cell.data_cell->get_data(), n_bytes);
-            // this zeroes last 1 bit which is 1 in C++ and 0 in python implementation
-            buffer[buffer.length() - 1] = static_cast<char>(buffer.back() & ~static_cast<char>((1 << n_trailing_bits) - 1));
-            result.message = td::base64_encode(buffer) + (!buffer.empty() ? "\n" : ""); // this is back compatibility
+    tonlib_api::downcast_call(
+      *value->msg_data_,
+      td::overloaded(
+        [&](const tonlib_api::msg_dataRaw& data) {
+          auto r_body_cell = vm::std_boc_deserialize(data.body_);
+          if (r_body_cell.is_ok()) {
+            auto body_cell = r_body_cell.move_as_ok();
+            auto r_loaded_cell = body_cell->load_cell();
+            if (r_loaded_cell.is_ok()) {
+              auto loaded_cell = r_loaded_cell.move_as_ok();
+              const size_t n_bytes = (loaded_cell.data_cell->get_bits() + 7) / 8;
+              const size_t n_trailing_bits = (8 - loaded_cell.data_cell->get_bits() % 8) % 8;
+              std::string buffer(n_bytes, 0);
+              if (!buffer.empty()) {
+                std::memcpy(buffer.data(), loaded_cell.data_cell->get_data(), n_bytes);
+                if (n_trailing_bits != 0) {
+                  // This zeroes the trailing bits which are 1 in C++ and 0 in the Python implementation.
+                  buffer.back() =
+                    static_cast<char>(buffer.back() & ~static_cast<char>((1 << n_trailing_bits) - 1));
+                }
+              }
+              result.message = td::base64_encode(buffer) + (!buffer.empty() ? "\n" : ""); // this is back compatibility
+            } else {
+              result.message_decode_error = "Failed to load cell or get body slice. But why?";
+              LOG_ERROR() << "Failed to load cell or get body slice. But why? msg_hash: " << value->hash_;
+            }
+          } else {
+            result.message_decode_error = "Failed to load cell or get body slice. But why?";
+            LOG_ERROR() << "Failed to load cell or get body slice. But why? msg_hash: " << value->hash_;
           }
-        } else {
-          result.message_decode_error = "Failed to load cell or get body slice. But why?";
-          LOG_ERROR() << "Failed to load cell or get body slice. But why? msg_hash: " << value->hash_;
-        }
-      },
-      [&](const tonlib_api::msg_dataText& data) { result.message = data.text_; },
-      [&](const tonlib_api::msg_dataDecryptedText& data) { result.message = data.text_; },
-      [&](const tonlib_api::msg_dataEncryptedText& data) { result.message = data.text_; },
-      [&](const auto& x) { LOG_DEBUG() << "failed to decode type " << x.get_id(); }
-    )
-  );
+        },
+        [&](const tonlib_api::msg_dataText& data) { result.message = data.text_; },
+        [&](const tonlib_api::msg_dataDecryptedText& data) { result.message = data.text_; },
+        [&](const tonlib_api::msg_dataEncryptedText& data) { result.message = data.text_; },
+        [&](const auto& x) { LOG_DEBUG() << "failed to decode type " << x.get_id(); }
+      )
+    );
+  }
   return result;
 }
 

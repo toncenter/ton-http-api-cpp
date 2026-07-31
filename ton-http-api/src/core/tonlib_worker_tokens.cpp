@@ -82,18 +82,12 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonMaster(
 
   // data
   TRY_RESULT_ASSIGN(data->total_supply_, utils::number_from_tvm_stack_entry(result->stack_[0]));
-  TRY_RESULT(mintable, utils::number_from_tvm_stack_entry(result->stack_[1]));
-  data->mintable_ = std::stoi(mintable);
+  TRY_RESULT_ASSIGN(data->mintable_, utils::boolean_from_tvm_stack_entry(result->stack_[1]));
   TRY_RESULT_ASSIGN(data->admin_address_, utils::address_from_tvm_stack_entry(result->stack_[2]));
 
   // jetton_content_
-  if (result->stack_[3]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 3 position");
-  }
-  TRY_RESULT(
-    jetton_content_cell,
-    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[3]).cell_->bytes_, true, true)
-  );
+  TRY_RESULT(jetton_content_cell_data, utils::cell_bytes_from_tvm_stack_entry(result->stack_[3]));
+  TRY_RESULT(jetton_content_cell, vm::std_boc_deserialize(jetton_content_cell_data, true, true));
   TRY_RESULT_PREFIX(
     jetton_content,
     utils::parse_token_data(std::move(jetton_content_cell)),
@@ -103,10 +97,7 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonMaster(
   data->jetton_content_ = std::move(std::get<1>(jetton_content));
 
   // jetton_wallet_code_
-  if (result->stack_[4]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 3 position");
-  }
-  data->jetton_wallet_code_ = static_cast<const tonlib_api::tvm_stackEntryCell&>(*result->stack_[4]).cell_->bytes_;
+  TRY_RESULT_ASSIGN(data->jetton_wallet_code_, utils::cell_bytes_from_tvm_stack_entry(result->stack_[4]));
   return std::move(data);
 }
 td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
@@ -160,19 +151,13 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
 
   // mintless
   if (result_mintless->exit_code_ == 0 && result_mintless->stack_.size() == 1) {
-    if (result_mintless->stack_[0]->get_id() == tonlib_api::tvm_stackEntryNumber::ID) {
-      if (auto r_is_claimed = utils::number_from_tvm_stack_entry(result_mintless->stack_[0]); r_is_claimed.is_ok()) {
-        auto is_claimed = r_is_claimed.move_as_ok();
-        data->mintless_is_claimed_ = std::stoi(is_claimed);
-      }
+    if (auto r_is_claimed = utils::boolean_from_tvm_stack_entry(result_mintless->stack_[0]); r_is_claimed.is_ok()) {
+      data->mintless_is_claimed_ = r_is_claimed.move_as_ok();
     }
   }
 
   // jetton_wallet_code_
-  if (result->stack_[3]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 3 position");
-  }
-  data->jetton_wallet_code_ = static_cast<const tonlib_api::tvm_stackEntryCell&>(*result->stack_[3]).cell_->bytes_;
+  TRY_RESULT_ASSIGN(data->jetton_wallet_code_, utils::cell_bytes_from_tvm_stack_entry(result->stack_[3]));
 
   if (skip_verification) {
     return std::move(data);
@@ -211,6 +196,9 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkJettonWallet(
   if (result_2->exit_code_ != 0) {
     LOG(ERROR) << "Exit code " << result_2->exit_code_ << " != 0";
     return td::Status::Error(409, "Verification exit code " + std::to_string(result_2->exit_code_) + " != 0");
+  }
+  if (result_2->stack_.empty()) {
+    return td::Status::Error(500, "get_wallet_address returned an empty stack");
   }
   TRY_RESULT(wallet_address_from_master, utils::address_from_tvm_stack_entry(result_2->stack_[0]));
 
@@ -261,19 +249,11 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTCollection(
   auto data = std::make_unique<NFTCollectionDataResult>(address);
 
   // total_supply_
-  if (result->stack_[0]->get_id() != tonlib_api::tvm_stackEntryNumber::ID) {
-    return td::Status::Error(500, "stackEntryNumber expected at 0 position");
-  }
   TRY_RESULT_ASSIGN(data->next_item_index_, utils::number_from_tvm_stack_entry(result->stack_[0]));
 
   // collection_content_
-  if (result->stack_[1]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 1 position");
-  }
-  TRY_RESULT(
-    collection_content_cell,
-    vm::std_boc_deserialize(static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[1]).cell_->bytes_, true, true)
-  );
+  TRY_RESULT(collection_content_cell_data, utils::cell_bytes_from_tvm_stack_entry(result->stack_[1]));
+  TRY_RESULT(collection_content_cell, vm::std_boc_deserialize(collection_content_cell_data, true, true));
   TRY_RESULT_PREFIX(
     collection_content,
     utils::parse_token_data(std::move(collection_content_cell)),
@@ -317,17 +297,13 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
   auto data = std::make_unique<NFTItemDataResult>(address);
 
   // data
-  TRY_RESULT(init, utils::number_from_tvm_stack_entry(result->stack_[0]));
-  data->init_ = std::stoi(init);
+  TRY_RESULT_ASSIGN(data->init_, utils::boolean_from_tvm_stack_entry(result->stack_[0]));
   TRY_RESULT_ASSIGN(data->index_, utils::number_from_tvm_stack_entry(result->stack_[1]));
   TRY_RESULT_ASSIGN(data->collection_address_, utils::address_from_tvm_stack_entry(result->stack_[2]));
   TRY_RESULT_ASSIGN(data->owner_address_, utils::address_from_tvm_stack_entry(result->stack_[3]));
 
   // content_
-  if (result->stack_[4]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 4 position");
-  }
-  auto ind_content_cell_data = static_cast<tonlib_api::tvm_stackEntryCell&>(*result->stack_[4]).cell_->bytes_;
+  TRY_RESULT(ind_content_cell_data, utils::cell_bytes_from_tvm_stack_entry(result->stack_[4]));
 
   if (data->collection_address_.empty()) {
     TRY_RESULT(content_cell, vm::std_boc_deserialize(ind_content_cell_data, true, true));
@@ -368,6 +344,9 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
   if (result_2->exit_code_ != 0) {
     return td::Status::Error(409, "Verification exit code " + std::to_string(result_2->exit_code_) + " != 0");
   }
+  if (result_2->stack_.empty()) {
+    return td::Status::Error(500, "get_nft_address_by_index returned an empty stack");
+  }
   TRY_RESULT(address_from_collection, utils::address_from_tvm_stack_entry(result_2->stack_[0]));
 
   // check addresses
@@ -405,15 +384,8 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
   if (result_3->stack_.size() < 1) {
     return td::Status::Error(500, "Stack size " + std::to_string(result_3->stack_.size()) + " < 1");
   }
-  if (result_3->stack_[0]->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
-    return td::Status::Error(500, "stackEntryCell expected at 0 position");
-  }
-  TRY_RESULT(
-    content_cell,
-    vm::std_boc_deserialize(
-      static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_3->stack_[0])).cell_->bytes_, true, true
-    )
-  );
+  TRY_RESULT(content_cell_data, utils::cell_bytes_from_tvm_stack_entry(result_3->stack_[0]));
+  TRY_RESULT(content_cell, vm::std_boc_deserialize(content_cell_data, true, true));
   TRY_RESULT_PREFIX(
     content, utils::parse_token_data(std::move(content_cell)), "Failed to parse nft content from the cell: "
   );
@@ -456,30 +428,38 @@ td::Result<std::unique_ptr<TokenDataResult>> TonlibWorker::checkNFTItem(
     };
     TRY_RESULT(result_domain, send_request_function(std::move(request_domain)));
     if (result_domain->exit_code_ == 0) {
-      auto domain_cell_str = static_cast<tonlib_api::tvm_stackEntryCell&>(*result_domain->stack_[0]).cell_->bytes_;
-      auto r_domain_cell = vm::std_boc_deserialize(domain_cell_str, true, true);
-      if (r_domain_cell.is_ok()) {
-        auto domain_cell = r_domain_cell.move_as_ok();
-        auto domain_cs = vm::load_cell_slice_ref(domain_cell);
-        auto r_domain = td::hex_decode(domain_cs->as_bitslice().to_hex());
-        if (r_domain.is_ok()) {
-          auto domain = r_domain.move_as_ok();
-          data->domain_ = domain + ".ton";
-
-          std::stringstream ss;
-          domain_cs->print_rec(ss, 0);
-          LOG(DEBUG) << "domain cs: " << ss.str() << " domain: " << domain;
-        }
+      if (result_domain->stack_.empty()) {
+        LOG(DEBUG) << "get_domain returned an empty stack";
+      } else if (auto r_domain_cell_str = utils::cell_bytes_from_tvm_stack_entry(result_domain->stack_[0]);
+                 r_domain_cell_str.is_error()) {
+        LOG(DEBUG) << "Invalid get_domain result: " << r_domain_cell_str.error();
       } else {
-        LOG(DEBUG) << "Failed to parse domain cell: " << r_domain_cell.error();
+        auto r_domain_cell = vm::std_boc_deserialize(r_domain_cell_str.move_as_ok(), true, true);
+        if (r_domain_cell.is_ok()) {
+          auto domain_cell = r_domain_cell.move_as_ok();
+          auto domain_cs = vm::load_cell_slice_ref(domain_cell);
+          auto r_domain = td::hex_decode(domain_cs->as_bitslice().to_hex());
+          if (r_domain.is_ok()) {
+            auto domain = r_domain.move_as_ok();
+            data->domain_ = domain + ".ton";
+
+            std::stringstream ss;
+            domain_cs->print_rec(ss, 0);
+            LOG(DEBUG) << "domain cs: " << ss.str() << " domain: " << domain;
+          }
+        } else {
+          LOG(DEBUG) << "Failed to parse domain cell: " << r_domain_cell.error();
+        }
       }
     } else {
       LOG(DEBUG) << "Failed to get domain with exit_code: " << result_domain->exit_code_;
     }
     LOG(INFO) << "parsing dns content";
-    if (result_dns->stack_[1]->get_id() == tonlib_api::tvm_stackEntryCell::ID) {
-      auto dns_content_data_str = static_cast<tonlib_api::tvm_stackEntryCell&>(*(result_dns->stack_[1])).cell_->bytes_;
-      if (auto r_dns_content_cell = vm::std_boc_deserialize(dns_content_data_str, true, true);
+    if (auto r_dns_content_data = utils::cell_bytes_from_tvm_stack_entry(result_dns->stack_[1]);
+        r_dns_content_data.is_error()) {
+      LOG(DEBUG) << "Invalid dnsresolve content: " << r_dns_content_data.error();
+    } else {
+      if (auto r_dns_content_cell = vm::std_boc_deserialize(r_dns_content_data.move_as_ok(), true, true);
           r_dns_content_cell.is_error()) {
         LOG(ERROR) << r_dns_content_cell.move_as_error_prefix("Failed to unpack dns content cell: ");
       } else {

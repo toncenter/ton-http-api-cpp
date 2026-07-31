@@ -48,6 +48,8 @@ td::Result<std::string> address_from_cell(const std::string& data);
 
 td::Result<std::string> address_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
 td::Result<std::string> number_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
+td::Result<bool> boolean_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
+td::Result<std::string> cell_bytes_from_tvm_stack_entry(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry);
 
 // tokens
 td::Result<std::string> parse_snake_data(td::Ref<vm::CellSlice> data);
