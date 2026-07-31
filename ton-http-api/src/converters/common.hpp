@@ -9,6 +9,16 @@ namespace ton_http::converters {
 
 using namespace ton;
 
+inline td::Result<td::Bits256> Convert(const types::ton_hash& hash) {
+  td::Bits256 result{};
+  const auto& value = hash.GetUnderlying();
+  if (value.size() != result.as_slice().size()) {
+    return td::Status::Error(422, "hash must contain exactly 32 bytes");
+  }
+  result.as_slice().copy_from(value);
+  return result;
+}
+
 inline schemas::v2::TonBlockIdExt Convert(const tonlib_api::object_ptr<tonlib_api::ton_blockIdExt>& value) {
   schemas::v2::TonBlockIdExt result;
   result.workchain = value->workchain_;

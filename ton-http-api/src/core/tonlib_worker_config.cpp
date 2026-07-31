@@ -77,18 +77,13 @@ td::Result<tonlib_api::getConfigParam::ReturnType> TonlibWorker::getConfigAll(
   return ton::move_tl_object_as<tonlib_api::configInfo>(result.move_as_ok());
 }
 td::Result<std::unique_ptr<tonlib_api::smc_libraryResult>> TonlibWorker::getLibraries(
-  std::vector<std::string> libs, multiclient::SessionPtr session
+  std::vector<td::Bits256> libs, multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::smc_getLibraries>{
     .parameters = {.mode = multiclient::RequestMode::Single},
     .request_creator =
       [libs] {
-        std::vector<td::Bits256> lib_hashes;
-        for (auto& lib : libs) {
-          td::Bits256 hash;
-          hash.as_slice().copy_from(lib);
-          lib_hashes.push_back(hash);
-        }
+        auto lib_hashes = libs;
         return tonlib_api::make_object<tonlib_api::smc_getLibraries>(std::move(lib_hashes));
       },
     .session = session
