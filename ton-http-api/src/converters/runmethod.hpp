@@ -1,9 +1,14 @@
 #pragma once
+#include <cstddef>
+#include <cstring>
+#include <optional>
+#include <queue>
+#include <string>
+#include <utility>
+
 #include "auto/tl/tonlib_api.h"
 #include "schemas/v2.hpp"
 #include "userver/utils/box.hpp"
-#include <string>
-#include <queue>
 
 namespace ton_http::converters {
 
@@ -271,7 +276,30 @@ inline std::vector<tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>> LegacyTvm
   return result;
 }
 
-inline schemas::v2::LegacyTvmCell SerializeCell(td::Ref<vm::Cell> cell) {
+struct LegacyCellSerializationBudget final {
+  // A cell contains at most 128 bytes. This also bounds the expanded cell data
+  // to roughly 512 KiB before JSON overhead.
+  static constexpr std::size_t kMaxExpandedCells = 4096;
+  static constexpr std::size_t kMaxDepth = 64;
+
+  bool TryConsume(std::size_t depth) noexcept {
+    if (depth > kMaxDepth || expanded_cells >= kMaxExpandedCells) {
+      return false;
+    }
+    ++expanded_cells;
+    return true;
+  }
+
+  std::size_t expanded_cells{0};
+};
+
+inline std::optional<schemas::v2::LegacyTvmCell> SerializeCell(
+  td::Ref<vm::Cell> cell, LegacyCellSerializationBudget& budget, std::size_t depth = 1
+) {
+  if (!budget.TryConsume(depth)) {
+    return std::nullopt;
+  }
+
   schemas::v2::LegacyTvmCell result;
   bool is_special = false;
   auto cs = vm::load_cell_slice_special(cell, is_special);
@@ -291,14 +319,19 @@ inline schemas::v2::LegacyTvmCell SerializeCell(td::Ref<vm::Cell> cell) {
   while (cs.have_refs(1)) {
     cs.advance(1);
     if (auto child_ref = cs.fetch_ref(); child_ref.not_null()) {
-      result.refs.emplace_back(SerializeCell(child_ref));
+      auto child = SerializeCell(std::move(child_ref), budget, depth + 1);
+      if (!child) {
+        return std::nullopt;
+      }
+      result.refs.emplace_back(std::move(*child));
     }
   }
   return result;
 }
 
-template<>
-inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& value) {
+inline schemas::v2::LegacyStackEntry ConvertLegacyStackEntry(
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& value, LegacyCellSerializationBudget& cell_budget
+) {
   schemas::v2::LegacyStackEntry result;
   ton::tonlib_api::downcast_call(
     *value.get(),
@@ -320,7 +353,7 @@ inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(cons
         if (r_cell.is_error()) {
           throw utils::TonlibException{r_cell.move_as_error().message().str(), 500};
         }
-        res.object = SerializeCell(r_cell.move_as_ok());
+        res.object = SerializeCell(r_cell.move_as_ok(), cell_budget);
         result.push_back("cell");
         result.push_back(res);
       },
@@ -331,7 +364,7 @@ inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(cons
         if (r_cell.is_error()) {
           throw utils::TonlibException{r_cell.move_as_error().message().str(), 500};
         }
-        res.object = SerializeCell(r_cell.move_as_ok());
+        res.object = SerializeCell(r_cell.move_as_ok(), cell_budget);
         result.push_back("cell");
         result.push_back(res);
       },
@@ -365,13 +398,20 @@ inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(cons
   return result;
 }
 
-inline schemas::v2::RunGetMethodResult Convert(
-  const core::RunGetMethodResult& value
+template <>
+inline schemas::v2::LegacyStackEntry Convert<schemas::v2::LegacyStackEntry>(
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& value
 ) {
+  LegacyCellSerializationBudget cell_budget;
+  return ConvertLegacyStackEntry(value, cell_budget);
+}
+
+inline schemas::v2::RunGetMethodResult Convert(const core::RunGetMethodResult& value) {
   schemas::v2::RunGetMethodResult result;
+  LegacyCellSerializationBudget cell_budget;
   result.gas_used = value.result->gas_used_;
   for (const auto& entry : value.result->stack_) {
-    result.stack.emplace_back(Convert<schemas::v2::LegacyStackEntry>(entry));
+    result.stack.emplace_back(ConvertLegacyStackEntry(entry, cell_budget));
   }
   result.exit_code = value.result->exit_code_;
   result.block_id = Convert(value.state->block_id_);
