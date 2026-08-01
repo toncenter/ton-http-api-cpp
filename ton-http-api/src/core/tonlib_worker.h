@@ -102,7 +102,7 @@ public:
     std::optional<std::int32_t> seqno = std::nullopt, multiclient::SessionPtr session = nullptr
   ) const;
   [[nodiscard]] td::Result<tonlib_api::smc_getLibraries::ReturnType> getLibraries(
-    std::vector<std::string> libs, multiclient::SessionPtr session = nullptr
+    std::vector<td::Bits256> libs, multiclient::SessionPtr session = nullptr
   ) const;
 
   [[nodiscard]] td::Result<tonlib_api::blocks_getTransactions::ReturnType> getBlockTransactions(

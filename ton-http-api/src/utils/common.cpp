@@ -1,7 +1,5 @@
 #include "common.hpp"
 
-#include <boost/program_options/value_semantic.hpp>
-
 #include "auto/tl/tonlib_api.hpp"
 #include "auto/tl/tonlib_api_json.h"
 #include "block/block.h"
@@ -11,6 +9,7 @@
 #include "td/utils/JsonBuilder.h"
 #include "td/utils/Status.h"
 #include "td/utils/logging.h"
+#include "td/utils/misc.h"
 #include "td/utils/utf8.h"
 #include "td/utils/overloaded.h"
 #include "vm/boc.h"
@@ -183,6 +182,9 @@ userver::formats::json::Value ton_http::utils::serialize_cell(const td::Ref<vm::
 td::Result<std::string> ton_http::utils::address_from_cell(const std::string& data) {
   TRY_RESULT(cell, vm::std_boc_deserialize(data, true, false));
   auto cs = vm::load_cell_slice(cell);
+  if (!cs.have(2)) {
+    return td::Status::Error(500, "MsgAddress is shorter than its 2-bit tag");
+  }
   switch (static_cast<unsigned>(cs.prefetch_ulong(2))) {
     case 0:
       return "";
@@ -190,10 +192,17 @@ td::Result<std::string> ton_http::utils::address_from_cell(const std::string& da
       return td::Status::Error(500, "addr_ext is not supported");
     case 2: {
       cs.advance(2);
+      if (!cs.have(1)) {
+        return td::Status::Error(500, "addr_std is missing the anycast bit");
+      }
       if (cs.prefetch_ulong(1)) {
         return td::Status::Error(500, "anycast is not supported");
       }
       cs.advance(1);
+
+      if (!cs.have(8 + 256)) {
+        return td::Status::Error(500, "addr_std is shorter than 267 bits");
+      }
 
       auto workchain_id = cs.fetch_long(8);
       auto addr = cs.fetch_bits(256);
@@ -203,18 +212,27 @@ td::Result<std::string> ton_http::utils::address_from_cell(const std::string& da
     case 3:
       return td::Status::Error(500, "addr_var is not supported");
     default:
-      UNREACHABLE();
+      return td::Status::Error(500, "unknown MsgAddress tag");
   }
 }
 td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(
   const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
 ) {
+  if (!entry) {
+    return td::Status::Error(500, "null TVM stack entry where address was expected");
+  }
   std::string data;
   if (entry->get_id() == tonlib_api::tvm_stackEntryCell::ID) {
-    auto& entry_cell = dynamic_cast<tonlib_api::tvm_stackEntryCell&>(*entry);
+    const auto& entry_cell = static_cast<const tonlib_api::tvm_stackEntryCell&>(*entry);
+    if (!entry_cell.cell_) {
+      return td::Status::Error(500, "null tvm.Cell where address was expected");
+    }
     data = entry_cell.cell_->bytes_;
   } else if (entry->get_id() == tonlib_api::tvm_stackEntrySlice::ID) {
-    auto& entry_slice = dynamic_cast<tonlib_api::tvm_stackEntrySlice&>(*entry);
+    const auto& entry_slice = static_cast<const tonlib_api::tvm_stackEntrySlice&>(*entry);
+    if (!entry_slice.slice_) {
+      return td::Status::Error(500, "null tvm.Slice where address was expected");
+    }
     data = entry_slice.slice_->bytes_;
   } else {
     return td::Status::Error(500, "stackEntryCell or stackEntrySlice expected");
@@ -226,10 +244,41 @@ td::Result<std::string> ton_http::utils::address_from_tvm_stack_entry(
 td::Result<std::string> ton_http::utils::number_from_tvm_stack_entry(
   const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
 ) {
+  if (!entry) {
+    return td::Status::Error(500, "null TVM stack entry where number was expected");
+  }
   if (entry->get_id() != tonlib_api::tvm_stackEntryNumber::ID) {
     return td::Status::Error(500, "stackEntryNumber expected");
   }
-  return dynamic_cast<const tonlib_api::tvm_stackEntryNumber&>(*entry).number_->number_;
+  const auto& number_entry = static_cast<const tonlib_api::tvm_stackEntryNumber&>(*entry);
+  if (!number_entry.number_) {
+    return td::Status::Error(500, "null tvm.numberDecimal where number was expected");
+  }
+  return number_entry.number_->number_;
+}
+
+td::Result<bool> ton_http::utils::boolean_from_tvm_stack_entry(
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
+) {
+  TRY_RESULT(number, number_from_tvm_stack_entry(entry));
+  TRY_RESULT(value, td::to_integer_safe<std::int32_t>(number));
+  return value != 0;
+}
+
+td::Result<std::string> ton_http::utils::cell_bytes_from_tvm_stack_entry(
+  const tonlib_api::object_ptr<tonlib_api::tvm_StackEntry>& entry
+) {
+  if (!entry) {
+    return td::Status::Error(500, "null TVM stack entry where cell was expected");
+  }
+  if (entry->get_id() != tonlib_api::tvm_stackEntryCell::ID) {
+    return td::Status::Error(500, "stackEntryCell expected");
+  }
+  const auto& cell_entry = static_cast<const tonlib_api::tvm_stackEntryCell&>(*entry);
+  if (!cell_entry.cell_) {
+    return td::Status::Error(500, "null tvm.Cell where cell was expected");
+  }
+  return cell_entry.cell_->bytes_;
 }
 
 

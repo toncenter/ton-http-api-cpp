@@ -1,7 +1,13 @@
 #include "ton_hash_hex.hpp"
 
+#include <cstddef>
+
 #include "td/utils/base64.h"
 #include "td/utils/misc.h"
+
+namespace {
+constexpr std::size_t kTonHashSize = 32;
+}
 
 
 ton_http::types::ton_hash_hex
@@ -11,18 +17,18 @@ userver::chaotic::convert::Convert(const std::string& str, chaotic::convert::To<
   }
 
   if (str.length() == 44) {
-    if (auto res = td::base64_decode(str); res.is_ok()) {
+    if (auto res = td::base64_decode(str); res.is_ok() && res.ok().size() == kTonHashSize) {
       return ton_http::types::ton_hash_hex{res.move_as_ok()};
     }
-    if (auto res = td::base64url_decode(str); res.is_ok()) {
+    if (auto res = td::base64url_decode(str); res.is_ok() && res.ok().size() == kTonHashSize) {
       return ton_http::types::ton_hash_hex{res.move_as_ok()};
     }
   } else if (str.length() == 43) {
-    if (auto res = td::base64url_decode(str); res.is_ok()) {
+    if (auto res = td::base64url_decode(str); res.is_ok() && res.ok().size() == kTonHashSize) {
       return ton_http::types::ton_hash_hex{res.move_as_ok()};
     }
   } else if (str.length() == 64) {
-    if (auto res = td::hex_decode(str); res.is_ok()) {
+    if (auto res = td::hex_decode(str); res.is_ok() && res.ok().size() == kTonHashSize) {
       return ton_http::types::ton_hash_hex{res.move_as_ok()};
     }
   }

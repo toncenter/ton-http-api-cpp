@@ -1,7 +1,5 @@
 #include "GetLibrariesHandler.h"
 
-#include <boost/lexical_cast.hpp>
-
 #include "converters/convert.hpp"
 
 ton_http::handlers::GetLibrariesHandler::GetLibrariesHandler(
@@ -37,10 +35,11 @@ td::Status ton_http::handlers::GetLibrariesHandler::ValidateRequest(const schema
 td::Result<ton_http::schemas::v2::LibraryResult> ton_http::handlers::GetLibrariesHandler::HandleRequestTonlibThrow(
   schemas::v2::LibrariesRequest& request, multiclient::SessionPtr& session
 ) const {
-  std::vector<std::string> libraries;
+  std::vector<td::Bits256> libraries;
   if (request.libraries.has_value()) {
     for (const auto& lib : request.libraries.value()) {
-      libraries.emplace_back(lib.GetUnderlying());
+      TRY_RESULT(library_hash, converters::Convert(lib));
+      libraries.emplace_back(std::move(library_hash));
     }
   }
   TRY_RESULT(result, tonlib_component_.DoRequest(&core::TonlibWorker::getLibraries, libraries, session));
