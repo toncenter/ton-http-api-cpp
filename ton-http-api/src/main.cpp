@@ -20,6 +20,7 @@
 #include "handlers/accounts/GetShardAccountCellHandler.h"
 #include "handlers/accounts/GetTokenDataHandler.h"
 #include "handlers/accounts/GetWalletInformationHandler.h"
+#include "handlers/blocks/GetBlockHandler.h"
 #include "handlers/blocks/GetBlockHeaderHandler.h"
 #include "handlers/blocks/GetConsensusBlockHandler.h"
 #include "handlers/blocks/GetMasterchainBlockSignaturesHandler.h"
@@ -96,6 +97,7 @@ int main(int argc, char* argv[]) {
   component_list.Append<ton_http::handlers::LookupBlockHandler>();
   component_list.Append<ton_http::handlers::GetShardsHandler>();
   component_list.Append<ton_http::handlers::GetShardsHandler>("handler-Shards");
+  component_list.Append<ton_http::handlers::GetBlockHandler>();
   component_list.Append<ton_http::handlers::GetBlockHeaderHandler>();
   component_list.Append<ton_http::handlers::GetOutMsgQueueSizeHandler>();
 

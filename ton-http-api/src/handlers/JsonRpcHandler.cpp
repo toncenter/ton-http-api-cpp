@@ -12,7 +12,7 @@
 namespace ton_http::handlers {
 namespace {
 
-constexpr std::array<std::string_view, 37> kAllowedMethods = {
+constexpr std::array<std::string_view, 38> kAllowedMethods = {
   "detectAddress",
   "detectHash",
   "packAddress",
@@ -32,6 +32,7 @@ constexpr std::array<std::string_view, 37> kAllowedMethods = {
   "lookupBlock",
   "getShards",
   "shards",
+  "getBlock",
   "getBlockHeader",
   "getOutMsgQueueSize",
   "getBlockTransactions",

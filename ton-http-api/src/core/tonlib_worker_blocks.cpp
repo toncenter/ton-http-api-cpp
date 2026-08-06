@@ -168,6 +168,36 @@ td::Result<tonlib_api::blocks_getBlockHeader::ReturnType> TonlibWorker::getBlock
   };
   return send_request_function(std::move(request), true);
 }
+td::Result<tonlib_api::blocks_getBlock::ReturnType> TonlibWorker::getBlock(
+  const std::int32_t& workchain,
+  const std::int64_t& shard,
+  const std::int32_t& seqno,
+  const std::string& root_hash,
+  const std::string& file_hash,
+  multiclient::SessionPtr session
+) const {
+  tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
+  if (!root_hash.empty() && !file_hash.empty()) {
+    blk_id = tonlib_api::make_object<tonlib_api::ton_blockIdExt>(workchain, shard, seqno, root_hash, file_hash);
+  } else {
+    TRY_RESULT_ASSIGN(blk_id, lookupBlock(workchain, shard, seqno, std::nullopt, std::nullopt, session));
+  }
+  auto request = multiclient::RequestFunction<tonlib_api::blocks_getBlock>{
+    .parameters = {.mode = multiclient::RequestMode::Single},
+    .request_creator =
+      [w = blk_id->workchain_,
+       s = blk_id->shard_,
+       ss = blk_id->seqno_,
+       r = blk_id->root_hash_,
+       f = blk_id->file_hash_] {
+        return tonlib_api::make_object<tonlib_api::blocks_getBlock>(
+          tonlib_api::make_object<tonlib_api::ton_blockIdExt>(w, s, ss, r, f)
+        );
+      },
+    .session = session
+  };
+  return send_request_function(std::move(request), true);
+}
 td::Result<tonlib_api::blocks_getOutMsgQueueSizes::ReturnType> TonlibWorker::getOutMsgQueueSizes(
   multiclient::SessionPtr session
 ) const {
