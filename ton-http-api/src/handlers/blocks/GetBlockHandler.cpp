@@ -3,6 +3,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include "converters/convert.hpp"
+#include "utils/common.hpp"
 
 ton_http::handlers::GetBlockHandler::GetBlockHandler(
   const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
@@ -47,6 +48,13 @@ ton_http::schemas::v2::BlockDataRequest ton_http::handlers::GetBlockHandler::Par
       throw utils::TonlibException("failed to parse file_hash", 422);
     }
   }
+  if (request.HasArg("archival")) {
+    try {
+      req.archival = utils::stringToBool(request.GetArg("archival"));
+    } catch (std::exception& exc) {
+      throw utils::TonlibException("failed to parse archival", 422);
+    }
+  }
   return req;
 }
 td::Status ton_http::handlers::GetBlockHandler::ValidateRequest(
@@ -71,6 +79,7 @@ td::Result<ton_http::schemas::v2::BlockData> ton_http::handlers::GetBlockHandler
       request.seqno,
       root_hash,
       file_hash,
+      request.archival,
       session
     )
   );

@@ -911,6 +911,7 @@ paths:
         - $ref: '#/components/parameters/seqno'
         - $ref: '#/components/parameters/rootHashOptional'
         - $ref: '#/components/parameters/fileHashOptional'
+        - $ref: '#/components/parameters/archivalOptional'
       responses:
         200:
           description: OK
@@ -2092,6 +2093,13 @@ components:
           $ref: '#/components/schemas/TonHash'
         file_hash:
           $ref: '#/components/schemas/TonHash'
+        archival:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+            - type: boolean
+          x-usrv-cpp-type: 'bool'
     BlockHeaderRequest:
       type: object
       additionalProperties: false
