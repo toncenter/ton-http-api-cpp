@@ -7,7 +7,7 @@ td::Result<tonlib_api::raw_sendMessage::ReturnType> TonlibWorker::raw_sendMessag
   const std::string& boc, multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::raw_sendMessage>{
-    .parameters = {.mode = multiclient::RequestMode::Multiple, .clients_number = 5},
+    .parameters = {.mode = multiclient::RequestMode::Multiple, .clients_number = 1},
     .request_creator = [boc]() { return tonlib_api::make_object<tonlib_api::raw_sendMessage>(boc); },
     .session = session
   };
@@ -18,7 +18,7 @@ td::Result<tonlib_api::raw_sendMessageReturnHash::ReturnType> TonlibWorker::raw_
   const std::string& boc, multiclient::SessionPtr session
 ) const {
   auto request = multiclient::RequestFunction<tonlib_api::raw_sendMessageReturnHash>{
-    .parameters = {.mode = multiclient::RequestMode::Multiple, .clients_number = 5},
+    .parameters = {.mode = multiclient::RequestMode::Multiple, .clients_number = 1},
     .request_creator =
       [boc]() { return tonlib_api::make_object<tonlib_api::raw_sendMessageReturnHash>(boc); },
     .session = session
