@@ -3859,6 +3859,7 @@ components:
             - wallet v4 r2
             - wallet v5 beta
             - wallet v5 r1
+            - tg-wallet
         seqno:
           type: integer
           format: int64

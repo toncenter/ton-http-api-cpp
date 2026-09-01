@@ -185,6 +185,18 @@ def test_wallet_v5_r1(api_method_call):
     return
 
 
+def test_wallet_tg(api_method_call):
+    response = api_method_call('getWalletInformation', address='0:DDB14811BD367878AEE11B8612EC0D24C2D6C592EB0B86EA58472CAA608711A9')
+    assert response.status_code == 200, response.json()['error']
+    data = response.json()
+    assert data['ok'] == True
+    assert data['result']['wallet'] == True
+    assert data['result']['wallet_type'] == 'tg-wallet'
+    assert 'seqno' in data['result']
+    assert 'wallet_id' in data['result']
+    return
+
+
 HIGHLOAD_WALLETS = [
     '0:00D11D36E64E5181229D7E18256C5731700BBD383BBCE6876A6346F2A6DED643',
     '0:1B85D5623E2720758476662D461A312475159C32395F27D00C0D5C00F6EC6C57',

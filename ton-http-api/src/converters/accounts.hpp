@@ -77,6 +77,17 @@ inline void DecodeWalletV5Data(schemas::v2::WalletInformation& value, const td::
   value.wallet = true;
 }
 
+// Telegram wallet (https://github.com/ton-blockchain/tg-wallet-contract) storage is revision
+// prefixed: revision(8), seqno(32), subwallet_id(32), public_key(256). New contract revisions may
+// only append fields to the end, so this prefix stays valid.
+inline void DecodeWalletTgData(schemas::v2::WalletInformation& value, const td::Ref<vm::Cell>& data) {
+  auto cs = vm::CellSlice{vm::NoVm{}, data};
+  cs.advance(8);  // storage revision
+  value.seqno = cs.fetch_long(32);
+  value.wallet_id = cs.fetch_long(32);
+  value.wallet = true;
+}
+
 template <>
 inline schemas::v2::WalletInformation Convert<schemas::v2::WalletInformation>(
   const tonlib_api::raw_getAccountState::ReturnType& value
@@ -135,6 +146,11 @@ inline schemas::v2::WalletInformation Convert<schemas::v2::WalletInformation>(
         } else if (code_hash_b64 == "IINLe3KxEhR+Gy+0V7hOdNGjDwT3N9T2KmaOlVLSty8=") {
           result.wallet_type = schemas::v2::WalletInformation::Wallet_Type::kWalletV5R1;
           DecodeWalletV5Data(result, data);
+        } else if (code_hash_b64 == "kUmuUcHkaJcQzr94MCl7Fqz7rbNjqSClN4k+f/7sp2g=") {
+          // an immutable stub jumping to the code stored in config[-123], so the code hash is
+          // the same for every revision of the Telegram wallet
+          result.wallet_type = schemas::v2::WalletInformation::Wallet_Type::kTgWallet;
+          DecodeWalletTgData(result, data);
         }
       }
     }
