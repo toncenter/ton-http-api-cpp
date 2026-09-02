@@ -109,6 +109,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/handlers/blocks/GetConsensusBlockHandler.cpp
         src/handlers/blocks/LookupBlockHandler.cpp
         src/handlers/blocks/GetShardsHandler.cpp
+        src/handlers/blocks/GetBlockHandler.cpp
         src/handlers/blocks/GetBlockHeaderHandler.cpp
         src/handlers/blocks/GetOutMsgQueueSizeHandler.cpp
         src/handlers/transactions/GetBlockTransactionsHandler.cpp

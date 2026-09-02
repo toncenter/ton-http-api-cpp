@@ -898,6 +898,56 @@ paths:
       security:
         - APIKeyHeader: [ ]
         - APIKeyQuery: [ ]
+  /api/v2/getBlock:
+    get:
+      tags:
+        - blocks
+      summary: Get Block
+      description: Get raw block data as a base64-encoded BOC
+      operationId: getBlock_get
+      parameters:
+        - $ref: '#/components/parameters/workchain'
+        - $ref: '#/components/parameters/shard'
+        - $ref: '#/components/parameters/seqno'
+        - $ref: '#/components/parameters/rootHashOptional'
+        - $ref: '#/components/parameters/fileHashOptional'
+        - $ref: '#/components/parameters/archivalOptional'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
+    post:
+      tags:
+        - rpc
+      summary: Get Block
+      description: Get raw block data as a base64-encoded BOC
+      operationId: getBlock_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockDataRequest'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TonlibResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+        - APIKeyHeader: [ ]
+        - APIKeyQuery: [ ]
   /api/v2/getBlockHeader:
     get:
       tags:
@@ -2012,6 +2062,44 @@ components:
           x-usrv-cpp-type: 'std::int32_t'
     ShardsRequest:
       $ref: '#/components/schemas/SeqnoRequest'
+    BlockDataRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - workchain
+        - shard
+        - seqno
+      properties:
+        workchain:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
+        shard:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int64
+              x-usrv-cpp-type: 'std::int64_t'
+          x-usrv-cpp-type: 'std::int64_t'
+        seqno:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+          x-usrv-cpp-type: 'std::int32_t'
+        root_hash:
+          $ref: '#/components/schemas/TonHash'
+        file_hash:
+          $ref: '#/components/schemas/TonHash'
+        archival:
+          oneOf:
+            - type: string
+            - type: integer
+              format: int32
+            - type: boolean
+          x-usrv-cpp-type: 'bool'
     BlockHeaderRequest:
       type: object
       additionalProperties: false
@@ -3553,6 +3641,7 @@ components:
         - $ref: '#/components/schemas/ConsensusBlock'
         - $ref: '#/components/schemas/TonBlockIdExt'
         - $ref: '#/components/schemas/Shards'
+        - $ref: '#/components/schemas/BlockData'
         - $ref: '#/components/schemas/BlockHeader'
         - $ref: '#/components/schemas/OutMsgQueueSizes'
         - $ref: '#/components/schemas/BlockTransactions'
@@ -3587,6 +3676,7 @@ components:
           'ext.blocks.consensusBlock': '#/components/schemas/ConsensusBlock'
           'ton.blockIdExt': '#/components/schemas/TonBlockIdExt'
           'blocks.shards': '#/components/schemas/Shards'
+          'blocks.blockData': '#/components/schemas/BlockData'
           'blocks.header': '#/components/schemas/BlockHeader'
           'blocks.outMsgQueueSizes': '#/components/schemas/OutMsgQueueSizes'
           'blocks.transactions': '#/components/schemas/BlockTransactions'
@@ -4019,6 +4109,26 @@ components:
       required:
         - '@type'
         - shards
+    BlockData:
+      type: object
+      additionalProperties: false
+      description: Raw block data returned by a LiteServer.
+      properties:
+        '@type':
+          type: string
+          enum:
+            - blocks.blockData
+          default: blocks.blockData
+        id:
+          $ref: '#/components/schemas/TonBlockIdExt'
+          description: Extended identifier of the returned block.
+        data:
+          $ref: '#/components/schemas/Bytes'
+          description: Full block BOC encoded as base64.
+      required:
+        - '@type'
+        - id
+        - data
     BlockHeader:
       type: object
       additionalProperties: true

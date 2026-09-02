@@ -248,6 +248,13 @@ components_manager:
       cache_size: 1024
       cache_ways: 16
       cache_ttl: 300s
+    handler-GetBlock:
+      path: /api/v2/getBlock
+      method: GET,POST
+      cache_enabled: true
+      cache_size: 1024
+      cache_ways: 16
+      cache_ttl: 300s
     handler-GetBlockHeader:
       path: /api/v2/getBlockHeader
       method: GET,POST

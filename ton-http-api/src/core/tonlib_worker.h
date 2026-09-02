@@ -89,6 +89,15 @@ public:
     const std::string& file_hash = "",
     multiclient::SessionPtr session = nullptr
   ) const;
+  [[nodiscard]] td::Result<tonlib_api::blocks_getBlock::ReturnType> getBlock(
+    const std::int32_t& workchain,
+    const std::int64_t& shard,
+    const std::int32_t& seqno,
+    const std::string& root_hash = "",
+    const std::string& file_hash = "",
+    std::optional<bool> archival = std::nullopt,
+    multiclient::SessionPtr session = nullptr
+  ) const;
   [[nodiscard]] td::Result<tonlib_api::blocks_getOutMsgQueueSizes::ReturnType> getOutMsgQueueSizes(
     multiclient::SessionPtr session = nullptr
   ) const;

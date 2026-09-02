@@ -124,6 +124,13 @@ inline schemas::v2::BlockHeader Convert(const tonlib_api::blocks_getBlockHeader:
   return result;
 }
 
+inline schemas::v2::BlockData Convert(const tonlib_api::blocks_getBlock::ReturnType& value) {
+  schemas::v2::BlockData result;
+  result.id = Convert(value->id_);
+  result.data = types::bytes{value->data_};
+  return result;
+}
+
 inline schemas::v2::OutMsgQueueSize Convert(const tonlib_api::object_ptr<tonlib_api::blocks_outMsgQueueSize>& value) {
   schemas::v2::OutMsgQueueSize result;
   result.id = Convert(value->id_);
