@@ -28,7 +28,6 @@ ENV BUILD_TON_PLAYGROUND=0
 ENV USERVER_FEATURE_STACK_USAGE_MONITOR=0
 
 COPY examples/ /app/examples/
-COPY py/ /app/py/
 COPY tonlib-multiclient/ /app/tonlib-multiclient/
 COPY ton-http-api/ /app/ton-http-api/
 COPY playground/ /app/playground/
