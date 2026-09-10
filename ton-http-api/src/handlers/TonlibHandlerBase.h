@@ -4,7 +4,6 @@
 #include <string>
 #include <string_view>
 
-#include "schemas/v2_fwd.hpp"
 #include "userver/formats/json/value.hpp"
 #include "userver/logging/fwd.hpp"
 #include "userver/logging/level.hpp"
@@ -24,6 +23,8 @@ class TonlibException;
 }
 
 namespace ton_http::handlers {
+
+class SerializedResult;
 
 class TonlibHandlerBase : public userver::server::handlers::HttpHandlerBase {
 public:
@@ -46,13 +47,13 @@ protected:
   userver::formats::json::Value MakeErrorResponse(
     const HttpRequest& request, RequestContext& context, const utils::TonlibException& exc
   ) const;
-  userver::formats::json::Value MakeSuccessResponse(
-    const HttpRequest& request, RequestContext& context, schemas::v2::TonlibResponse& response, bool is_cached
+  std::string MakeSuccessResponse(
+    const HttpRequest& request, RequestContext& context, const SerializedResult& result, bool is_cached
   ) const;
   void LogJsonResponse(
     const HttpRequest& request,
     userver::utils::function_ref<userver::formats::json::Value()> make_parsed_request,
-    const userver::formats::json::Value& response,
+    std::string_view response,
     userver::logging::Level level
   ) const;
 

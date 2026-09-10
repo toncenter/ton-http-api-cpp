@@ -27,7 +27,7 @@ components_manager:
         port: $server_port
         port#fallback: 8081
         connection:
-          in_buffer_size: 1048576
+          in_buffer_size: 65536
           requests_queue_size_threshold: 16384
         task_processor: main-task-processor
         handler-defaults:

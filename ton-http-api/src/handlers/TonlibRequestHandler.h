@@ -1,12 +1,11 @@
 #pragma once
 
+#include <memory>
 #include <optional>
 #include <string>
-#include <type_traits>
-#include <variant>
-#include <vector>
 
 #include "RequestCache.h"
+#include "SerializedResult.h"
 #include "TonlibHandlerBase.h"
 #include "components/TonlibComponent.h"
 #include "schemas/v2.hpp"
@@ -14,37 +13,13 @@
 #include "utils/exceptions.hpp"
 
 namespace ton_http::handlers {
-namespace detail {
-
-// check std::variant
-template <class>
-struct is_variant : std::false_type {};
-template <class... Ts>
-struct is_variant<std::variant<Ts...>> : std::true_type {};
-template <class T>
-inline constexpr bool is_variant_v = is_variant<std::remove_cvref_t<T>>::value;
-template <class T>
-concept VariantLike = is_variant_v<T>;
-
-// check std::vector
-template <class>
-struct is_vector : std::false_type {};
-template <class T>
-struct is_vector<std::vector<T>> : std::true_type {};
-template <class T>
-inline constexpr bool is_vector_v = is_vector<std::remove_cvref_t<T>>::value;
-template <class T>
-concept VectorLike = is_vector_v<T>;
-
-}  // namespace detail
-
 template <typename Request, typename Response>
 class TonlibRequestHandler : public TonlibHandlerBase {
 public:
-  using CacheKey = typename RequestCache<Request, Response>::Key;
-  using Hash = typename RequestCache<Request, Response>::Hash;
-  using Equal = typename RequestCache<Request, Response>::Equal;
-  using Cache = typename RequestCache<Request, Response>::Cache;
+  using CacheKey = typename RequestCache<Request, SerializedResultPtr>::Key;
+  using Hash = typename RequestCache<Request, SerializedResultPtr>::Hash;
+  using Equal = typename RequestCache<Request, SerializedResultPtr>::Equal;
+  using Cache = typename RequestCache<Request, SerializedResultPtr>::Cache;
 
   explicit TonlibRequestHandler(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
@@ -82,41 +57,28 @@ public:
   std::string ReturnErrorResponse(
     const HttpRequest& request, RequestContext& context, const utils::TonlibException& exc, bool is_malformed
   ) const {
-    auto response_body = MakeErrorResponse(request, context, exc);
+    auto response_body = ToString(MakeErrorResponse(request, context, exc));
 
     if (!is_malformed) {
       LogResponse<userver::logging::Level::kWarning>(request, context, response_body);
     }
-    return ToString(response_body);
+    return response_body;
   }
 
   std::string ReturnTonlibResponse(
-    const HttpRequest& request, RequestContext& context, Response& tonlib_response, bool is_cached
+    const HttpRequest& request, RequestContext& context, const SerializedResult& result, bool is_cached
   ) const {
-    schemas::v2::TonlibResponse response;
-    if constexpr (detail::VariantLike<Response>) {
-      std::visit([&]<typename T0>(T0&& val) { response.result = std::forward<T0>(val); }, tonlib_response);
-    } else if constexpr (detail::VectorLike<Response>) {
-      std::vector<schemas::v2::TonlibObject> result_vector;
-      for (const auto& item : tonlib_response) {
-        result_vector.emplace_back(item);
-      }
-      response.result = result_vector;
-    } else {
-      response.result = tonlib_response;
-    }
-
-    auto response_body = MakeSuccessResponse(request, context, response, is_cached);
+    auto response_body = MakeSuccessResponse(request, context, result, is_cached);
 
     LogResponse(request, context, response_body);
-    return ToString(response_body);
+    return response_body;
   }
 
-  std::optional<Response> TryGetCachedResponse(const std::optional<CacheKey>& key) const {
+  std::optional<SerializedResultPtr> TryGetCachedResponse(const std::optional<CacheKey>& key) const {
     return cache_.Get(key);
   }
 
-  void CacheResponse(const std::optional<CacheKey>& key, const Response& response) const {
+  void CacheResponse(const std::optional<CacheKey>& key, const SerializedResultPtr& response) const {
     cache_.Put(key, response);
   }
 
@@ -152,7 +114,7 @@ public:
     // Keep the same request snapshot for lookup and insertion across the Tonlib wait.
     const auto cache_key = cache_.PrepareKey(tonlib_request);
     if (auto tonlib_cached_response = TryGetCachedResponse(cache_key); tonlib_cached_response.has_value()) {
-      return ReturnTonlibResponse(request, context, tonlib_cached_response.value(), true);
+      return ReturnTonlibResponse(request, context, *tonlib_cached_response.value(), true);
     }
 
     auto tonlib_response = HandleRequestTonlibThrow(tonlib_request, session);
@@ -165,13 +127,18 @@ public:
 
     auto tonlib_result = tonlib_response.move_as_ok();
 
-    CacheResponse(cache_key, tonlib_result);
-    return ReturnTonlibResponse(request, context, tonlib_result, false);
+    if (!cache_key) {
+      return ReturnTonlibResponse(request, context, SerializedResult{tonlib_result}, false);
+    }
+
+    const auto serialized_result = std::make_shared<const SerializedResult>(tonlib_result);
+    CacheResponse(cache_key, serialized_result);
+    return ReturnTonlibResponse(request, context, *serialized_result, false);
   }
 
   template <userver::logging::Level level = userver::logging::Level::kInfo>
   void LogResponse(
-    const HttpRequest& request, RequestContext& context, const userver::formats::json::Value& response
+    const HttpRequest& request, RequestContext& context, std::string_view response
   ) const {
     LogJsonResponse(
       request,
@@ -185,7 +152,7 @@ public:
   }
 
 private:
-  RequestCache<Request, Response> cache_;
+  RequestCache<Request, SerializedResultPtr> cache_;
 };
 
 }  // namespace ton_http::handlers

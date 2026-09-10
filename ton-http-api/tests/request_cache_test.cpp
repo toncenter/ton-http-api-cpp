@@ -1,4 +1,5 @@
 #include <chrono>
+#include <future>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -12,6 +13,7 @@
 #include <userver/yaml_config/merge_schemas.hpp>
 
 #include "handlers/RequestCache.h"
+#include "handlers/SerializedResult.h"
 #include "schemas/v2.hpp"
 
 namespace cache_key_test {
@@ -168,6 +170,157 @@ void CheckStructuralHash() {
   Check(StructuralHash(first) == StructuralHash(second), "box hashed by address");
 }
 
+
+template <typename Response>
+std::string OldResponseBody(const Response& result, const std::string& extra) {
+  schemas::TonlibResponse response;
+  if constexpr (ton_http::handlers::detail::kIsInstantiation<Response, std::variant>) {
+    std::visit([&](const auto& item) { response.result = item; }, result);
+  } else if constexpr (ton_http::handlers::detail::kIsInstantiation<Response, std::vector>) {
+    std::vector<schemas::TonlibObject> items;
+    for (const auto& item : result)
+      items.emplace_back(item);
+    response.result = items;
+  } else {
+    response.result = result;
+  }
+  response._extra = extra;
+  return ToString(json::ValueBuilder{response}.ExtractValue());
+}
+
+template <typename Response>
+void CheckResponseBody(const Response& result) {
+  const ton_http::handlers::SerializedResult serialized{result};
+  for (const std::string extra : {"request:123:1.5", "request:_:2:c", "quote\"\\\n\t"}) {
+    Check(serialized.MakeSuccessBody(extra) == OldResponseBody(result, extra), "response JSON changed");
+  }
+}
+
+template <std::size_t... Indices>
+void CheckAllResponseVariants(std::index_sequence<Indices...>) {
+  (CheckResponseBody(schemas::TonlibObject{std::in_place_index<Indices>}), ...);
+}
+
+void CheckResponseCompatibility() {
+  CheckResponseBody(std::string{"quotes\"\\\n\t"});
+  CheckResponseBody(std::string{"a\0b", 3});
+  CheckResponseBody(std::string{"</script> Привет"});
+  CheckResponseBody(schemas::AccountStateEnum{});
+  CheckAllResponseVariants(std::make_index_sequence<std::variant_size_v<schemas::TonlibObject>>{});
+  CheckResponseBody(schemas::Transactions{});
+  CheckResponseBody(schemas::Transactions(2));
+  CheckResponseBody(schemas::SendBocResult{std::in_place_index<0>});
+  CheckResponseBody(schemas::SendBocResult{std::in_place_index<1>});
+  auto result = json::FromString(R"({
+    "@type":"smc.runResult", "gas_used":123, "exit_code":0,
+    "stack":[
+      {"@type":"tvm.stackEntryTuple","tuple":{"@type":"tvm.tuple","elements":[
+        {"@type":"tvm.stackEntryList","list":{"@type":"tvm.list","elements":[
+          {"@type":"tvm.stackEntryNumber","number":{"@type":"tvm.numberDecimal","number":"12345678901234567890"}},
+          {"@type":"tvm.stackEntryCell","cell":{"@type":"tvm.cell","bytes":"AAECAw=="}}
+        ]}}
+      ]}}
+    ]
+  })")
+                  .As<schemas::RunGetMethodStdResult>();
+  CheckResponseBody(result);
+}
+
+struct CountedResponse {
+  explicit CountedResponse(std::string data) : value(std::move(data)) {
+  }
+  CountedResponse(const CountedResponse&) = delete;
+  CountedResponse& operator=(const CountedResponse&) = delete;
+  std::string value;
+  static inline int serializations = 0;
+  static inline bool fail = false;
+};
+
+json::Value Serialize(const CountedResponse& response, userver::formats::serialize::To<json::Value>) {
+  ++CountedResponse::serializations;
+  if (CountedResponse::fail)
+    throw std::runtime_error("result serializer failure");
+  return json::ValueBuilder{response.value}.ExtractValue();
+}
+
+void CheckSerializedCache(
+  const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
+) {
+  using ton_http::handlers::SerializedResult;
+  using ton_http::handlers::SerializedResultPtr;
+  using ResultCache = ton_http::handlers::RequestCache<schemas::SeqnoRequest, SerializedResultPtr>;
+  CountedResponse::serializations = 0;
+  CountedResponse response{"payload\"\\\n"};
+  SerializedResultPtr held;
+  {
+    ResultCache cache{config, context};
+    const auto key = cache.PrepareKey(schemas::SeqnoRequest{1});
+    Check(!cache.Get(key), "empty result cache returned a response");
+    if (!key) {
+      const SerializedResult result{response};
+      Check(
+        json::FromString(result.MakeSuccessBody("uncached"))["result"].As<std::string>() == response.value,
+        "uncached serialization changed the result"
+      );
+      cache.Put(key, std::make_shared<const SerializedResult>(0));
+      Check(!cache.Get(key), "disabled result cache stored an entry");
+      Check(CountedResponse::serializations == 1, "uncached result serialized more than once");
+      return;
+    }
+
+    const auto failed_key = cache.PrepareKey(schemas::SeqnoRequest{2});
+    CountedResponse::fail = true;
+    bool failed = false;
+    try {
+      cache.Put(failed_key, std::make_shared<const SerializedResult>(response));
+    } catch (const std::runtime_error&) {
+      failed = true;
+    }
+    CountedResponse::fail = false;
+    Check(failed && !cache.Get(failed_key), "failed serialization inserted a cache entry");
+    CountedResponse::serializations = 0;
+
+    auto payload = std::make_shared<const SerializedResult>(response);
+    cache.Put(key, payload);
+    for (int i = 0; i < 10; ++i) {
+      const auto hit = cache.Get(key);
+      Check(hit.has_value() && *hit == payload, "cache copied the serialized payload");
+      const auto extra = std::to_string(i) + ":c";
+      auto body = json::FromString((*hit)->MakeSuccessBody(extra));
+      Check(body["@extra"].As<std::string>() == extra, "cached request metadata reused");
+      Check(body["result"].As<std::string>() == response.value, "cached result changed");
+    }
+    Check(CountedResponse::serializations == 1, "cache hits serialized the result again");
+
+    held = *cache.Get(key);
+    payload.reset();
+    const auto replacement = std::make_shared<const SerializedResult>(0);
+    for (int i = 3; i < 24; ++i)
+      cache.Put(cache.PrepareKey(schemas::SeqnoRequest{i}), replacement);
+    Check(!cache.Get(key), "expected result eviction did not occur");
+    Check(
+      json::FromString(held->MakeSuccessBody("evicted"))["result"].As<std::string>() == response.value,
+      "eviction invalidated an active response"
+    );
+
+    cache.Put(key, held);
+    userver::engine::SleepFor(200ms);
+    Check(!cache.Get(key), "serialized result did not expire");
+    Check(CountedResponse::serializations == 1, "expiry serialized the result");
+  }
+  // Active responses own their payload even after the cache has been destroyed.
+  std::vector<std::future<std::string>> readers;
+  for (int i = 0; i < 8; ++i) {
+    readers.push_back(std::async(std::launch::async, [held, i] { return held->MakeSuccessBody(std::to_string(i)); }));
+  }
+  for (int i = 0; i < 8; ++i) {
+    const auto body = json::FromString(readers[i].get());
+    Check(body["@extra"].As<std::string>() == std::to_string(i), "concurrent metadata mixed between requests");
+    Check(body["result"].As<std::string>() == response.value, "concurrent result corrupted");
+  }
+  Check(CountedResponse::serializations == 1, "concurrent readers serialized the result");
+}
+
 class CacheTestComponent final : public userver::components::ComponentBase {
 public:
   static userver::yaml_config::Schema GetStaticConfigSchema() {
@@ -195,6 +348,7 @@ properties:
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
   ) :
       ComponentBase(config, context) {
+    CheckSerializedCache(config, context);
     TestCache cache{config, context};
     auto& serializations = CountedRequest::serializations;
     serializations = 0;
@@ -237,6 +391,7 @@ properties:
     CheckCollisions();
     CheckSchemaKeys();
     CheckStructuralHash();
+    CheckResponseCompatibility();
   }
 };
 
