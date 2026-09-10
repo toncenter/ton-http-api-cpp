@@ -16,7 +16,9 @@ paths:
       tags:
         - rpc
       summary: JSON-RPC endpoint
-      description: Endpoint for JSON-RPC requests
+      description: >-
+        All API methods are available through this single endpoint. Send the method name in the
+        `method` field and parameters as a dictionary in `params`.
       operationId: jsonRPC_post
       requestBody:
         content:
@@ -26,7 +28,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the result of the specified JSON-RPC method call.
           content:
             application/json:
               schema:
@@ -41,13 +44,18 @@ paths:
       tags:
         - utils
       summary: Detect address
-      description: Get all possible address forms
+      description: >-
+        Validates an address and returns it in all standard formats. Use this to convert between
+        address formats or to validate user input. Returns raw format (0:abc), base64 bounceable
+        (EQ), base64 non-bounceable (UQ), and URL-safe variants.
       operationId: detectAddress_get
       parameters:
         - $ref: '#/components/parameters/address'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the address in all supported formats (raw, bounceable, non-bounceable) with
+            base64 and URL-safe variants.
           content:
             application/json:
               schema:
@@ -61,7 +69,10 @@ paths:
       tags:
         - rpc
       summary: Detect address
-      description: Get all possible address forms
+      description: >-
+        Validates an address and returns it in all standard formats. Use this to convert between
+        address formats or to validate user input. Returns raw format (0:abc), base64 bounceable
+        (EQ), base64 non-bounceable (UQ), and URL-safe variants.
       operationId: detectAddress_post
       requestBody:
         content:
@@ -71,7 +82,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the address in all supported formats (raw, bounceable, non-bounceable) with
+            base64 and URL-safe variants.
           content:
             application/json:
               schema:
@@ -86,13 +99,17 @@ paths:
       tags:
         - utils
       summary: Detect hash
-      description: Get all possible hash forms
+      description: >-
+        Validates a hash and returns it in all standard formats. Use this to convert between hex (64
+        chars) and base64 (44 chars) representations. Works with any 256-bit hash including
+        transaction hashes, block hashes, and message hashes.
       operationId: detectHash_get
       parameters:
         - $ref: '#/components/parameters/hash'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the hash in all supported formats (hex, base64, URL-safe base64).
           content:
             application/json:
               schema:
@@ -106,7 +123,10 @@ paths:
       tags:
         - rpc
       summary: Detect hash
-      description: Get all possible hash forms
+      description: >-
+        Validates a hash and returns it in all standard formats. Use this to convert between hex (64
+        chars) and base64 (44 chars) representations. Works with any 256-bit hash including
+        transaction hashes, block hashes, and message hashes.
       operationId: detectHash_post
       requestBody:
         content:
@@ -116,7 +136,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the hash in all supported formats (hex, base64, URL-safe base64).
           content:
             application/json:
               schema:
@@ -131,13 +152,17 @@ paths:
       tags:
         - utils
       summary: Pack address
-      description: Pack address to base64 form
+      description: >-
+        Converts a raw address to user-friendly base64 format. Raw addresses use the format
+        `workchain:hex` (e.g., `0:abc...`). The packed format is shorter and includes a checksum for
+        error detection.
       operationId: packAddress_get
       parameters:
         - $ref: '#/components/parameters/address'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the address converted to user-friendly (base64) format.
           content:
             application/json:
               schema:
@@ -151,7 +176,10 @@ paths:
       tags:
         - rpc
       summary: Pack address
-      description: Pack address to base64 form
+      description: >-
+        Converts a raw address to user-friendly base64 format. Raw addresses use the format
+        `workchain:hex` (e.g., `0:abc...`). The packed format is shorter and includes a checksum for
+        error detection.
       operationId: packAddress_post
       requestBody:
         content:
@@ -161,7 +189,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the address converted to user-friendly (base64) format.
           content:
             application/json:
               schema:
@@ -176,13 +205,16 @@ paths:
       tags:
         - utils
       summary: Unpack address
-      description: Unpack address from base64 form
+      description: >-
+        Converts a user-friendly base64 address to a raw address string in `workchain:hex` format.
       operationId: unpackAddress_get
       parameters:
         - $ref: '#/components/parameters/address'
       responses:
         200:
-          description: OK
+          description: >-
+            Converts a user-friendly base64 address to a raw address string in `workchain:hex`
+            format.
           content:
             application/json:
               schema:
@@ -196,7 +228,8 @@ paths:
       tags:
         - rpc
       summary: Unpack address
-      description: Unpack address from base64 form
+      description: >-
+        Converts a user-friendly base64 address to a raw address string in `workchain:hex` format.
       operationId: unpackAddress_post
       requestBody:
         content:
@@ -206,7 +239,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Converts a user-friendly base64 address to a raw address string in `workchain:hex`
+            format.
           content:
             application/json:
               schema:
@@ -223,14 +258,19 @@ paths:
       tags:
         - accounts
       summary: Get Address Information
-      description: Get basic information about address
+      description: >-
+        Returns the current state of any account on the TON blockchain. Includes the balance (in
+        nanotons), smart contract code and data (if deployed), account status, and a reference to
+        the last transaction. This is the primary endpoint for checking if an address exists and
+        what's deployed there.
       operationId: getAddressInformation_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            The complete current state of the requested account.
           content:
             application/json:
               schema:
@@ -244,7 +284,11 @@ paths:
       tags:
         - rpc
       summary: Get Address Information
-      description: Get basic information about address
+      description: >-
+        Returns the current state of any account on the TON blockchain. Includes the balance (in
+        nanotons), smart contract code and data (if deployed), account status, and a reference to
+        the last transaction. This is the primary endpoint for checking if an address exists and
+        what's deployed there.
       operationId: getAddressInformation_post
       requestBody:
         content:
@@ -254,7 +298,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            The complete current state of the requested account.
           content:
             application/json:
               schema:
@@ -269,14 +314,17 @@ paths:
       tags:
         - accounts
       summary: Get Extended Address Information
-      description: Get extended information about address
+      description: >-
+        Returns detailed account information with parsed contract state. For recognized contract
+        types, returns type-specific state fields. For other contracts, returns the raw state.
       operationId: getExtendedAddressInformation_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns detailed account information including parsed contract state and type.
           content:
             application/json:
               schema:
@@ -290,7 +338,9 @@ paths:
       tags:
         - rpc
       summary: Get Extended Address Information
-      description: Get extended information about address
+      description: >-
+        Returns detailed account information with parsed contract state. For recognized contract
+        types, returns type-specific state fields. For other contracts, returns the raw state.
       operationId: getExtendedAddressInformation_post
       requestBody:
         content:
@@ -300,7 +350,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns detailed account information including parsed contract state and type.
           content:
             application/json:
               schema:
@@ -361,14 +412,19 @@ paths:
       tags:
         - accounts
       summary: Get Wallet Information
-      description: Get wallet-specific information about address
+      description: >-
+        Returns wallet-specific information for an address. If the address is a known wallet
+        contract, returns the wallet type, current `seqno` (needed for sending transactions), and
+        wallet_id. Always check `wallet: true` before using wallet-specific fields. Call this before
+        sending any transaction to get the current `seqno`.
       operationId: getWalletInformation_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns wallet-specific details: type, `seqno`, subwallet ID, and balance.
           content:
             application/json:
               schema:
@@ -382,7 +438,11 @@ paths:
       tags:
         - rpc
       summary: Get Wallet Information
-      description: Get wallet-specific information about address
+      description: >-
+        Returns wallet-specific information for an address. If the address is a known wallet
+        contract, returns the wallet type, current `seqno` (needed for sending transactions), and
+        wallet_id. Always check `wallet: true` before using wallet-specific fields. Call this before
+        sending any transaction to get the current `seqno`.
       operationId: getWalletInformation_post
       requestBody:
         content:
@@ -392,7 +452,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns wallet-specific details: type, `seqno`, subwallet ID, and balance.
           content:
             application/json:
               schema:
@@ -407,14 +468,18 @@ paths:
       tags:
         - accounts
       summary: Get Address Balance
-      description: Get address balance in nanotons
+      description: >-
+        Returns the TON balance of an account in nanotons. 1 TON = 1,000,000,000 nanotons. A
+        lightweight endpoint that returns only the balance without contract code, data, or other
+        account details. Returns "0" for addresses that have never received any funds.
       operationId: getAddressBalance_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the account balance in nanotons.
           content:
             application/json:
               schema:
@@ -428,7 +493,10 @@ paths:
       tags:
         - rpc
       summary: Get Address Balance
-      description: Get address balance in nanotons
+      description: >-
+        Returns the TON balance of an account in nanotons. 1 TON = 1,000,000,000 nanotons. A
+        lightweight endpoint that returns only the balance without contract code, data, or other
+        account details. Returns "0" for addresses that have never received any funds.
       operationId: getAddressBalance_post
       requestBody:
         content:
@@ -438,7 +506,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the account balance in nanotons.
           content:
             application/json:
               schema:
@@ -453,14 +522,18 @@ paths:
       tags:
         - accounts
       summary: Get Address State
-      description: Get address state (active, uninitialized or frozen)
+      description: >-
+        Returns the account lifecycle state: `uninitialized` (no contract deployed), `active`
+        (contract deployed), or `frozen` (contract state frozen).
       operationId: getAddressState_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the account lifecycle state: `uninitialized` (no contract deployed), `active`
+            (contract deployed), or `frozen` (contract state frozen).
           content:
             application/json:
               schema:
@@ -474,7 +547,9 @@ paths:
       tags:
         - rpc
       summary: Get Address State
-      description: Get address state (active, uninitialized or frozen)
+      description: >-
+        Returns the account lifecycle state: `uninitialized` (no contract deployed), `active`
+        (contract deployed), or `frozen` (contract state frozen).
       operationId: getAddressState_post
       requestBody:
         content:
@@ -484,7 +559,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the account lifecycle state: `uninitialized` (no contract deployed), `active`
+            (contract deployed), or `frozen` (contract state frozen).
           content:
             application/json:
               schema:
@@ -499,13 +576,19 @@ paths:
       tags:
         - accounts
       summary: Get Token Data
-      description: Get Jetton/NFT metadata from token smart contract
+      description: >-
+        Returns metadata for Jetton or NFT contracts. Automatically detects the contract type and
+        returns appropriate fields. For Jetton masters: total supply, admin, metadata. For Jetton
+        wallets: balance, owner. For NFT items: collection, owner, content. For NFT collections:
+        item count, metadata.
       operationId: getTokenData_get
       parameters:
         - $ref: '#/components/parameters/address'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns parsed token metadata for Jetton masters, Jetton wallets, NFT collections, and
+            NFT items.
           content:
             application/json:
               schema:
@@ -519,7 +602,11 @@ paths:
       tags:
         - rpc
       summary: Get Token Data
-      description: Get Jetton/NFT metadata from token smart contract
+      description: >-
+        Returns metadata for Jetton or NFT contracts. Automatically detects the contract type and
+        returns appropriate fields. For Jetton masters: total supply, admin, metadata. For Jetton
+        wallets: balance, owner. For NFT items: collection, owner, content. For NFT collections:
+        item count, metadata.
       operationId: getTokenData_post
       requestBody:
         content:
@@ -529,7 +616,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns parsed token metadata for Jetton masters, Jetton wallets, NFT collections, and
+            NFT items.
           content:
             application/json:
               schema:
@@ -609,12 +698,18 @@ paths:
       tags:
         - blocks
       summary: Get Masterchain Info
-      description: Get up-to-date masterchain state
+      description: >-
+        Returns the current state of the TON masterchain. The `last` field contains the latest block
+        used for querying current state. The `seqno` in `last` is the current block height. Use this
+        endpoint to obtain the latest block reference for other queries.
       operationId: getMasterchainInfo_get
       parameters: [ ]
       responses:
         200:
-          description: OK
+          description: >-
+            The current masterchain state, including the latest block identifier, its state root
+            hash, and the genesis block reference. Use `result.last.seqno` as the current block
+            height.
           content:
             application/json:
               schema:
@@ -628,7 +723,10 @@ paths:
       tags:
         - rpc
       summary: Get Masterchain Info
-      description: Get up-to-date masterchain state
+      description: >-
+        Returns the current state of the TON masterchain. The `last` field contains the latest block
+        used for querying current state. The `seqno` in `last` is the current block height. Use this
+        endpoint to obtain the latest block reference for other queries.
       operationId: getMasterchainInfo_post
       requestBody:
         content:
@@ -638,7 +736,10 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            The current masterchain state, including the latest block identifier, its state root
+            hash, and the genesis block reference. Use `result.last.seqno` as the current block
+            height.
           content:
             application/json:
               schema:
@@ -653,13 +754,17 @@ paths:
       tags:
         - blocks
       summary: Get Masterchain Block Signatures
-      description: Get signatures of validators for masterchain block
+      description: >-
+        Returns validator signatures for a specific masterchain block. Each signature proves that a
+        validator approved this block. Use this for building cryptographic proofs or verifying block
+        authenticity in trustless applications.
       operationId: getMasterchainBlockSignatures_get
       parameters:
         - $ref: '#/components/parameters/seqno'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns validator signatures for the specified masterchain block.
           content:
             application/json:
               schema:
@@ -673,7 +778,10 @@ paths:
       tags:
         - rpc
       summary: Get Masterchain Block Signatures
-      description: Get signatures of validators for masterchain block
+      description: >-
+        Returns validator signatures for a specific masterchain block. Each signature proves that a
+        validator approved this block. Use this for building cryptographic proofs or verifying block
+        authenticity in trustless applications.
       operationId: getMasterchainBlockSignatures_post
       requestBody:
         content:
@@ -683,7 +791,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns validator signatures for the specified masterchain block.
           content:
             application/json:
               schema:
@@ -698,7 +807,10 @@ paths:
       tags:
         - blocks
       summary: Get Shard Block Proof
-      description: Get merkle proof of shard block
+      description: >-
+        Returns a Merkle proof that links a shardchain block to a masterchain block. This proof
+        cryptographically verifies that the shard block is part of the canonical chain. Used by
+        light clients and cross-chain bridges to verify shard data without trusting the API.
       operationId: getShardBlockProof_get
       parameters:
         - $ref: '#/components/parameters/workchain'
@@ -713,7 +825,8 @@ paths:
             format: int32
       responses:
         200:
-          description: OK
+          description: >-
+            Returns a cryptographic proof chain linking a shard block to the masterchain.
           content:
             application/json:
               schema:
@@ -727,7 +840,10 @@ paths:
       tags:
         - rpc
       summary: Get Shard Block Proof
-      description: Get merkle proof of shard block
+      description: >-
+        Returns a Merkle proof that links a shardchain block to a masterchain block. This proof
+        cryptographically verifies that the shard block is part of the canonical chain. Used by
+        light clients and cross-chain bridges to verify shard data without trusting the API.
       operationId: getShardBlockProof_post
       requestBody:
         content:
@@ -737,7 +853,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns a cryptographic proof chain linking a shard block to the masterchain.
           content:
             application/json:
               schema:
@@ -796,7 +913,10 @@ paths:
       tags:
         - blocks
       summary: Lookup Block
-      description: Look up block by seqno, shard and workchain
+      description: >-
+        Finds a block by position or time. Specify workchain and shard, then provide exactly one of
+        `seqno` (block sequence number), `lt` (logical time), or `unixtime` (Unix timestamp).
+        Returns the full block identifier including hashes.
       operationId: lookupBlock_get
       parameters:
         - $ref: '#/components/parameters/workchain'
@@ -818,7 +938,9 @@ paths:
             format: int32
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the full block identifier matching the given `seqno`, logical time, or unix
+            timestamp.
           content:
             application/json:
               schema:
@@ -832,7 +954,10 @@ paths:
       tags:
         - rpc
       summary: Lookup Block
-      description: Look up block by seqno, shard and workchain
+      description: >-
+        Finds a block by position or time. Specify workchain and shard, then provide exactly one of
+        `seqno` (block sequence number), `lt` (logical time), or `unixtime` (Unix timestamp).
+        Returns the full block identifier including hashes.
       operationId: lookupBlock_post
       requestBody:
         content:
@@ -842,7 +967,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the full block identifier matching the given `seqno`, logical time, or unix
+            timestamp.
           content:
             application/json:
               schema:
@@ -857,14 +984,18 @@ paths:
       tags:
         - blocks
       summary: Get Shards
-      description: Get shards information by given masterchain block seqno
+      description: >-
+        Returns the active shardchain block identifiers at a given masterchain block height. Each
+        shard processes a subset of accounts in parallel. The response shows how the basechain is
+        currently partitioned and which block each shard is at.
       operationId: getShards_get
       parameters:
         - $ref: '#/components/parameters/seqno'
           description: Seqno of masterchain block
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the list of active shard block identifiers at the specified masterchain block.
           content:
             application/json:
               schema:
@@ -878,7 +1009,10 @@ paths:
       tags:
         - rpc
       summary: Get Shards
-      description: Get shards information
+      description: >-
+        Returns the active shardchain block identifiers at a given masterchain block height. Each
+        shard processes a subset of accounts in parallel. The response shows how the basechain is
+        currently partitioned and which block each shard is at.
       operationId: getShards_post
       requestBody:
         content:
@@ -888,7 +1022,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the list of active shard block identifiers at the specified masterchain block.
           content:
             application/json:
               schema:
@@ -953,7 +1088,10 @@ paths:
       tags:
         - blocks
       summary: Get Block Header
-      description: Get block header information
+      description: >-
+        Returns block metadata without the full transaction list. Includes timestamps, validator
+        info, and references to previous blocks. Intended for block explorers and other use cases
+        that require block information without transactions.
       operationId: getBlockHeader_get
       parameters:
         - $ref: '#/components/parameters/workchain'
@@ -963,7 +1101,8 @@ paths:
         - $ref: '#/components/parameters/fileHashOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the block header with merge/split flags, validator info, and timing data.
           content:
             application/json:
               schema:
@@ -977,7 +1116,10 @@ paths:
       tags:
         - rpc
       summary: Get Block Header
-      description: Get block header information
+      description: >-
+        Returns block metadata without the full transaction list. Includes timestamps, validator
+        info, and references to previous blocks. Intended for block explorers and other use cases
+        that require block information without transactions.
       operationId: getBlockHeader_post
       requestBody:
         content:
@@ -987,7 +1129,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the block header with merge/split flags, validator info, and timing data.
           content:
             application/json:
               schema:
@@ -1002,11 +1145,16 @@ paths:
       tags:
         - blocks
       summary: Get Out Msg Queue Size
-      description: Get size of outbound message queue
+      description: >-
+        Returns the current size of the outbound message queue for each shard. A growing queue
+        indicates network congestion. If the queue is large, transactions may take longer to
+        process. Monitor this to detect network issues.
       operationId: getOutMsgQueueSize_get
       responses:
         200:
-          description: OK
+          description: >-
+            Outgoing message queue sizes for all active shards. A growing queue indicates network
+            congestion and may cause transaction delays.
           content:
             application/json:
               schema:
@@ -1020,7 +1168,10 @@ paths:
       tags:
         - rpc
       summary: Get Out Msg Queue Size
-      description: Get size of outbound message queue
+      description: >-
+        Returns the current size of the outbound message queue for each shard. A growing queue
+        indicates network congestion. If the queue is large, transactions may take longer to
+        process. Monitor this to detect network issues.
       operationId: getOutMsgQueueSize_post
       requestBody:
         content:
@@ -1030,7 +1181,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Outgoing message queue sizes for all active shards. A growing queue indicates network
+            congestion and may cause transaction delays.
           content:
             application/json:
               schema:
@@ -1045,7 +1198,11 @@ paths:
       tags:
         - transactions
       summary: Get Block Transactions
-      description: Get transactions in specified block
+      description: >-
+        Returns a summary of transactions in a specific block. Each item contains the account
+        address and transaction ID, but not full transaction details. Use `count` to limit results
+        and `after_lt`/`after_hash` for pagination. Call getTransactions with each transaction ID to
+        get full details.
       operationId: getBlockTransactions_get
       parameters:
         - $ref: '#/components/parameters/workchain'
@@ -1058,7 +1215,9 @@ paths:
         - $ref: '#/components/parameters/countOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns short transaction identifiers (account, lt, hash) for transactions in the
+            specified block.
           content:
             application/json:
               schema:
@@ -1072,7 +1231,11 @@ paths:
       tags:
         - rpc
       summary: Get Block Transactions
-      description: Get transactions in specified block
+      description: >-
+        Returns a summary of transactions in a specific block. Each item contains the account
+        address and transaction ID, but not full transaction details. Use `count` to limit results
+        and `after_lt`/`after_hash` for pagination. Call getTransactions with each transaction ID to
+        get full details.
       operationId: getBlockTransactions_post
       requestBody:
         content:
@@ -1082,7 +1245,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns short transaction identifiers (account, lt, hash) for transactions in the
+            specified block.
           content:
             application/json:
               schema:
@@ -1097,7 +1262,11 @@ paths:
       tags:
         - transactions
       summary: Get Block Transactions Extended
-      description: Get transactions in specified block with extended information
+      description: >-
+        Returns full transaction objects for transactions in a specific block. Each transaction
+        includes complete data: inbound and outbound messages, fees, and BoC-encoded raw data. Use
+        `count` to limit results and `after_lt`/`after_hash` for pagination when `incomplete` is
+        true.
       operationId: getBlockTransactionsExt_get
       parameters:
         - $ref: '#/components/parameters/workchain'
@@ -1110,7 +1279,8 @@ paths:
         - $ref: '#/components/parameters/countOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns full transaction objects for transactions in the specified block.
           content:
             application/json:
               schema:
@@ -1124,7 +1294,11 @@ paths:
       tags:
         - rpc
       summary: Get Block Transactions Extended
-      description: Get transactions in specified block with extended information
+      description: >-
+        Returns full transaction objects for transactions in a specific block. Each transaction
+        includes complete data: inbound and outbound messages, fees, and BoC-encoded raw data. Use
+        `count` to limit results and `after_lt`/`after_hash` for pagination when `incomplete` is
+        true.
       operationId: getBlockTransactionsExt_post
       requestBody:
         content:
@@ -1134,7 +1308,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns full transaction objects for transactions in the specified block.
           content:
             application/json:
               schema:
@@ -1149,19 +1324,25 @@ paths:
       tags:
         - transactions
       summary: Get Transactions
-      description: Get transactions for specified address
+      description: >-
+        Returns transaction history for an account. Transactions are returned newest-first. Each
+        transaction shows the incoming message that triggered it, all outgoing messages, and fees
+        paid. For pagination: use the `lt` and `hash` from the oldest transaction as the starting
+        point for the next request.
       operationId: getTransactions_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/limitOptional'
         - $ref: '#/components/parameters/ltOptional'
         - $ref: '#/components/parameters/hashOptional'
-          description: Transaction hash to start from
+          description: >-
+            SHA-256 transaction hash to start pagination from
         - $ref: '#/components/parameters/toLtOptional'
         - $ref: '#/components/parameters/archivalOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns a list of transactions for the specified account, ordered by logical time.
           content:
             application/json:
               schema:
@@ -1175,7 +1356,11 @@ paths:
       tags:
         - rpc
       summary: Get Transactions
-      description: Get transactions for specified address
+      description: >-
+        Returns transaction history for an account. Transactions are returned newest-first. Each
+        transaction shows the incoming message that triggered it, all outgoing messages, and fees
+        paid. For pagination: use the `lt` and `hash` from the oldest transaction as the starting
+        point for the next request.
       operationId: getTransactions_post
       requestBody:
         content:
@@ -1185,7 +1370,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns a list of transactions for the specified account, ordered by logical time.
           content:
             application/json:
               schema:
@@ -1200,19 +1386,25 @@ paths:
       tags:
         - transactions
       summary: Get Transactions Std
-      description: Standardized version of getTransactions
+      description: >-
+        Returns transaction history for an account in a standardized format. Transactions are
+        returned newest-first. Each transaction includes the triggering inbound message, all
+        outbound messages, and fees paid. The response includes a `previous_transaction_id` cursor
+        for paginating through older transactions.
       operationId: getTransactionsStd_get
       parameters:
         - $ref: '#/components/parameters/address'
         - $ref: '#/components/parameters/limitOptional'
         - $ref: '#/components/parameters/ltOptional'
         - $ref: '#/components/parameters/hashOptional'
-          description: Transaction hash to start from
+          description: >-
+            SHA-256 transaction hash to start pagination from
         - $ref: '#/components/parameters/toLtOptional'
         - $ref: '#/components/parameters/archivalOptional'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns transactions in standardized format with a pagination cursor.
           content:
             application/json:
               schema:
@@ -1226,7 +1418,11 @@ paths:
       tags:
         - rpc
       summary: Get Transactions Std
-      description: Standardized version of getTransactions
+      description: >-
+        Returns transaction history for an account in a standardized format. Transactions are
+        returned newest-first. Each transaction includes the triggering inbound message, all
+        outbound messages, and fees paid. The response includes a `previous_transaction_id` cursor
+        for paginating through older transactions.
       operationId: getTransactionsStd_post
       requestBody:
         content:
@@ -1236,7 +1432,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns transactions in standardized format with a pagination cursor.
           content:
             application/json:
               schema:
@@ -1251,7 +1448,10 @@ paths:
       tags:
         - transactions
       summary: Try Locate Transaction
-      description: Try to locate outcoming transaction of __destination__ address by incoming message
+      description: >-
+        Finds a transaction by message parameters. Given a source address, destination address, and
+        message creation time (created_lt), returns the transaction that processed this message.
+        Useful for locating when a previously sent message was executed.
       operationId: tryLocateTx_get
       parameters:
         - $ref: '#/components/parameters/sourceAddress'
@@ -1259,7 +1459,9 @@ paths:
         - $ref: '#/components/parameters/createdLt'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the transaction matching the given source, destination, and created logical
+            time.
           content:
             application/json:
               schema:
@@ -1273,7 +1475,10 @@ paths:
       tags:
         - rpc
       summary: Try Locate Transaction
-      description: Try to locate transaction by incoming message parameters
+      description: >-
+        Finds a transaction by message parameters. Given a source address, destination address, and
+        message creation time (created_lt), returns the transaction that processed this message.
+        Useful for locating when a previously sent message was executed.
       operationId: tryLocateTx_post
       requestBody:
         content:
@@ -1283,7 +1488,9 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the transaction matching the given source, destination, and created logical
+            time.
           content:
             application/json:
               schema:
@@ -1298,7 +1505,10 @@ paths:
       tags:
         - transactions
       summary: Try Locate Result Transaction
-      description: Same as previous. Try to locate outcoming transaction of destination address by incoming message
+      description: >-
+        Finds the transaction that received a specific message. Given message parameters, returns
+        the transaction on the destination account that processed the incoming message. Use this to
+        trace message delivery across accounts.
       operationId: tryLocateResultTx_get
       parameters:
         - $ref: '#/components/parameters/sourceAddress'
@@ -1306,7 +1516,8 @@ paths:
         - $ref: '#/components/parameters/createdLt'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the resulting transaction on the destination account for the given message.
           content:
             application/json:
               schema:
@@ -1320,7 +1531,10 @@ paths:
       tags:
         - rpc
       summary: Try Locate Result Transaction
-      description: Try to locate incoming transaction of source address by outcoming message
+      description: >-
+        Finds the transaction that received a specific message. Given message parameters, returns
+        the transaction on the destination account that processed the incoming message. Use this to
+        trace message delivery across accounts.
       operationId: tryLocateResultTx_post
       requestBody:
         content:
@@ -1330,7 +1544,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the resulting transaction on the destination account for the given message.
           content:
             application/json:
               schema:
@@ -1345,7 +1560,10 @@ paths:
       tags:
         - transactions
       summary: Try Locate Source Transaction
-      description: Try to locate source transaction by destination transaction parameters
+      description: >-
+        Finds the transaction that sent a specific message. Given message parameters, returns the
+        transaction on the source account that created this outgoing message. Useful for tracing
+        where a message originated from.
       operationId: tryLocateSourceTx_get
       parameters:
         - $ref: '#/components/parameters/sourceAddress'
@@ -1353,7 +1571,8 @@ paths:
         - $ref: '#/components/parameters/createdLt'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the originating transaction on the source account for the given message.
           content:
             application/json:
               schema:
@@ -1367,7 +1586,10 @@ paths:
       tags:
         - rpc
       summary: Try Locate Source Transaction
-      description: Try to locate source transaction by destination transaction parameters
+      description: >-
+        Finds the transaction that sent a specific message. Given message parameters, returns the
+        transaction on the source account that created this outgoing message. Useful for tracing
+        where a message originated from.
       operationId: tryLocateSourceTx_post
       requestBody:
         content:
@@ -1377,7 +1599,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the originating transaction on the source account for the given message.
           content:
             application/json:
               schema:
@@ -1392,7 +1615,11 @@ paths:
       tags:
         - configuration
       summary: Get Config Parameter
-      description: Get blockchain configuration parameter
+      description: >-
+        Returns a specific blockchain configuration parameter. TON stores all network settings
+        on-chain as numbered parameters. Common ones: 0 (config contract), 1 (elector), 15 (election
+        timing), 17 (stake limits), 20-21 (gas prices), 34 (current validators). Check TON
+        documentation for the full list.
       operationId: getConfigParam_get
       parameters:
         - name: param
@@ -1404,14 +1631,16 @@ paths:
             format: int32
         - name: seqno
           in: query
-          description: Block seqno
+          description: >-
+            Block `seqno`
           required: false
           schema:
             type: integer
             format: int32
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the specified blockchain configuration parameter as a TVM cell.
           content:
             application/json:
               schema:
@@ -1425,7 +1654,11 @@ paths:
       tags:
         - rpc
       summary: Get Config Parameter
-      description: Get blockchain configuration parameter
+      description: >-
+        Returns a specific blockchain configuration parameter. TON stores all network settings
+        on-chain as numbered parameters. Common ones: 0 (config contract), 1 (elector), 15 (election
+        timing), 17 (stake limits), 20-21 (gas prices), 34 (current validators). Check TON
+        documentation for the full list.
       operationId: getConfigParam_post
       requestBody:
         content:
@@ -1435,7 +1668,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the specified blockchain configuration parameter as a TVM cell.
           content:
             application/json:
               schema:
@@ -1450,19 +1684,24 @@ paths:
       tags:
         - configuration
       summary: Get All Config
-      description: Get all blockchain configuration parameters
+      description: >-
+        Returns all blockchain configuration parameters at once. Includes gas prices, validator
+        settings, workchain configs, and governance rules. Use the optional `seqno` to get
+        historical configuration at a specific block height.
       operationId: getConfigAll_get
       parameters:
         - name: seqno
           in: query
-          description: Block seqno
+          description: >-
+            Block `seqno`
           required: false
           schema:
             type: integer
             format: int32
       responses:
         200:
-          description: OK
+          description: >-
+            Returns all blockchain configuration parameters as a single TVM cell.
           content:
             application/json:
               schema:
@@ -1476,7 +1715,10 @@ paths:
       tags:
         - rpc
       summary: Get All Config
-      description: Get all blockchain configuration parameters
+      description: >-
+        Returns all blockchain configuration parameters at once. Includes gas prices, validator
+        settings, workchain configs, and governance rules. Use the optional `seqno` to get
+        historical configuration at a specific block height.
       operationId: getConfigAll_post
       requestBody:
         content:
@@ -1486,7 +1728,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns all blockchain configuration parameters as a single TVM cell.
           content:
             application/json:
               schema:
@@ -1501,7 +1744,10 @@ paths:
       tags:
         - configuration
       summary: Get Libraries
-      description: Get library code by their hashes
+      description: >-
+        Returns smart contract library code by hash. Some contracts reference shared libraries
+        instead of including all code directly. When a library reference appears in contract code,
+        this endpoint fetches the actual library implementation.
       operationId: getLibraries_get
       parameters:
         - name: libraries
@@ -1514,7 +1760,8 @@ paths:
               type: '#/components/schemas/TonHash'
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the code of the requested shared library cells.
           content:
             application/json:
               schema:
@@ -1528,7 +1775,10 @@ paths:
       tags:
         - rpc
       summary: Get Libraries
-      description: Get library entries by their hashes
+      description: >-
+        Returns smart contract library code by hash. Some contracts reference shared libraries
+        instead of including all code directly. When a library reference appears in contract code,
+        this endpoint fetches the actual library implementation.
       operationId: getLibraries_post
       requestBody:
         content:
@@ -1538,7 +1788,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the code of the requested shared library cells.
           content:
             application/json:
               schema:
@@ -1555,7 +1806,11 @@ paths:
         - run method
         - rpc
       summary: Run Get Method
-      description: Run get method of smart contract
+      description: >-
+        Executes a read-only method on a smart contract. Get methods query contract state without
+        sending a transaction. Common methods include `seqno` (wallet sequence number),
+        `get_wallet_data` (wallet info), and `get_jetton_data` (token info). Method arguments are
+        provided in the `stack` array.
       operationId: runGetMethod_post
       requestBody:
         content:
@@ -1565,7 +1820,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the TVM stack output and exit code from executing the specified get method.
           content:
             application/json:
               schema:
@@ -1581,7 +1837,11 @@ paths:
         - run method
         - rpc
       summary: Run Get Method Std
-      description: Run get method of smart contract
+      description: >-
+        Executes a read-only method on a smart contract using typed stack entries. Input and output
+        stack entries use explicit types (`TvmStackEntryNumber`, `TvmStackEntryCell`, etc.) for
+        structured input/output handling. Common methods: `seqno` (wallet sequence number),
+        `get_wallet_data` (wallet info), `get_jetton_data` (token info).
       operationId: runGetMethodStd_post
       requestBody:
         content:
@@ -1591,7 +1851,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the get method result in standardized stack format.
           content:
             application/json:
               schema:
@@ -1607,7 +1868,11 @@ paths:
         - send
         - rpc
       summary: Send BOC
-      description: Send bag of cells to blockchain
+      description: >-
+        Broadcasts a signed message to the TON network. The `boc` parameter must contain a complete,
+        signed external message in base64 format. The API validates the message and forwards it to
+        validators. Returns immediately after acceptance; use getTransactions to confirm the
+        transaction was processed.
       operationId: sendBoc_post
       requestBody:
         content:
@@ -1617,7 +1882,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns a success confirmation after broadcasting the serialized message to the network.
           content:
             application/json:
               schema:
@@ -1633,7 +1899,11 @@ paths:
         - send
         - rpc
       summary: Send BOC Return Hash
-      description: Send bag of cells to blockchain and return hash
+      description: >-
+        Broadcasts a signed message to the TON network and returns the message hash. The `boc`
+        parameter must contain a complete, signed external message in base64 format. The API
+        validates the message and forwards it to validators. The returned hash can be used to track
+        the message's processing status.
       operationId: sendBocReturnHash_post
       requestBody:
         content:
@@ -1643,7 +1913,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the message hash after broadcasting the serialized message to the network.
           content:
             application/json:
               schema:
@@ -1659,7 +1930,11 @@ paths:
         - send
         - rpc
       summary: Estimate Fee
-      description: Estimate fee for query
+      description: >-
+        Calculates the fees required to send a message. Provide the destination address and message
+        body. For new contract deployments, also include init_code and init_data. Set ignore_chksig
+        to true when estimating before signing. Returns a breakdown of storage, gas, and forwarding
+        fees.
       operationId: estimateFee_post
       requestBody:
         content:
@@ -1669,7 +1944,8 @@ paths:
         required: true
       responses:
         200:
-          description: OK
+          description: >-
+            Returns the estimated fees (gas, storage, forwarding) for the specified message.
           content:
             application/json:
               schema:
@@ -1701,7 +1977,8 @@ components:
     address:
       name: address
       in: query
-      description: Identifier of target TON account in any form
+      description: >-
+        The account address to query, in raw or user-friendly format.
       required: true
       schema:
         $ref: '#/components/schemas/TonAddr'
@@ -1722,7 +1999,10 @@ components:
     workchain:
       name: workchain
       in: query
-      description: Workchain ID
+      description: >-
+        The workchain to query. Use `-1` for masterchain (validators, system contracts, config) or
+        `0` for basechain (regular accounts and contracts). Most user transactions happen on
+        workchain `0`.
       required: true
       schema:
         type: integer
@@ -1730,7 +2010,10 @@ components:
     shard:
       name: shard
       in: query
-      description: Shard ID
+      description: >-
+        The shard identifier. Masterchain always uses `-9223372036854775808`. For basechain, shards
+        split and merge dynamically. Use the `shards` endpoint to discover current shard
+        configuration.
       required: true
       schema:
         type: string
@@ -1738,7 +2021,8 @@ components:
     seqno:
       name: seqno
       in: query
-      description: Seqno of a block
+      description: >-
+        Block sequence number within the specified workchain and shard.
       required: true
       schema:
         type: integer
@@ -1746,7 +2030,9 @@ components:
     seqnoOptional:
       name: seqno
       in: query
-      description: Seqno of a block
+      description: >-
+        Query state at a specific block height. If omitted, returns the current state. Use this to
+        look up historical data at a specific point in time.
       required: false
       schema:
         type: integer
@@ -1754,7 +2040,8 @@ components:
     rootHashOptional:
       name: root_hash
       in: query
-      description: Root hash of a block
+      description: >-
+        The block's root hash. Together with `file_hash`, uniquely identifies a block.
       required: false
       schema:
         type: string
@@ -1762,7 +2049,8 @@ components:
     fileHashOptional:
       name: file_hash
       in: query
-      description: File hash of a block
+      description: >-
+        The block's file hash. Together with `root_hash`, uniquely identifies a block.
       required: false
       schema:
         type: string
@@ -1770,7 +2058,9 @@ components:
     afterLtOptional:
       name: after_lt
       in: query
-      description: Logical time of transaction to read after
+      description: >-
+        Pagination cursor. Pass the `lt` value from the last item in the previous response to get
+        the next page. Transactions and messages are ordered by logical time.
       required: false
       schema:
         type: string
@@ -1778,7 +2068,9 @@ components:
     afterAccountHashOptional:
       name: after_hash
       in: query
-      description: Hash of account in this block in hex or base64 representation, which indicates transaction to read after
+      description: >-
+        Account ID in hex or base64 for block transaction pagination. Use together with `after_lt`
+        from the last transaction in the previous page.
       required: false
       schema:
         type: string
@@ -1786,7 +2078,9 @@ components:
     countOptional:
       name: count
       in: query
-      description: Maximum number of items in response
+      description: >-
+        Maximum number of items to return. The default is 40. Use smaller values for faster
+        responses or larger values to reduce the number of API calls.
       required: false
       schema:
         type: integer
@@ -1795,7 +2089,9 @@ components:
     limitOptional:
       name: limit
       in: query
-      description: Maximum number of items in response
+      description: >-
+        Maximum number of transactions to return. The default is 10. For accounts with many
+        transactions, use pagination (lt + hash) to fetch more.
       required: false
       schema:
         type: integer
@@ -1804,7 +2100,9 @@ components:
     ltOptional:
       name: lt
       in: query
-      description: Logical time of the transaction to start from
+      description: >-
+        Starting point for transaction history. Pass the lt from `last_transaction_id` to start from
+        the most recent, or from a specific transaction to continue pagination.
       required: false
       schema:
         type: string
@@ -1812,7 +2110,9 @@ components:
     toLtOptional:
       name: to_lt
       in: query
-      description: Logical time to stop at
+      description: >-
+        Stop fetching when reaching this logical time. Set to 0 (default) to leave the lower
+        logical-time bound unspecified.
       required: false
       schema:
         type: string
@@ -1821,7 +2121,8 @@ components:
     archivalOptional:
       name: archival
       in: query
-      description: Whether to use archival node
+      description: >-
+        Request data from archival nodes when querying old transactions or historical state.
       required: false
       schema:
         type: boolean
@@ -1829,28 +2130,33 @@ components:
     sourceAddress:
       name: source
       in: query
-      description: Source address
+      description: >-
+        Source account address.
       required: true
       schema:
         $ref: '#/components/schemas/TonAddr'
     destinationAddress:
       name: destination
       in: query
-      description: Destination address
+      description: >-
+        Destination account address.
       required: true
       schema:
         $ref: '#/components/schemas/TonAddr'
     createdLt:
       name: created_lt
       in: query
-      description: Creation logical time of a message
+      description: >-
+        The logical time when the message was created. Available in the `created_lt` field of
+        message objects.
       required: true
       schema:
         type: string
         x-usrv-cpp-type: 'std::int64_t'
   responses:
     default:
-      description: Tonlib error
+      description: >-
+        Error response.
       content:
         application/json:
           schema:
@@ -1886,21 +2192,30 @@ components:
                 '@extra': ...
   securitySchemes:
     APIKeyHeader:
+      description: >-
+        API key header of the form `X-API-Key: <token>`, where `<token>` is the API key.
       type: apiKey
       in: header
       name: X-API-Key
     APIKeyQuery:
+      description: >-
+        API key query parameter of the form `?api_key=<token>`, where `<token>` is the API key.
+        Equivalent to the header method.
       type: apiKey
       in: query
       name: api_key
   schemas:
     # base request schemas
     EmptyRequest:
+      description: >-
+        Empty request body for endpoints that require no parameters.
       type: object
       additionalProperties: false
       required: [ ]
       properties: { }
     AddressRequest:
+      description: >-
+        Request containing a single address parameter.
       type: object
       additionalProperties: false
       required:
@@ -1917,6 +2232,9 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         seqno:
+          description: >-
+            Masterchain block sequence number. Query the account state as it was at this block
+            height. If omitted, returns the current state.
           oneOf:
             - type: string
             - type: integer
@@ -1944,6 +2262,8 @@ components:
         - hash
       properties:
         hash:
+          description: >-
+            Hash value to detect encoding formats for.
           $ref: '#/components/schemas/TonHash'
     PackAddressRequest:
       $ref: '#/components/schemas/AddressRequest'
@@ -1995,12 +2315,17 @@ components:
         - seqno
       properties:
         workchain:
+          description: >-
+            Workchain ID: `-1` for masterchain, `0` for basechain. Most user transactions are on
+            workchain `0`.
           oneOf:
             - type: string
             - type: integer
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         shard:
+          description: >-
+            Shard identifier. A signed 64-bit integer. Masterchain uses -9223372036854775808.
           oneOf:
             - type: string
             - type: integer
@@ -2008,12 +2333,17 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
+          description: >-
+            Shardchain block sequence number. Identifies a specific block within the given workchain
+            and shard. Use together with `workchain` and `shard` to uniquely identify a block.
           oneOf:
             - type: string
             - type: integer
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         from_seqno:
+          description: >-
+            Starting masterchain block for proof generation.
           oneOf:
             - type: string
             - type: integer
@@ -2022,6 +2352,8 @@ components:
     ConsensusBlockRequest:
       $ref: '#/components/schemas/EmptyRequest'
     LookupBlockRequest:
+      description: >-
+        Request to find a block by workchain, shard, and either `seqno`, lt, or unixtime.
       type: object
       additionalProperties: false
       required:
@@ -2029,12 +2361,17 @@ components:
         - shard
       properties:
         workchain:
+          description: >-
+            Workchain ID: `-1` for masterchain, `0` for basechain. Most user transactions are on
+            workchain `0`.
           oneOf:
             - type: string
             - type: integer
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         shard:
+          description: >-
+            Shard identifier. A signed 64-bit integer. Masterchain uses -9223372036854775808.
           oneOf:
             - type: string
             - type: integer
@@ -2048,6 +2385,8 @@ components:
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         lt:
+          description: >-
+            Logical time of the transaction. Use together with its hash for pagination and lookups.
           oneOf:
             - type: string
             - type: integer
@@ -2055,6 +2394,8 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         unixtime:
+          description: >-
+            Unix timestamp to look up.
           oneOf:
             - type: string
             - type: integer
@@ -2071,12 +2412,17 @@ components:
         - seqno
       properties:
         workchain:
+          description: >-
+            Workchain ID: `-1` for masterchain, `0` for basechain. Most user transactions are on
+            workchain `0`.
           oneOf:
             - type: string
             - type: integer
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         shard:
+          description: >-
+            Shard identifier. A signed 64-bit integer. Masterchain uses -9223372036854775808.
           oneOf:
             - type: string
             - type: integer
@@ -2128,12 +2474,19 @@ components:
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         root_hash:
+          description: >-
+            Root hash of the block. Together with `file_hash`, uniquely identifies a block.
           $ref: '#/components/schemas/TonHash'
         file_hash:
+          description: >-
+            Hash of the serialized block data. Together with `root_hash`, uniquely identifies a
+            block.
           $ref: '#/components/schemas/TonHash'
     OutMsgQueueSizeRequest:
       $ref: '#/components/schemas/EmptyRequest'
     BlockTransactionsRequest:
+      description: >-
+        Request to fetch transactions from a specific block with optional pagination.
       type: object
       additionalProperties: false
       required:
@@ -2142,12 +2495,17 @@ components:
         - seqno
       properties:
         workchain:
+          description: >-
+            Workchain ID: `-1` for masterchain, `0` for basechain. Most user transactions are on
+            workchain `0`.
           oneOf:
             - type: string
             - type: integer
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         shard:
+          description: >-
+            Shard identifier. A signed 64-bit integer. Masterchain uses -9223372036854775808.
           oneOf:
             - type: string
             - type: integer
@@ -2161,10 +2519,17 @@ components:
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         root_hash:
+          description: >-
+            Root hash of the block. Together with `file_hash`, uniquely identifies a block.
           $ref: '#/components/schemas/TonHash'
         file_hash:
+          description: >-
+            Hash of the serialized block data. Together with `root_hash`, uniquely identifies a
+            block.
           $ref: '#/components/schemas/TonHash'
         after_lt:
+          description: >-
+            Return items after this logical time (for pagination).
           oneOf:
             - type: string
             - type: integer
@@ -2172,8 +2537,12 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         after_hash:
+          description: >-
+            Return items after this hash (for pagination within same `lt`).
           $ref: '#/components/schemas/TonAddrWithoutWorkchain'
         count:
+          description: >-
+            Maximum number of items to return.
           oneOf:
             - type: string
             - type: integer
@@ -2182,6 +2551,9 @@ components:
     BlockTransactionsExtRequest:
       $ref: '#/components/schemas/BlockTransactionsRequest'
     TransactionsRequest:
+      description: >-
+        Request to fetch transaction history for an account with optional pagination and filtering
+        parameters.
       type: object
       additionalProperties: false
       required:
@@ -2190,6 +2562,8 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         lt:
+          description: >-
+            Logical time of the transaction. Use together with its hash for pagination and lookups.
           oneOf:
             - type: string
             - type: integer
@@ -2197,8 +2571,13 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         hash:
+          description: >-
+            Hash of the starting transaction for pagination. Use together with `lt` from a previous
+            response's `transaction_id`.
           $ref: '#/components/schemas/TonHash'
         to_lt:
+          description: >-
+            Stop returning items at this logical time.
           oneOf:
             - type: string
             - type: integer
@@ -2206,6 +2585,8 @@ components:
               x-usrv-cpp-type: 'std::int64_t'
           x-usrv-cpp-type: 'std::int64_t'
         archival:
+          description: >-
+            Whether to use archival nodes for old data.
           oneOf:
             - type: string
             - type: integer
@@ -2213,6 +2594,8 @@ components:
             - type: boolean
           x-usrv-cpp-type: 'bool'
         limit:
+          description: >-
+            Maximum number of items to return.
           oneOf:
             - type: string
             - type: integer
@@ -2229,8 +2612,13 @@ components:
         source:
           $ref: '#/components/schemas/TonAddr'
         destination:
+          description: >-
+            Recipient address.
           $ref: '#/components/schemas/TonAddr'
         created_lt:
+          description: >-
+            Logical time when this message was created. Use with source and destination to uniquely
+            identify a message.
           oneOf:
             - type: string
             - type: integer
@@ -2246,6 +2634,8 @@ components:
       additionalProperties: false
       properties:
         config_id:
+          description: >-
+            Configuration parameter number. Each number controls different blockchain settings.
           oneOf:
             - type: string
             - type: integer
@@ -2258,6 +2648,9 @@ components:
               format: int32
           x-usrv-cpp-type: 'std::int32_t'
         seqno:
+          description: >-
+            Masterchain block sequence number (block height). Used to query blockchain config at a
+            specific block. If omitted, the latest masterchain block is used.
           oneOf:
             - type: string
             - type: integer
@@ -2268,6 +2661,9 @@ components:
       additionalProperties: false
       properties:
         seqno:
+          description: >-
+            Masterchain block sequence number (block height). Used to query blockchain config at a
+            specific block. If omitted, the latest masterchain block is used.
           oneOf:
             - type: string
             - type: integer
@@ -2278,18 +2674,29 @@ components:
       additionalProperties: false
       properties:
         libraries:
+          description: >-
+            Array of library cell hashes to retrieve. Each hash is a 256-bit value in hex (64 chars)
+            or base64 (44 chars) format.
           type: array
           items:
             $ref: '#/components/schemas/TonHash'
     SendBocRequest:
+      description: >-
+        Request to broadcast a signed message. The boc field contains the base64-encoded external
+        message.
       type: object
       additionalProperties: false
       required:
         - boc
       properties:
         boc:
+          description: >-
+            Serialized external message in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
     EstimateFeeRequest:
+      description: >-
+        Request to estimate transaction fees. Include the target address, message body, and
+        optionally init code/data for contract deployment.
       type: object
       additionalProperties: false
       required:
@@ -2299,15 +2706,29 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         body:
+          description: >-
+            Message body in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         init_code:
+          description: >-
+            Contract code for deployment messages, BoC format, base64 encoded. Omit for regular
+            transfers.
           $ref: '#/components/schemas/Bytes'
         init_data:
+          description: >-
+            Initial contract storage for deployment, BoC format, base64 encoded. Omit for regular
+            transfers.
           $ref: '#/components/schemas/Bytes'
         ignore_chksig:
+          description: >-
+            Set to `true` to skip signature verification during fee estimation; otherwise `false`.
+            Useful when a real signature is not yet available.
           type: boolean
           default: true
     JsonRpcRequest:
+      description: >-
+        Request to the JSON-RPC endpoint. Set `method` to the API method name (e.g.,
+        `getWalletInformation`) and `params` to a dictionary of parameters.
       type: object
       additionalProperties: false
       required:
@@ -2317,32 +2738,55 @@ components:
         - params
       properties:
         jsonrpc:
+          description: >-
+            JSON-RPC protocol version identifier.
           type: string
           default: '2.0'
         id:
           type: string
         method:
+          description: >-
+            API method name to invoke (e.g., `getMasterchainInfo`, `getAddressBalance`).
           type: string
         params:
+          description: >-
+            Method parameters as a JSON object with key-value pairs.
           type: object
           additionalProperties: true
     # base types
     TonAddr:
+      description: >-
+        Account address in raw format (e.g., `0:ca6e321c...`) or user-friendly format (e.g.,
+        `EQDKbjIcfM...`). All formats are automatically detected.
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_addr'
     TonAddrWithoutWorkchain:
+      description: >-
+        The account ID portion of an address without the workchain prefix. This is the 256-bit
+        identifier in hex or base64 format.
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_addr_without_workchain'
     TonHash:
+      description: >-
+        A 256-bit hash value. Accepts either hex format (64 characters) or base64 format (44
+        characters). Used for block hashes, transaction hashes, and cryptographic proofs.
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_hash'
     TonHashHex:
+      description: >-
+        A 256-bit hash in hexadecimal format. Exactly 64 characters (0-9, a-f).
       type: string
       x-usrv-cpp-type: 'ton_http::types::ton_hash_hex'
     Int256:
+      description: >-
+        A large integer represented as a string to avoid precision loss. Used for balances and other
+        values that may exceed JavaScript's safe integer limit.
       type: string
       x-usrv-cpp-type: 'ton_http::types::int256'
     Bytes:
+      description: >-
+        Binary data encoded as base64. Used for serialized cells (BoC format), message bodies, and
+        smart contract code/data.
       type: string
       x-usrv-cpp-type: 'ton_http::types::bytes'
     # tonlib types
@@ -2354,11 +2798,16 @@ components:
         - account_address
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for account address objects.
           type: string
           enum:
             - accountAddress
           default: accountAddress
         account_address:
+          description: >-
+            The account address in raw format (`workchain:hex`), e.g. `0:abc123...`. Use the pack
+            address endpoint to convert to user-friendly base64 format.
           type: string
           x-usrv-cpp-type: 'ton_http::types::ton_addr'
     AdnlAddress:
@@ -2380,20 +2829,36 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for full block identifiers.
           type: string
           enum:
             - ton.blockIdExt
           default: ton.blockIdExt
         workchain:
+          description: >-
+            Workchain ID: `-1` for masterchain, `0` for basechain.
           type: integer
         shard:
+          description: >-
+            Shard identifier as a signed 64-bit integer string. Masterchain uses
+            `-9223372036854775808`.
           type: string
           x-usrv-cpp-type: 'std::int64_t'
         seqno:
+          description: >-
+            Block sequence number within its workchain and shard. For the masterchain (workchain
+            `-1`), this equals the global block height. For basechain shards (workchain `0`), this
+            is the sequence number local to that specific shard, not a global height.
           type: integer
         root_hash:
+          description: >-
+            Root hash of the block. Together with `file_hash`, uniquely identifies a block.
           $ref: '#/components/schemas/TonHash'
         file_hash:
+          description: >-
+            Hash of the serialized block file. Together with `root_hash`, uniquely identifies a
+            block.
           $ref: '#/components/schemas/TonHash'
       required:
         - '@type'
@@ -2402,20 +2867,30 @@ components:
         - seqno
         - root_hash
         - file_hash
-      description: Extended block identifier.
+      description: >-
+        A complete block identifier with cryptographic hashes. Contains `workchain`, `shard`,
+        `seqno` (position) plus `root_hash` and `file_hash` (verification).
     DetectAddressBase64Variant:
       type: object
       additionalProperties: false
-      description: Base64 form of address variant
+      description: >-
+        User-friendly address in both standard base64 and URL-safe base64 encodings.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for base64 address encoding variants.
           type: string
           enum:
             - ext.utils.detectedAddressVariant
           default: ext.utils.detectedAddressVariant
         b64:
+          description: >-
+            Address in standard base64 encoding (48 characters, uses `+` and `/`).
           type: string
         b64url:
+          description: >-
+            Address in URL-safe base64 encoding (48 characters, uses `-` and `_` instead of `+` and
+            `/`).
           type: string
       required:
         - '@type'
@@ -2426,6 +2901,8 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for extra currency balance entries.
           type: string
           enum:
             - extraCurrency
@@ -2434,6 +2911,8 @@ components:
           type: integer
           format: int32
         amount:
+          description: >-
+            Currency balance amount as a decimal string.
           $ref: '#/components/schemas/Int256'
       required:
         - '@type'
@@ -2442,35 +2921,51 @@ components:
     InternalTransactionId:
       type: object
       additionalProperties: false
-      description: Internal transaction identifier.
+      description: >-
+        A reference to a specific transaction. The combination of `lt` (logical time) and `hash`
+        uniquely identifies any transaction. Use these values for pagination and lookups.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for transaction ID references.
           type: string
           enum:
             - internal.transactionId
           default: internal.transactionId
         lt:
           type: string
-          description: Logical time
+          description: >-
+            Logical time of the transaction. Use together with its hash for pagination and lookups.
           x-usrv-cpp-type: 'std::int64_t'
         hash:
+          description: >-
+            SHA-256 hash of this transaction, encoded in base64.
           $ref: '#/components/schemas/TonHash'
       required:
         - '@type'
         - lt
         - hash
     AccountStateRaw:
+      description: >-
+        Unrecognized or non-wallet contract state. Identified by `@type: raw.accountState`. Returned
+        when TonLib cannot parse the contract as a known type.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for raw (unrecognized) contract states.
           type: string
           enum:
             - raw.accountState
           default: raw.accountState
         code:
+          description: >-
+            Smart contract code in BoC format, base64 encoded. Empty if account is uninitialized.
           $ref: '#/components/schemas/Bytes'
         data:
+          description: >-
+            Smart contract persistent storage in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         frozen_hash:
           $ref: '#/components/schemas/TonHash'
@@ -2480,18 +2975,29 @@ components:
         - data
         - frozen_hash
     AccountStateWalletV3:
+      description: >-
+        Standard wallet contract version 3. Identified by `@type: wallet.v3.accountState`. The most
+        widely deployed wallet type prior to v4.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Wallet v3 contracts.
           type: string
           enum:
             - wallet.v3.accountState
           default: wallet.v3.accountState
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
           format: int64
         seqno:
+          description: >-
+            Wallet contract sequence number. Used for replay protection: each outgoing transaction
+            must include the current `seqno` and increments it by 1. Fetch the current value before
+            sending a transaction.
           type: integer
           format: int32
       required:
@@ -2499,18 +3005,29 @@ components:
         - wallet_id
         - seqno
     AccountStateWalletV4:
+      description: >-
+        Standard wallet contract version 4. Identified by `@type: wallet.v4.accountState`. Adds
+        plugin support over v3.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Wallet v4 contracts.
           type: string
           enum:
             - wallet.v4.accountState
           default: wallet.v4.accountState
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
           format: int64
         seqno:
+          description: >-
+            Wallet contract sequence number. Used for replay protection: each outgoing transaction
+            must include the current `seqno` and increments it by 1. Fetch the current value before
+            sending a transaction.
           type: integer
           format: int32
       required:
@@ -2518,18 +3035,29 @@ components:
         - wallet_id
         - seqno
     AccountStateWalletHighloadV1:
+      description: >-
+        High-throughput wallet contract version 1. Identified by `@type:
+        wallet.highload.v1.accountState`. Designed for sending many transactions in a single block.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Highload Wallet v1 contracts.
           type: string
           enum:
             - wallet.highload.v1.accountState
           default: wallet.highload.v1.accountState
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
           format: int64
         seqno:
+          description: >-
+            Wallet contract sequence number. Used for replay protection: each outgoing transaction
+            must include the current `seqno` and increments it by 1. Fetch the current value before
+            sending a transaction.
           type: integer
           format: int32
       required:
@@ -2537,25 +3065,38 @@ components:
         - wallet_id
         - seqno
     AccountStateWalletHighloadV2:
+      description: >-
+        High-throughput wallet contract version 2. Identified by `@type:
+        wallet.highload.v2.accountState`. Improved version of highload v1 with better replay
+        protection.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Highload Wallet v2 contracts.
           type: string
           enum:
             - wallet.highload.v2.accountState
           default: wallet.highload.v2.accountState
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
           format: int64
       required:
         - '@type'
         - wallet_id
     AccountStateDns:
+      description: >-
+        TON DNS contract state. Identified by `@type: dns.accountState`. Used by contracts that
+        resolve TON domain names.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for DNS resolver contracts.
           type: string
           enum:
             - dns.accountState
@@ -2571,14 +3112,20 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for restricted wallet spending limit rules.
           type: string
           enum:
             - rwallet.limit
           default: rwallet.limit
         seconds:
+          description: >-
+            Duration of this spending limit window in seconds.
           type: integer
           format: int32
         value:
+          description: >-
+            Maximum spendable amount within this time period, in nanotons.
           type: integer
           format: int64
       required:
@@ -2590,14 +3137,21 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for restricted wallet configuration.
           type: string
           enum:
             - rwallet.config
           default: rwallet.config
         start_at:
+          description: >-
+            Unix timestamp when the spending limits become active.
           type: integer
           format: int64
         limits:
+          description: >-
+            Array of spending limit rules. Each entry defines a time window in seconds and the
+            maximum spendable amount in nanotons within that window.
           type: array
           items:
             $ref: '#/components/schemas/RWalletLimit'
@@ -2606,24 +3160,39 @@ components:
         - start_at
         - limits
     AccountStateRWallet:
+      description: >-
+        Restricted wallet contract state. Identified by `@type: rwallet.accountState`. Used for
+        wallets with vesting or transfer restrictions.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for restricted wallet contracts.
           type: string
           enum:
             - rwallet.accountState
           default: rwallet.accountState
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
           format: int64
         seqno:
+          description: >-
+            Wallet contract sequence number. Used for replay protection: each outgoing transaction
+            must include the current `seqno` and increments it by 1. Fetch the current value before
+            sending a transaction.
           type: integer
           format: int32
         unlocked_balance:
+          description: >-
+            Balance available for immediate withdrawal, in nanotons.
           type: integer
           format: int64
         config:
+          description: >-
+            Spending limits and restrictions configuration.
           $ref: '#/components/schemas/RWalletConfig'
       required:
         - '@type'
@@ -2636,25 +3205,41 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for payment channel configuration.
           type: string
           enum:
             - pchan.config
           default: pchan.config
         alice_public_key:
+          description: >-
+            Alice's Ed25519 public key for signing channel operations.
           type: string
         alice_address:
+          description: >-
+            Alice's on-chain wallet address.
           $ref: '#/components/schemas/AccountAddress'
         bob_public_key:
+          description: >-
+            Bob's Ed25519 public key for signing channel operations.
           type: string
         bob_address:
+          description: >-
+            Bob's on-chain wallet address.
           $ref: '#/components/schemas/AccountAddress'
         init_timeout:
+          description: >-
+            Maximum seconds allowed to complete channel initialization before it expires.
           type: integer
           format: int32
         close_timeout:
+          description: >-
+            Maximum seconds allowed to complete cooperative channel closure.
           type: integer
           format: int32
         channel_id:
+          description: >-
+            Unique numeric identifier for this payment channel.
           type: integer
           format: int64
       required:
@@ -2671,27 +3256,43 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for payment channels in the initialization phase.
           type: string
           enum:
             - pchan.stateInit
           default: pchan.stateInit
         signed_A:
+          description: >-
+            Returns `true` if Alice has signed the initialization; otherwise `false`.
           type: boolean
         signed_B:
+          description: >-
+            Returns `true` if Bob has signed the initialization; otherwise `false`.
           type: boolean
         min_A:
+          description: >-
+            Minimum deposit required from Alice, in nanotons.
           type: integer
           format: int64
         min_B:
+          description: >-
+            Minimum deposit required from Bob, in nanotons.
           type: integer
           format: int64
         expire_at:
+          description: >-
+            Unix timestamp when the initialization offer expires.
           type: integer
           format: int64
         A:
+          description: >-
+            Alice's deposited amount in nanotons.
           type: integer
           format: int64
         B:
+          description: >-
+            Bob's deposited amount in nanotons.
           type: integer
           format: int64
       required:
@@ -2708,27 +3309,43 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for payment channels in the closing phase.
           type: string
           enum:
             - pchan.stateClose
           default: pchan.stateClose
         signed_A:
+          description: >-
+            Returns `true` if Alice has signed the close proposal; otherwise `false`.
           type: boolean
         signed_B:
+          description: >-
+            Returns `true` if Bob has signed the close proposal; otherwise `false`.
           type: boolean
         min_A:
+          description: >-
+            Minimum guaranteed payout for Alice, in nanotons.
           type: integer
           format: int64
         min_B:
+          description: >-
+            Minimum guaranteed payout for Bob, in nanotons.
           type: integer
           format: int64
         expire_at:
+          description: >-
+            Unix timestamp when the close proposal expires.
           type: integer
           format: int64
         A:
+          description: >-
+            Alice's final balance in nanotons.
           type: integer
           format: int64
         B:
+          description: >-
+            Bob's final balance in nanotons.
           type: integer
           format: int64
       required:
@@ -2745,14 +3362,20 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for payment channels in the payout phase.
           type: string
           enum:
             - pchan.statePayout
           default: pchan.statePayout
         A:
+          description: >-
+            Alice's payout amount in nanotons.
           type: integer
           format: int64
         B:
+          description: >-
+            Bob's payout amount in nanotons.
           type: integer
           format: int64
       required:
@@ -2771,19 +3394,30 @@ components:
           'pchan.stateClose': '#/components/schemas/PChanStateClose'
           'pchan.statePayout': '#/components/schemas/PChanStatePayout'
     AccountStatePChan:
+      description: >-
+        Payment channel contract state. Identified by `@type: pchan.accountState`. Used for
+        off-chain payment channels between two parties.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for payment channel contracts.
           type: string
           enum:
             - pchan.accountState
           default: pchan.accountState
         config:
+          description: >-
+            Payment channel configuration (parties, timeouts, keys).
           $ref: '#/components/schemas/PChanConfig'
         state:
+          description: >-
+            Current payment channel state (init, close, or payout phase).
           $ref: '#/components/schemas/PChanState'
         description:
+          description: >-
+            Human-readable payment channel description.
           type: string
       required:
         - '@type'
@@ -2791,10 +3425,15 @@ components:
         - state
         - description
     AccountStateUninited:
+      description: >-
+        Account exists on-chain but has no deployed contract. Identified by `@type:
+        uninited.accountState`. The address has received TON but no code has been deployed yet.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for uninitialized accounts.
           type: string
           enum:
             - uninited.accountState
@@ -2838,11 +3477,15 @@ components:
         - bag_id
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TON Storage DNS records.
           type: string
           enum:
             - dns_storage_address
           default: dns_storage_address
         bag_id:
+          description: >-
+            TON Storage bag identifier in hex, pointing to distributed file storage.
           $ref: '#/components/schemas/TonHashHex'
     DnsRecordAdnlAddress:
       type: object
@@ -2852,11 +3495,15 @@ components:
         - adnl_addr
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for ADNL address DNS records.
           type: string
           enum:
             - dns_adnl_address
           default: dns_adnl_address
         adnl_addr:
+          description: >-
+            ADNL (Abstract Datagram Network Layer) address in hex, used for TON Sites and services.
           $ref: '#/components/schemas/TonHashHex'
     SmcAddr:
       type: object
@@ -2867,14 +3514,20 @@ components:
         - address
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for standard smart contract addresses.
           type: string
           enum:
             - addr_std
           default: addr_std
         workchain_id:
+          description: >-
+            Workchain ID (`0` for basechain, `-1` for masterchain).
           type: integer
           format: int32
         address:
+          description: >-
+            Account identifier as a 64-character hex string.
           $ref: '#/components/schemas/TonHashHex'
     DnsRecordSmcAddress:
       type: object
@@ -2884,11 +3537,15 @@ components:
         - smc_addr
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for smart contract address DNS records.
           type: string
           enum:
             - dns_smc_address
           default: dns_smc_address
         smc_addr:
+          description: >-
+            Smart contract address associated with this DNS record.
           $ref: '#/components/schemas/SmcAddr'
     DnsRecordNextResolver:
       type: object
@@ -2898,11 +3555,15 @@ components:
         - resolver
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for next-resolver DNS records.
           type: string
           enum:
             - dns_next_resolver
           default: dns_next_resolver
         resolver:
+          description: >-
+            Smart contract address of the next DNS resolver in the chain.
           $ref: '#/components/schemas/SmcAddr'
     DnsRecord:
       oneOf:
@@ -2922,12 +3583,20 @@ components:
       additionalProperties: true
       properties:
         dns_next_resolver:
+          description: >-
+            Next resolver contract for subdomain lookups.
           $ref: '#/components/schemas/DnsRecord'
         wallet:
+          description: >-
+            Wallet address associated with this domain.
           $ref: '#/components/schemas/DnsRecord'
         site:
+          description: >-
+            Site hosting address (ADNL or TON Storage).
           $ref: '#/components/schemas/DnsRecord'
         storage:
+          description: >-
+            TON Storage bag ID for files hosted under this domain.
           $ref: '#/components/schemas/DnsRecord'
     DnsContent:
       type: object
@@ -2937,8 +3606,12 @@ components:
         - data
       properties:
         domain:
+          description: >-
+            The resolved domain name.
           type: string
         data:
+          description: >-
+            Parsed DNS records for this domain.
           $ref: '#/components/schemas/DnsRecordSet'
     TokenContent:
       type: object
@@ -2948,15 +3621,24 @@ components:
         - data
       properties:
         'type':
+          description: >-
+            Storage method for token (jetton) metadata content: `onchain` (stored in contract data)
+            or `offchain` (external URI).
           type: string
           enum:
             - onchain
             - offchain
         data:
+          description: >-
+            Token metadata key-value pairs (name, symbol, decimals, image, description).
           oneOf:
             - type: string
             - $ref: '#/components/schemas/TokenContentDict'
     JettonMasterData:
+      description: >-
+        Jetton (fungible token) master contract data. Contains total supply, whether minting is
+        allowed, admin address, and token metadata (name, symbol, decimals). This is the central
+        contract that tracks the token.
       type: object
       additionalProperties: false
       required:
@@ -2969,28 +3651,50 @@ components:
         - jetton_wallet_code
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Jetton master contract data.
           type: string
           enum:
             - ext.tokens.jettonMasterData
           default: ext.tokens.jettonMasterData
         address:
+          description: >-
+            Contract address of this Jetton master.
           $ref: '#/components/schemas/TonAddr'
         contract_type:
+          description: >-
+            Type of token contract: jetton_master, jetton_wallet, nft_collection, or nft_item.
           type: string
           enum:
             - jetton_master
           default: jetton_master
         total_supply:
+          description: >-
+            Total tokens in circulation, in the smallest unit. Divide by 10^decimals for
+            human-readable amount.
           $ref: '#/components/schemas/Int256'
         mintable:
+          description: >-
+            Whether new tokens can currently be minted.
           type: boolean
         admin_address:
+          description: >-
+            Admin address that can mint tokens or update metadata. Empty if admin rights were
+            revoked.
           $ref: '#/components/schemas/TonAddr'
         jetton_content:
+          description: >-
+            Token metadata: name, symbol, decimals, description, and image URL.
           $ref: '#/components/schemas/TokenContent'
         jetton_wallet_code:
+          description: >-
+            Code used to deploy individual user wallets for this token. Used to verify wallet
+            authenticity.
           $ref: '#/components/schemas/Bytes'
     JettonWalletData:
+      description: >-
+        Jetton wallet contract data. Each user has a separate wallet contract for each token they
+        hold. Contains the token balance, owner address, and reference to the master contract.
       type: object
       additionalProperties: false
       required:
@@ -3003,28 +3707,51 @@ components:
         - jetton_wallet_code
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for Jetton wallet contract data.
           type: string
           enum:
             - ext.tokens.jettonWalletData
           default: ext.tokens.jettonWalletData
         address:
+          description: >-
+            Contract address of this Jetton wallet.
           $ref: '#/components/schemas/TonAddr'
         contract_type:
+          description: >-
+            Type of token contract: jetton_master, jetton_wallet, nft_collection, or nft_item.
           type: string
           enum:
             - jetton_wallet
           default: jetton_wallet
         balance:
+          description: >-
+            The token balance in the Jetton's base units (smallest denomination). To get the
+            human-readable amount, divide by 10^decimals, where `decimals` is a metadata field on
+            the Jetton master contract (commonly 9, but varies per token). Refer to the Jetton
+            overview for how Jetton decimals are defined.
           $ref: '#/components/schemas/Int256'
         owner:
+          description: >-
+            Wallet owner's address (the user who holds these tokens).
           $ref: '#/components/schemas/TonAddr'
         jetton:
+          description: >-
+            Address of the Jetton master contract this wallet belongs to.
           $ref: '#/components/schemas/TonAddr'
         mintless_is_claimed:
+          description: >-
+            Returns `true` if the mintless jetton allocation has been claimed; otherwise `false`.
           type: boolean
         jetton_wallet_code:
+          description: >-
+            Wallet contract code. Should match the master contract's wallet code to verify
+            authenticity.
           $ref: '#/components/schemas/Bytes'
     NftCollectionData:
+      description: >-
+        NFT collection contract data. Contains the number of items minted, collection owner, and
+        collection metadata (name, description, image).
       type: object
       additionalProperties: false
       required:
@@ -3035,24 +3762,40 @@ components:
         - collection_content
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for NFT collection contract data.
           type: string
           enum:
             - ext.tokens.nftCollectionData
           default: ext.tokens.nftCollectionData
         address:
+          description: >-
+            Contract address of this NFT collection.
           $ref: '#/components/schemas/TonAddr'
         contract_type:
+          description: >-
+            Type of token contract: jetton_master, jetton_wallet, nft_collection, or nft_item.
           type: string
           enum:
             - nft_collection
           default: nft_collection
         next_item_index:
+          description: >-
+            Index that will be assigned to the next minted NFT. Also indicates total items if minted
+            sequentially.
           $ref: '#/components/schemas/Int256'
         owner_address:
+          description: >-
+            Collection owner's address. Controls minting and metadata updates.
           $ref: '#/components/schemas/TonAddr'
         collection_content:
+          description: >-
+            Collection metadata: name, description, and cover image.
           $ref: '#/components/schemas/TokenContent'
     NftItemData:
+      description: >-
+        Individual NFT data. Contains the item index, collection reference, current owner, and
+        item-specific content/metadata.
       type: object
       additionalProperties: false
       required:
@@ -3064,30 +3807,49 @@ components:
         - content
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for NFT item contract data.
           type: string
           enum:
             - ext.tokens.nftItemData
           default: ext.tokens.nftItemData
         address:
+          description: >-
+            Contract address of this NFT item.
           $ref: '#/components/schemas/TonAddr'
         contract_type:
+          description: >-
+            Type of token contract: jetton_master, jetton_wallet, nft_collection, or nft_item.
           type: string
           enum:
             - nft_item
           default: nft_item
         init:
+          description: >-
+            Returns `true` if this NFT item has been initialized (deployed); otherwise `false`.
           type: boolean
         index:
+          description: >-
+            This item's sequential index within its collection.
           $ref: '#/components/schemas/Int256'
         collection_address:
+          description: >-
+            Address of the NFT collection this item belongs to. Empty if standalone NFT.
           $ref: '#/components/schemas/TonAddr'
         owner_address:
+          description: >-
+            Current owner's address. Changes on each transfer.
           $ref: '#/components/schemas/TonAddr'
         content:
+          description: >-
+            NFT item metadata and content (name, description, image URL).
           oneOf:
             - $ref: '#/components/schemas/TokenContent'
             - $ref: '#/components/schemas/DnsContent'
     TokenData:
+      description: >-
+        Token metadata returned by getTokenData. Can be a Jetton master, Jetton wallet, NFT
+        collection, or NFT item depending on which contract was queried.
       oneOf:
         - $ref: '#/components/schemas/JettonMasterData'
         - $ref: '#/components/schemas/JettonWalletData'
@@ -3243,19 +4005,27 @@ components:
         - uninitialized
         - active
         - frozen
-      description: Computed from code/frozen_hash by the API server.
+      description: >-
+        Account lifecycle state: `uninitialized` (no contract deployed), `active` (contract
+        deployed), or `frozen` (contract state frozen).
     BlockSignature:
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for validator signature objects.
           type: string
           enum:
             - blocks.signature
           default: blocks.signature
         node_id_short:
+          description: >-
+            Short public key hash of the validator node that produced this signature.
           $ref: '#/components/schemas/TonHash'
         signature:
+          description: >-
+            Ed25519 signature of the block by this validator, base64 encoded.
           $ref: '#/components/schemas/Bytes'
       required:
         - '@type'
@@ -3266,13 +4036,19 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for shard-to-masterchain proof links.
           type: string
           enum:
             - blocks.shardBlockLink
           default: blocks.shardBlockLink
         id:
+          description: >-
+            Block identifier for this link in the proof chain.
           $ref: '#/components/schemas/TonBlockIdExt'
         proof:
+          description: >-
+            Merkle proof data for this shard block link.
           $ref: '#/components/schemas/Bytes'
       required:
         - '@type'
@@ -3283,21 +4059,35 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for backward block link proofs.
           type: string
           enum:
             - blocks.blockLinkBack
           default: blocks.blockLinkBack
         to_key_block:
+          description: >-
+            Returns `true` if the destination block is a key block; otherwise `false`.
           type: boolean
         from:
+          description: >-
+            Source block in the proof chain.
           $ref: '#/components/schemas/TonBlockIdExt'
         to:
+          description: >-
+            Destination block in the proof chain.
           $ref: '#/components/schemas/TonBlockIdExt'
         dest_proof:
+          description: >-
+            Cryptographic proof for the destination block.
           $ref: '#/components/schemas/Bytes'
         proof:
+          description: >-
+            Merkle proof linking the two blocks.
           $ref: '#/components/schemas/Bytes'
         state_proof:
+          description: >-
+            State proof validating the block link.
           $ref: '#/components/schemas/Bytes'
       required:
         - '@type'
@@ -3312,16 +4102,20 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for per-shard queue size entries.
           type: string
           enum:
             - blocks.outMsgQueueSize
           default: blocks.outMsgQueueSize
         id:
           $ref: '#/components/schemas/TonBlockIdExt'
-          description: Block identifier for the shard.
+          description: >-
+            Full block identifier for the shard.
         size:
           type: integer
-          description: Queue size for the shard.
+          description: >-
+            Number of outgoing messages waiting in this shard's queue.
       required:
         - '@type'
         - id
@@ -3331,13 +4125,19 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for shared library cell entries.
           type: string
           enum:
             - smc.libraryEntry
           default: smc.libraryEntry
         hash:
+          description: >-
+            Library cell hash.
           $ref: '#/components/schemas/TonHash'
         data:
+          description: >-
+            Library cell code in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
       required:
         - '@type'
@@ -3346,25 +4146,34 @@ components:
     ShortTxId:
       type: object
       additionalProperties: false
-      description: Short transaction identifier
+      description: >-
+        Compact transaction reference containing the account address, logical time, and hash. Used
+        in block transaction listings for efficient enumeration.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for compact transaction references.
           type: string
           enum:
             - blocks.shortTxId
           default: blocks.shortTxId
         mode:
           type: integer
-          description: Transaction mode flags
+          description: >-
+            Bitmask indicating which optional fields are present.
         account:
+          description: >-
+            Account address that executed this transaction.
           $ref: '#/components/schemas/TonAddr'
         lt:
           type: string
-          description: Logical time of the transaction
+          description: >-
+            Logical time of the transaction. Use together with its hash for pagination and lookups.
           x-usrv-cpp-type: 'std::int64_t'
         hash:
           $ref: '#/components/schemas/TonHash'
-          description: Base64 hash of the transaction
+          description: >-
+            SHA-256 hash of this transaction, encoded in base64.
       required:
         - '@type'
         - mode
@@ -3376,11 +4185,15 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for raw (binary) message bodies.
           type: string
           enum:
             - msg.dataRaw
           default: msg.dataRaw
         body:
+          description: >-
+            Raw message body in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         init_state:
           $ref: '#/components/schemas/Bytes'
@@ -3389,33 +4202,45 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for plain text comment message bodies.
           type: string
           enum:
             - msg.dataText
           default: msg.dataText
         text:
+          description: >-
+            UTF-8 text comment, base64 encoded.
           $ref: '#/components/schemas/Bytes'
     MsgDataDecryptedText:
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for decrypted text message bodies.
           type: string
           enum:
             - msg.dataDecryptedText
           default: msg.dataDecryptedText
         text:
+          description: >-
+            Decrypted UTF-8 text content, base64 encoded.
           $ref: '#/components/schemas/Bytes'
     MsgDataEncryptedText:
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for encrypted text message bodies.
           type: string
           enum:
             - msg.dataEncryptedText
           default: msg.dataEncryptedText
         text:
+          description: >-
+            Encrypted message payload, base64 encoded.
           $ref: '#/components/schemas/Bytes'
     MsgData:
       oneOf:
@@ -3435,33 +4260,56 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for raw message objects.
           type: string
           enum:
             - raw.message
           default: raw.message
         hash:
+          description: >-
+            SHA-256 hash of this message, encoded in base64.
           $ref: '#/components/schemas/TonHash'
         source:
+          description: >-
+            Sender account address. Empty for external inbound messages.
           $ref: '#/components/schemas/AccountAddress'
         destination:
+          description: >-
+            Recipient account address.
           $ref: '#/components/schemas/AccountAddress'
         value:
+          description: >-
+            TON amount transferred with this message, in nanotons.
           $ref: '#/components/schemas/Int256'
         extra_currencies:
+          description: >-
+            Array of extra currencies (native blockchain-level tokens, distinct from Jettons)
+            transferred in this message. Each entry contains a currency ID (integer) and amount
+            (decimal string). Empty array if no extra currencies were transferred.
           type: array
           items:
             $ref: '#/components/schemas/ExtraCurrencyBalance'
         fwd_fee:
+          description: >-
+            Forwarding fee deducted from the message value, in nanotons.
           $ref: '#/components/schemas/Int256'
         ihr_fee:
+          description: >-
+            Instant Hypercube Routing (IHR) fee in nanotons.
           $ref: '#/components/schemas/Int256'
         created_lt:
           type: string
-          description: Logical time of the transaction
+          description: >-
+            Logical time when this message was created.
           x-usrv-cpp-type: 'std::int64_t'
         body_hash:
+          description: >-
+            Hash of the message body.
           $ref: '#/components/schemas/TonHash'
         msg_data:
+          description: >-
+            Message body payload (raw, text comment, or encrypted).
           $ref: '#/components/schemas/MsgData'
       required:
         - '@type'
@@ -3480,28 +4328,53 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for raw transaction objects.
           type: string
           enum:
             - raw.transaction
           default: raw.transaction
         address:
+          description: >-
+            Account address object for this transaction.
           $ref: '#/components/schemas/AccountAddress'
         utime:
           type: integer
-          description: UNIX timestamp of transaction
+          description: >-
+            Unix timestamp when this transaction was executed.
         data:
+          description: >-
+            Full transaction data serialized as BoC, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         transaction_id:
+          description: >-
+            The transaction identifier, represented by logical time and transaction hash.
           $ref: '#/components/schemas/InternalTransactionId'
         fee:
+          description: >-
+            Total fees paid for this transaction, in nanotons.
           $ref: '#/components/schemas/Int256'
         storage_fee:
+          description: >-
+            Storage fees in nanotons deducted from the account balance during the storage phase of
+            this transaction. Covers the cost of storing the contract state on-chain since the last
+            transaction.
           $ref: '#/components/schemas/Int256'
         other_fee:
+          description: >-
+            Fees in nanotons deducted from the account balance during the computation and action
+            phases of this transaction. Covers the cost of TVM execution and processing outgoing
+            messages.
           $ref: '#/components/schemas/Int256'
         in_msg:
+          description: >-
+            The inbound message that triggered this transaction.
           $ref: '#/components/schemas/MessageStd'
         out_msgs:
+          description: >-
+            Array of outbound messages produced by this transaction. Each message contains sender
+            and recipient address objects, TON amount (nanotons as string), forwarding fee, and raw
+            message body.
           type: array
           items:
             $ref: '#/components/schemas/MessageStd'
@@ -3522,48 +4395,83 @@ components:
           additionalProperties: false
           properties:
             '@type':
+              description: >-
+                Object type identifier.
               type: string
               enum:
                 - raw.transactionExt
               default: raw.transactionExt
             account:
+              description: >-
+                The account address that this transaction belongs to.
               $ref: '#/components/schemas/TonAddr'
     Message:
+      description: >-
+        A message between accounts. Contains sender, recipient, TON amount transferred, message
+        creation logical time, and the message body.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for extended message objects with decoded comments.
           type: string
           enum:
             - ext.message
           default: ext.message
         hash:
+          description: >-
+            SHA-256 hash of this message, encoded in base64.
           $ref: '#/components/schemas/TonHash'
         source:
+          description: >-
+            Sender address. Empty for external inbound messages.
           $ref: '#/components/schemas/TonAddr'
         destination:
+          description: >-
+            Recipient address.
           $ref: '#/components/schemas/TonAddr'
         value:
+          description: >-
+            TON amount transferred with this message, in nanotons.
           $ref: '#/components/schemas/Int256'
         extra_currencies:
+          description: >-
+            Array of extra currencies (native blockchain-level tokens, distinct from Jettons)
+            transferred in this message. Each entry contains a currency ID (integer) and amount
+            (decimal string). Empty array if no extra currencies were transferred.
           type: array
           items:
             $ref: '#/components/schemas/ExtraCurrencyBalance'
         fwd_fee:
+          description: >-
+            Forwarding fee deducted from the message value, in nanotons.
           $ref: '#/components/schemas/Int256'
         ihr_fee:
+          description: >-
+            Instant Hypercube Routing (IHR) fee in nanotons.
           $ref: '#/components/schemas/Int256'
         created_lt:
           type: string
-          description: Logical time of the transaction
+          description: >-
+            Logical time when this message was created.
           x-usrv-cpp-type: 'std::int64_t'
         body_hash:
+          description: >-
+            Hash of the message body. Useful for verifying content without the full payload.
           $ref: '#/components/schemas/TonHash'
         msg_data:
+          description: >-
+            Message body payload (raw, text comment, or encrypted).
           $ref: '#/components/schemas/MsgData'
         message:
+          description: >-
+            Decoded UTF-8 text comment from the message body. Present only when the message body is
+            a plain text comment (opcode `0x00000000`). Empty string otherwise.
           type: string
         message_decode_error:
+          description: >-
+            Error description if the message body could not be decoded as a text comment.
           type: string
       required:
         - '@type'
@@ -3582,30 +4490,57 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for extended transaction objects with decoded messages.
           type: string
           enum:
             - ext.transaction
           default: ext.transaction
         address:
+          description: >-
+            Account address object for this transaction.
           $ref: '#/components/schemas/AccountAddress'
         account:
+          description: >-
+            Account address in raw format.
           $ref: '#/components/schemas/TonAddr'
         utime:
           type: integer
-          description: UNIX timestamp of transaction
+          description: >-
+            Unix timestamp when this transaction was executed.
         data:
+          description: >-
+            Full transaction data serialized as BoC, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         transaction_id:
+          description: >-
+            The transaction identifier, represented by logical time and transaction hash.
           $ref: '#/components/schemas/InternalTransactionId'
         fee:
+          description: >-
+            Total fees paid for this transaction, in nanotons.
           $ref: '#/components/schemas/Int256'
         storage_fee:
+          description: >-
+            Storage fees in nanotons deducted from the account balance during the storage phase of
+            this transaction. Covers the cost of storing the contract state on-chain since the last
+            transaction.
           $ref: '#/components/schemas/Int256'
         other_fee:
+          description: >-
+            Fees in nanotons deducted from the account balance during the computation and action
+            phases of this transaction. Covers the cost of TVM execution and processing outgoing
+            messages.
           $ref: '#/components/schemas/Int256'
         in_msg:
+          description: >-
+            The inbound message that triggered this transaction.
           $ref: '#/components/schemas/Message'
         out_msgs:
+          description: >-
+            Array of outbound messages produced by this transaction. Each message contains sender,
+            recipient, TON amount (nanotons as string), forwarding fee, message body, and optional
+            decoded text comment.
           type: array
           items:
             $ref: '#/components/schemas/Message'
@@ -3701,10 +4636,16 @@ components:
         - '@extra'
       properties:
         ok:
+          description: >-
+            Returns `true` if the request succeeded; otherwise `false`. See the `error` field for
+            details.
           type: boolean
           title: Ok
           default: true
         result:
+          description: >-
+            The method return value. The structure depends on the method called; see individual
+            method documentation for response schemas. Only present when `ok` is `true`.
           oneOf:
             - type: string
             - $ref: '#/components/schemas/AccountStateEnum'
@@ -3716,10 +4657,15 @@ components:
           type: string
           title: Extra information
         jsonrpc:
+          description: >-
+            JSON-RPC protocol version identifier.
           type: string
         id:
           type: string
     TonlibErrorResponse:
+      description: >-
+        The `ok` field is always false, `code` contains the HTTP status, and `error` describes what
+        went wrong.
       type: object
       additionalProperties: false
       title: TonlibErrorResponse
@@ -3729,13 +4675,20 @@ components:
         - code
       properties:
         ok:
+          description: >-
+            Always `false` for error responses.
           type: boolean
           title: Ok
           default: false
         error:
+          description: >-
+            Error message explaining what went wrong.
           type: string
           title: Error description
         code:
+          description: >-
+            HTTP status code. Common values: 404 (not found), 409 (conflict), 422 (validation
+            error), 429 (rate limit), 500 (server error), 504 (timeout), 542 (liteserver error).
           type: integer
           title: Error code
           minimum: 100
@@ -3756,6 +4709,8 @@ components:
             - id
           properties:
             jsonrpc:
+              description: >-
+                JSON-RPC protocol version identifier.
               type: string
               default: '2.0'
             id:
@@ -3770,6 +4725,8 @@ components:
             - id
           properties:
             jsonrpc:
+              description: >-
+                JSON-RPC protocol version identifier.
               type: string
               default: '2.0'
             id:
@@ -3778,26 +4735,51 @@ components:
     DetectAddress:
       type: object
       additionalProperties: false
-      description: Information about the address.
+      description: >-
+        Detected address in all supported formats. Contains the raw on-chain form, bounceable and
+        non-bounceable user-friendly representations (each in base64 and URL-safe base64), the
+        format type of the original input, and the testnet-only flag from the user-friendly
+        encoding.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for address detection results.
           type: string
           enum:
             - ext.utils.detectedAddress
           default: ext.utils.detectedAddress
         raw_form:
+          description: >-
+            Raw address in `workchain_id:account_id` hex format (e.g., `0:abc...def`). This is the
+            canonical on-chain representation without flags or checksum.
           type: string
         bounceable:
+          description: >-
+            Bounceable form of the address in standard base64 and URL-safe base64. Bounceable
+            addresses (prefix `E...`) instruct wallet software to set the bounce flag on outgoing
+            messages, so funds are returned if the destination contract cannot process them.
           $ref: '#/components/schemas/DetectAddressBase64Variant'
         non_bounceable:
+          description: >-
+            Non-bounceable form of the address in standard base64 and URL-safe base64.
+            Non-bounceable addresses (prefix `U...`) instruct wallet software to clear the bounce
+            flag, ensuring funds are credited even if the recipient has no deployed contract.
           $ref: '#/components/schemas/DetectAddressBase64Variant'
         given_type:
+          description: >-
+            The encoding format of the address as provided in the request (e.g., `raw_form`, `dns`,
+            `friendly_bounceable`, `friendly_non_bounceable`).
           type: string
           enum:
             - raw_form
             - friendly_bounceable
             - friendly_non_bounceable
         test_only:
+          description: >-
+            Returns `true` if the user-friendly address has the testnet-only flag set (`0x80`);
+            otherwise `false`. This is a flag in the address encoding that tells wallet software to
+            reject this address on mainnet. The underlying account itself can exist on both
+            networks.
           type: boolean
       required:
         - '@type'
@@ -3807,21 +4789,33 @@ components:
         - given_type
         - test_only
     DetectHash:
+      description: >-
+        Detected hash in all supported encoding formats: hex (64 characters), standard base64 (44
+        characters), and URL-safe base64.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for hash detection results.
           type: string
           enum:
             - ext.utils.detectedHash
           default: ext.utils.detectedHash
         b64:
+          description: >-
+            Hash in standard base64 encoding (44 characters, uses `+` and `/`).
           type: string
           title: base64 form
         b64url:
+          description: >-
+            Hash in URL-safe base64 encoding (44 characters, uses `-` and `_` instead of `+` and
+            `/`).
           type: string
           title: base64 url-safe form
         hex:
+          description: >-
+            Hash in lowercase hexadecimal encoding (64 characters).
           type: string
           title: hex form
       required:
@@ -3837,34 +4831,57 @@ components:
       type: string
       title: Address unpacked to raw form
     AddressInformation:
+      description: >-
+        Raw account state including balance, code, data, and status. The code and data fields
+        contain the smart contract in BoC format.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for full account state responses.
           type: string
           enum:
             - raw.fullAccountState
           default: raw.fullAccountState
         balance:
+          description: >-
+            Account balance in nanotons as a decimal string. 1 TON = 1,000,000,000 nanotons.
           $ref: '#/components/schemas/Int256'
         extra_currencies:
+          description: >-
+            Array of non-TON currency balances held by this account. Each entry contains a currency
+            ID (integer) and balance amount (decimal string). Empty array if the account holds no
+            extra currencies.
           type: array
           items:
             $ref: '#/components/schemas/ExtraCurrencyBalance'
         last_transaction_id:
+          description: >-
+            Reference to the most recent transaction. Use as starting point for getTransactions.
           $ref: '#/components/schemas/InternalTransactionId'
         block_id:
+          description: >-
+            Full block identifier where this event occurred.
           $ref: '#/components/schemas/TonBlockIdExt'
         code:
+          description: >-
+            Smart contract code in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         data:
+          description: >-
+            Smart contract persistent storage in BoC format, base64 encoded.
           $ref: '#/components/schemas/Bytes'
         frozen_hash:
           $ref: '#/components/schemas/TonHash'
         sync_utime:
+          description: >-
+            Unix timestamp of the block from which this data was read.
           type: integer
           format: int64
         state:
+          description: >-
+            Account state: uninitialized, active, or frozen.
           $ref: '#/components/schemas/AccountStateEnum'
         suspended:
           type: boolean
@@ -3884,28 +4901,48 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for extended account state responses.
           type: string
           enum:
             - fullAccountState
           default: fullAccountState
         address:
+          description: >-
+            Account address object.
           $ref: '#/components/schemas/AccountAddress'
         balance:
+          description: >-
+            Account balance in nanotons as a decimal string. 1 TON = 1,000,000,000 nanotons.
           $ref: '#/components/schemas/Int256'
         extra_currencies:
+          description: >-
+            Array of non-TON currency balances held by this account. Each entry contains a currency
+            ID (integer) and balance amount (decimal string). Empty array if the account holds no
+            extra currencies.
           type: array
           items:
             $ref: '#/components/schemas/ExtraCurrencyBalance'
         last_transaction_id:
+          description: >-
+            Reference to the most recent transaction. Use as starting point for getTransactions.
           $ref: '#/components/schemas/InternalTransactionId'
         block_id:
+          description: >-
+            Full block identifier where this event occurred.
           $ref: '#/components/schemas/TonBlockIdExt'
         sync_utime:
+          description: >-
+            Unix timestamp of the block from which this data was read.
           type: integer
           format: int64
         account_state:
+          description: >-
+            Detailed account state including contract type and internal data.
           $ref: '#/components/schemas/AccountState'
         revision:
+          description: >-
+            Contract revision number. Different revisions may have different behavior.
           type: integer
       required:
         - '@type'
@@ -3918,24 +4955,39 @@ components:
         - account_state
         - revision
     WalletInformation:
+      description: >-
+        Information about a wallet account. Check `wallet` before using wallet-specific fields such
+        as `wallet_type`, `seqno`, and `wallet_id`; available fields depend on the wallet type.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for wallet info responses.
           type: string
           enum:
             - ext.accounts.walletInformation
           default: ext.accounts.walletInformation
         wallet:
+          description: >-
+            Returns `true` if this address is a recognized wallet contract type; otherwise `false`.
           type: boolean
         balance:
+          description: >-
+            Account balance in nanotons as a decimal string.
           type: string
           x-usrv-cpp-type: 'ton_http::types::int256'
         account_state:
+          description: >-
+            Account lifecycle state: `uninitialized`, `active`, or `frozen`.
           $ref: '#/components/schemas/AccountStateEnum'
         last_transaction_id:
+          description: >-
+            Reference to the most recent transaction. Use as starting point for getTransactions.
           $ref: '#/components/schemas/InternalTransactionId'
         wallet_type:
+          description: >-
+            Recognized wallet contract type, such as `wallet v4 r2`, `wallet v5 r1`, or `tg-wallet`.
           type: string
           enum:
             - wallet v1 r1
@@ -3951,11 +5003,19 @@ components:
             - wallet v5 r1
             - tg-wallet
         seqno:
+          description: >-
+            Wallet contract sequence number. Used for replay protection: each outgoing transaction
+            must include the current `seqno` and increments it by 1. Fetch the current value before
+            sending a transaction.
           type: integer
           format: int64
         wallet_id:
+          description: >-
+            Subwallet identifier. Allows creating multiple wallets from one key.
           type: integer
         is_signature_allowed:
+          description: >-
+            Whether signature authentication is enabled for this wallet (v5 wallets only).
           type: boolean
       required:
         - '@type'
@@ -3973,11 +5033,15 @@ components:
       description: Information about the latest masterchain block.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for masterchain state info.
           type: string
           enum:
             - blocks.masterchainInfo
           default: blocks.masterchainInfo
         last:
+          description: >-
+            The most recent masterchain block.
           $ref: '#/components/schemas/TonBlockIdExt'
         state_root_hash:
           $ref: '#/components/schemas/TonHash'
@@ -4050,19 +5114,31 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for shard block proof chains.
           type: string
           enum:
             - blocks.shardBlockProof
           default: blocks.shardBlockProof
         from:
+          description: >-
+            The shard block being proven.
           $ref: '#/components/schemas/TonBlockIdExt'
         mc_id:
+          description: >-
+            Masterchain block used as trust anchor for the proof.
           $ref: '#/components/schemas/TonBlockIdExt'
         links:
+          description: >-
+            Array of cryptographic links forming a proof chain from the shard block to the
+            masterchain. Each link contains a block identifier and a Merkle proof (base64).
           type: array
           items:
             $ref: '#/components/schemas/ShardBlockLink'
         mc_proof:
+          description: >-
+            Array of masterchain block link proofs. Each entry contains source and destination block
+            identifiers with corresponding Merkle proofs (base64) and state proofs (base64).
           type: array
           items:
             $ref: '#/components/schemas/BlockLinkBack'
@@ -4077,11 +5153,15 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for consensus block info.
           type: string
           enum:
             - ext.blocks.consensusBlock
           default: ext.blocks.consensusBlock
         consensus_block:
+          description: >-
+            Sequence number of the latest consensus block.
           type: integer
           format: int32
         timestamp:
@@ -4094,15 +5174,24 @@ components:
     LookupBlock:
       $ref: '#/components/schemas/TonBlockIdExt'
     Shards:
+      description: >-
+        List of shardchain blocks at a specific masterchain height. Shows how the basechain is
+        currently partitioned.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for shard listing responses.
           type: string
           enum:
             - blocks.shards
           default: blocks.shards
         shards:
+          description: >-
+            Array of active shard block identifiers. Each entry contains `workchain` (integer),
+            `shard` ID (string), `seqno` (integer), `root_hash` (base64/hex), and `file_hash`
+            (base64/hex).
           type: array
           items:
             $ref: '#/components/schemas/TonBlockIdExt'
@@ -4132,55 +5221,77 @@ components:
     BlockHeader:
       type: object
       additionalProperties: true
-      description: Block header information.
+      description: >-
+        Block metadata including creation time, validator info, and links to previous blocks. Does
+        not include the transactions themselves.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for block header objects.
           type: string
           enum:
             - blocks.header
           default: blocks.header
         id:
           $ref: '#/components/schemas/TonBlockIdExt'
-          description: Extended identifier of the block.
+          description: >-
+            Full block identifier including workchain, shard, `seqno`, and hashes.
         global_id:
           type: integer
           description: Global network identifier.
         version:
           type: integer
-          description: Block format version.
+          description: >-
+            Block format version number.
         after_merge:
           type: boolean
-          description: True if block was created after a merge.
+          description: >-
+            Returns `true` if this block was created immediately after a shard merge; otherwise
+            `false`.
         after_split:
           type: boolean
-          description: True if block was created after a split.
+          description: >-
+            Returns `true` if this block was created immediately after a shard split; otherwise
+            `false`.
         before_split:
           type: boolean
-          description: True if block was created before a split.
+          description: >-
+            Returns `true` if this shard will split after this block; otherwise `false`.
         want_merge:
           type: boolean
-          description: Indicates if validators wanted a merge.
+          description: >-
+            Returns `true` if validators have signaled a preference to merge this shard; otherwise
+            `false`.
         want_split:
           type: boolean
-          description: Indicates if validators wanted a split.
+          description: >-
+            Returns `true` if validators have signaled a preference to split this shard; otherwise
+            `false`.
         validator_list_hash_short:
           type: integer
-          description: Short hash of validator list.
+          description: >-
+            Short hash of the validator set active during this block.
         catchain_seqno:
           type: integer
-          description: Catchain sequence number.
+          description: >-
+            Catchain sequence number used for validator consensus.
         min_ref_mc_seqno:
           type: integer
-          description: Minimum referenced masterchain seqno.
+          description: >-
+            Minimum masterchain block `seqno` referenced by this block.
         is_key_block:
           type: boolean
-          description: True if this block is a key block.
+          description: >-
+            Returns `true` if this is a key block containing validator set changes or config
+            updates; otherwise `false`.
         prev_key_block_seqno:
           type: integer
-          description: Previous key block sequence number.
+          description: >-
+            Sequence number of the previous key block.
         start_lt:
           type: string
-          description: Starting logical time.
+          description: >-
+            Logical time at the start of this block.
           x-usrv-cpp-type: 'std::int64_t'
         end_lt:
           type: string
@@ -4188,10 +5299,13 @@ components:
           x-usrv-cpp-type: 'std::int64_t'
         gen_utime:
           type: integer
-          description: Block generation UNIX timestamp.
+          description: >-
+            Unix timestamp when this block was generated.
         prev_blocks:
           type: array
-          description: List of previous block identifiers.
+          description: >-
+            Array of previous block identifiers (`workchain`, `shard`, `seqno`, `root_hash`,
+            `file_hash`). Usually contains one entry, but two after a shard merge.
           items:
             $ref: '#/components/schemas/TonBlockIdExt'
       required:
@@ -4218,13 +5332,17 @@ components:
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for outgoing message queue size responses.
           type: string
           enum:
             - blocks.outMsgQueueSizes
           default: blocks.outMsgQueueSizes
         shards:
           type: array
-          description: List of outgoing message queue sizes per shard.
+          description: >-
+            Array of per-shard queue sizes. Each entry contains the shard's block identifier and the
+            number of outgoing messages waiting in its queue (integer).
           items:
             $ref: '#/components/schemas/OutMsgQueueSize'
         ext_msg_queue_size_limit:
@@ -4235,29 +5353,44 @@ components:
         - shards
         - ext_msg_queue_size_limit
     ConfigInfo:
+      description: >-
+        Blockchain configuration data. Contains one or more config parameters as requested. Each
+        parameter controls different aspects of network operation.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for blockchain configuration responses.
           type: string
           enum:
             - configInfo
           default: configInfo
         config:
+          description: >-
+            The requested configuration parameter value as a TVM cell.
           $ref: '#/components/schemas/TvmCell'
       required:
         - '@type'
         - config
     LibraryResult:
+      description: >-
+        Library code fetched by hash. Contains the actual code cells for shared libraries referenced
+        by smart contracts.
       type: object
       additionalProperties: false
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for library lookup results.
           type: string
           enum:
             - smc.libraryResult
           default: smc.libraryResult
         result:
+          description: >-
+            Array of library entries. Each entry contains a hash (base64 or hex) identifying the
+            library and a data field with the library code in BoC format (base64).
           type: array
           items:
             $ref: '#/components/schemas/LibraryEntry'
@@ -4267,25 +5400,36 @@ components:
     BlockTransactions:
       type: object
       additionalProperties: false
-      description: Block transactions information
+      description: >-
+        List of short transaction identifiers found in a specific block, with a flag indicating
+        whether more transactions are available for pagination.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for block transaction listings.
           type: string
           enum:
             - blocks.transactions
           default: blocks.transactions
         id:
-          description: Identifier of the block containing the transactions
+          description: >-
+            Full block identifier for the queried block.
           $ref: '#/components/schemas/TonBlockIdExt'
         req_count:
           type: integer
-          description: Number of requested transactions
+          description: >-
+            The maximum number of transactions requested, as specified by the `count` request
+            parameter. If `incomplete` is `true`, more transactions exist beyond this limit.
         incomplete:
           type: boolean
-          description: Indicates if the transaction list is incomplete
+          description: >-
+            Returns `true` if there are more transactions in this block; otherwise `false`. Use the
+            last transaction as cursor for pagination.
         transactions:
           type: array
-          description: List of short transaction identifiers
+          description: >-
+            Array of compact transaction references. Each entry contains the account address
+            (string), logical time (string), and transaction hash (base64 or hex).
           items:
             $ref: '#/components/schemas/ShortTxId'
       required:
@@ -4297,25 +5441,36 @@ components:
     BlockTransactionsExt:
       type: object
       additionalProperties: false
-      description: Block transactions information
+      description: >-
+        List of full transaction objects found in a specific block, with a flag indicating whether
+        more transactions are available for pagination.
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for extended block transaction listings.
           type: string
           enum:
             - blocks.transactionsExt
           default: blocks.transactionsExt
         id:
-          description: Identifier of the block containing the transactions
+          description: >-
+            Full block identifier for the queried block.
           $ref: '#/components/schemas/TonBlockIdExt'
         req_count:
           type: integer
-          description: Number of requested transactions
+          description: >-
+            The maximum number of transactions requested, as specified by the `count` request
+            parameter. If `incomplete` is `true`, more transactions exist beyond this limit.
         incomplete:
           type: boolean
-          description: Indicates if the transaction list is incomplete
+          description: >-
+            Returns `true` if there are more transactions in this block; otherwise `false`. Use the
+            last transaction as cursor for pagination.
         transactions:
           type: array
-          description: List of short transaction identifiers
+          description: >-
+            Array of full transaction objects. Each entry contains the account address, timestamps,
+            inbound/outbound messages, fees (in nanotons), and the raw transaction BoC (base64).
           items:
             $ref: '#/components/schemas/TransactionExt'
       required:
@@ -4337,17 +5492,27 @@ components:
         - previous_transaction_id
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for paginated raw transaction lists.
           type: string
           enum:
             - raw.transactions
           default: raw.transactions
         transactions:
+          description: >-
+            Array of transaction objects in standardized format. Each transaction contains address,
+            timestamps, inbound/outbound messages, fees in nanotons, and raw BoC (base64).
           type: array
           items:
             $ref: '#/components/schemas/TransactionStd'
         previous_transaction_id:
+          description: >-
+            Use this as cursor to fetch the next page of older transactions.
           $ref: '#/components/schemas/InternalTransactionId'
     ExtMessageInfo:
+      description: >-
+        Information about a broadcast external message. Contains the message hash which can be used
+        to track processing.
       type: object
       additionalProperties: false
       required:
@@ -4356,21 +5521,29 @@ components:
         - hash_norm
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for external message info after broadcast.
           type: string
           enum:
             - raw.extMessageInfo
           default: raw.extMessageInfo
         hash:
+          description: >-
+            SHA-256 hash of the external message as accepted by the network.
           $ref: '#/components/schemas/TonHash'
         hash_norm:
           $ref: '#/components/schemas/TonHash'
     ResultOk:
+      description: >-
+        Simple success response with no additional data.
       type: object
       additionalProperties: false
       required:
         - '@type'
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for successful operations with no return data.
           type: string
           enum:
             - ok
@@ -4395,23 +5568,36 @@ components:
         - fwd_fee
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for fee breakdown objects.
           type: string
           enum:
             - fees
           default: fees
         in_fwd_fee:
+          description: >-
+            Fee for importing this inbound message, in nanotons.
           type: integer
           format: int64
         storage_fee:
+          description: >-
+            Storage fee charged for keeping the contract state on-chain, in nanotons.
           type: integer
           format: int64
         gas_fee:
+          description: >-
+            Computation gas fee for executing contract code, in nanotons.
           type: integer
           format: int64
         fwd_fee:
+          description: >-
+            Fee for forwarding outbound messages created by this transaction, in nanotons.
           type: integer
           format: int64
     QueryFees:
+      description: >-
+        Estimated fees for a transaction. Shows the breakdown between storage fees (for contract
+        state), gas fees (for computation), and forward fees (for message delivery).
       type: object
       additionalProperties: false
       required:
@@ -4420,11 +5606,15 @@ components:
         - destination_fees
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for fee estimation results.
           type: string
           enum:
             - query.fees
           default: query.fees
         source_fees:
+          description: >-
+            Fees charged on the sending account.
           $ref: '#/components/schemas/Fees'
         destination_fees:
           type: array
@@ -4439,11 +5629,15 @@ components:
         - slice
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for slice-typed stack entries.
           type: string
           enum:
             - tvm.stackEntrySlice
           default: tvm.stackEntrySlice
         slice:
+          description: >-
+            The TVM slice value.
           $ref: '#/components/schemas/TvmSlice'
     TvmStackEntryCell:
       type: object
@@ -4453,11 +5647,15 @@ components:
         - cell
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for cell-typed stack entries.
           type: string
           enum:
             - tvm.stackEntryCell
           default: tvm.stackEntryCell
         cell:
+          description: >-
+            The TVM cell value.
           $ref: '#/components/schemas/TvmCell'
     TvmStackEntryNumber:
       type: object
@@ -4467,11 +5665,15 @@ components:
         - number
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for number-typed stack entries.
           type: string
           enum:
             - tvm.stackEntryNumber
           default: tvm.stackEntryNumber
         number:
+          description: >-
+            The TVM number value (arbitrary-precision decimal).
           $ref: '#/components/schemas/TvmNumberDecimal'
     TvmStackEntryTuple:
       type: object
@@ -4481,11 +5683,15 @@ components:
         - tuple
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for tuple-typed stack entries.
           type: string
           enum:
             - tvm.stackEntryTuple
           default: tvm.stackEntryTuple
         tuple:
+          description: >-
+            The TVM tuple value.
           $ref: '#/components/schemas/TvmTuple'
     TvmStackEntryList:
       type: object
@@ -4495,11 +5701,15 @@ components:
         - list
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for list-typed stack entries.
           type: string
           enum:
             - tvm.stackEntryList
           default: tvm.stackEntryList
         list:
+          description: >-
+            The TVM list value.
           $ref: '#/components/schemas/TvmList'
     TvmStackEntryUnsupported:
       type: object
@@ -4508,6 +5718,8 @@ components:
         - '@type'
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for stack entries with unsupported types.
           type: string
           enum:
             - tvm.stackEntryUnsupported
@@ -4520,11 +5732,15 @@ components:
         - bytes
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TVM slice values.
           type: string
           enum:
             - tvm.slice
           default: tvm.slice
         bytes:
+          description: >-
+            TVM slice data serialized as base64.
           $ref: '#/components/schemas/Bytes'
     TvmCell:
       type: object
@@ -4534,11 +5750,15 @@ components:
         - bytes
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TVM cell values.
           type: string
           enum:
             - tvm.cell
           default: tvm.cell
         bytes:
+          description: >-
+            TVM cell data serialized as base64.
           $ref: '#/components/schemas/Bytes'
     TvmNumberDecimal:
       type: object
@@ -4548,11 +5768,15 @@ components:
         - number
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TVM decimal number values.
           type: string
           enum:
             - tvm.numberDecimal
           default: tvm.numberDecimal
         number:
+          description: >-
+            Integer value as a decimal string (supports arbitrarily large numbers).
           $ref: '#/components/schemas/Int256'
     TvmTuple:
       type: object
@@ -4562,11 +5786,17 @@ components:
         - elements
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TVM tuple structures.
           type: string
           enum:
             - tvm.tuple
           default: tvm.tuple
         elements:
+          description: >-
+            Ordered tuple of TVM stack entries. Each element is a typed object with `@type`
+            discriminator (`tvm.stackEntryNumber`, `tvm.stackEntryCell`, `tvm.stackEntrySlice`,
+            `tvm.stackEntryTuple`, or `tvm.stackEntryList`).
           type: array
           items:
             oneOf:
@@ -4599,11 +5829,17 @@ components:
         - elements
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for TVM list structures.
           type: string
           enum:
             - tvm.list
           default: tvm.list
         elements:
+          description: >-
+            Ordered list of TVM stack entries. Each element is a typed object with `@type`
+            discriminator (`tvm.stackEntryNumber`, `tvm.stackEntryCell`, `tvm.stackEntrySlice`,
+            `tvm.stackEntryTuple`, or `tvm.stackEntryList`).
           type: array
           items:
             oneOf:
@@ -4639,11 +5875,17 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         method:
+          description: >-
+            The get method name (e.g., `seqno`, `get_wallet_data`) or its numeric ID.
           oneOf:
             - type: string
             - type: integer
               format: int32
         stack:
+          description: >-
+            Input arguments as a TVM stack. Each entry is a typed object with `@type` discriminator:
+            `tvm.stackEntryNumber` (decimal string), `tvm.stackEntryCell` (base64 BoC),
+            `tvm.stackEntrySlice` (base64 BoC), `tvm.stackEntryTuple`, or `tvm.stackEntryList`.
           type: array
           items:
             oneOf:
@@ -4669,8 +5911,14 @@ components:
                 'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
                 'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
         seqno:
+          description: >-
+            Masterchain block sequence number. Run the get method against the contract state at this
+            specific block height. If omitted, uses the current state.
           type: integer
     RunGetMethodStdResult:
+      description: >-
+        Result of executing a smart contract get method. Contains the TVM exit code (0 or 1 means
+        success), gas consumed, and the output stack with typed return values.
       type: object
       additionalProperties: false
       required:
@@ -4680,14 +5928,22 @@ components:
         - exit_code
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for standardized get method execution results.
           type: string
           enum:
             - smc.runResult
           default: smc.runResult
         gas_used:
+          description: >-
+            Gas consumed during execution. Useful for cost estimation.
           type: integer
           format: int64
         stack:
+          description: >-
+            Output values as a TVM stack. Each entry is a typed object with `@type` discriminator:
+            `tvm.stackEntryNumber` (decimal string), `tvm.stackEntryCell` (base64 BoC),
+            `tvm.stackEntrySlice` (base64 BoC), `tvm.stackEntryTuple`, or `tvm.stackEntryList`.
           type: array
           items:
             oneOf:
@@ -4713,6 +5969,9 @@ components:
                 'tvm.stackEntryList': '#/components/schemas/TvmStackEntryList'
                 'tvm.stackEntryUnsupported': '#/components/schemas/TvmStackEntryUnsupported'
         exit_code:
+          description: >-
+            TVM exit code. `0` or `1` means success; other values indicate errors. Refer to the TVM
+            exit code reference for all values.
           type: integer
           format: int32
     # legacy run get method
@@ -4725,6 +5984,8 @@ components:
         - special
       properties:
         data:
+          description: >-
+            Cell binary data.
           type: object
           additionalProperties: false
           required:
@@ -4732,15 +5993,25 @@ components:
             - len
           properties:
             b64:
+              description: >-
+                Cell data in base64.
               $ref: '#/components/schemas/Bytes'
             len:
+              description: >-
+                Data length in bits.
               type: integer
               format: int32
         refs:
+          description: >-
+            Array of child cell references, forming a directed acyclic graph (DAG). Each child is a
+            TVM cell object with its own data (base64), refs, and special flag.
           type: array
           items:
             $ref: '#/components/schemas/LegacyTvmCell'
         special:
+          description: >-
+            Returns `true` if this is a special (exotic) cell type such as a Merkle proof or library
+            reference; otherwise `false`.
           type: boolean
     LegacyStackEntryCell:
       type: object
@@ -4749,8 +6020,12 @@ components:
         - bytes
       properties:
         bytes:
+          description: >-
+            Raw cell bytes in base64.
           $ref: '#/components/schemas/Bytes'
         object:
+          description: >-
+            Parsed cell object with data, refs, and type info.
           $ref: '#/components/schemas/LegacyTvmCell'
     LegacyStackEntry:
       type: array
@@ -4767,6 +6042,9 @@ components:
       minItems: 2
       maxItems: 2
     RunGetMethodRequest:
+      description: >-
+        Request to execute a smart contract get method. Specify address, method name/ID, and input
+        stack.
       type: object
       additionalProperties: false
       required:
@@ -4777,18 +6055,29 @@ components:
         address:
           $ref: '#/components/schemas/TonAddr'
         method:
+          description: >-
+            The get method name (e.g., `seqno`, `get_wallet_data`) or its numeric ID.
           oneOf:
             - type: string
             - type: integer
               format: int32
         stack:
+          description: >-
+            Input arguments as a TVM stack. Each entry is a two-element array: `[type, value]` where
+            type is `"num"` (decimal string), `"cell"` (base64 BoC), or `"slice"` (base64 BoC).
           type: array
           items:
             $ref: '#/components/schemas/LegacyStackEntry'
         seqno:
+          description: >-
+            Masterchain block sequence number. Run the get method against the contract state at this
+            specific block height. If omitted, uses the current state.
           type: integer
           format: int32
     RunGetMethodResult:
+      description: >-
+        Result of executing a smart contract get method. Contains the TVM exit code (0 or 1 means
+        success), gas used, and the output stack with return values.
       type: object
       additionalProperties: false
       required:
@@ -4800,11 +6089,15 @@ components:
         - last_transaction_id
       properties:
         '@type':
+          description: >-
+            TonLib type identifier for get method execution results.
           type: string
           enum:
             - smc.runResult
           default: smc.runResult
         gas_used:
+          description: >-
+            Gas consumed during execution. Useful for cost estimation.
           type: integer
           format: int64
         stack:
@@ -4812,9 +6105,16 @@ components:
           items:
             $ref: '#/components/schemas/LegacyStackEntry'
         exit_code:
+          description: >-
+            TVM exit code. `0` or `1` means success; other values indicate errors. Refer to the TVM
+            exit code reference for all values.
           type: integer
           format: int32
         block_id:
+          description: >-
+            Block at which the get method was executed.
           $ref: '#/components/schemas/TonBlockIdExt'
         last_transaction_id:
+          description: >-
+            Most recent transaction at the time of execution.
           $ref: '#/components/schemas/InternalTransactionId'
