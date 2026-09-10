@@ -5,6 +5,7 @@
 #include "userver/components/component_config.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/logging/component.hpp"
+#include "userver/logging/log.hpp"
 #include "userver/yaml_config/merge_schemas.hpp"
 #include "utils/exceptions.hpp"
 
@@ -65,25 +66,29 @@ userver::formats::json::Value TonlibHandlerBase::MakeSuccessResponse(
 
 void TonlibHandlerBase::LogJsonResponse(
   const HttpRequest& request,
-  const userver::formats::json::Value& parsed_request,
+  userver::utils::function_ref<userver::formats::json::Value()> make_parsed_request,
   const userver::formats::json::Value& response,
   userver::logging::Level level
 ) const {
-  userver::logging::LogExtra log_extra;
-  log_extra.Extend("http_method", request.GetMethodStr());
-  log_extra.Extend("api_method", request.GetRequestPath());
-  log_extra.Extend("request", parsed_request);
-  log_extra.Extend("response", response);
-  LOG_TO(*logger_, level) << log_extra;
+  LOG_TO(*logger_, level) << [&](auto& log) {
+    userver::logging::LogExtra log_extra;
+    log_extra.Extend("http_method", request.GetMethodStr());
+    log_extra.Extend("api_method", request.GetRequestPath());
+    log_extra.Extend("request", make_parsed_request());
+    log_extra.Extend("response", response);
+    log << log_extra;
+  };
 }
 
 void TonlibHandlerBase::LogMalformedRequest(const HttpRequest& request, RequestContext&) const {
-  userver::logging::LogExtra log_extra;
-  log_extra.Extend("http_method", request.GetMethodStr());
-  log_extra.Extend("api_method", request.GetRequestPath());
-  log_extra.Extend("request", request.RequestBody());
-  log_extra.Extend("response", "malformed request");
-  LOG_WARNING_TO(*logger_) << log_extra;
+  LOG_WARNING_TO(*logger_) << [&](auto& log) {
+    userver::logging::LogExtra log_extra;
+    log_extra.Extend("http_method", request.GetMethodStr());
+    log_extra.Extend("api_method", request.GetRequestPath());
+    log_extra.Extend("request", request.RequestBody());
+    log_extra.Extend("response", "malformed request");
+    log << log_extra;
+  };
 }
 
 userver::yaml_config::Schema TonlibHandlerBase::GetStaticConfigSchema() {

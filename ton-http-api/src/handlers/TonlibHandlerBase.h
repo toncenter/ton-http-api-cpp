@@ -9,6 +9,7 @@
 #include "userver/logging/fwd.hpp"
 #include "userver/logging/level.hpp"
 #include "userver/server/handlers/http_handler_base.hpp"
+#include "userver/utils/function_ref.hpp"
 
 namespace multiclient {
 class Session;
@@ -50,7 +51,7 @@ protected:
   ) const;
   void LogJsonResponse(
     const HttpRequest& request,
-    const userver::formats::json::Value& parsed_request,
+    userver::utils::function_ref<userver::formats::json::Value()> make_parsed_request,
     const userver::formats::json::Value& response,
     userver::logging::Level level
   ) const;

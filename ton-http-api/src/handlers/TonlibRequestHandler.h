@@ -170,9 +170,15 @@ public:
   void LogResponse(
     const HttpRequest& request, RequestContext& context, const userver::formats::json::Value& response
   ) const {
-    const auto& tonlib_request = context.GetData<Request>(kRequest);
-
-    LogJsonResponse(request, userver::formats::json::ValueBuilder{tonlib_request}.ExtractValue(), response, level);
+    LogJsonResponse(
+      request,
+      [&context] {
+        const auto& tonlib_request = context.GetData<Request>(kRequest);
+        return userver::formats::json::ValueBuilder{tonlib_request}.ExtractValue();
+      },
+      response,
+      level
+    );
   }
 
 private:
