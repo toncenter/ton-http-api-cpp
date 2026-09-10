@@ -12,7 +12,9 @@
 #include "userver/components/component_config.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/components/statistics_storage.hpp"
-#include "userver/formats/json.hpp"
+#include "userver/utils/cached_hash.hpp"
+
+#include "RequestHash.h"
 #include "userver/utils/statistics/entry.hpp"
 
 namespace ton_http::handlers {
@@ -22,22 +24,20 @@ class RequestCache {
 public:
   class Key {
   public:
-    explicit Key(const Request& request) :
-        value_(ToString(userver::formats::json::ValueBuilder{request}.ExtractValue())),
-        hash_(std::hash<std::string>{}(value_)) {
+    explicit Key(const Request& request) : value_{0, request} {
+      value_.hash = detail::StructuralHash(value_.key);
     }
 
     std::size_t GetHash() const noexcept {
-      return hash_;
+      return value_.hash;
     }
 
-    bool operator==(const Key& other) const noexcept {
+    bool operator==(const Key& other) const {
       return value_ == other.value_;
     }
 
   private:
-    std::string value_;
-    std::size_t hash_;
+    userver::utils::CachedHash<Request> value_;
   };
 
   struct Hash {
@@ -46,7 +46,7 @@ public:
     }
   };
   struct Equal {
-    bool operator()(const Key& lhs, const Key& rhs) const noexcept {
+    bool operator()(const Key& lhs, const Key& rhs) const {
       return lhs == rhs;
     }
   };
