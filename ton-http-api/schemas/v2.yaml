@@ -9,7 +9,7 @@ info:
     The response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.
     
     API Key should be sent either as `api_key` query parameter or `X-API-Key` header
-  version: '2.1.11'
+  version: '2.1'
 paths:
   /api/v2/jsonRPC:
     post:

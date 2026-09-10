@@ -83,6 +83,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/schemas/v2.cpp
         src/utils/common.cpp
         src/handlers/JsonRpcHandler.cpp
+        src/handlers/TonlibHandlerBase.cpp
         src/handlers/blocks/GetMasterchainInfoHandler.cpp
         src/handlers/utils/DetectAddressHandler.cpp
         src/handlers/utils/DetectHashHandler.cpp
