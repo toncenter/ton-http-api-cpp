@@ -148,3 +148,12 @@ target_link_libraries(${PROJECT_NAME} userver::core userver::chaotic tonlib::mul
 target_link_options(${PROJECT_NAME} PUBLIC -rdynamic)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+# Standalone regression tests; build explicitly with --target ton-http-api-cache-test.
+add_executable(ton-http-api-cache-test EXCLUDE_FROM_ALL
+        tests/request_cache_test.cpp
+        src/schemas/v2.cpp)
+target_include_directories(ton-http-api-cache-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(ton-http-api-cache-test PRIVATE
+        userver::core userver::chaotic ${PROJECT_NAME}-userver-types)
+add_dependencies(ton-http-api-cache-test ${PROJECT_NAME}-chgen)

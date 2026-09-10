@@ -20,18 +20,37 @@ namespace ton_http::handlers {
 template <typename Request, typename Response>
 class RequestCache {
 public:
+  class Key {
+  public:
+    explicit Key(const Request& request) :
+        value_(ToString(userver::formats::json::ValueBuilder{request}.ExtractValue())),
+        hash_(std::hash<std::string>{}(value_)) {
+    }
+
+    std::size_t GetHash() const noexcept {
+      return hash_;
+    }
+
+    bool operator==(const Key& other) const noexcept {
+      return value_ == other.value_;
+    }
+
+  private:
+    std::string value_;
+    std::size_t hash_;
+  };
+
   struct Hash {
-    std::size_t operator()(const Request& request) const noexcept {
-      return std::hash<std::string>{}(ToString(userver::formats::json::ValueBuilder{request}.ExtractValue()));
+    std::size_t operator()(const Key& key) const noexcept {
+      return key.GetHash();
     }
   };
   struct Equal {
-    bool operator()(const Request& lhs, const Request& rhs) const noexcept {
-      return ToString(userver::formats::json::ValueBuilder{lhs}.ExtractValue()) ==
-        ToString(userver::formats::json::ValueBuilder{rhs}.ExtractValue());
+    bool operator()(const Key& lhs, const Key& rhs) const noexcept {
+      return lhs == rhs;
     }
   };
-  using Cache = userver::cache::ExpirableLruCache<Request, Response, Hash, Equal>;
+  using Cache = userver::cache::ExpirableLruCache<Key, Response, Hash, Equal>;
 
   RequestCache(
     const userver::components::ComponentConfig& config, const userver::components::ComponentContext& context
@@ -71,16 +90,23 @@ public:
     cache_stats_holder_.Unregister();
   }
 
-  std::optional<Response> Get(const Request& request) const {
+  std::optional<Key> PrepareKey(const Request& request) const {
     if (!cache_) {
       return std::nullopt;
     }
-    return cache_->GetOptionalNoUpdate(request);
+    return Key{request};
   }
 
-  void Put(const Request& request, const Response& response) const {
-    if (cache_) {
-      cache_->Put(request, response);
+  std::optional<Response> Get(const std::optional<Key>& key) const {
+    if (!cache_ || !key) {
+      return std::nullopt;
+    }
+    return cache_->GetOptionalNoUpdate(*key);
+  }
+
+  void Put(const std::optional<Key>& key, const Response& response) const {
+    if (cache_ && key) {
+      cache_->Put(*key, response);
     }
   }
 

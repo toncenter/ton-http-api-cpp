@@ -41,6 +41,7 @@ concept VectorLike = is_vector_v<T>;
 template <typename Request, typename Response>
 class TonlibRequestHandler : public TonlibHandlerBase {
 public:
+  using CacheKey = typename RequestCache<Request, Response>::Key;
   using Hash = typename RequestCache<Request, Response>::Hash;
   using Equal = typename RequestCache<Request, Response>::Equal;
   using Cache = typename RequestCache<Request, Response>::Cache;
@@ -111,12 +112,12 @@ public:
     return ToString(response_body);
   }
 
-  std::optional<Response> TryGetCachedResponse(const Request& request) const {
-    return cache_.Get(request);
+  std::optional<Response> TryGetCachedResponse(const std::optional<CacheKey>& key) const {
+    return cache_.Get(key);
   }
 
-  void CacheResponse(const Request& request, const Response& response) const {
-    cache_.Put(request, response);
+  void CacheResponse(const std::optional<CacheKey>& key, const Response& response) const {
+    cache_.Put(key, response);
   }
 
   std::string HandleRequestThrow(const HttpRequest& request, RequestContext& context) const override {
@@ -148,7 +149,9 @@ public:
     }
 
     // check cache
-    if (auto tonlib_cached_response = TryGetCachedResponse(tonlib_request); tonlib_cached_response.has_value()) {
+    // Keep the same request snapshot for lookup and insertion across the Tonlib wait.
+    const auto cache_key = cache_.PrepareKey(tonlib_request);
+    if (auto tonlib_cached_response = TryGetCachedResponse(cache_key); tonlib_cached_response.has_value()) {
       return ReturnTonlibResponse(request, context, tonlib_cached_response.value(), true);
     }
 
@@ -162,7 +165,7 @@ public:
 
     auto tonlib_result = tonlib_response.move_as_ok();
 
-    CacheResponse(tonlib_request, tonlib_result);
+    CacheResponse(cache_key, tonlib_result);
     return ReturnTonlibResponse(request, context, tonlib_result, false);
   }
 
