@@ -163,10 +163,10 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
@@ -242,10 +242,10 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
@@ -323,10 +323,10 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::getTrans
   }
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   if (!(from_transaction_lt.has_value() && !from_transaction_hash.empty())) {
@@ -397,10 +397,10 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");
@@ -492,10 +492,10 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");

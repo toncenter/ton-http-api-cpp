@@ -35,10 +35,10 @@ td::Result<std::unique_ptr<tonlib_api::query_fees>> TonlibWorker::queryEstimateF
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
 

@@ -206,6 +206,9 @@ public:
 private:
   multiclient::MultiClient tonlib_;
 
+  [[nodiscard]] td::Result<multiclient::SessionPtr> get_session(
+    const multiclient::RequestParameters& options, multiclient::SessionPtr&& session
+  ) const;
 
   [[nodiscard]] td::Result<tonlib_api::blocks_getTransactions::ReturnType> raw_getBlockTransactions(
     const tonlib_api::object_ptr<tonlib_api::ton_blockIdExt>& blk_id,
@@ -283,8 +286,8 @@ private:
   td::Result<typename T::ReturnType> send_request_function(
     multiclient::RequestFunction<T>&& request, bool retry_archival = false
   ) const {
-    if (!request.session->is_valid()) {
-      TRY_RESULT_ASSIGN(request.session, tonlib_.get_session(request.parameters, std::move(request.session)));
+    if (!request.session || !request.session->is_valid()) {
+      TRY_RESULT_ASSIGN(request.session, get_session(request.parameters, std::move(request.session)));
     }
 
     auto result = tonlib_.send_request_function<T, userver::engine::Promise>(request);
@@ -299,7 +302,7 @@ private:
 
     // retry request with archival
     request.parameters.archival = true;
-    auto r_new_session = tonlib_.get_session(request.parameters, std::move(request.session));
+    auto r_new_session = get_session(request.parameters, std::move(request.session));
     if (r_new_session.is_error()) {
       return std::move(error);
     }

@@ -52,31 +52,10 @@ void MultiClient::send_callback_request(RequestCallback req) const {
   });
 }
 td::Result<std::int32_t> MultiClient::get_consensus_block() const {
-  std::promise<td::Result<std::int32_t>> request_promise;
-  auto request_future = request_promise.get_future();
-
-  auto promise = td::Promise<std::int32_t>([p = std::move(request_promise)](auto result) mutable {
-    p.set_value(std::move(result));
-  });
-
-  scheduler_->run_in_context([this, p = std::move(promise)]() mutable {
-    td::actor::send_closure(client_.get(), &MultiClientActor::get_consensus_block, std::move(p));
-  });
-
-  return request_future.get();
+  return get_consensus_block<std::promise>();
 }
 td::Result<SessionPtr> MultiClient::get_session(const RequestParameters& params, SessionPtr&& session) const {
-  std::promise<td::Result<SessionPtr>> request_promise;
-  auto request_future = request_promise.get_future();
-
-  auto promise =
-    td::Promise<SessionPtr>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
-
-  scheduler_->run_in_context([this, params, session, p = std::move(promise)]() mutable {
-    td::actor::send_closure(client_.get(), &MultiClientActor::get_session, params, std::move(session), std::move(p));
-  });
-
-  return request_future.get();
+  return get_session<std::promise>(params, std::move(session));
 }
 
 }  // namespace multiclient
