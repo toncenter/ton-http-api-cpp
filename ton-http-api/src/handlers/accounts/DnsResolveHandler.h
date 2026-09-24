@@ -5,8 +5,7 @@
 
 namespace ton_http::handlers {
 
-class DnsResolveHandler
-    : public TonlibRequestHandler<schemas::v2::DnsResolveRequest, schemas::v2::DnsResolved> {
+class DnsResolveHandler : public TonlibRequestHandler<schemas::v2::DnsResolveRequest, schemas::v2::DnsResolved> {
 public:
   static constexpr std::string_view kName = "handler-DnsResolve";
 
@@ -15,9 +14,10 @@ public:
   );
 
   td::Status ValidateRequest(const schemas::v2::DnsResolveRequest& request) const override;
-  schemas::v2::DnsResolveRequest ParseTonlibGetRequest(
-    const HttpRequest& request, RequestContext& context
-  ) const override;
+  schemas::v2::DnsResolveRequest ParseTonlibGetRequest(const HttpRequest& request, RequestContext& context)
+    const override;
+  schemas::v2::DnsResolveRequest ParseTonlibPostRequest(const HttpRequest& request, RequestContext& context)
+    const override;
 
   td::Result<schemas::v2::DnsResolved> HandleRequestTonlibThrow(
     schemas::v2::DnsResolveRequest& request, multiclient::SessionPtr& session

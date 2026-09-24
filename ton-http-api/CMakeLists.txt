@@ -106,6 +106,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
         src/core/tonlib_worker_dns.cpp
+        src/core/dns.cpp
         src/handlers/blocks/GetShardBlockProofHandler.cpp
         src/handlers/blocks/GetConsensusBlockHandler.cpp
         src/handlers/blocks/LookupBlockHandler.cpp
@@ -157,3 +158,10 @@ target_include_directories(ton-http-api-cache-test PRIVATE ${CMAKE_CURRENT_SOURC
 target_link_libraries(ton-http-api-cache-test PRIVATE
         userver::core userver::chaotic ${PROJECT_NAME}-userver-types)
 add_dependencies(ton-http-api-cache-test ${PROJECT_NAME}-chgen)
+
+# Deterministic DNS protocol tests; no live lite server or userver testsuite needed.
+add_executable(ton-http-api-dns-tests EXCLUDE_FROM_ALL tests/dns_test.cpp src/core/dns.cpp)
+target_include_directories(ton-http-api-dns-tests PRIVATE src)
+target_link_libraries(ton-http-api-dns-tests PRIVATE smc-envelope ton_block tl_tonlib_api tdutils)
+add_test(NAME ton-http-api-dns COMMAND ton-http-api-dns-tests)
+
