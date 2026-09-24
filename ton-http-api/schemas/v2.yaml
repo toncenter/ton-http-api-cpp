@@ -9,7 +9,7 @@ info:
     The response contains a JSON object, which always has a boolean field `ok` and either `error` or `result`. If `ok` equals true, the request was successful and the result of the query can be found in the `result` field. In case of an unsuccessful request, `ok` equals false and the error is explained in the `error`.
     
     API Key should be sent either as `api_key` query parameter or `X-API-Key` header
-  version: '2.1.11'
+  version: '2.1'
 paths:
   /api/v2/jsonRPC:
     post:
@@ -633,29 +633,25 @@ paths:
       tags:
         - accounts
       summary: Resolve TON DNS name
-      description: Resolve TON DNS contract
+      description: >-
+        Recursively resolve a TON DNS domain into all records. Supports .ton, .t.me, and
+        delegated subdomains. When resolver_address is omitted, discover the root from
+        on-chain config parameter 4. Root discovery and all resolver calls use the same
+        masterchain block, selected by seqno or the current state.
       operationId: dnsResolve_get
       parameters:
-        - $ref: '#/components/parameters/address'
-        - name: name
+        - name: domain
           in: query
-          description: Domain name to resolve
-          required: false
+          description: Domain to resolve; relative to resolver_address when supplied. Case-insensitive; a trailing dot is accepted.
+          required: true
           schema:
             type: string
-        - name: category
+        - name: resolver_address
           in: query
-          description: Get a specific category of DNS record
+          description: Starting resolver address. Defaults to on-chain config parameter 4 at the selected block.
           required: false
           schema:
-            type: string
-        - name: ttl
-          in: query
-          description: TTL of a resolved record
-          required: false
-          schema:
-            type: int
-            format: int32
+            $ref: '#/components/schemas/TonAddr'
         - $ref: '#/components/parameters/seqnoOptional'
       responses:
         200:
@@ -673,7 +669,10 @@ paths:
       tags:
         - rpc
       summary: Resolve TON DNS name
-      description: Resolve TON DNS contract
+      description: >-
+        Recursively resolve a TON DNS domain into all records, using the same behavior
+        as GET. Replaces the former address, name, category, and ttl parameters with
+        domain, resolver_address, and seqno. Missing records produce an empty entries array.
       operationId: dnsResolve_post
       requestBody:
         content:
@@ -2287,21 +2286,17 @@ components:
       type: object
       additionalProperties: false
       required:
-        - address
+        - domain
       properties:
-        address:
+        domain:
+          type: string
+          description: Domain to resolve; relative to resolver_address when supplied. Case-insensitive; a trailing dot is accepted.
+        resolver_address:
           $ref: '#/components/schemas/TonAddr'
-        name:
-          type: string
-        category:
-          type: string
-        ttl:
-          type: integer
-          format: int32
-          x-usrv-cpp-type: 'std::int32_t'
         seqno:
           type: integer
           format: int32
+          description: Masterchain block for root discovery and every resolver call. Defaults to current state.
     MasterchainInfoRequest:
       $ref: '#/components/schemas/EmptyRequest'
     MasterchainBlockSignaturesRequest:

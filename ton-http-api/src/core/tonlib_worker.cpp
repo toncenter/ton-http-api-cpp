@@ -4,6 +4,12 @@
 
 
 namespace ton_http::core {
+td::Result<multiclient::SessionPtr> TonlibWorker::get_session(
+  const multiclient::RequestParameters& options, multiclient::SessionPtr&& session
+) const {
+  return tonlib_.get_session<userver::engine::Promise>(options, std::move(session));
+}
+
 td::Result<std::unique_ptr<tonlib_api::smc_info>> TonlibWorker::loadContract(
   const std::string& address,
   std::optional<std::int32_t> seqno,
@@ -12,7 +18,7 @@ td::Result<std::unique_ptr<tonlib_api::smc_info>> TonlibWorker::loadContract(
 ) const {
   if (session == nullptr && archival.has_value()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "Failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "Failed to get session: ");
   }
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> with_block;
   if (seqno.has_value()) {

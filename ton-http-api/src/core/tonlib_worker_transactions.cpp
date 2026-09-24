@@ -2,6 +2,21 @@
 #include "utils/common.hpp"
 
 namespace ton_http::core {
+namespace {
+
+bool IsBlockCursorAfter(
+  const tonlib_api::blocks_accountTransactionId& cursor,
+  const std::string& previous_account,
+  std::int64_t previous_lt
+) {
+  // Block transactions are ordered by account, then unsigned logical time.
+  return cursor.account_ > previous_account ||
+         (cursor.account_ == previous_account &&
+          static_cast<std::uint64_t>(cursor.lt_) > static_cast<std::uint64_t>(previous_lt));
+}
+
+}  // namespace
+
 td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::raw_getBlockTransactions(
   const tonlib_api::object_ptr<tonlib_api::ton_blockIdExt>& blk_id,
   size_t count,
@@ -148,10 +163,10 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
@@ -180,8 +195,16 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
   while (!is_finished) {
     constexpr size_t CHUNK_SIZE = 256;
     size_t chunk_size = (left_count > CHUNK_SIZE ? CHUNK_SIZE : left_count);
+    const auto previous_account = after->account_;
+    const auto previous_lt = after->lt_;
     TRY_RESULT(local, raw_getBlockTransactions(blk_id, chunk_size, std::move(after), archival, session));
 
+    if (local->transactions_.size() > chunk_size) {
+      return td::Status::Error("getBlockTransactions returned more transactions than requested");
+    }
+    if (chunk_size != 0 && local->incomplete_ && local->transactions_.empty()) {
+      return td::Status::Error("getBlockTransactions returned an empty incomplete page");
+    }
     txs->id_ = std::move(local->id_);
     txs->incomplete_ = local->incomplete_;
     left_count -= local->transactions_.size();
@@ -190,6 +213,9 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
       after = tonlib_api::make_object<tonlib_api::blocks_accountTransactionId>(
         local->transactions_[last_idx]->account_, local->transactions_[last_idx]->lt_
       );
+      if (!IsBlockCursorAfter(*after, previous_account, previous_lt)) {
+        return td::Status::Error("getBlockTransactions pagination cursor did not advance");
+      }
     }
 
     std::ranges::copy(
@@ -197,7 +223,7 @@ td::Result<tonlib_api::blocks_getTransactions::ReturnType> TonlibWorker::getBloc
       std::make_move_iterator(local->transactions_.end()),
       std::back_inserter(txs->transactions_)
     );
-    is_finished = left_count <= 0 || !local->incomplete_;
+    is_finished = left_count == 0 || !local->incomplete_;
   }
   txs->req_count_ = static_cast<std::int32_t>(count);
   return std::move(txs);
@@ -216,10 +242,10 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
@@ -248,7 +274,15 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
   while (!is_finished) {
     constexpr size_t CHUNK_SIZE = 256;
     size_t chunk_size = (left_count > CHUNK_SIZE ? CHUNK_SIZE : left_count);
+    const auto previous_account = after->account_;
+    const auto previous_lt = after->lt_;
     TRY_RESULT(local, raw_getBlockTransactionsExt(blk_id, chunk_size, std::move(after), archival, session));
+    if (local->transactions_.size() > chunk_size) {
+      return td::Status::Error("getBlockTransactionsExt returned more transactions than requested");
+    }
+    if (chunk_size != 0 && local->incomplete_ && local->transactions_.empty()) {
+      return td::Status::Error("getBlockTransactionsExt returned an empty incomplete page");
+    }
     txs->id_ = std::move(local->id_);
     txs->incomplete_ = local->incomplete_;
     left_count -= local->transactions_.size();
@@ -258,6 +292,9 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
       after = tonlib_api::make_object<tonlib_api::blocks_accountTransactionId>(
         std_address.addr.as_slice().str(), local->transactions_[last_idx]->transaction_id_->lt_
       );
+      if (!IsBlockCursorAfter(*after, previous_account, previous_lt)) {
+        return td::Status::Error("getBlockTransactionsExt pagination cursor did not advance");
+      }
     }
 
     std::ranges::copy(
@@ -265,7 +302,7 @@ td::Result<tonlib_api::blocks_getTransactionsExt::ReturnType> TonlibWorker::getB
       std::make_move_iterator(local->transactions_.end()),
       std::back_inserter(txs->transactions_)
     );
-    is_finished = (left_count <= 0) || !local->incomplete_;
+    is_finished = left_count == 0 || !local->incomplete_;
   }
   txs->req_count_ = static_cast<std::int32_t>(count);
   return std::move(txs);
@@ -281,12 +318,15 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::getTrans
   std::optional<bool> archival,
   multiclient::SessionPtr session
 ) const {
+  if (chunk_size == 0) {
+    return td::Status::Error("getTransactions chunk size must be positive");
+  }
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   if (!(from_transaction_lt.has_value() && !from_transaction_hash.empty())) {
@@ -309,12 +349,23 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::getTrans
         account_address, current_lt, current_hash, local_chunk_size, try_decode_messages, archival, session
       )
     );
+    if (local->transactions_.size() > local_chunk_size) {
+      return td::Status::Error("getTransactions returned more transactions than requested");
+    }
+    if (const auto& next_tx = local->previous_transaction_id_; next_tx && next_tx->lt_ != 0) {
+      if (local->transactions_.empty()) {
+        return td::Status::Error("getTransactions returned an empty page with a continuation cursor");
+      }
+      if (static_cast<std::uint64_t>(next_tx->lt_) >= static_cast<std::uint64_t>(current_lt)) {
+        return td::Status::Error("getTransactions pagination cursor did not advance");
+      }
+    }
     for (auto& tx : local->transactions_) {
       if (tx->transaction_id_->lt_ <= to_transaction_lt) {
         reach_lt = true;
-      } else {
-        ++tx_count;
+        break;
       }
+      ++tx_count;
     }
 
     // it seems that previous_transaction_id_ is always not nullptr however, I'll leave it as it was in a Python version
@@ -346,10 +397,10 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");
@@ -441,10 +492,10 @@ td::Result<tonlib_api::raw_getTransactionsV2::ReturnType> TonlibWorker::tryLocat
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = std::nullopt};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
 
   TRY_RESULT_PREFIX(src, block::StdAddress::parse(source), "failed to parse source: ");

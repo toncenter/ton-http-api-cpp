@@ -42,6 +42,12 @@ public:
   td::Result<std::int32_t> get_consensus_block() const;
   td::Result<SessionPtr> get_session(const RequestParameters& options, SessionPtr&& session) const;
 
+  template <template <typename> typename P>
+  td::Result<std::int32_t> get_consensus_block() const;
+
+  template <template <typename> typename P>
+  td::Result<SessionPtr> get_session(const RequestParameters& options, SessionPtr&& session) const;
+
 private:
   const MultiClientConfig config_;
   std::shared_ptr<td::actor::Scheduler> scheduler_;
@@ -50,6 +56,46 @@ private:
 };
 
 using MultiClientPtr = std::unique_ptr<MultiClient>;
+
+template <template <typename> typename P>
+td::Result<std::int32_t> MultiClient::get_consensus_block() const {
+  P<td::Result<std::int32_t>> request_promise;
+  auto request_future = request_promise.get_future();
+
+  auto promise = td::Promise<std::int32_t>([p = std::move(request_promise)](auto result) mutable {
+    p.set_value(std::move(result));
+  });
+
+  scheduler_->run_in_context([this, p = std::move(promise)]() mutable {
+    td::actor::send_closure(client_.get(), &MultiClientActor::get_consensus_block, std::move(p));
+  });
+
+  return request_future.get();
+}
+
+template <template <typename> typename P>
+td::Result<SessionPtr> MultiClient::get_session(const RequestParameters& options, SessionPtr&& session) const {
+  auto existing_session = session;
+  P<td::Result<SessionPtr>> request_promise;
+  auto request_future = request_promise.get_future();
+
+  auto promise =
+    td::Promise<SessionPtr>([p = std::move(request_promise)](auto result) mutable { p.set_value(std::move(result)); });
+
+  // Select into a fresh session: the caller may stop waiting before the actor runs.
+  scheduler_->run_in_context([this, options, p = std::move(promise)]() mutable {
+    td::actor::send_closure(client_.get(), &MultiClientActor::get_session, options, nullptr, std::move(p));
+  });
+
+  TRY_RESULT(selected_session, request_future.get());
+  if (existing_session) {
+    // Commit on the caller only after successful completion, preserving session identity and timing.
+    auto active_workers = selected_session->active_workers();
+    existing_session->set_active_workers(std::move(active_workers));
+    return existing_session;
+  }
+  return selected_session;
+}
 
 template <typename T, template <typename> typename P>
 td::Result<typename T::ReturnType> MultiClient::send_request(Request<T> req) const {

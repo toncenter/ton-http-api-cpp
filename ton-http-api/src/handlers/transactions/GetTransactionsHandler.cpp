@@ -94,7 +94,7 @@ ton_http::handlers::GetTransactionsHandler::HandleRequestTonlibThrow(
   auto lt = request.lt.has_value() && request.lt.value() == 0 ? std::nullopt : request.lt;
   auto hash = request.hash.has_value() ? request.hash.value().GetUnderlying() : "";
   auto to_lt = request.to_lt.has_value() ? request.to_lt.value() : 0;
-  constexpr size_t CHUNK_SIZE = 10;
+  constexpr size_t CHUNK_SIZE = 256;
   constexpr bool TRY_DECODE_MESSAGES = true;
   TRY_RESULT(
     result,

@@ -3,7 +3,7 @@
 
 namespace ton_http::core {
 td::Result<ConsensusBlockResult> TonlibWorker::getConsensusBlock(multiclient::SessionPtr) const {
-  TRY_RESULT(res, tonlib_.get_consensus_block());
+  TRY_RESULT(res, tonlib_.get_consensus_block<userver::engine::Promise>());
   return ConsensusBlockResult{res, std::time(nullptr)};
 }
 td::Result<tonlib_api::blocks_getMasterchainInfo::ReturnType> TonlibWorker::getMasterchainInfo(
@@ -179,10 +179,10 @@ td::Result<tonlib_api::blocks_getBlock::ReturnType> TonlibWorker::getBlock(
 ) const {
   if (session == nullptr) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, nullptr), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, nullptr), "failed to get session: ");
   } else if (!session->is_valid()) {
     auto options = multiclient::RequestParameters{.mode = multiclient::RequestMode::Single, .archival = archival};
-    TRY_RESULT_PREFIX_ASSIGN(session, tonlib_.get_session(options, std::move(session)), "failed to get session: ");
+    TRY_RESULT_PREFIX_ASSIGN(session, get_session(options, std::move(session)), "failed to get session: ");
   }
   tonlib_api::object_ptr<tonlib_api::ton_blockIdExt> blk_id = nullptr;
   if (!root_hash.empty() && !file_hash.empty()) {

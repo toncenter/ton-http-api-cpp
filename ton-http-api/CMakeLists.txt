@@ -83,6 +83,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/schemas/v2.cpp
         src/utils/common.cpp
         src/handlers/JsonRpcHandler.cpp
+        src/handlers/TonlibHandlerBase.cpp
         src/handlers/blocks/GetMasterchainInfoHandler.cpp
         src/handlers/utils/DetectAddressHandler.cpp
         src/handlers/utils/DetectHashHandler.cpp
@@ -105,6 +106,7 @@ set(TON_HTTP_API_CPP_SOURCE
         src/core/tonlib_worker_send.cpp
         src/core/tonlib_worker_tokens.cpp
         src/core/tonlib_worker_dns.cpp
+        src/core/dns.cpp
         src/handlers/blocks/GetShardBlockProofHandler.cpp
         src/handlers/blocks/GetConsensusBlockHandler.cpp
         src/handlers/blocks/LookupBlockHandler.cpp
@@ -147,3 +149,19 @@ target_link_libraries(${PROJECT_NAME} userver::core userver::chaotic tonlib::mul
 target_link_options(${PROJECT_NAME} PUBLIC -rdynamic)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+# Standalone regression tests; build explicitly with --target ton-http-api-cache-test.
+add_executable(ton-http-api-cache-test EXCLUDE_FROM_ALL
+        tests/request_cache_test.cpp
+        src/schemas/v2.cpp)
+target_include_directories(ton-http-api-cache-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(ton-http-api-cache-test PRIVATE
+        userver::core userver::chaotic ${PROJECT_NAME}-userver-types)
+add_dependencies(ton-http-api-cache-test ${PROJECT_NAME}-chgen)
+
+# Deterministic DNS protocol tests; no live lite server or userver testsuite needed.
+add_executable(ton-http-api-dns-tests EXCLUDE_FROM_ALL tests/dns_test.cpp src/core/dns.cpp)
+target_include_directories(ton-http-api-dns-tests PRIVATE src)
+target_link_libraries(ton-http-api-dns-tests PRIVATE smc-envelope ton_block tl_tonlib_api tdutils)
+add_test(NAME ton-http-api-dns COMMAND ton-http-api-dns-tests)
+
