@@ -1,4 +1,5 @@
 import pytest
+import base64
 
 
 TEST_HASHES = [
@@ -22,4 +23,8 @@ def test_detect_hash(api_method_call,
         return
     data = response.json()
     assert data['ok'] == True
+    expected = bytes.fromhex('08f504e165de1094fe0f0cf57d8feb92b796bd89ec3addc8e388b51b9a2324f3')
+    assert data['result']['hex'] == expected.hex()
+    assert data['result']['b64'] == base64.b64encode(expected).decode()
+    assert data['result']['b64url'] == base64.urlsafe_b64encode(expected).decode().rstrip('=')
     return

@@ -37,7 +37,8 @@ def test_address_information_for_given_block(api_method_call, last_mc_seqno):
     data_new = response_new.json()
     data_old = response_old.json()
     assert data_new['ok'] == True and data_old['ok'] == True
-    assert data_old['result']['last_transaction_id']['lt'] < data_new['result']['last_transaction_id']['lt']
+    # An account need not transact during these ten blocks; compare numeric LTs.
+    assert int(data_old['result']['last_transaction_id']['lt']) <= int(data_new['result']['last_transaction_id']['lt'])
     return
 
 
@@ -100,7 +101,7 @@ def test_wallet_v2_r1(api_method_call):
     return
 
 
-def test_wallet_v1_r1(api_method_call):
+def test_wallet_v2_r2(api_method_call):
     response = api_method_call('getWalletInformation', address='0:02A6E2136A7AA0CF5ECBB770F993B92E53F98D6646C729DD8FAAFBBEE1A8704A')
     assert response.status_code == 200, response.json()['error']
     data = response.json()

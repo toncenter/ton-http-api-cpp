@@ -38,7 +38,11 @@ def test_address_information_for_given_block(api_method_call, last_mc_seqno):
     data_new = response_new.json()
     data_old = response_old.json()
     assert data_new['ok'] == True and data_old['ok'] == True
-    assert data_old['result'] != data_new['result']
+    # Balance may be unchanged; validate each historical value against account state.
+    for seqno, data in [(last_mc_seqno, data_new), (last_mc_seqno - 10, data_old)]:
+        account = api_method_call('getAddressInformation', address=ELECTOR_ADDRESS, seqno=seqno)
+        assert account.status_code == 200, account.text
+        assert data['result'] == account.json()['result']['balance']
     return
 
 

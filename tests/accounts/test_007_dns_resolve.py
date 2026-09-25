@@ -14,6 +14,7 @@ def resolve(api_method_call, **params):
     return data['result']['entries']
 
 
+@pytest.mark.validation
 @pytest.mark.parametrize('params', [
     {},
     {'domain': ''},
@@ -36,13 +37,15 @@ def test_invalid_request(api_method_call, params):
     assert response.json()['ok'] is False
 
 
+@pytest.mark.validation
 @pytest.mark.parametrize('removed', ['address', 'name', 'category', 'ttl'])
 def test_removed_parameters(api_method_call, removed):
     response = api_method_call('dnsResolve', domain='foundation.ton', **{removed: '0'})
     assert response.status_code == 422, response.text
 
 
-@pytest.mark.parametrize('domain', ['foundation.ton', 'telegram.t.me'])
+@pytest.mark.parametrize('domain', ['foundation.ton',
+    pytest.param('telegram.t.me', marks=pytest.mark.regression)])
 def test_supported_namespaces(api_method_call, domain):
     entries = resolve(api_method_call, domain=domain)
     # A name can have no published records; delegation correctness is also
@@ -62,6 +65,7 @@ def test_normalization_and_root_override(api_method_call, last_mc_seqno):
                    seqno=last_mc_seqno) == expected
 
 
+@pytest.mark.regression
 def test_missing_domain(api_method_call):
     assert resolve(api_method_call, domain='ton-http-api-no-such-domain-82f134a916.ton') == []
 
@@ -86,3 +90,11 @@ def test_seqno_cache_isolation(api_method_call, last_mc_seqno):
     response = api_method_call('dnsResolve', domain='foundation.ton', seqno=last_mc_seqno + 100000)
     assert response.status_code != 200, response.text
     assert response.json()['ok'] is False
+
+
+@pytest.mark.regression
+@pytest.mark.parametrize('domain', ['telegram.t.me', 'ton-http-api-no-such-domain-82f134a916.ton'])
+def test_resolution_failure_is_not_a_latest_block_race(api_method_call, mc_block, domain):
+    entries = resolve(api_method_call, domain=domain, seqno=mc_block['seqno'])
+    if domain.endswith('.ton'):
+        assert entries == []
