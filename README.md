@@ -145,6 +145,7 @@ Requirements:
     ```bash
     brew install boost@1.89 c-ares ccache cctz clang-format clickhouse-cpp cmake coreutils cryptopp cyrus-sasl fmt gdb git google-benchmark googletest hiredis icu4c jemalloc krb5 libev librdkafka mariadb mongo-c-driver@1 nghttp2 ninja openldap openssl postgresql@16 pugixml rocksdb unixodbc yaml-cpp zlib sqlite pkg-config automake libtool autoconf texinfo lz4 openssl@3 libsodium zlib libmicrohttpd
     ```
+    macOS builds use the installed `fmt` package; other platforms use the `external/fmt` submodule.
 - Build:
     ```bash
     mkdir build

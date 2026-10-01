@@ -19,8 +19,12 @@ if (TONLIB_MULTICLIENT_EXAMPLES)
 endif()
 
 if (TON_HTTP_API_CPP)
-  # add custom fmt lib to avoid bug in version 10 from apt on ubuntu 26
-  add_subdirectory(external/fmt EXCLUDE_FROM_ALL)
+  if (APPLE)
+    find_package(fmt CONFIG REQUIRED)
+  else()
+    # add custom fmt lib to avoid bug in version 10 from apt on ubuntu 26
+    add_subdirectory(external/fmt EXCLUDE_FROM_ALL)
+  endif()
 
   # userver config
   set(USERVER_FEATURE_REDIS TRUE)
