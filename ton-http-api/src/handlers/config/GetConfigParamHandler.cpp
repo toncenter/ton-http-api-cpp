@@ -50,9 +50,6 @@ td::Status ton_http::handlers::GetConfigParamHandler::ValidateRequest(
   if (request.param.has_value()) {
     param = request.param.value();
   }
-  if (param < 0) {
-    return td::Status::Error(422, "param should be non-negative");
-  }
   if (request.seqno.has_value() && request.seqno.value() <= 0) {
     return td::Status::Error(422, "seqno should be positive");
   }
