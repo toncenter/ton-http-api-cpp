@@ -52,6 +52,7 @@ protected:
   ) const;
   void LogJsonResponse(
     const HttpRequest& request,
+    RequestContext& context,
     userver::utils::function_ref<userver::formats::json::Value()> make_parsed_request,
     std::string_view response,
     userver::logging::Level level

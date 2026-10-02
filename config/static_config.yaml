@@ -21,6 +21,7 @@ components_manager:
   default_task_processor: main-task-processor
   components:
     server:
+      middleware-pipeline-builder: debug-request-server-middleware-pipeline-builder
       listener:
         address: $bind_address
         address#fallback: "::"
@@ -116,9 +117,12 @@ components_manager:
     #
     # middlewares
     #
-    default-server-middleware-pipeline-builder:
+    debug-request-server-middleware-pipeline-builder:
       append:
         - version-header-middleware
+    debug-request-middleware:
+      log-level: $debug_request_log_level
+      log-level#fallback: info
     version-header-middleware: {}
 
     #
@@ -404,6 +408,9 @@ components_manager:
       path: /api/v2/jsonRPC
       method: GET,POST
       logger: api-v2-jsonrpc
+      middlewares:
+        debug-request-middleware:
+          logger: api-v2-jsonrpc
       port: $server_port
       port#fallback: 8081
       log-level: error

@@ -142,6 +142,7 @@ public:
   ) const {
     LogJsonResponse(
       request,
+      context,
       [&context] {
         const auto& tonlib_request = context.GetData<Request>(kRequest);
         return userver::formats::json::ValueBuilder{tonlib_request}.ExtractValue();
