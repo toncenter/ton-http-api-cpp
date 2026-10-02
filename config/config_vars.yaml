@@ -50,6 +50,10 @@ log_level: warning
 # THACPP_LOG_PATH
 log_path: "@stdout"
 
+# severity of forced request logs when X-Debug-Request is true
+# THACPP_DEBUG_REQUEST_LOG_LEVEL
+debug_request_log_level: info
+
 # userver system logs
 # THACPP_SYSTEM_LOG_LEVEL
 system_log_level: warning

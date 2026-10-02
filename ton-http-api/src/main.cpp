@@ -46,6 +46,7 @@
 #include "handlers/utils/DetectHashHandler.h"
 #include "handlers/utils/PackAddressHandler.h"
 #include "handlers/utils/UnpackAddressHandler.h"
+#include "middleware/DebugRequestMiddleware.h"
 #include "middleware/VersionHeaderMiddleware.h"
 #include "userver/clients/http/middlewares/pipeline_component.hpp"
 
@@ -69,6 +70,8 @@ int main(int argc, char* argv[]) {
   component_list.Append<userver::server::handlers::Ping>();
   component_list.Append<userver::server::handlers::HttpHandlerStatic>();
   // middlewares
+  component_list.Append<ton_http::middleware::DebugRequestMiddlewareFactory>();
+  component_list.Append<ton_http::middleware::DebugRequestPipelineBuilder>();
   component_list.Append<ton_http::middleware::VersionHeaderMiddlewareFactory>();
   //
   // api handlers

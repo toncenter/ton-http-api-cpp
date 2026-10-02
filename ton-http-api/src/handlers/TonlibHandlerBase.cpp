@@ -2,6 +2,7 @@
 
 #include "SerializedResult.h"
 #include "components/TonlibComponent.h"
+#include "middleware/DebugRequestMiddleware.h"
 #include "schemas/v2.hpp"
 #include "userver/components/component_config.hpp"
 #include "userver/components/component_context.hpp"
@@ -67,29 +68,36 @@ std::string TonlibHandlerBase::MakeSuccessResponse(
 
 void TonlibHandlerBase::LogJsonResponse(
   const HttpRequest& request,
+  RequestContext& context,
   userver::utils::function_ref<userver::formats::json::Value()> make_parsed_request,
   std::string_view response,
   userver::logging::Level level
 ) const {
-  LOG_TO(*logger_, level) << [&](auto& log) {
+  const auto make_log_extra = [&] {
     userver::logging::LogExtra log_extra;
     log_extra.Extend("http_method", request.GetMethodStr());
     log_extra.Extend("api_method", request.GetRequestPath());
     log_extra.Extend("request", make_parsed_request());
     log_extra.Extend("response", userver::logging::JsonString{std::string{response}});
-    log << log_extra;
+    return log_extra;
   };
+  if (!middleware::LogDebugRequest(context, *logger_, make_log_extra)) {
+    LOG_TO(*logger_, level) << make_log_extra();
+  }
 }
 
-void TonlibHandlerBase::LogMalformedRequest(const HttpRequest& request, RequestContext&) const {
-  LOG_WARNING_TO(*logger_) << [&](auto& log) {
+void TonlibHandlerBase::LogMalformedRequest(const HttpRequest& request, RequestContext& context) const {
+  const auto make_log_extra = [&] {
     userver::logging::LogExtra log_extra;
     log_extra.Extend("http_method", request.GetMethodStr());
     log_extra.Extend("api_method", request.GetRequestPath());
     log_extra.Extend("request", request.RequestBody());
     log_extra.Extend("response", "malformed request");
-    log << log_extra;
+    return log_extra;
   };
+  if (!middleware::LogDebugRequest(context, *logger_, make_log_extra)) {
+    LOG_WARNING_TO(*logger_) << make_log_extra();
+  }
 }
 
 userver::yaml_config::Schema TonlibHandlerBase::GetStaticConfigSchema() {

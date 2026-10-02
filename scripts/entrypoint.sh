@@ -40,6 +40,7 @@ http_worker_threads: ${THACPP_HTTP_WORKER_THREADS:-2}
 
 log_level: ${THACPP_LOG_LEVEL:-warning}
 log_path: "${THACPP_LOG_PATH:-@stdout}"
+debug_request_log_level: ${THACPP_DEBUG_REQUEST_LOG_LEVEL:-info}
 
 system_log_level: ${THACPP_SYSTEM_LOG_LEVEL:-warning}
 system_log_path: "${THACPP_SYSTEM_LOG_PATH:-@stdout}"

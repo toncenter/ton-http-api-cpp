@@ -108,6 +108,7 @@ List of available environment variables:
 - `THACPP_HTTP_WORKER_THREADS` - number of threads for HTTP client (used to duplicate BOCs on external service) (default: `2`)
 - `THACPP_LOG_LEVEL` - api v2 log level (default: `warning`)
 - `THACPP_LOG_PATH` - log output destination (`@stdout`, `@stderr`, `@null`, or `/path/to/file`) (default: `"@stdout"`)
+- `THACPP_DEBUG_REQUEST_LOG_LEVEL` - severity of forced request logs when `X-Debug-Request: true` is present (`trace`, `debug`, `info`, `warning`, `error`, `critical`; default: `info`)
 - `THACPP_SYSTEM_LOG_LEVEL` - userver system logs level (default: `warning`)
 - `THACPP_SYSTEM_LOG_PATH` - userver system log path (default: `"@stdout"`)
 - `THACPP_JSONRPC_LOG_LEVEL` - jsonrpc endpoint log level (default: `warning`)
@@ -116,6 +117,36 @@ List of available environment variables:
 - `THACPP_HTTP_WORKER_USER_AGENT` - HTTP user agent sent to BOC endpoint (default: `empty`)
 - `THACPP_STATIC_CONTENT_DIR` - directory for static content served by API (default: `"/static/"`)
 - `THACPP_MAX_STACK_ENTRY_DEPTH` - max stack entry depth for runGetMethod (higher values increase memory usage) (default: `256`)
+
+### Debug request logging
+
+Send `X-Debug-Request: true` to force a structured request/response record at
+`debug_request_log_level` (default: `info`), even when the API logger or handler
+log threshold is higher. Header names and the value `true` are case insensitive;
+surrounding spaces are ignored. Missing, false, empty, and invalid values use
+normal logging. The severity comes from server configuration, not the header.
+
+```bash
+curl -H 'X-Debug-Request: true' \
+  'http://localhost:8081/api/v2/detectHash?hash=0000000000000000000000000000000000000000000000000000000000000000'
+```
+
+Records include `debug_request=true` and use the handler's usual API logger.
+The middleware adds a fallback record for early rejections, static content, and
+handlers without structured API logging. Its fallback logger defaults to
+`api-v2`; a handler can override it with `middlewares.debug-request-middleware.logger`.
+JSON-RPC forwards the header to the underlying REST request and logs each HTTP
+request once through its respective logger (`api-v2-jsonrpc` and `api-v2`).
+This does not change logging thresholds for other records or requests. Log
+destinations and queue overflow policy still apply, including `@null` and
+`overflow_behavior: discard`. Requests must enter the HTTP middleware pipeline
+to be logged this way.
+
+Custom static configurations must register `debug-request-middleware` and select
+`debug-request-server-middleware-pipeline-builder` in
+`server.middleware-pipeline-builder`. The builder accepts the usual `append`
+list and inserts debug logging immediately after tracing, before early rejection
+middlewares. Invalid severities, including `none`, fail configuration validation.
 
 ### Ansible
 To deploy a service using Ansible, please follow the instructions:

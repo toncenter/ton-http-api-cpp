@@ -131,6 +131,8 @@ set(TON_HTTP_API_CPP_SOURCE
         src/middleware/VersionHeaderMiddleware.cpp
         src/handlers/accounts/DnsResolveHandler.cpp
         src/handlers/accounts/DnsResolveHandler.h
+        src/middleware/DebugRequestMiddleware.h
+        src/middleware/DebugRequestMiddleware.cpp
 )
 add_executable(${PROJECT_NAME} ${TON_HTTP_API_CPP_SOURCE})
 configure_file(src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
@@ -165,3 +167,15 @@ target_include_directories(ton-http-api-dns-tests PRIVATE src)
 target_link_libraries(ton-http-api-dns-tests PRIVATE smc-envelope ton_block tl_tonlib_api tdutils)
 add_test(NAME ton-http-api-dns COMMAND ton-http-api-dns-tests)
 
+# Controlled HTTP/logging tests; no running service, TON node, or userver testsuite.
+add_executable(ton-http-api-debug-request-service EXCLUDE_FROM_ALL
+        tests/debug_request_service.cpp
+        src/middleware/DebugRequestMiddleware.cpp
+        src/handlers/JsonRpcHandler.cpp)
+target_include_directories(ton-http-api-debug-request-service PRIVATE
+        src ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../external/ton)
+target_link_libraries(ton-http-api-debug-request-service PRIVATE
+        userver::core userver::chaotic ${PROJECT_NAME}-chgen ${PROJECT_NAME}-userver-types)
+add_test(NAME ton-http-api-debug-request
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/debug_request_tests.py
+        $<TARGET_FILE:ton-http-api-debug-request-service>)

@@ -3,8 +3,10 @@
 #include <algorithm>
 #include <array>
 #include <string_view>
+#include <utility>
 
 #include <userver/server/component.hpp>
+#include "middleware/DebugRequestMiddleware.h"
 #include "schemas/v2.hpp"
 #include "userver/clients/http/component.hpp"
 #include "utils/exceptions.hpp"
@@ -93,8 +95,12 @@ std::string JsonRpcHandler::HandleRequestThrow(const HttpRequest& request, Reque
 
     auto url = base_url_ + std::string{allowed_method};
     auto req = http_client_.CreateRequest();
+    userver::clients::http::Headers headers{{"Content-Type", "application/json"}};
+    if (middleware::DebugRequestMiddleware::IsDebugRequest(request)) {
+      headers.emplace(std::string{middleware::DebugRequestMiddleware::kDebugRequestHeader}, "true");
+    }
     auto resp = req.post(url, ToString(params))
-                  .headers({{"Content-Type", "application/json"}})
+                  .headers(std::move(headers))
                   .timeout(std::chrono::seconds(10))
                   .perform();
     auto code = resp->status_code();
